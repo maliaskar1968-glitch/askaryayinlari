@@ -41,7 +41,7 @@ export const KidsBookGrid: React.FC = () => {
           <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
             <ImgWithFallback
               src="/resimler/cocuk.png"
-              alt="Sevimli Deniz Altı Kaşifleri - Mehmet Ali Askar"
+              alt="Sevimli Deniz Altı Kaşifleri Masal ve Boyama Kitabı PDF - Mehmet Ali Askar - Aşkar Yayınları"
               className="w-full h-full object-cover"
             />
             <div className="absolute top-2 right-2 bg-[#1A1A1A]/75 text-white text-[8px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs">
@@ -64,6 +64,7 @@ export const KidsBookGrid: React.FC = () => {
             href="https://www.shopier.com/mehmetaliaskar/49854224"
             target="_blank"
             rel="noopener noreferrer"
+            title="Sevimli Deniz Altı Kaşifleri PDF Çocuk Kitabı Satın Al ve İndir"
             className="mt-auto w-full bg-[#C9A86A] hover:bg-[#b89557] text-[#1A1A1A] text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-xs"
           >
             <Download className="w-3.5 h-3.5 text-black" />

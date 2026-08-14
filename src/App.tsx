@@ -9,6 +9,7 @@ import { CoreValues } from './components/CoreValues';
 import { ToolsPage } from './components/ToolsPage';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
+import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
             <MottoSection />
             <BookGrid />
             <KidsBookGrid />
+            <FaqSection />
             <CoreValues />
           </div>
         )}
@@ -38,8 +40,9 @@ export default function App() {
         )}
 
         {activeTab === 'hakkimda' && (
-          <div className="animate-in fade-in duration-200">
+          <div className="animate-in fade-in duration-200 space-y-6">
             <AboutSection />
+            <FaqSection />
             <CoreValues />
           </div>
         )}

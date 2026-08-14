@@ -33,8 +33,13 @@ export const MottoSection: React.FC<MottoSectionProps> = ({ showAuthorPhoto = fa
 
         <div className="w-12 h-[2px] bg-[#1A1A1A]/20 mx-auto my-6" />
 
-        <p className="max-w-xl mx-auto text-xs sm:text-sm text-[#1A1A1A]/70 leading-relaxed font-sans">
-          Her yaşa hitap eden dijital PDF kitaplarla okumayı pratik ve erişilebilir kılan yenilikçi bir yayınevi.
+        <p className="max-w-xl mx-auto text-sm sm:text-base text-[#1A1A1A]/85 font-medium leading-relaxed font-sans">
+          "Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde."
+        </p>
+
+        <p className="text-[11px] sm:text-xs text-[#1A1A1A]/55 font-sans flex items-center justify-center gap-1.5 pt-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+          <span>Shopier güvencesiyle anında teslim — 7/24 indir</span>
         </p>
       </div>
     </div>

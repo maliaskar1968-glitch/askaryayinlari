@@ -38,7 +38,7 @@ export const BookGrid: React.FC = () => {
             <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.02] transition-transform duration-300">
               <ImgWithFallback
                 src={book.image}
-                alt={book.title}
+                alt={`${book.title} PDF Koçluk Kitabı - Mehmet Ali Askar - Aşkar Yayınları`}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -58,6 +58,7 @@ export const BookGrid: React.FC = () => {
               href={book.shopierUrl}
               target="_blank"
               rel="noopener noreferrer"
+              title={`${book.title} PDF Satın Al ve İndir`}
               className="mt-auto w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-sm"
             >
               <Download className="w-3.5 h-3.5 text-[#C9A86A]" />
