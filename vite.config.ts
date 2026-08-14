@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    publicDir: 'halk',
+    publicDir: 'public',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
