@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #F8F7F4;
+    color: #1A1A1A;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+.bg-artistic-canvas {
+  background-color: #F8F7F4;
+}
+
+.bg-artistic-dark {
+  background-color: #1A1A1A;
+}
+
+.border-artistic {
+  border-color: rgba(26, 26, 26, 0.12);
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Aşkar Yayınları",
+  "description": "Aşkar Yayınları - Dijital PDF Kütüphanesi, Kitaplık, LGS & YKS Hesaplama Araçları ve İletişim Portalı",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Ana Sayfa (Home) -->
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Ana Sayfa Bölümleri (Page Sections) -->
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/#magaza</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/#uygulamalar</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/#hakkimda</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/#iletisim</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 1. 5. Sınıf Koçluk & Motivasyon PDF -->
+  <url>
+    <loc>https://www.shopier.com/49121936</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k5.jpg</image:loc>
+      <image:title>5. Sınıf Koçluk ve Motivasyon Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 2. 6. Sınıf Disiplin ve Başarı PDF -->
+  <url>
+    <loc>https://www.shopier.com/49168747</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k6.jpg</image:loc>
+      <image:title>6. Sınıf Disiplin ve Başarı Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 3. 7. Sınıf LGS Hazırlık PDF -->
+  <url>
+    <loc>https://www.shopier.com/49247904</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k7.jpg</image:loc>
+      <image:title>7. Sınıf LGS Hazırlık Koçluk Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 4. 8. Sınıf LGS'de Kendi Koçun Ol PDF (Ana Ürün) -->
+  <url>
+    <loc>https://www.shopier.com/47825857</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k8.jpg</image:loc>
+      <image:title>LGS 8. Sınıf Kendi Koçun Ol Koçluk Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 5. YKS'de Kendi Koçun Ol PDF -->
+  <url>
+    <loc>https://www.shopier.com/47825620</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k_yks.jpg</image:loc>
+      <image:title>YKS'de Kendi Koçun Ol TYT AYT Koçluk Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 6. Şimşeğin Efendisi Tesla Romanı PDF -->
+  <url>
+    <loc>https://www.shopier.com/47292545</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k_simsek.jpg</image:loc>
+      <image:title>Şimşeğin Efendisi Nikola Tesla Tarihi Kurgu Romanı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 7. Atomun Kalbi Rutherford Romanı PDF -->
+  <url>
+    <loc>https://www.shopier.com/48381441</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/k_atom.jpg</image:loc>
+      <image:title>Atomun Kalbi Ernest Rutherford Bilim Romanı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+  <!-- 8. Sevimli Deniz Altı Kaşifleri Masal ve Boyama Kitabı PDF -->
+  <url>
+    <loc>https://www.shopier.com/49854224</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/images/cocuk.jpg</image:loc>
+      <image:title>Sevimli Deniz Altı Kaşifleri Masal ve Boyama Kitabı PDF - Mehmet Ali Askar</image:title>
+    </image:image>
+  </url>
+
+</urlset>
