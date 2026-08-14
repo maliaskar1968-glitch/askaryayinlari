@@ -16,7 +16,7 @@ const FAQ_DATA: FaqItem[] = [
   {
     category: 'Kullanım & Baskı',
     question: 'Satın aldığım dijital PDF kitapların çıktısını (print) alabilir miyim?',
-    answer: 'Evet. Tüm kitaplarımız standart A4 baskı formatına ve yüksek çözünürlüklü sayfa düzenine tam uyumludur. Satın aldığınız PDF dosyasını bilgisayarınızdan, tabletinizden veya telefonunuzdan okuyabileceğiniz gibi, evinizdeki veya kırtasiyedeki yazıcıdan çıktı alarak spiral ciltletip fiziksel kitap haline getirebilirsiniz.'
+    answer: 'Satın aldığınız PDF dosyasını bilgisayarınızdan, tabletinizden veya telefonunuzdan okuyabileceğiniz gibi, evinizdeki veya kırtasiyedeki yazıcıdan çıktı alarak spiral ciltletip fiziksel kitap haline getirebilirsiniz. Ürünlerimiz lisanslı olup PDF paylaşımı yasaktır.'
   },
   {
     category: 'Koçluk & Başarı Sistemi',
