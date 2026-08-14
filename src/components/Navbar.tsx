@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             onClick={() => handleTabClick('magaza')}
           >
             <ImgWithFallback
-              src="/images/logo.jpg"
+              src="/logo.jpg"
               alt="Aşkar Yayınları Logo"
               className="w-11 h-11 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
             />

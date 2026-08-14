@@ -9,7 +9,7 @@ export const KidsAppCard: React.FC = () => {
       <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center">
         <div className="w-full sm:w-56 aspect-square rounded-xl overflow-hidden shrink-0 border border-[#1A1A1A]/10 relative group bg-[#F8F7F4]">
           <ImgWithFallback
-            src="/images/cocuk.jpg"
+            src="/cocuk.png"
             alt="Sevimli Deniz Altı Kaşifleri"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />

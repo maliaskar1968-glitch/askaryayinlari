@@ -62,7 +62,7 @@ export const AboutSection: React.FC = () => {
 
           <div className="flex justify-center">
             <ImgWithFallback
-              src="/images/logo.jpg"
+              src="/logo.jpg"
               alt="Mehmet Ali Askar"
               className="w-32 h-32 rounded-full border border-[#C9A86A]/40 object-cover shadow-md bg-black"
             />

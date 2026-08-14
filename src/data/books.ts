@@ -7,7 +7,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#ea580c',
     title: '5. Sınıf Koçluk & Motivasyon',
     subtitle: 'Ortaokula Güçlü Bir Başlangıç',
-    image: '/images/k5.jpg',
+    image: '/k5.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/49121936',
     shopierId: '49121936'
   },
@@ -17,7 +17,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#ea580c',
     title: '6. Sınıf Disiplin ve Başarı',
     subtitle: 'Başarı Alışkanlıklarını Güçlendir',
-    image: '/images/k6.jpg',
+    image: '/k6.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/49168747',
     shopierId: '49168747'
   },
@@ -27,7 +27,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#ea580c',
     title: '7. Sınıf LGS Hazırlık',
     subtitle: 'LGS Yolunda Sağlam Adımlar',
-    image: '/images/k7.jpg',
+    image: '/k7.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/49247904',
     shopierId: '49247904'
   },
@@ -37,7 +37,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#000000',
     title: "LGS'de Kendi Koçun Ol 8.Sınıf",
     subtitle: '12 Adımda Disiplin Plan ve Başarı Sistemi',
-    image: '/images/k8.jpg',
+    image: '/k8.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/47825857',
     shopierId: '47825857',
     isSpecialLink: true
@@ -48,7 +48,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#2563eb',
     title: "YKS'de Kendi Koçun Ol",
     subtitle: '12 Adımda Disiplin Plan ve Başarı Sistemi',
-    image: '/images/k_yks.jpg',
+    image: '/k_yks.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/47825620',
     shopierId: '47825620'
   },
@@ -58,7 +58,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#7c3aed',
     title: 'Şimşeğin Efendisi Tesla',
     subtitle: "Nikola Tesla'nın Bilinmeyen Yılları",
-    image: '/images/k_simsek.jpg',
+    image: '/k_simsek.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/47292545',
     shopierId: '47292545'
   },
@@ -68,7 +68,7 @@ export const BOOKS_DATA: Book[] = [
     badgeColor: '#7c3aed',
     title: 'Atomun Kalbi Rutherford',
     subtitle: "Ernest Rutherford'un İlham Verici Romanı",
-    image: '/images/k_atom.jpg',
+    image: '/k_atom.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/48381441',
     shopierId: '48381441'
   }
@@ -81,7 +81,7 @@ export const KIDS_BOOKS_DATA: Book[] = [
     badgeColor: '#059669',
     title: 'Sevimli Deniz Altı Kaşifleri',
     subtitle: 'Büyülü Hikayeler ve Yaratıcı Boyama Kitabı',
-    image: '/images/cocuk.jpg',
+    image: '/cocuk.png',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/49854224',
     shopierId: '49854224'
   },
@@ -91,7 +91,7 @@ export const KIDS_BOOKS_DATA: Book[] = [
     badgeColor: '#0284c7',
     title: 'Yıldız Kaşifi ve Uzay Macerası',
     subtitle: 'Meraklı Zihinler İçin Eğitici Bilim Masalı',
-    image: '/images/cocuk_k1.jpg',
+    image: '/cocuk_k1.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
     shopierId: 'cocuk-2'
   },
@@ -101,7 +101,7 @@ export const KIDS_BOOKS_DATA: Book[] = [
     badgeColor: '#d97706',
     title: 'Ormanın Minik Koruyucuları',
     subtitle: 'Doğa Sevgisi ve Yardımlaşma Hikayesi',
-    image: '/images/cocuk_k2.jpg',
+    image: '/cocuk_k2.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
     shopierId: 'cocuk-3'
   },
@@ -111,7 +111,7 @@ export const KIDS_BOOKS_DATA: Book[] = [
     badgeColor: '#7c3aed',
     title: 'Küçük Mucitlerin Atölyesi',
     subtitle: 'Çocuklar İçin Keşif ve Eğlenceli Deneyler',
-    image: '/images/cocuk_k3.jpg',
+    image: '/cocuk_k3.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
     shopierId: 'cocuk-4'
   }

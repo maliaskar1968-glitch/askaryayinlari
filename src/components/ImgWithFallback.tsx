@@ -24,10 +24,34 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
     const cached = getCachedImageSync(src);
     return cached || src;
   });
+  const [attemptIndex, setAttemptIndex] = useState(0);
   const [hasError, setHasError] = useState(false);
+
+  // Generate candidate list of paths for the image
+  const getCandidates = (inputSrc: string): string[] => {
+    const filename = inputSrc.split('/').pop() || inputSrc;
+    const baseName = filename.substring(0, filename.lastIndexOf('.')) || filename;
+
+    const candidates = [
+      inputSrc,
+      `/${filename}`,
+      `/images/${filename}`,
+      `/${baseName}.jpg`,
+      `/${baseName}.png`,
+      `/${baseName}.jpeg`,
+      `/images/${baseName}.jpg`,
+      `/images/${baseName}.png`,
+      `/images/${baseName}.jpeg`,
+    ];
+
+    // Deduplicate while preserving order
+    return Array.from(new Set(candidates));
+  };
 
   useEffect(() => {
     let isMounted = true;
+    setAttemptIndex(0);
+    setHasError(false);
 
     async function checkStoredImage() {
       const stored = await getStoredImage(src);
@@ -54,7 +78,15 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
   }, [src]);
 
   const handleError = () => {
-    setHasError(true);
+    const candidates = getCandidates(src);
+    const nextIndex = attemptIndex + 1;
+
+    if (nextIndex < candidates.length) {
+      setAttemptIndex(nextIndex);
+      setDisplaySrc(candidates[nextIndex]);
+    } else {
+      setHasError(true);
+    }
   };
 
   // If image loaded successfully or is dataUrl from IndexedDB

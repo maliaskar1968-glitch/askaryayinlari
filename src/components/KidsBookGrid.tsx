@@ -40,7 +40,7 @@ export const KidsBookGrid: React.FC = () => {
           {/* Book Cover Image - 1:1 Aspect Ratio */}
           <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
             <ImgWithFallback
-              src="/images/cocuk.jpg"
+              src="/cocuk.png"
               alt="Sevimli Deniz Altı Kaşifleri - Mehmet Ali Askar"
               className="w-full h-full object-cover"
             />

@@ -42,13 +42,19 @@ async function startServer() {
       // Clean filename
       const safeFilename = path.basename(filename);
       const targetPath = path.join(publicImagesDir, safeFilename);
+      const publicRootPath = path.join(process.cwd(), 'public', safeFilename);
 
       fs.writeFileSync(targetPath, buffer);
+      fs.writeFileSync(publicRootPath, buffer);
 
-      // If dist/images exists, also mirror to dist/images
-      const distImagesDir = path.join(process.cwd(), 'dist', 'images');
+      // If dist exists, also mirror
+      const distDir = path.join(process.cwd(), 'dist');
+      const distImagesDir = path.join(distDir, 'images');
       if (fs.existsSync(distImagesDir)) {
         fs.writeFileSync(path.join(distImagesDir, safeFilename), buffer);
+      }
+      if (fs.existsSync(distDir)) {
+        fs.writeFileSync(path.join(distDir, safeFilename), buffer);
       }
 
       console.log(`[Upload API] Saved ${safeFilename} (${buffer.length} bytes) to disk`);
