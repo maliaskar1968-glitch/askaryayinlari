@@ -17,7 +17,7 @@ export const MottoSection: React.FC<MottoSectionProps> = ({ showAuthorPhoto = fa
         {showAuthorPhoto && (
           <div className="flex justify-center mb-6">
             <ImgWithFallback
-              src="/logo.jpg"
+              src="/resimler/logo.jpg"
               alt="Mehmet Ali Askar - Aşkar Yayınları"
               className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border border-[#C9A86A]/40 object-cover shadow-md bg-black"
             />

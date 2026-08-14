@@ -34,6 +34,10 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
 
     const candidates = [
       inputSrc,
+      `/resimler/${filename}`,
+      `/resimler/${baseName}.jpg`,
+      `/resimler/${baseName}.png`,
+      `/resimler/${baseName}.jpeg`,
       `/${filename}`,
       `/images/${filename}`,
       `/${baseName}.jpg`,

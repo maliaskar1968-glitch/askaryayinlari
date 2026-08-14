@@ -43,18 +43,29 @@ async function startServer() {
       const safeFilename = path.basename(filename);
       const targetPath = path.join(publicImagesDir, safeFilename);
       const publicRootPath = path.join(process.cwd(), 'public', safeFilename);
+      const publicResimlerDir = path.join(process.cwd(), 'public', 'resimler');
+      if (!fs.existsSync(publicResimlerDir)) {
+        fs.mkdirSync(publicResimlerDir, { recursive: true });
+      }
+      const publicResimlerPath = path.join(publicResimlerDir, safeFilename);
 
       fs.writeFileSync(targetPath, buffer);
       fs.writeFileSync(publicRootPath, buffer);
+      fs.writeFileSync(publicResimlerPath, buffer);
 
       // If dist exists, also mirror
       const distDir = path.join(process.cwd(), 'dist');
       const distImagesDir = path.join(distDir, 'images');
+      const distResimlerDir = path.join(distDir, 'resimler');
       if (fs.existsSync(distImagesDir)) {
         fs.writeFileSync(path.join(distImagesDir, safeFilename), buffer);
       }
       if (fs.existsSync(distDir)) {
         fs.writeFileSync(path.join(distDir, safeFilename), buffer);
+        if (!fs.existsSync(distResimlerDir)) {
+          fs.mkdirSync(distResimlerDir, { recursive: true });
+        }
+        fs.writeFileSync(path.join(distResimlerDir, safeFilename), buffer);
       }
 
       console.log(`[Upload API] Saved ${safeFilename} (${buffer.length} bytes) to disk`);
