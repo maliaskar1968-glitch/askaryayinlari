@@ -5,44 +5,78 @@ import { ImageUploaderModal } from './ImageUploaderModal';
 
 export const Footer: React.FC = () => {
   const [uploaderOpen, setUploaderOpen] = useState(false);
-  const [totalVisitors, setTotalVisitors] = useState<number>(5001);
-  const [onlineVisitors, setOnlineVisitors] = useState<number>(18);
+  const [totalVisitors, setTotalVisitors] = useState<number>(5007);
+  const [onlineVisitors, setOnlineVisitors] = useState<number>(1);
 
   useEffect(() => {
-    // Total Visitors Counter logic (Starts from 5001)
-    const BASE_VISITORS = 5001;
-    const stored = localStorage.getItem('askar_total_visitors');
-    let count = BASE_VISITORS;
+    // Generate or retrieve persistent unique session ID for this browser tab/window
+    let sessionId = sessionStorage.getItem('askar_presence_sid');
+    let isNewSession = false;
 
-    if (stored) {
-      const parsed = parseInt(stored, 10);
-      if (!isNaN(parsed) && parsed >= BASE_VISITORS) {
-        count = parsed;
+    if (!sessionId) {
+      sessionId = 'sid_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
+      sessionStorage.setItem('askar_presence_sid', sessionId);
+      isNewSession = true;
+    }
+
+    // Function to ping heartbeat to server
+    const sendHeartbeat = async (firstRun = false) => {
+      try {
+        const res = await fetch('/api/presence/heartbeat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            isNewSession: firstRun && isNewSession,
+          }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.onlineCount === 'number') {
+            setOnlineVisitors(Math.max(1, data.onlineCount));
+          }
+          if (typeof data.totalVisitors === 'number') {
+            setTotalVisitors(data.totalVisitors);
+          }
+        }
+      } catch {
+        // Fallback: If offline or static, at least display 1 for the current active user
+        setOnlineVisitors((prev) => Math.max(1, prev));
       }
-    }
+    };
 
-    // Increment count for current session if not already incremented in session
-    const hasVisitedSession = sessionStorage.getItem('askar_visited_session');
-    if (!hasVisitedSession) {
-      count += 1;
-      localStorage.setItem('askar_total_visitors', count.toString());
-      sessionStorage.setItem('askar_visited_session', 'true');
-    }
+    // Initial heartbeat immediately
+    sendHeartbeat(true);
 
-    setTotalVisitors(count);
+    // Periodic heartbeat every 10 seconds to keep presence alive and fetch live numbers
+    const heartbeatInterval = setInterval(() => {
+      sendHeartbeat(false);
+    }, 10000);
 
-    // Online Visitors Simulation (Fluctuates between 12 and 32)
-    const initialOnline = Math.floor(Math.random() * 12) + 14; // 14 to 25
-    setOnlineVisitors(initialOnline);
+    // Send leave signal on tab close/unload
+    const handleLeave = () => {
+      try {
+        const payload = JSON.stringify({ sessionId });
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: 'application/json' });
+          navigator.sendBeacon('/api/presence/leave', blob);
+        } else {
+          fetch('/api/presence/leave', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload,
+            keepalive: true,
+          });
+        }
+      } catch {
+        // Ignore unload error
+      }
+    };
 
-    const interval = setInterval(() => {
-      setOnlineVisitors((prev) => {
-        const delta = Math.floor(Math.random() * 5) - 2; // -2, -1, 0, 1, 2
-        const next = prev + delta;
-        return Math.max(12, Math.min(38, next));
-      });
-    }, 8000);
+    window.addEventListener('beforeunload', handleLeave);
+    window.addEventListener('pagehide', handleLeave);
 
+    // Keyboard shortcut for image uploader
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
@@ -53,7 +87,10 @@ export const Footer: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      clearInterval(interval);
+      window.removeEventListener('beforeunload', handleLeave);
+      window.removeEventListener('pagehide', handleLeave);
+      clearInterval(heartbeatInterval);
+      handleLeave();
     };
   }, []);
 

@@ -17,6 +17,100 @@ async function startServer() {
     fs.mkdirSync(publicImagesDir, { recursive: true });
   }
 
+  // --- Real-time Presence & Visitor Tracking ---
+  const statsFilePath = path.join(process.cwd(), 'visitor_stats.json');
+  let visitorStats = { totalVisitors: 5007, uniqueSessions: [] as string[] };
+
+  try {
+    if (fs.existsSync(statsFilePath)) {
+      const data = JSON.parse(fs.readFileSync(statsFilePath, 'utf-8'));
+      if (typeof data.totalVisitors === 'number') {
+        visitorStats = data;
+      }
+    } else {
+      fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+    }
+  } catch (e) {
+    console.error('[Visitor Stats Error]', e);
+  }
+
+  // In-memory active sessions tracking (sessionId -> lastSeen timestamp)
+  const activeSessions = new Map<string, number>();
+  const SESSION_TIMEOUT_MS = 25000; // 25 seconds timeout for inactive tabs
+
+  const pruneStaleSessions = () => {
+    const now = Date.now();
+    for (const [id, lastSeen] of activeSessions.entries()) {
+      if (now - lastSeen > SESSION_TIMEOUT_MS) {
+        activeSessions.delete(id);
+      }
+    }
+  };
+
+  // Heartbeat endpoint for active tabs
+  app.post('/api/presence/heartbeat', (req, res) => {
+    try {
+      const { sessionId, isNewSession } = req.body;
+      const cleanId = typeof sessionId === 'string' && sessionId.length > 0 ? sessionId : 'anon_' + Date.now();
+      const now = Date.now();
+
+      pruneStaleSessions();
+      activeSessions.set(cleanId, now);
+
+      if (isNewSession) {
+        if (!visitorStats.uniqueSessions) visitorStats.uniqueSessions = [];
+        if (!visitorStats.uniqueSessions.includes(cleanId)) {
+          visitorStats.uniqueSessions.push(cleanId);
+          // Keep only last 5000 session ids in history
+          if (visitorStats.uniqueSessions.length > 5000) {
+            visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-5000);
+          }
+          visitorStats.totalVisitors += 1;
+          try {
+            fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+          } catch (err) {
+            console.error('Failed to write visitor_stats.json', err);
+          }
+        }
+      }
+
+      const onlineCount = Math.max(1, activeSessions.size);
+      res.json({
+        onlineCount,
+        totalVisitors: visitorStats.totalVisitors
+      });
+    } catch (err) {
+      res.json({
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors
+      });
+    }
+  });
+
+  // Tab closed / leave endpoint
+  app.post('/api/presence/leave', (req, res) => {
+    try {
+      const { sessionId } = req.body;
+      if (sessionId && activeSessions.has(sessionId)) {
+        activeSessions.delete(sessionId);
+      }
+      pruneStaleSessions();
+      res.json({ success: true, onlineCount: Math.max(1, activeSessions.size) });
+    } catch {
+      res.json({ success: true });
+    }
+  });
+
+  // Current stats query endpoint
+  app.get('/api/presence/stats', (req, res) => {
+    pruneStaleSessions();
+    res.json({
+      onlineCount: Math.max(1, activeSessions.size),
+      totalVisitors: visitorStats.totalVisitors
+    });
+  });
+  // ----------------------------------------------
+
   // Serve static images directly from public/images
   app.use('/images', express.static(publicImagesDir));
 

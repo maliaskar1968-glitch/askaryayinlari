@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BOOKS_DATA } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, ExternalLink } from 'lucide-react';
+import { Download, ExternalLink, Share2 } from 'lucide-react';
+import { ShareModal, ShareItem } from './ShareModal';
 
 export const BookGrid: React.FC = () => {
+  const [selectedShareItem, setSelectedShareItem] = useState<ShareItem | null>(null);
+
   return (
     <div className="my-10">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#1A1A1A]/10 gap-2">
@@ -21,17 +24,33 @@ export const BookGrid: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
-        {BOOKS_DATA.map((book, index) => (
+        {BOOKS_DATA.map((book) => (
           <div
             key={book.id}
             className={`bg-white border rounded-2xl p-4 flex flex-col h-full transition-all duration-300 group hover:border-[#1A1A1A]/30 hover:shadow-lg ${
               book.isSpecialLink ? 'border-[#1A1A1A] shadow-sm' : 'border-[#1A1A1A]/10'
             }`}
           >
-            {/* Top Catalog Ref */}
-            <div className="flex items-center justify-between text-[9px] font-mono tracking-widest text-[#1A1A1A]/40 mb-3">
-              <span>REF. 0{index + 1}</span>
-              <span className="uppercase text-[#1A1A1A]/60 font-bold">{book.badge}</span>
+            {/* Top Row: Category Badge on the Left, Share Button on the Right */}
+            <div className="flex items-center justify-between text-[10px] font-mono tracking-widest mb-3">
+              <span className="uppercase text-[#1A1A1A]/70 font-bold">{book.badge}</span>
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedShareItem({
+                    title: book.title,
+                    subtitle: book.subtitle,
+                    image: book.image,
+                    shopierUrl: book.shopierUrl,
+                    badge: book.badge,
+                  })
+                }
+                title={`${book.title} Paylaş`}
+                className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#1A1A1A]/5 hover:bg-[#C9A86A]/20 text-[#1A1A1A]/70 hover:text-[#856526] transition-colors cursor-pointer text-[9px] font-sans font-medium"
+              >
+                <Share2 className="w-3 h-3 text-[#C9A86A]" />
+                <span className="hidden sm:inline">Paylaş</span>
+              </button>
             </div>
 
             {/* Book Cover Image - 1:1 Square Artwork */}
@@ -68,6 +87,13 @@ export const BookGrid: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Share Modal */}
+      <ShareModal
+        item={selectedShareItem}
+        isOpen={!!selectedShareItem}
+        onClose={() => setSelectedShareItem(null)}
+      />
     </div>
   );
 };

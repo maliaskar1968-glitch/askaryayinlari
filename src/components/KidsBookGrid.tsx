@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KIDS_BOOKS_DATA } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, Sparkles, ExternalLink, Heart } from 'lucide-react';
+import { Download, Sparkles, ExternalLink, Heart, Share2 } from 'lucide-react';
+import { ShareModal, ShareItem } from './ShareModal';
 
 export const KidsBookGrid: React.FC = () => {
+  const [selectedShareItem, setSelectedShareItem] = useState<ShareItem | null>(null);
+
   return (
     <div className="my-12 pt-8 border-t border-[#1A1A1A]/10">
       {/* Header */}
@@ -26,15 +29,28 @@ export const KidsBookGrid: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
         {/* Active Book: Sevimli Deniz Altı Kaşifleri */}
         <div className="bg-white border border-[#1A1A1A]/10 hover:border-[#C9A86A]/60 rounded-2xl p-4 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden">
-          {/* Top Catalog Ref & Age Badge */}
-          <div className="flex items-center justify-between text-[9px] font-mono tracking-widest text-[#1A1A1A]/50 mb-3">
-            <span className="flex items-center gap-1">
-              <Heart className="w-2.5 h-2.5 text-[#C9A86A] fill-[#C9A86A]" />
-              KIDS.01
-            </span>
+          {/* Top Row: Age Badge on the Left, Share Button on the Right */}
+          <div className="flex items-center justify-between mb-3">
             <span className="px-2 py-0.5 rounded-full text-[8px] font-bold tracking-wider uppercase bg-[#F8F7F4] text-[#1A1A1A] border border-[#1A1A1A]/10">
               4-8 YAŞ • MASAL & BOYAMA
             </span>
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedShareItem({
+                  title: 'Sevimli Deniz Altı Kaşifleri',
+                  subtitle: 'Büyülü Hikayeler ve Yaratıcı Boyama Kitabı',
+                  image: '/resimler/cocuk.png',
+                  shopierUrl: 'https://www.shopier.com/mehmetaliaskar/49854224',
+                  badge: '4-8 YAŞ',
+                })
+              }
+              title="Sevimli Deniz Altı Kaşifleri Paylaş"
+              className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#1A1A1A]/5 hover:bg-[#C9A86A]/20 text-[#1A1A1A]/70 hover:text-[#856526] transition-colors cursor-pointer text-[9px] font-sans font-medium"
+            >
+              <Share2 className="w-3 h-3 text-[#C9A86A]" />
+              <span className="hidden sm:inline">Paylaş</span>
+            </button>
           </div>
 
           {/* Book Cover Image - 1:1 Aspect Ratio */}
@@ -97,6 +113,13 @@ export const KidsBookGrid: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Share Modal */}
+      <ShareModal
+        item={selectedShareItem}
+        isOpen={!!selectedShareItem}
+        onClose={() => setSelectedShareItem(null)}
+      />
     </div>
   );
 };

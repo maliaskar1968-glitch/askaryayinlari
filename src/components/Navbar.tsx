@@ -3,7 +3,8 @@ import { PageTab } from '../types';
 import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
-import { ShoppingBag, Menu, X, BookOpen, Wrench, User, Mail, Bell, CheckCircle2 } from 'lucide-react';
+import { ShareModal, ShareItem } from './ShareModal';
+import { ShoppingBag, Menu, X, BookOpen, Wrench, User, Mail, Bell, CheckCircle2, Share2 } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: PageTab;
@@ -14,12 +15,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
+  const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [kvkkConsent, setKvkkConsent] = useState(false);
   const [showKvkkDetail, setShowKvkkDetail] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const siteShareData: ShareItem = {
+    isSiteShare: true,
+    title: 'Aşkar Yayınları',
+    subtitle: 'Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde.',
+    image: '/resimler/logo.jpg',
+    url: 'https://www.askaryayinlari.com.tr/',
+  };
 
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIaY9S0jgQjzW3zfm3H-e_0-cop7k5H719YrMCufxOLOK9QTeQTPcEhxraTWO_LLCzzg/exec';
 
@@ -135,8 +145,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             })}
           </nav>
 
-          {/* Right Action: Takip Et & Shopier Store Link */}
+          {/* Right Action: Paylaş, Takip Et & Shopier Store Link */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* PAYLAŞ Button */}
+            <button
+              onClick={() => setSiteShareModalOpen(true)}
+              title="Aşkar Yayınları Paylaş"
+              className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3.5 sm:px-4 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer flex items-center gap-1.5"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span className="hidden sm:inline">PAYLAŞ</span>
+            </button>
+
             {/* TAKİP ET Button (Desktop / Tablet) */}
             <button
               onClick={() => setFollowModalOpen(true)}
@@ -188,6 +208,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 </button>
               );
             })}
+            
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setSiteShareModalOpen(true);
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>PAYLAŞ</span>
+            </button>
           </div>
         )}
       </header>
@@ -350,6 +381,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
       <ImageUploaderModal
         isOpen={uploaderOpen}
         onClose={() => setUploaderOpen(false)}
+      />
+
+      <ShareModal
+        item={siteShareData}
+        isOpen={siteShareModalOpen}
+        onClose={() => setSiteShareModalOpen(false)}
       />
     </>
   );
