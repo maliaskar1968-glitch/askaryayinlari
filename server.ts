@@ -19,7 +19,7 @@ async function startServer() {
 
   // --- Real-time Presence & Visitor Tracking ---
   const statsFilePath = path.join(process.cwd(), 'visitor_stats.json');
-  let visitorStats = { totalVisitors: 5007, uniqueSessions: [] as string[] };
+  let visitorStats = { totalVisitors: 5000, uniqueSessions: [] as string[] };
 
   try {
     if (fs.existsSync(statsFilePath)) {

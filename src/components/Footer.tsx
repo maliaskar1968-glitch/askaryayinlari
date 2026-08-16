@@ -5,7 +5,7 @@ import { ImageUploaderModal } from './ImageUploaderModal';
 
 export const Footer: React.FC = () => {
   const [uploaderOpen, setUploaderOpen] = useState(false);
-  const [totalVisitors, setTotalVisitors] = useState<number>(5007);
+  const [totalVisitors, setTotalVisitors] = useState<number>(5000);
   const [onlineVisitors, setOnlineVisitors] = useState<number>(1);
 
   useEffect(() => {
