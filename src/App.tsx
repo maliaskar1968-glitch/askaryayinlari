@@ -24,9 +24,9 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4">
         {activeTab === 'magaza' && (
           <div className="animate-in fade-in duration-200 space-y-6">
-            <HeroBanner />
             <MottoSection />
             <BookGrid />
+            <HeroBanner />
             <KidsBookGrid />
             <FaqSection />
             <CoreValues />
