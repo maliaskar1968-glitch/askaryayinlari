@@ -25,7 +25,10 @@ async function startServer() {
     if (fs.existsSync(statsFilePath)) {
       const data = JSON.parse(fs.readFileSync(statsFilePath, 'utf-8'));
       if (typeof data.totalVisitors === 'number') {
-        visitorStats = data;
+        visitorStats.totalVisitors = Math.max(5000, data.totalVisitors);
+      }
+      if (Array.isArray(data.uniqueSessions)) {
+        visitorStats.uniqueSessions = data.uniqueSessions;
       }
     } else {
       fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
@@ -47,6 +50,45 @@ async function startServer() {
     }
   };
 
+  // Register a new visit (increases total visitor counter by 1 per new visitor/session)
+  app.post('/api/presence/visit', (req, res) => {
+    try {
+      const { sessionId } = req.body;
+      const cleanId = typeof sessionId === 'string' && sessionId.length > 0 ? sessionId : 'anon_' + Date.now();
+      const now = Date.now();
+
+      pruneStaleSessions();
+      activeSessions.set(cleanId, now);
+
+      if (!visitorStats.uniqueSessions) visitorStats.uniqueSessions = [];
+      if (!visitorStats.uniqueSessions.includes(cleanId)) {
+        visitorStats.uniqueSessions.push(cleanId);
+        // Keep up to 10000 session IDs
+        if (visitorStats.uniqueSessions.length > 10000) {
+          visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-10000);
+        }
+        visitorStats.totalVisitors = Math.max(5000, (visitorStats.totalVisitors || 5000) + 1);
+        try {
+          fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+        } catch (err) {
+          console.error('Failed to write visitor_stats.json', err);
+        }
+      }
+
+      res.json({
+        success: true,
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors
+      });
+    } catch (err) {
+      res.json({
+        success: true,
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors || 5000
+      });
+    }
+  });
+
   // Heartbeat endpoint for active tabs
   app.post('/api/presence/heartbeat', (req, res) => {
     try {
@@ -61,11 +103,10 @@ async function startServer() {
         if (!visitorStats.uniqueSessions) visitorStats.uniqueSessions = [];
         if (!visitorStats.uniqueSessions.includes(cleanId)) {
           visitorStats.uniqueSessions.push(cleanId);
-          // Keep only last 5000 session ids in history
-          if (visitorStats.uniqueSessions.length > 5000) {
-            visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-5000);
+          if (visitorStats.uniqueSessions.length > 10000) {
+            visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-10000);
           }
-          visitorStats.totalVisitors += 1;
+          visitorStats.totalVisitors = Math.max(5000, (visitorStats.totalVisitors || 5000) + 1);
           try {
             fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
           } catch (err) {

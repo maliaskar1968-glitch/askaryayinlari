@@ -9,25 +9,78 @@ export const Footer: React.FC = () => {
   const [onlineVisitors, setOnlineVisitors] = useState<number>(1);
 
   useEffect(() => {
-    // Generate or retrieve persistent unique session ID for this browser tab/window
-    let sessionId = sessionStorage.getItem('askar_presence_sid');
-    let isNewSession = false;
+    const BASE_COUNT = 5000;
 
+    // 1. Retrieve or initialize local visitor cache
+    const storedTotal = localStorage.getItem('askar_total_visitors_cache');
+    let currentTotal = BASE_COUNT;
+    if (storedTotal) {
+      const parsed = parseInt(storedTotal, 10);
+      if (!isNaN(parsed) && parsed >= BASE_COUNT) {
+        currentTotal = parsed;
+      }
+    }
+
+    // 2. Generate or retrieve session ID for presence
+    let sessionId = sessionStorage.getItem('askar_presence_sid');
     if (!sessionId) {
       sessionId = 'sid_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
       sessionStorage.setItem('askar_presence_sid', sessionId);
-      isNewSession = true;
     }
 
-    // Function to ping heartbeat to server
-    const sendHeartbeat = async (firstRun = false) => {
+    // 3. Check if this session's visit has been counted
+    const hasVisitedInSession = sessionStorage.getItem('askar_session_visit_counted');
+    const isNewSession = !hasVisitedInSession;
+
+    if (isNewSession) {
+      sessionStorage.setItem('askar_session_visit_counted', 'true');
+      currentTotal += 1;
+      localStorage.setItem('askar_total_visitors_cache', currentTotal.toString());
+    }
+
+    setTotalVisitors(currentTotal);
+
+    // 4. Function to sync with server
+    const syncVisitWithServer = async () => {
+      try {
+        const endpoint = isNewSession ? '/api/presence/visit' : '/api/presence/heartbeat';
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            isNewSession,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.totalVisitors === 'number' && data.totalVisitors >= BASE_COUNT) {
+            const resolvedTotal = Math.max(currentTotal, data.totalVisitors);
+            setTotalVisitors(resolvedTotal);
+            localStorage.setItem('askar_total_visitors_cache', resolvedTotal.toString());
+          }
+          if (typeof data.onlineCount === 'number') {
+            setOnlineVisitors(Math.max(1, data.onlineCount));
+          }
+        }
+      } catch {
+        // Fallback: keep local count and at least 1 online
+        setOnlineVisitors((prev) => Math.max(1, prev));
+      }
+    };
+
+    syncVisitWithServer();
+
+    // 5. Periodic heartbeat every 10 seconds to keep presence active & update live stats
+    const heartbeatInterval = setInterval(async () => {
       try {
         const res = await fetch('/api/presence/heartbeat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             sessionId,
-            isNewSession: firstRun && isNewSession,
+            isNewSession: false,
           }),
         });
         if (res.ok) {
@@ -36,24 +89,15 @@ export const Footer: React.FC = () => {
             setOnlineVisitors(Math.max(1, data.onlineCount));
           }
           if (typeof data.totalVisitors === 'number') {
-            setTotalVisitors(data.totalVisitors);
+            setTotalVisitors((prev) => Math.max(prev, data.totalVisitors));
           }
         }
       } catch {
-        // Fallback: If offline or static, at least display 1 for the current active user
-        setOnlineVisitors((prev) => Math.max(1, prev));
+        // Ignore background heartbeat error
       }
-    };
-
-    // Initial heartbeat immediately
-    sendHeartbeat(true);
-
-    // Periodic heartbeat every 10 seconds to keep presence alive and fetch live numbers
-    const heartbeatInterval = setInterval(() => {
-      sendHeartbeat(false);
     }, 10000);
 
-    // Send leave signal on tab close/unload
+    // 6. Send leave signal when user closes or navigates away
     const handleLeave = () => {
       try {
         const payload = JSON.stringify({ sessionId });
