@@ -18,9 +18,18 @@ export const HeroBanner: React.FC = () => {
       </div>
 
       <div className="flex-1 space-y-4 text-left">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1A1A1A]/5 text-[#1A1A1A] text-[10px] font-mono uppercase tracking-[0.25em] border border-[#1A1A1A]/10">
-          <Sparkles className="w-3 h-3 text-[#C9A86A]" />
-          <span>ÇOCUKLAR İÇİN GÜVENLİ • TIKLA OYNA</span>
+        {/* Action Button (Moved to Top) */}
+        <div>
+          <a
+            href={KIDS_APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 bg-[#1A1A1A] hover:bg-black text-white px-5 sm:px-6 py-3 rounded-full text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] transition-all hover:scale-[1.02] active:scale-95 shadow-sm"
+          >
+            <Gamepad2 className="w-4 h-4 text-[#C9A86A]" />
+            <span>ÇOCUKLARA ARMAĞANIMIZDIR - TIKLA OYNA</span>
+            <ExternalLink className="w-3.5 h-3.5 opacity-60 ml-0.5" />
+          </a>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-[#1A1A1A] leading-[1.05] tracking-tight">
@@ -32,17 +41,12 @@ export const HeroBanner: React.FC = () => {
           Yıldız Kaşif Olmaya Hazır mısın? Çocuklar için Yaratıcılık ve Beceri Gelişimi - Sesli Dijital Çocuk Uygulaması. Güvenli, reklamsız, eğitici çocuk boyama ve hikaye dünyası.
         </p>
 
-        <div className="pt-2 flex items-center gap-4 flex-wrap">
-          <a
-            href={KIDS_APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 bg-[#1A1A1A] hover:bg-black text-white px-6 py-3.5 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] transition-all hover:scale-[1.02] active:scale-95 shadow-sm"
-          >
-            <Gamepad2 className="w-4 h-4 text-[#C9A86A]" />
-            <span>ÇOCUKLARA ARMAĞANIMIZDIR - TIKLA OYNA</span>
-            <ExternalLink className="w-3.5 h-3.5 opacity-60 ml-0.5" />
-          </a>
+        {/* Feature & Safety Badge (Moved to Bottom with Updated Text) */}
+        <div className="pt-1">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A1A]/5 text-[#1A1A1A] text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] border border-[#1A1A1A]/10">
+            <Sparkles className="w-3.5 h-3.5 text-[#C9A86A]" />
+            <span>ÇOCUKLAR İÇİN GÜVENLİ UYGULAMA • BOYAMA • HİKAYE</span>
+          </div>
         </div>
       </div>
     </div>
