@@ -38,14 +38,14 @@ export const HeroBanner: React.FC = () => {
         </h1>
 
         <p className="text-[#1A1A1A]/70 text-xs sm:text-sm leading-relaxed max-w-xl">
-          Yıldız Kaşif Olmaya Hazır mısın? Çocuklar için Yaratıcılık ve Beceri Gelişimi - Sesli Dijital Çocuk Uygulaması. Güvenli, reklamsız, eğitici çocuk boyama ve hikaye dünyası.
+          Yıldız Kaşif Olmaya Hazır mısın? Çocuklar için Yaratıcılık ve Beceri Gelişimi - Sesli Dijital Çocuk Uygulaması. Güvenli, reklamsız, eğitici çocuk boyama ve masal dünyası.
         </p>
 
         {/* Feature & Safety Badge (Moved to Bottom with Updated Text) */}
         <div className="pt-1">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A1A]/5 text-[#1A1A1A] text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] border border-[#1A1A1A]/10">
             <Sparkles className="w-3.5 h-3.5 text-[#C9A86A]" />
-            <span>ÇOCUKLAR İÇİN GÜVENLİ UYGULAMA • BOYAMA • HİKAYE</span>
+            <span>ÇOCUKLAR İÇİN GÜVENLİ UYGULAMA • BOYAMA • MASAL</span>
           </div>
         </div>
       </div>
