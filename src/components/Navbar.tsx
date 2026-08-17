@@ -145,8 +145,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             })}
           </nav>
 
-          {/* Right Action: Paylaş, Takip Et & Shopier Store Link */}
+          {/* Right Action: Takip Et, Paylaş & Shopier Store Link */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* TAKİP ET Button (Desktop / Tablet) */}
+            <button
+              onClick={() => setFollowModalOpen(true)}
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 sm:px-5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+            >
+              <Bell className="w-3 h-3 text-[#C9A86A]" />
+              <span>TAKİP ET</span>
+            </button>
+
             {/* PAYLAŞ Button */}
             <button
               onClick={() => setSiteShareModalOpen(true)}
@@ -155,15 +164,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             >
               <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
               <span className="hidden sm:inline">PAYLAŞ</span>
-            </button>
-
-            {/* TAKİP ET Button (Desktop / Tablet) */}
-            <button
-              onClick={() => setFollowModalOpen(true)}
-              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 sm:px-5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
-            >
-              <Bell className="w-3 h-3 text-[#C9A86A]" />
-              <span>TAKİP ET</span>
             </button>
 
             {/* MAĞAZA Button */}
