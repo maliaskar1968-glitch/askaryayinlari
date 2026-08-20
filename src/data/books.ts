@@ -118,5 +118,5 @@ export const KIDS_BOOKS_DATA: Book[] = [
 ];
 
 export const MAIN_SHOPIER_URL = 'https://www.shopier.com/mehmetaliaskar';
-export const KIDS_APP_URL = 'https://sevimli-deniz-alti-kasifleri.ai.studio/';
+export const KIDS_APP_URL = 'https://askaryayinlari-sevimli-deniz-alti-kasifleri.ai.studio/';
 export const AUTHOR_EMAIL = 'maliaskar.1968@gmail.com';
