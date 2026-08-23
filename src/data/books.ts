@@ -43,6 +43,16 @@ export const BOOKS_DATA: Book[] = [
     isSpecialLink: true
   },
   {
+    id: 'k9',
+    badge: '9. SINIF',
+    badgeColor: '#ea580c',
+    title: '9.Sınıf Lise Koçu',
+    subtitle: 'Liseye Güçlü Bir Başlangıç',
+    image: '/resimler/k9.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50117381',
+    shopierId: '50117381'
+  },
+  {
     id: 'k_yks',
     badge: 'YKS',
     badgeColor: '#2563eb',

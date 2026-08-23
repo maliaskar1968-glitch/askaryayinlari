@@ -47,7 +47,7 @@
   <!-- 1. 8. Sınıf LGS'de Kendi Koçun Ol PDF (En Önemli Ürün) -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47825857</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.99</priority>
     <image:image>
@@ -57,7 +57,20 @@
     </image:image>
   </url>
 
-  <!-- 2. YKS'de Kendi Koçun Ol PDF -->
+  <!-- 2. 9. Sınıf Lise Koçu PDF -->
+  <url>
+    <loc>https://www.shopier.com/mehmetaliaskar/50117381</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.96</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/resimler/k9.png</image:loc>
+      <image:title>9. Sınıf Lise Koçu Kitabı PDF - Mehmet Ali Askar</image:title>
+      <image:caption>Liseye Güçlü Bir Başlangıç Koçluk Rehberi</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 3. YKS'de Kendi Koçun Ol PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47825620</loc>
     <lastmod>2026-08-14</lastmod>
