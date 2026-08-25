@@ -125,13 +125,26 @@
   <!-- 6. Sevimli Deniz Altı Kaşifleri Masal & Boyama PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/49854224</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.92</priority>
     <image:image>
       <image:loc>https://www.askaryayinlari.com.tr/resimler/cocuk.png</image:loc>
       <image:title>Sevimli Deniz Altı Kaşifleri Masal ve Boyama Kitabı PDF - Mehmet Ali Askar</image:title>
       <image:caption>Çocuklar İçin Büyülü Hikayeler ve Yaratıcı Boyama Dünyası</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 6b. Ormanın Minik Koruyucuları Doğa & Değerler Masalı PDF -->
+  <url>
+    <loc>https://www.shopier.com/mehmetaliaskar/50238751</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.97</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/resimler/orman.png</image:loc>
+      <image:title>Ormanın Minik Koruyucuları Masal Kitabı PDF - Elif, Mert ve Can'ın Büyülü Orman Macerası - Mehmet Ali Askar</image:title>
+      <image:caption>6-9 Yaş Çocuk Kitabı PDF - Doğa Sevgisi, Çevre Bilinci ve Dayanışma Masalı - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
 

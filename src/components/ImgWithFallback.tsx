@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getStoredImage, getCachedImageSync, subscribeImageChanges } from '../utils/imageStore';
-import { BookOpen, Sparkles, Compass, Atom, Zap, GraduationCap, Trophy } from 'lucide-react';
+import { BookOpen, Sparkles, Compass, Atom, Zap, GraduationCap, Trophy, TreePine } from 'lucide-react';
 
 interface ImgWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -126,7 +126,7 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
   }
 
   // 2. Kids Book Fallback: Sevimli Deniz Altı Kaşifleri
-  if (cleanName.includes('cocuk')) {
+  if (cleanName.includes('cocuk') && !cleanName.includes('orman')) {
     return (
       <div className={`w-full h-full bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0C4A6E] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none ${className}`}>
         <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl pointer-events-none" />
@@ -156,6 +156,43 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
         {/* Bottom Bar */}
         <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[8px] font-mono text-cyan-100/80 z-10">
           <span>4-8 YAŞ</span>
+          <span className="text-amber-300 font-bold">MEHMET ALİ ASKAR</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 2b. Kids Book Fallback: Ormanın Minik Koruyucuları
+  if (cleanName.includes('orman')) {
+    return (
+      <div className={`w-full h-full bg-gradient-to-br from-[#14532D] via-[#166534] to-[#052E16] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none border border-emerald-400/30 ${className}`}>
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-28 h-28 bg-amber-400/15 rounded-full blur-xl pointer-events-none" />
+        
+        {/* Top Tag */}
+        <div className="flex items-center justify-between z-10">
+          <div className="bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded-full text-[8px] font-mono tracking-widest uppercase font-bold text-emerald-100 border border-white/20">
+            AŞKAR ÇOCUK
+          </div>
+          <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+        </div>
+
+        {/* Center Title */}
+        <div className="text-center my-auto py-2 z-10">
+          <div className="w-10 h-10 mx-auto rounded-full bg-white/15 flex items-center justify-center mb-2 border border-white/30 text-amber-300">
+            <TreePine className="w-5 h-5 text-emerald-200" />
+          </div>
+          <h4 className="text-base sm:text-lg font-serif font-black tracking-tight leading-tight text-white drop-shadow-sm">
+            ORMANIN MİNİK KORUYUCULARI
+          </h4>
+          <p className="text-[10px] text-emerald-200 mt-1 font-medium">
+            Elif, Mert ve Can'ın Büyülü Orman Macerası
+          </p>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[8px] font-mono text-emerald-100/80 z-10">
+          <span>6-9 YAŞ</span>
           <span className="text-amber-300 font-bold">MEHMET ALİ ASKAR</span>
         </div>
       </div>

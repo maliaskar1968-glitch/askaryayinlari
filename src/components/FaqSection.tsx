@@ -9,6 +9,16 @@ interface FaqItem {
 
 const FAQ_DATA: FaqItem[] = [
   {
+    category: 'Çocuk & Masal',
+    question: 'Ormanın Minik Koruyucuları çocuk kitabı hangi yaş grubu için uygundur ve konusu nedir?',
+    answer: "Ormanın Minik Koruyucuları, 6-9 yaş arası çocuklar için hazırlanmış; doğa sevgisi, çevre bilinci, yardımlaşma, dostluk ve sorumluluk temalı eğitici bir masal kitabıdır. Elif, Mert ve Can'ın bilge Çınar Dede ve orman hayvanlarıyla yaşadığı büyülü macerayı anlatan eser, çocuklara doğayı koruma bilincini aşılar."
+  },
+  {
+    category: 'Lise & Koçluk',
+    question: '9. Sınıf Lise Koçu kitabı liseye yeni geçen öğrencilere ne kazandırır?',
+    answer: '9. Sınıf Lise Koçu; ortaokuldan liseye geçen öğrencilerin ders yoğunluğuna adapte olmalarını, doğru çalışma stratejileri kazanmalarını, zaman yönetimini öğrenmelerini ve lisenin ilk yılından itibaren sağlam bir YKS temeli oluşturmalarını sağlayan rehberlik kitabıdır.'
+  },
+  {
     category: 'Sipariş & Teslimat',
     question: 'Aşkar Yayınları dijital PDF kitapları nasıl satın alınır ve indirilir?',
     answer: 'Seçtiğiniz kitabın altında yer alan "Shopier ile İndir" butonuna tıklayarak Shopier güvenli ödeme sayfasına yönlendirilirsiniz. 3D Secure güvencesiyle kredi veya banka kartınızla ödemenizi tamamladığınız anda yüksek çözünürlüklü dijital PDF kitabınız ekranda indirmeye açılır ve belirttiğiniz e-posta adresinize de anında otomatik indirme bağlantısı gönderilir.'

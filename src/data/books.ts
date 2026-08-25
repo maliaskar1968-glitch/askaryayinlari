@@ -96,6 +96,16 @@ export const KIDS_BOOKS_DATA: Book[] = [
     shopierId: '49854224'
   },
   {
+    id: 'cocuk_orman',
+    badge: '6-9 YAŞ • DOĞA & DEĞERLER',
+    badgeColor: '#15803d',
+    title: 'Ormanın Minik Koruyucuları',
+    subtitle: "Elif, Mert ve Can'ın Büyülü Orman Macerası",
+    image: '/resimler/orman.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50238751',
+    shopierId: '50238751'
+  },
+  {
     id: 'cocuk_2',
     badge: '6-10 YAŞ • HİKAYE',
     badgeColor: '#0284c7',
@@ -104,16 +114,6 @@ export const KIDS_BOOKS_DATA: Book[] = [
     image: '/cocuk_k1.jpg',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
     shopierId: 'cocuk-2'
-  },
-  {
-    id: 'cocuk_3',
-    badge: '5-9 YAŞ • DEĞERLER EĞİTİMİ',
-    badgeColor: '#d97706',
-    title: 'Ormanın Minik Koruyucuları',
-    subtitle: 'Doğa Sevgisi ve Yardımlaşma Hikayesi',
-    image: '/cocuk_k2.jpg',
-    shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
-    shopierId: 'cocuk-3'
   },
   {
     id: 'cocuk_4',

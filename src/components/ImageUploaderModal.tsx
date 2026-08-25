@@ -12,10 +12,12 @@ interface ImageSlot {
 const TARGET_IMAGES: ImageSlot[] = [
   { key: 'logo', filename: 'logo.jpg', title: 'Aşkar Yayınları Logosu', description: 'Header ve footer logosu' },
   { key: 'cocuk', filename: 'cocuk.jpg', title: 'Çocuk Kitaplığı: Sevimli Deniz Altı Kaşifleri', description: 'Sevimli Deniz Altı Kaşifleri Kitap & Uygulama Kapağı' },
+  { key: 'orman', filename: 'orman.png', title: 'Çocuk Kitaplığı: Ormanın Minik Koruyucuları', description: "Ormanın Minik Koruyucuları Kitap Kapağı" },
   { key: 'k5', filename: 'k5.jpg', title: '5. Sınıf Ortaokul Koçu', description: '5. Sınıf Kitap Kapağı' },
   { key: 'k6', filename: 'k6.jpg', title: '6. Sınıf Ortaokul Koçu', description: '6. Sınıf Kitap Kapağı' },
   { key: 'k7', filename: 'k7.jpg', title: '7. Sınıf Ortaokul Koçu', description: '7. Sınıf Kitap Kapağı' },
   { key: 'k8', filename: 'k8.jpg', title: '8. Sınıf LGS Koçu', description: '8. Sınıf LGS Kitap Kapağı' },
+  { key: 'k9', filename: 'k9.png', title: '9. Sınıf Lise Koçu', description: '9. Sınıf Lise Koçu Kitap Kapağı' },
   { key: 'k_yks', filename: 'k_yks.jpg', title: 'YKS Koçu', description: 'YKS Koçluk Kitap Kapağı' },
   { key: 'k_simsek', filename: 'k_simsek.jpg', title: 'Şimşeğin Efendisi', description: 'Nikola Tesla Hikayesi Kapağı' },
   { key: 'k_atom', filename: 'k_atom.jpg', title: 'Atomun Kalbi', description: 'Ernest Rutherford Roman Kapağı' },
@@ -66,7 +68,9 @@ export const ImageUploaderModal: React.FC<ImageUploaderModalProps> = ({ isOpen, 
 
       // Smart fuzzy matching for commonly uploaded files
       if (!slot) {
-        if (fileNameLower.includes('chatgpt') || fileNameLower.includes('deniz') || fileNameLower.includes('kasif') || fileNameLower.includes('kaşif') || fileNameLower.includes('sevimli') || fileNameLower.includes('tosis') || fileNameLower.includes('lili')) {
+        if (fileNameLower.includes('orman') || fileNameLower.includes('koruyucu') || fileNameLower.includes('elif') || fileNameLower.includes('mert') || (fileNameLower.includes('kapak') && fileNameLower.includes('shopier'))) {
+          slot = TARGET_IMAGES.find((s) => s.filename === 'orman.png');
+        } else if (fileNameLower.includes('chatgpt') || fileNameLower.includes('deniz') || fileNameLower.includes('kasif') || fileNameLower.includes('kaşif') || fileNameLower.includes('sevimli') || fileNameLower.includes('tosis') || fileNameLower.includes('lili')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'cocuk.jpg');
         } else if (fileNameLower.includes('tesla') || fileNameLower.includes('simsek') || fileNameLower.includes('şimşek')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'k_simsek.jpg');
@@ -74,6 +78,8 @@ export const ImageUploaderModal: React.FC<ImageUploaderModalProps> = ({ isOpen, 
           slot = TARGET_IMAGES.find((s) => s.filename === 'k_atom.jpg');
         } else if (fileNameLower.includes('yks') || fileNameLower.includes('tyt') || fileNameLower.includes('ayt')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'k_yks.jpg');
+        } else if (fileNameLower.includes('9') || fileNameLower.includes('lise')) {
+          slot = TARGET_IMAGES.find((s) => s.filename === 'k9.png');
         } else if (fileNameLower.includes('8') || fileNameLower.includes('lgs')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'k8.jpg');
         } else if (fileNameLower.includes('7')) {
