@@ -53,6 +53,16 @@ export const BOOKS_DATA: Book[] = [
     shopierId: '50117381'
   },
   {
+    id: 'k10',
+    badge: '10. SINIF',
+    badgeColor: '#0284c7',
+    title: 'Lise Koçu 10. Sınıf',
+    subtitle: 'Başarı Alışkanlıklarını Derinleştir',
+    image: '/resimler/k10.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50260994',
+    shopierId: '50260994'
+  },
+  {
     id: 'k_yks',
     badge: 'YKS',
     badgeColor: '#2563eb',

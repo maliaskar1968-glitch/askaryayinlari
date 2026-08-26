@@ -318,6 +318,64 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
     );
   }
 
+  // 6b. 9. Sınıf Lise Koçu Fallback
+  if (cleanName.includes('k9')) {
+    return (
+      <div className={`w-full h-full bg-gradient-to-b from-[#431407] via-[#7C2D12] to-[#1C1917] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none border border-amber-500/30 ${className}`}>
+        <div className="flex justify-between items-center">
+          <span className="bg-amber-600 text-white text-[9px] font-mono font-black px-2 py-0.5 rounded uppercase">
+            9. SINIF
+          </span>
+          <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
+        </div>
+        <div className="text-center my-auto">
+          <div className="text-[10px] font-mono tracking-widest text-amber-300 uppercase mb-1">
+            LİSE KOÇUM
+          </div>
+          <h4 className="text-base font-serif font-bold text-white leading-tight">
+            9. Sınıf Lise Koçu
+          </h4>
+          <div className="w-8 h-0.5 bg-amber-400 mx-auto my-2 opacity-60" />
+          <p className="text-[9px] text-amber-200/80">
+            Liseye Güçlü Bir Başlangıç
+          </p>
+        </div>
+        <div className="text-center text-[8px] font-mono text-amber-300/80 tracking-widest uppercase">
+          MEHMET ALİ ASKAR
+        </div>
+      </div>
+    );
+  }
+
+  // 6c. 10. Sınıf Lise Koçu Fallback
+  if (cleanName.includes('k10')) {
+    return (
+      <div className={`w-full h-full bg-gradient-to-b from-[#082F49] via-[#0369A1] to-[#0F172A] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none border border-sky-400/30 ${className}`}>
+        <div className="flex justify-between items-center">
+          <span className="bg-sky-500 text-white text-[9px] font-mono font-black px-2 py-0.5 rounded uppercase">
+            10. SINIF
+          </span>
+          <Trophy className="w-3.5 h-3.5 text-sky-200" />
+        </div>
+        <div className="text-center my-auto">
+          <div className="text-[10px] font-mono tracking-widest text-sky-200 uppercase mb-1">
+            LİSE KOÇUM
+          </div>
+          <h4 className="text-base font-serif font-bold text-white leading-tight">
+            Lise Koçu 10. Sınıf
+          </h4>
+          <div className="w-8 h-0.5 bg-sky-300 mx-auto my-2 opacity-60" />
+          <p className="text-[9px] text-sky-100/80">
+            Başarı Alışkanlıklarını Derinleştir
+          </p>
+        </div>
+        <div className="text-center text-[8px] font-mono text-sky-200/80 tracking-widest uppercase">
+          MEHMET ALİ ASKAR
+        </div>
+      </div>
+    );
+  }
+
   // 7. YKS Fallback
   if (cleanName.includes('yks')) {
     return (
