@@ -26,7 +26,7 @@ export const KidsBookGrid: React.FC = () => {
       </div>
 
       {/* Grid of Children's Books */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {/* Active Book 1: Sevimli Deniz Altı Kaşifleri */}
         <article
           itemScope
@@ -179,27 +179,103 @@ export const KidsBookGrid: React.FC = () => {
           </a>
         </article>
 
-        {/* Coming Soon Area for Upcoming Kids Books (lg:col-span-2) */}
-        <div className="lg:col-span-2 rounded-2xl border-2 border-dashed border-[#1A1A1A]/15 bg-[#F8F7F4]/60 p-8 sm:p-10 flex flex-col items-center justify-center text-center relative overflow-hidden">
-          <div className="w-14 h-14 rounded-full bg-[#C9A86A]/15 text-[#856526] flex items-center justify-center mb-4 border border-[#C9A86A]/30">
-            <Sparkles className="w-7 h-7 text-[#C9A86A]" />
+        {/* Active Book 3: Uykudan Önce */}
+        <article
+          itemScope
+          itemType="https://schema.org/Book"
+          className="bg-white border border-[#1A1A1A]/10 hover:border-[#4f46e5]/60 rounded-2xl p-4 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+        >
+          <meta itemProp="bookFormat" content="https://schema.org/EBook" />
+          <meta itemProp="inLanguage" content="tr" />
+          <div itemProp="author" itemScope itemType="https://schema.org/Person" className="hidden">
+            <meta itemProp="name" content="Mehmet Ali Askar" />
+          </div>
+          <div itemProp="publisher" itemScope itemType="https://schema.org/Organization" className="hidden">
+            <meta itemProp="name" content="Aşkar Yayınları" />
           </div>
 
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-white text-[#856526] border border-[#C9A86A]/30 mb-2.5 shadow-xs">
+          {/* Top Row: Category Badge on the Left, Share Button on the Right */}
+          <div className="flex items-center justify-between mb-3">
+            <span className="px-2 py-0.5 rounded-full text-[8px] font-bold tracking-wider uppercase bg-[#F8F7F4] text-[#4f46e5] border border-[#4f46e5]/20">
+              MASAL & UYKU • ÇOCUK DÜNYASI
+            </span>
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedShareItem({
+                  title: 'Uykudan Önce',
+                  subtitle: 'Her Çocuk İyi Bir Hikâye Hak Eder',
+                  image: '/resimler/uonce.png',
+                  shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50302573',
+                  badge: 'MASAL & UYKU',
+                })
+              }
+              title="Uykudan Önce Paylaş"
+              className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#1A1A1A]/5 hover:bg-[#4f46e5]/20 text-[#1A1A1A]/70 hover:text-[#4f46e5] transition-colors cursor-pointer text-[9px] font-sans font-medium"
+            >
+              <Share2 className="w-3 h-3 text-[#4f46e5]" />
+              <span className="hidden sm:inline">Paylaş</span>
+            </button>
+          </div>
+
+          {/* Book Cover Image - 1:1 Aspect Ratio */}
+          <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
+            <ImgWithFallback
+              src="/resimler/uonce.png"
+              alt="Uykudan Önce Her Çocuk İyi Bir Hikâye Hak Eder PDF Kitabı - Yazar Mehmet Ali Askar - Aşkar Yayınları"
+              className="w-full h-full object-cover"
+              itemProp="image"
+            />
+            <div className="absolute top-2 right-2 bg-[#1A1A1A]/75 text-white text-[8px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs">
+              PDF
+            </div>
+          </div>
+
+          {/* Title & Subtitle */}
+          <div className="mb-6 flex-1">
+            <h3 itemProp="name" className="text-base font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.5rem]">
+              Uykudan Önce
+            </h3>
+            <p itemProp="description" className="text-xs text-[#1A1A1A]/60 font-sans italic mt-1.5 leading-relaxed">
+              Her Çocuk İyi Bir Hikâye Hak Eder
+            </p>
+          </div>
+
+          {/* Shopier Action Button */}
+          <a
+            href="https://www.shopier.com/mehmetaliaskar/50302573"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Uykudan Önce PDF Çocuk Kitabı Satın Al ve İndir"
+            className="mt-auto w-full bg-[#3730a3] hover:bg-[#312e81] text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-xs"
+          >
+            <Download className="w-3.5 h-3.5 text-white" />
+            <span>SHOPIER İLE İNDİR</span>
+            <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
+          </a>
+        </article>
+
+        {/* Coming Soon Area for Upcoming Kids Books (lg:col-span-1) */}
+        <div className="rounded-2xl border-2 border-dashed border-[#1A1A1A]/15 bg-[#F8F7F4]/60 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden h-full min-h-[360px]">
+          <div className="w-12 h-12 rounded-full bg-[#C9A86A]/15 text-[#856526] flex items-center justify-center mb-3 border border-[#C9A86A]/30">
+            <Sparkles className="w-6 h-6 text-[#C9A86A]" />
+          </div>
+
+          <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold tracking-widest uppercase bg-white text-[#856526] border border-[#C9A86A]/30 mb-2 shadow-xs">
             YAKINDA YENİ ESERLER
           </span>
 
-          <h3 className="text-lg sm:text-xl font-serif font-black text-[#1A1A1A] tracking-tight max-w-md leading-snug mb-2.5">
-            Yeni Kitaplarımız Sizlerle Buluşmak için Heyecanla Bekliyor
+          <h3 className="text-base font-serif font-black text-[#1A1A1A] tracking-tight leading-snug mb-2">
+            Yeni Kitaplarımız Sizlerle Buluşmak için Bekliyor
           </h3>
 
-          <p className="text-xs text-[#1A1A1A]/60 font-sans max-w-sm leading-relaxed mb-5">
-            Çocuk dünyası serimizin yeni eğitici masalları, değerler eğitimi hikayeleri ve yaratıcı boyama serileri çok yakında dijital kütüphanemizde yerini alacaktır.
+          <p className="text-[11px] text-[#1A1A1A]/60 font-sans max-w-xs leading-relaxed mb-4">
+            Çocuk dünyası serimizin yeni eğitici masalları ve boyama serileri çok yakında dijital kütüphanemizde.
           </p>
 
-          <div className="flex items-center gap-2 text-[10px] font-mono text-[#1A1A1A]/40 uppercase tracking-widest">
+          <div className="mt-auto flex items-center gap-1.5 text-[9px] font-mono text-[#1A1A1A]/40 uppercase tracking-widest">
             <Heart className="w-3 h-3 text-[#C9A86A] fill-[#C9A86A]" />
-            <span>Aşkar Yayınları Çocuk Kitaplığı</span>
+            <span>Aşkar Yayınları</span>
           </div>
         </div>
       </div>

@@ -161,6 +161,19 @@
     </image:image>
   </url>
 
+  <!-- 6c. Uykudan Önce Masal ve Uyku Hikayeleri PDF -->
+  <url>
+    <loc>https://www.shopier.com/mehmetaliaskar/50302573</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.97</priority>
+    <image:image>
+      <image:loc>https://www.askaryayinlari.com.tr/resimler/uonce.png</image:loc>
+      <image:title>Uykudan Önce Masal Kitabı PDF - Her Çocuk İyi Bir Hikâye Hak Eder - Mehmet Ali Askar</image:title>
+      <image:caption>Çocuk Masalları ve Uyku Hikayeleri PDF - Aşkar Yayınları</image:caption>
+    </image:image>
+  </url>
+
   <!-- 7. Şimşeğin Efendisi Tesla Romanı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47292545</loc>

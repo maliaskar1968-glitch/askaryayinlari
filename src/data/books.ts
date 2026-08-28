@@ -116,24 +116,14 @@ export const KIDS_BOOKS_DATA: Book[] = [
     shopierId: '50238751'
   },
   {
-    id: 'cocuk_2',
-    badge: '6-10 YAŞ • HİKAYE',
-    badgeColor: '#0284c7',
-    title: 'Yıldız Kaşifi ve Uzay Macerası',
-    subtitle: 'Meraklı Zihinler İçin Eğitici Bilim Masalı',
-    image: '/cocuk_k1.jpg',
-    shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
-    shopierId: 'cocuk-2'
-  },
-  {
-    id: 'cocuk_4',
-    badge: 'YAKINDA • YENİ KİTAP',
-    badgeColor: '#7c3aed',
-    title: 'Küçük Mucitlerin Atölyesi',
-    subtitle: 'Çocuklar İçin Keşif ve Eğlenceli Deneyler',
-    image: '/cocuk_k3.jpg',
-    shopierUrl: 'https://www.shopier.com/mehmetaliaskar',
-    shopierId: 'cocuk-4'
+    id: 'cocuk_uonce',
+    badge: 'MASAL & UYKU • ÇOCUK DÜNYASI',
+    badgeColor: '#4338ca',
+    title: 'Uykudan Önce',
+    subtitle: 'Her Çocuk İyi Bir Hikâye Hak Eder',
+    image: '/resimler/uonce.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50302573',
+    shopierId: '50302573'
   }
 ];
 

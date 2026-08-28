@@ -10,6 +10,11 @@ interface FaqItem {
 const FAQ_DATA: FaqItem[] = [
   {
     category: 'Çocuk & Masal',
+    question: 'Uykudan Önce çocuk kitabı ne anlatır ve hangi yaşlar için uygundur?',
+    answer: '"Uykudan Önce - Her Çocuk İyi Bir Hikâye Hak Eder", çocukların akşam uyku saatlerini huzurlu, güvenli ve sevgi dolu bir masal yolculuğuna dönüştüren özel bir çocuk kitabıdır. Çocukların hayal dünyasını zenginleştirirken uykuya sakin ve mutlu geçmelerine yardımcı olur.'
+  },
+  {
+    category: 'Çocuk & Masal',
     question: 'Ormanın Minik Koruyucuları çocuk kitabı hangi yaş grubu için uygundur ve konusu nedir?',
     answer: "Ormanın Minik Koruyucuları, 6-9 yaş arası çocuklar için hazırlanmış; doğa sevgisi, çevre bilinci, yardımlaşma, dostluk ve sorumluluk temalı eğitici bir masal kitabıdır. Elif, Mert ve Can'ın bilge Çınar Dede ve orman hayvanlarıyla yaşadığı büyülü macerayı anlatan eser, çocuklara doğayı koruma bilincini aşılar."
   },
