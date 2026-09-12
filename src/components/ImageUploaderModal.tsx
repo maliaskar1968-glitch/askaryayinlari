@@ -14,6 +14,7 @@ const TARGET_IMAGES: ImageSlot[] = [
   { key: 'cocuk', filename: 'cocuk.jpg', title: 'Çocuk Kitaplığı: Sevimli Deniz Altı Kaşifleri', description: 'Sevimli Deniz Altı Kaşifleri Kitap & Uygulama Kapağı' },
   { key: 'orman', filename: 'orman.png', title: 'Çocuk Kitaplığı: Ormanın Minik Koruyucuları', description: "Ormanın Minik Koruyucuları Kitap Kapağı" },
   { key: 'uonce', filename: 'uonce.png', title: 'Çocuk Kitaplığı: Uykudan Önce', description: 'Uykudan Önce - Her Çocuk İyi Bir Hikâye Hak Eder' },
+  { key: 'nasrettin', filename: 'nasrettintorun.png', title: "Çocuk Kitaplığı: Nasrettin Hoca'nın Torunları", description: "Nasrettin Hoca'nın Torunları Fıkra Kitabı (6-10 Yaş)" },
   { key: 'k5', filename: 'k5.jpg', title: '5. Sınıf Ortaokul Koçu', description: '5. Sınıf Kitap Kapağı' },
   { key: 'k6', filename: 'k6.jpg', title: '6. Sınıf Ortaokul Koçu', description: '6. Sınıf Kitap Kapağı' },
   { key: 'k7', filename: 'k7.jpg', title: '7. Sınıf Ortaokul Koçu', description: '7. Sınıf Kitap Kapağı' },
@@ -70,7 +71,9 @@ export const ImageUploaderModal: React.FC<ImageUploaderModalProps> = ({ isOpen, 
 
       // Smart fuzzy matching for commonly uploaded files
       if (!slot) {
-        if (fileNameLower.includes('uonce') || fileNameLower.includes('uyku') || fileNameLower.includes('hikaye') || fileNameLower.includes('hak eder')) {
+        if (fileNameLower.includes('nasrettin') || fileNameLower.includes('torun') || fileNameLower.includes('fikra') || fileNameLower.includes('fıkra')) {
+          slot = TARGET_IMAGES.find((s) => s.filename === 'nasrettintorun.png');
+        } else if (fileNameLower.includes('uonce') || fileNameLower.includes('uyku') || fileNameLower.includes('hikaye') || fileNameLower.includes('hak eder')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'uonce.png');
         } else if (fileNameLower.includes('orman') || fileNameLower.includes('koruyucu') || fileNameLower.includes('elif') || fileNameLower.includes('mert') || (fileNameLower.includes('kapak') && fileNameLower.includes('shopier'))) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'orman.png');

@@ -26,8 +26,8 @@ export default function App() {
           <div className="animate-in fade-in duration-200 space-y-6">
             <MottoSection />
             <BookGrid />
-            <HeroBanner />
             <KidsBookGrid />
+            <HeroBanner />
             <FaqSection />
             <CoreValues />
           </div>

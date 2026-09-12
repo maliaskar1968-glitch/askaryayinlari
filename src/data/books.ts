@@ -124,6 +124,16 @@ export const KIDS_BOOKS_DATA: Book[] = [
     image: '/resimler/uonce.png',
     shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50302573',
     shopierId: '50302573'
+  },
+  {
+    id: 'cocuk_nasrettin',
+    badge: '6-10 YAŞ • FIKRA KİTABI',
+    badgeColor: '#d97706',
+    title: "Nasrettin Hoca'nın Torunları",
+    subtitle: 'Fıkra Kitabı (6-10 Yaş)',
+    image: '/resimler/nasrettintorun.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50802783',
+    shopierId: '50802783'
   }
 ];
 

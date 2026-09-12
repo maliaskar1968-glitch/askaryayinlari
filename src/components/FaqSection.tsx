@@ -10,6 +10,11 @@ interface FaqItem {
 const FAQ_DATA: FaqItem[] = [
   {
     category: 'Çocuk & Masal',
+    question: "Nasrettin Hoca'nın Torunları Fıkra Kitabı hangi yaş grubu için uygundur ve içeriği nasıldır?",
+    answer: "Nasrettin Hoca'nın Torunları, 6-10 yaş arası çocuklar için özel olarak derlenmiş neşeli ve öğretici bir fıkra kitabıdır. Çocuklara hem tebessüm ettiren hem de olaylara farklı açılardan bakmayı, problem çözmeyi ve mizahın inceliğini aşılayan zengin bir içerik sunar."
+  },
+  {
+    category: 'Çocuk & Masal',
     question: 'Uykudan Önce çocuk kitabı ne anlatır ve hangi yaşlar için uygundur?',
     answer: '"Uykudan Önce - Her Çocuk İyi Bir Hikâye Hak Eder", çocukların akşam uyku saatlerini huzurlu, güvenli ve sevgi dolu bir masal yolculuğuna dönüştüren özel bir çocuk kitabıdır. Çocukların hayal dünyasını zenginleştirirken uykuya sakin ve mutlu geçmelerine yardımcı olur.'
   },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getStoredImage, getCachedImageSync, subscribeImageChanges } from '../utils/imageStore';
-import { BookOpen, Sparkles, Compass, Atom, Zap, GraduationCap, Trophy, TreePine, Moon } from 'lucide-react';
+import { BookOpen, Sparkles, Compass, Atom, Zap, GraduationCap, Trophy, TreePine, Moon, Smile } from 'lucide-react';
 
 interface ImgWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -231,6 +231,43 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
         <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[8px] font-mono text-indigo-100/80 z-10">
           <span>MASAL & UYKU</span>
           <span className="text-amber-300 font-bold">MEHMET ALİ ASKAR</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 2d. Kids Book Fallback: Nasrettin Hoca'nın Torunları
+  if (cleanName.includes('nasrettin') || cleanName.includes('torun') || cleanName.includes('fikra')) {
+    return (
+      <div className={`w-full h-full bg-gradient-to-br from-[#78350F] via-[#B45309] to-[#D97706] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none border border-amber-300/30 ${className}`}>
+        <div className="absolute -top-6 -right-6 w-32 h-32 bg-amber-200/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-yellow-400/20 rounded-full blur-xl pointer-events-none" />
+        
+        {/* Top Tag */}
+        <div className="flex items-center justify-between z-10">
+          <div className="bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded-full text-[8px] font-mono tracking-widest uppercase font-bold text-amber-100 border border-white/20">
+            AŞKAR ÇOCUK
+          </div>
+          <Smile className="w-4 h-4 text-amber-200" />
+        </div>
+
+        {/* Center Title */}
+        <div className="text-center my-auto py-2 z-10">
+          <div className="w-10 h-10 mx-auto rounded-full bg-white/20 flex items-center justify-center mb-2 border border-white/30 text-amber-100">
+            <Smile className="w-5 h-5 text-amber-100" />
+          </div>
+          <h4 className="text-base sm:text-lg font-serif font-black tracking-tight leading-tight text-white drop-shadow-sm">
+            NASRETTİN HOCA'NIN TORUNLARI
+          </h4>
+          <p className="text-[10px] text-amber-100 mt-1 font-medium">
+            Fıkra Kitabı (6-10 Yaş)
+          </p>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-2 border-t border-white/20 flex items-center justify-between text-[8px] font-mono text-amber-100/90 z-10">
+          <span>6-10 YAŞ • FIKRA & MİZAH</span>
+          <span className="text-amber-200 font-bold">MEHMET ALİ ASKAR</span>
         </div>
       </div>
     );
