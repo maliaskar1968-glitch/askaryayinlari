@@ -450,6 +450,35 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
     );
   }
 
+  // 6d. 11. Sınıf Lise Koçu Fallback
+  if (cleanName.includes('k11')) {
+    return (
+      <div className={`w-full h-full bg-gradient-to-b from-[#064E3B] via-[#047857] to-[#0F172A] text-white p-4 flex flex-col justify-between relative overflow-hidden select-none border border-emerald-400/30 ${className}`}>
+        <div className="flex justify-between items-center">
+          <span className="bg-emerald-500 text-white text-[9px] font-mono font-black px-2 py-0.5 rounded uppercase">
+            11. SINIF
+          </span>
+          <GraduationCap className="w-3.5 h-3.5 text-emerald-200" />
+        </div>
+        <div className="text-center my-auto">
+          <div className="text-[10px] font-mono tracking-widest text-emerald-200 uppercase mb-1">
+            LİSE KOÇUM
+          </div>
+          <h4 className="text-base font-serif font-bold text-white leading-tight">
+            Lise Koçu 11. Sınıf
+          </h4>
+          <div className="w-8 h-0.5 bg-emerald-300 mx-auto my-2 opacity-60" />
+          <p className="text-[9px] text-emerald-100/80">
+            YKS Öncesi Güçlü ve Stratejik Hazırlık
+          </p>
+        </div>
+        <div className="text-center text-[8px] font-mono text-emerald-200/80 tracking-widest uppercase">
+          MEHMET ALİ ASKAR
+        </div>
+      </div>
+    );
+  }
+
   // 7. YKS Fallback
   if (cleanName.includes('yks')) {
     return (

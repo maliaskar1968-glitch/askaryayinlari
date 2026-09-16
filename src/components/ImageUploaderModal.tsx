@@ -21,6 +21,7 @@ const TARGET_IMAGES: ImageSlot[] = [
   { key: 'k8', filename: 'k8.jpg', title: '8. Sınıf LGS Koçu', description: '8. Sınıf LGS Kitap Kapağı' },
   { key: 'k9', filename: 'k9.png', title: '9. Sınıf Lise Koçu', description: '9. Sınıf Lise Koçu Kitap Kapağı' },
   { key: 'k10', filename: 'k10.png', title: '10. Sınıf Lise Koçu', description: '10. Sınıf Lise Koçu Kitap Kapağı' },
+  { key: 'k11', filename: 'k11.png', title: '11. Sınıf Lise Koçu', description: '11. Sınıf Lise Koçu Kitap Kapağı' },
   { key: 'k_yks', filename: 'k_yks.jpg', title: 'YKS Koçu', description: 'YKS Koçluk Kitap Kapağı' },
   { key: 'k_simsek', filename: 'k_simsek.jpg', title: 'Şimşeğin Efendisi', description: 'Nikola Tesla Hikayesi Kapağı' },
   { key: 'k_atom', filename: 'k_atom.jpg', title: 'Atomun Kalbi', description: 'Ernest Rutherford Roman Kapağı' },
@@ -85,6 +86,8 @@ export const ImageUploaderModal: React.FC<ImageUploaderModalProps> = ({ isOpen, 
           slot = TARGET_IMAGES.find((s) => s.filename === 'k_atom.jpg');
         } else if (fileNameLower.includes('yks') || fileNameLower.includes('tyt') || fileNameLower.includes('ayt')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'k_yks.jpg');
+        } else if (fileNameLower.includes('11')) {
+          slot = TARGET_IMAGES.find((s) => s.filename === 'k11.png');
         } else if (fileNameLower.includes('10')) {
           slot = TARGET_IMAGES.find((s) => s.filename === 'k10.png');
         } else if (fileNameLower.includes('9') || fileNameLower.includes('lise')) {

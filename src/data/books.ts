@@ -63,6 +63,16 @@ export const BOOKS_DATA: Book[] = [
     shopierId: '50260994'
   },
   {
+    id: 'k11',
+    badge: '11. SINIF',
+    badgeColor: '#059669',
+    title: 'Lise Koçu 11. Sınıf',
+    subtitle: 'YKS Öncesi Güçlü ve Stratejik Hazırlık',
+    image: '/resimler/k11.png',
+    shopierUrl: 'https://www.shopier.com/mehmetaliaskar/50926937',
+    shopierId: '50926937'
+  },
+  {
     id: 'k_yks',
     badge: 'YKS',
     badgeColor: '#2563eb',

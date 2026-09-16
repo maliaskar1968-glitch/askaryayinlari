@@ -25,8 +25,8 @@ const FAQ_DATA: FaqItem[] = [
   },
   {
     category: 'Lise & Koçluk',
-    question: '9 ve 10. Sınıf Lise Koçu kitapları lise öğrencilerine ne kazandırır?',
-    answer: '9. Sınıf Lise Koçu liseye güçlü bir başlangıç ve adaptasyon sağlarken, 10. Sınıf Lise Koçu "Başarı Alışkanlıklarını Derinleştir" mottosuyla öğrencilerin ders disiplinini oturtmasını, TYT temelini sağlamlaştırmasını ve alan seçimi öncesinde hedef odaklı çalışma stratejileri kazanmasını sağlar.'
+    question: '9, 10 ve 11. Sınıf Lise Koçu kitapları lise öğrencilerine ne kazandırır?',
+    answer: '9. Sınıf Lise Koçu liseye güçlü bir başlangıç ve adaptasyon sağlarken; 10. Sınıf Lise Koçu başarı alışkanlıklarını derinleştirir. 11. Sınıf Lise Koçu ise YKS maratonu öncesinde AYT temellerini sağlamlaştırma, hedef belirleme, çalışma disiplini ve stratejik planlamayla öğrencileri sınav senesine en üst seviyede hazırlar.'
   },
   {
     category: 'Sipariş & Teslimat',
