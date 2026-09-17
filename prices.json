@@ -1,0 +1,16 @@
+{
+  "k5": { "price": "189 ₺", "originalPrice": "250 ₺" },
+  "k6": { "price": "189 ₺", "originalPrice": "250 ₺" },
+  "k7": { "price": "199 ₺", "originalPrice": "250 ₺" },
+  "k8": { "price": "279 ₺", "originalPrice": "300 ₺" },
+  "k9": { "price": "189 ₺", "originalPrice": "300 ₺" },
+  "k10": { "price": "189 ₺", "originalPrice": "300 ₺" },
+  "k11": { "price": "249 ₺", "originalPrice": "350 ₺" },
+  "k_yks": { "price": "349 ₺", "originalPrice": "450 ₺" },
+  "k_simsek": { "price": "199 ₺", "originalPrice": "290 ₺" },
+  "k_atom": { "price": "199 ₺", "originalPrice": "290 ₺" },
+  "cocuk_1": { "price": "149 ₺", "originalPrice": "300 ₺" },
+  "cocuk_orman": { "price": "199 ₺", "originalPrice": "300 ₺" },
+  "cocuk_uonce": { "price": "199 ₺", "originalPrice": "300 ₺" },
+  "cocuk_nasrettin": { "price": "149 ₺", "originalPrice": "300 ₺" }
+}

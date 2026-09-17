@@ -224,6 +224,48 @@ async function startServer() {
     }
   });
 
+  // --- Price Management API ---
+  const pricesFilePath = path.join(process.cwd(), 'prices.json');
+
+  app.get('/api/prices', (req, res) => {
+    try {
+      if (fs.existsSync(pricesFilePath)) {
+        const data = JSON.parse(fs.readFileSync(pricesFilePath, 'utf-8'));
+        return res.json({ success: true, prices: data });
+      }
+      return res.json({ success: true, prices: {} });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  app.post('/api/prices', (req, res) => {
+    try {
+      const { prices } = req.body;
+      if (!prices || typeof prices !== 'object') {
+        return res.status(400).json({ error: 'Invalid prices object' });
+      }
+      let existing: Record<string, any> = {};
+      if (fs.existsSync(pricesFilePath)) {
+        try {
+          existing = JSON.parse(fs.readFileSync(pricesFilePath, 'utf-8'));
+        } catch {}
+      }
+      const updated = { ...existing, ...prices };
+      fs.writeFileSync(pricesFilePath, JSON.stringify(updated, null, 2));
+
+      // Also mirror to dist if exists
+      const distDir = path.join(process.cwd(), 'dist');
+      if (fs.existsSync(distDir)) {
+        fs.writeFileSync(path.join(distDir, 'prices.json'), JSON.stringify(updated, null, 2));
+      }
+
+      return res.json({ success: true, prices: updated });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
   // Vite middleware for development vs static build for production
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({

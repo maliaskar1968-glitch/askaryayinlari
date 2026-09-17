@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const navItems: { id: PageTab; label: string; icon: React.ReactNode }[] = [
     { id: 'magaza', label: 'KİTAPLIK', icon: <BookOpen className="w-3.5 h-3.5" /> },
     { id: 'uygulamalar', label: 'UYGULAMALAR', icon: <Wrench className="w-3.5 h-3.5" /> },
-    { id: 'hakkimda', label: 'HAKKIMDA', icon: <User className="w-3.5 h-3.5" /> },
+    { id: 'hakkimizda', label: 'HAKKIMIZDA', icon: <User className="w-3.5 h-3.5" /> },
     { id: 'iletisim', label: 'İLETİŞİM', icon: <Mail className="w-3.5 h-3.5" /> },
   ];
 
@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
-              const isActive = activeTab === item.id;
+              const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
               return (
                 <button
                   key={item.id}
@@ -192,7 +192,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#F8F7F4] border-b border-[#1A1A1A]/10 px-6 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
             {navItems.map((item) => {
-              const isActive = activeTab === item.id;
+              const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
               return (
                 <button
                   key={item.id}

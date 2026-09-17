@@ -1,61 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageTab } from './types';
+import { PriceProvider } from './context/PriceContext';
 import { Navbar } from './components/Navbar';
-import { HeroBanner } from './components/HeroBanner';
 import { MottoSection } from './components/MottoSection';
+import { HeroBanner } from './components/HeroBanner';
 import { BookGrid } from './components/BookGrid';
 import { KidsBookGrid } from './components/KidsBookGrid';
 import { CoreValues } from './components/CoreValues';
-import { ToolsPage } from './components/ToolsPage';
+import { FaqSection } from './components/FaqSection';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
-import { FaqSection } from './components/FaqSection';
+import { ToolsPage } from './components/ToolsPage';
 import { Footer } from './components/Footer';
+import { WhatsAppSupport } from './components/WhatsAppSupport';
 
-export default function App() {
+export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PageTab>('magaza');
 
+  // Scroll to top smoothly when tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeTab]);
+
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-[#1A1A1A] font-sans flex flex-col selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A]">
-      {/* Header Bar */}
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+    <PriceProvider>
+      <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased">
+        {/* Top Navbar */}
+        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4">
-        {activeTab === 'magaza' && (
-          <div className="animate-in fade-in duration-200 space-y-6">
-            <MottoSection />
-            <BookGrid />
-            <KidsBookGrid />
-            <HeroBanner />
-            <FaqSection />
-            <CoreValues />
-          </div>
-        )}
+        {/* Main Content Area */}
+        <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {activeTab === 'magaza' && (
+            <div className="space-y-6 animate-fadeIn">
+              <MottoSection />
+              <BookGrid />
+              <KidsBookGrid />
+              <HeroBanner />
+              <CoreValues />
+              <FaqSection />
+            </div>
+          )}
 
-        {activeTab === 'uygulamalar' && (
-          <div className="animate-in fade-in duration-200">
-            <ToolsPage />
-          </div>
-        )}
+          {activeTab === 'uygulamalar' && (
+            <div className="animate-fadeIn">
+              <ToolsPage />
+            </div>
+          )}
 
-        {activeTab === 'hakkimda' && (
-          <div className="animate-in fade-in duration-200 space-y-6">
-            <AboutSection />
-            <FaqSection />
-            <CoreValues />
-          </div>
-        )}
+          {(activeTab === 'hakkimda' || activeTab === 'hakkimizda') && (
+            <div className="animate-fadeIn">
+              <AboutSection />
+            </div>
+          )}
 
-        {activeTab === 'iletisim' && (
-          <div className="animate-in fade-in duration-200">
-            <ContactSection />
-          </div>
-        )}
-      </main>
+          {activeTab === 'iletisim' && (
+            <div className="animate-fadeIn">
+              <ContactSection />
+            </div>
+          )}
+        </main>
 
-      {/* Footer */}
-      <Footer />
-    </div>
+        {/* Footer */}
+        <Footer />
+
+        {/* WhatsApp Support Button */}
+        <WhatsAppSupport />
+      </div>
+    </PriceProvider>
   );
-}
+};
+
+export default App;

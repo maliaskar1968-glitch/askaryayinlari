@@ -49,6 +49,93 @@ export const HeroBanner: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Right Side: Star with 'ÜCRETSİZ' Badge */}
+      <div className="shrink-0 flex items-center justify-center my-2 md:my-0">
+        <a
+          href={KIDS_APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Sevimli Deniz Altı Kaşifleri - Ücretsiz Çevrim İçi Uygulamayı Başlat"
+          className="group relative flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95"
+        >
+          <div className="relative -rotate-6 group-hover:rotate-0 transition-transform duration-300">
+            <svg
+              viewBox="0 0 140 140"
+              className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 drop-shadow-xl"
+            >
+              <defs>
+                <linearGradient id="starGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FDE047" />
+                  <stop offset="35%" stopColor="#F59E0B" />
+                  <stop offset="100%" stopColor="#D97706" />
+                </linearGradient>
+                <linearGradient id="starStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FEF9C3" />
+                  <stop offset="100%" stopColor="#92400E" />
+                </linearGradient>
+                <filter id="starGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#D97706" floodOpacity="0.45" />
+                </filter>
+              </defs>
+
+              {/* 5-Pointed Golden Star */}
+              <polygon
+                points="70,8 88.2,44.9 128.9,50.8 99.5,79.6 106.4,120.2 70,101 33.6,120.2 40.5,79.6 11.1,50.8 51.8,44.9"
+                fill="url(#starGoldGrad)"
+                stroke="url(#starStrokeGrad)"
+                strokeWidth="3"
+                strokeLinejoin="round"
+                filter="url(#starGlow)"
+              />
+
+              {/* Inner Decorative Dashed Ring */}
+              <circle
+                cx="70"
+                cy="72"
+                r="30"
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth="1.2"
+                strokeDasharray="3 2"
+                opacity="0.75"
+              />
+
+              {/* Centered 'ÜCRETSİZ' Text */}
+              <text
+                x="70"
+                y="70"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="#1A1A1A"
+                style={{
+                  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  fontSize: '12.5px',
+                  fontWeight: 900,
+                  letterSpacing: '0.06em',
+                }}
+              >
+                ÜCRETSİZ
+              </text>
+              <text
+                x="70"
+                y="84"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="#78350F"
+                style={{
+                  fontFamily: 'monospace',
+                  fontSize: '7px',
+                  fontWeight: 800,
+                  letterSpacing: '0.14em',
+                }}
+              >
+                TIKLA OYNA
+              </text>
+            </svg>
+          </div>
+        </a>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,15 @@
-export type PageTab = 'magaza' | 'uygulamalar' | 'hakkimda' | 'iletisim';
+export type PageTab = 'magaza' | 'uygulamalar' | 'hakkimda' | 'hakkimizda' | 'iletisim';
 export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk';
+
+export interface ShareItem {
+  title: string;
+  subtitle: string;
+  image: string;
+  shopierUrl?: string;
+  url?: string;
+  badge?: string;
+  isSiteShare?: boolean;
+}
 
 export interface Book {
   id: string;
@@ -11,6 +21,12 @@ export interface Book {
   shopierUrl: string;
   shopierId: string;
   isSpecialLink?: boolean;
+  price?: string;
+  originalPrice?: string;
+  previewUrl?: string;
+  description?: string;
+  contentDetails?: string;
+  altBaslik?: string;
 }
 
 export interface ValueCard {
@@ -34,3 +50,4 @@ export interface AytSubjectScore {
   d: number;
   y: number;
 }
+

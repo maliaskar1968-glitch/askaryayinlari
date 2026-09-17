@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { MAIN_SHOPIER_URL } from '../data/books';
-import { ShoppingBag, ShieldCheck, Users, Eye } from 'lucide-react';
+import { ShoppingBag, ShieldCheck, Users, Eye, Tag, Image as ImageIcon } from 'lucide-react';
 import { ImageUploaderModal } from './ImageUploaderModal';
+import { PriceEditorModal } from './PriceEditorModal';
+import { usePrice } from '../context/PriceContext';
 
 export const Footer: React.FC = () => {
   const [uploaderOpen, setUploaderOpen] = useState(false);
+  const { isPriceModalOpen, setPriceModalOpen } = usePrice();
   const [totalVisitors, setTotalVisitors] = useState<number>(5000);
   const [onlineVisitors, setOnlineVisitors] = useState<number>(1);
 
@@ -198,12 +201,40 @@ export const Footer: React.FC = () => {
               </span>
             </div>
           </div>
+
+          {/* Discreet Admin Management Links */}
+          <div className="flex items-center gap-3 text-[10px] text-neutral-400 pt-1 font-sans">
+            <button
+              type="button"
+              onClick={() => setPriceModalOpen(true)}
+              className="hover:text-[#856526] hover:underline flex items-center gap-1 transition-colors cursor-pointer"
+              title="Kitap Fiyatlarını Düzenle (Kısayol: Ctrl+Shift+P)"
+            >
+              <Tag className="w-3 h-3 text-[#C9A86A]" />
+              <span>Fiyatları Düzenle</span>
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => setUploaderOpen(true)}
+              className="hover:text-neutral-700 hover:underline flex items-center gap-1 transition-colors cursor-pointer"
+              title="Kapak Görsellerini Yönet (Kısayol: Ctrl+Shift+U)"
+            >
+              <ImageIcon className="w-3 h-3" />
+              <span>Kapak Yükleyici</span>
+            </button>
+          </div>
         </div>
       </footer>
 
       <ImageUploaderModal
         isOpen={uploaderOpen}
         onClose={() => setUploaderOpen(false)}
+      />
+
+      <PriceEditorModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setPriceModalOpen(false)}
       />
     </>
   );

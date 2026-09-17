@@ -24,10 +24,10 @@ export const MottoSection: React.FC<MottoSectionProps> = ({ showAuthorPhoto = fa
           </div>
         )}
 
-        <h2 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-black text-[#1A1A1A] leading-[0.9] tracking-tight">
-          Bilgiyle Hayalle <br />
-          <span className="italic font-normal text-[#C9A86A] pl-4 sm:pl-8 inline-block">
-            Geleceğe Dörtnala
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black text-[#1A1A1A] leading-[1.08] tracking-tight">
+          Çocuğunuz Kendi <br />
+          <span className="italic font-normal text-[#C9A86A] pl-2 sm:pl-6 inline-block mt-1 sm:mt-2">
+            Çalışma Sistemini Kursun
           </span>
         </h2>
 
