@@ -17,7 +17,7 @@ interface PriceContextType {
 
 const PriceContext = createContext<PriceContextType | undefined>(undefined);
 
-// Build initial map from books.ts
+// Build initial map from books.ts and localStorage
 const buildDefaultPrices = (): Record<string, BookPrice> => {
   const map: Record<string, BookPrice> = {};
   [...BOOKS_DATA, ...KIDS_BOOKS_DATA].forEach((b) => {
@@ -26,6 +26,17 @@ const buildDefaultPrices = (): Record<string, BookPrice> => {
       originalPrice: b.originalPrice || '250 ₺'
     };
   });
+
+  try {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('askar_book_prices') : null;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return { ...map, ...parsed };
+    }
+  } catch {
+    // Ignore storage parse error
+  }
+
   return map;
 };
 
@@ -34,29 +45,8 @@ export const PriceProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [isPriceModalOpen, setPriceModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch prices from server API on mount
+  // Keyboard shortcut for price editor: Ctrl + Shift + P
   useEffect(() => {
-    let isMounted = true;
-    const fetchPrices = async () => {
-      try {
-        const res = await fetch('/api/prices');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.prices && isMounted) {
-            setPrices((prev) => ({
-              ...prev,
-              ...data.prices
-            }));
-          }
-        }
-      } catch (err) {
-        console.warn('Could not load dynamic prices from API, using defaults:', err);
-      }
-    };
-
-    fetchPrices();
-
-    // Keyboard shortcut for price editor: Ctrl + Shift + P
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'p') {
         e.preventDefault();
@@ -66,7 +56,6 @@ export const PriceProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
-      isMounted = false;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -88,18 +77,13 @@ export const PriceProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setPrices(updated);
 
     try {
-      const res = await fetch('/api/prices', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prices: { [bookId]: newEntry } })
-      });
-      setIsLoading(false);
-      return res.ok;
-    } catch (err) {
-      console.error('Error saving price to server:', err);
-      setIsLoading(false);
-      return false;
+      localStorage.setItem('askar_book_prices', JSON.stringify(updated));
+    } catch {
+      // Local storage fallback
     }
+
+    setIsLoading(false);
+    return true;
   };
 
   return (

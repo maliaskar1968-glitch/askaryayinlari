@@ -34,18 +34,19 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
 
     const candidates = [
       inputSrc,
+      `/resimler/${baseName}.webp`,
       `/resimler/${filename}`,
       `/resimler/${baseName}.jpg`,
       `/resimler/${baseName}.png`,
       `/resimler/${baseName}.jpeg`,
+      `/${baseName}.webp`,
       `/${filename}`,
+      `/images/${baseName}.webp`,
       `/images/${filename}`,
       `/${baseName}.jpg`,
       `/${baseName}.png`,
-      `/${baseName}.jpeg`,
       `/images/${baseName}.jpg`,
       `/images/${baseName}.png`,
-      `/images/${baseName}.jpeg`,
     ];
 
     // Deduplicate while preserving order
@@ -101,6 +102,7 @@ export const ImgWithFallback: React.FC<ImgWithFallbackProps> = ({
         alt={alt}
         className={className}
         loading="lazy"
+        decoding="async"
         onError={handleError}
         {...props}
       />

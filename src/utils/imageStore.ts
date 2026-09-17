@@ -45,8 +45,8 @@ export async function saveImageToStore(filename: string, fileOrDataUrl: File | s
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ filename: cleanName, dataUrl }),
-        }).catch((e) => console.warn('Server upload sync warning:', e));
-      } catch (err) {
+        }).catch(() => {});
+      } catch {
         // non-blocking
       }
 

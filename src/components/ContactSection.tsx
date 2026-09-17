@@ -42,9 +42,8 @@ export const ContactSection: React.FC = () => {
         // Fallback: if server responds with error or confirmation needed
         setSubmitted(true);
       }
-    } catch (err) {
-      console.error('Gönderim hatası:', err);
-      // Even if network blocks CORS, allow user to open email client directly or retry
+    } catch {
+      // If network fails, prompt user
       setErrorMsg('Mesaj gönderilirken bir bağlantı sorunu oluştu. Lütfen doğrudan e-posta göndermeyi deneyin.');
     } finally {
       setLoading(false);
