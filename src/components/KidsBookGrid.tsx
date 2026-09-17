@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { KIDS_BOOKS_DATA } from '../data/books';
 import { Book, ShareItem } from '../types';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, Sparkles, ExternalLink, Share2, Eye, ShieldCheck, BookOpen } from 'lucide-react';
+import { Download, Sparkles, ExternalLink, Eye, BookOpen, ShieldCheck } from 'lucide-react';
 import { ShareModal } from './ShareModal';
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
+import { ProductCardHeader } from './ProductCardHeader';
 import { usePrice } from '../context/PriceContext';
 
 export const KidsBookGrid: React.FC = () => {
@@ -58,36 +59,20 @@ export const KidsBookGrid: React.FC = () => {
                 <meta itemProp="name" content="Aşkar Yayınları" />
               </div>
 
-              {/* Top Row: Age Badge on the Left, Share Button on the Right */}
-              <div className="flex items-center justify-between mb-3">
-                <span
-                  className="px-2 py-0.5 rounded-full text-[8px] font-bold tracking-wider uppercase"
-                  style={{
-                    backgroundColor: `${book.badgeColor}15`,
-                    color: book.badgeColor,
-                    border: `1px solid ${book.badgeColor}30`
-                  }}
-                >
-                  {book.badge}
-                </span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSelectedShareItem({
-                      title: book.title,
-                      subtitle: book.subtitle,
-                      image: book.image,
-                      shopierUrl: book.shopierUrl,
-                      badge: book.badge
-                    })
-                  }
-                  title={`${book.title} Paylaş`}
-                  className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#1A1A1A]/5 hover:bg-[#C9A86A]/20 text-[#1A1A1A]/70 hover:text-[#856526] transition-colors cursor-pointer text-[9px] font-sans font-medium"
-                >
-                  <Share2 className="w-3 h-3 text-[#C9A86A]" />
-                  <span className="hidden sm:inline">Paylaş</span>
-                </button>
-              </div>
+              {/* Uniform Product Card Header */}
+              <ProductCardHeader
+                category={book.badge}
+                title={book.title}
+                onShare={() =>
+                  setSelectedShareItem({
+                    title: book.title,
+                    subtitle: book.subtitle,
+                    image: book.image,
+                    shopierUrl: book.shopierUrl,
+                    badge: book.badge
+                  })
+                }
+              />
 
               {/* Book Cover Image Container */}
               <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
@@ -97,12 +82,6 @@ export const KidsBookGrid: React.FC = () => {
                   className="w-full h-full object-cover"
                   itemProp="image"
                 />
-
-                {/* Prominent Green Digital Delivery Badge - Top Right */}
-                <div className="absolute top-2 right-2 bg-emerald-600 text-white text-[8px] sm:text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-md border border-emerald-400 z-10">
-                  <ShieldCheck className="w-2.5 h-2.5 text-white shrink-0" />
-                  <span>Dijital Ürün - Anında Teslim</span>
-                </div>
 
                 <div className="absolute bottom-2 right-2 bg-[#1A1A1A]/75 text-white text-[8px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs">
                   PDF E-KİTAP

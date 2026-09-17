@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BOOKS_DATA } from '../data/books';
 import { Book, ShareItem } from '../types';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, ExternalLink, Eye, ShieldCheck, Share2, BookOpen } from 'lucide-react';
+import { Download, ExternalLink, Eye, BookOpen } from 'lucide-react';
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
 import { ShareModal } from './ShareModal';
+import { ProductCardHeader } from './ProductCardHeader';
 import { usePrice } from '../context/PriceContext';
 
 export const BookGrid: React.FC = () => {
@@ -50,51 +51,28 @@ export const BookGrid: React.FC = () => {
               id={`book-card-${book.id}`}
               className="bg-white border border-[#1A1A1A]/10 hover:border-[#C9A86A]/60 rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
             >
-              {/* Top Row: Category Badge on Left, Share on Right */}
-              <div className="flex items-center justify-between mb-3">
-                <span
-                  className="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase"
-                  style={{
-                    backgroundColor: `${book.badgeColor}15`,
-                    color: book.badgeColor,
-                    border: `1px solid ${book.badgeColor}30`
-                  }}
-                >
-                  {book.badge}
-                </span>
+              {/* Uniform Product Card Header */}
+              <ProductCardHeader
+                category={book.badge}
+                title={book.title}
+                onShare={() =>
+                  setSelectedShareItem({
+                    title: book.title,
+                    subtitle: book.subtitle,
+                    image: book.image,
+                    shopierUrl: book.shopierUrl,
+                    badge: book.badge
+                  })
+                }
+              />
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSelectedShareItem({
-                      title: book.title,
-                      subtitle: book.subtitle,
-                      image: book.image,
-                      shopierUrl: book.shopierUrl,
-                      badge: book.badge
-                    })
-                  }
-                  title={`${book.title} Paylaş`}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1A1A1A]/5 hover:bg-[#C9A86A]/20 text-[#1A1A1A]/70 hover:text-[#856526] transition-colors cursor-pointer text-[10px] font-sans font-medium"
-                >
-                  <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
-                  <span className="hidden sm:inline">Paylaş</span>
-                </button>
-              </div>
-
-              {/* Cover Image Container with Prominent Green Digital Badge */}
+              {/* Cover Image Container */}
               <div className="relative aspect-4/3 sm:aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
                 <ImgWithFallback
                   src={book.image}
                   alt={book.title}
                   className="w-full h-full object-cover"
                 />
-
-                {/* Prominent Green Digital Delivery Badge - Top Right Corner */}
-                <div className="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[9px] sm:text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md border border-emerald-400 z-10">
-                  <ShieldCheck className="w-3 h-3 text-white shrink-0" />
-                  <span>Dijital Ürün - Anında Teslim</span>
-                </div>
 
                 {/* PDF Format Tag */}
                 <div className="absolute bottom-2.5 right-2.5 bg-[#1A1A1A]/80 text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-semibold">
