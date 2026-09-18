@@ -145,15 +145,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             })}
           </nav>
 
-          {/* Right Action: Takip Et, Paylaş & Shopier Store Link */}
+          {/* Right Action: Takip Et Kazan, Paylaş & Shopier Store Link */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* TAKİP ET Button (Desktop / Tablet) */}
+            {/* TAKİP ET KAZAN Button (Desktop / Tablet) */}
             <button
               onClick={() => setFollowModalOpen(true)}
               className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 sm:px-5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
             >
               <Bell className="w-3 h-3 text-[#C9A86A]" />
-              <span>TAKİP ET</span>
+              <span>TAKİP ET KAZAN</span>
             </button>
 
             {/* PAYLAŞ Button */}
@@ -212,6 +212,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
+                setFollowModalOpen(true);
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>TAKİP ET KAZAN</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
                 setSiteShareModalOpen(true);
               }}
               className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
@@ -223,19 +234,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         )}
       </header>
 
-      {/* Mobile Floating TAKİP ET Button (Fixed in Bottom Right Corner) */}
+      {/* Mobile Floating TAKİP ET KAZAN Button (Fixed in Bottom Right Corner) */}
       <aside aria-label="Mobil Takip Butonu" className="fixed bottom-5 right-4 z-40 sm:hidden">
         <button
           onClick={() => setFollowModalOpen(true)}
           className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border-2 border-[#1A1A1A] px-4 py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all duration-200 active:scale-95 shadow-xl flex items-center gap-2 cursor-pointer"
-          aria-label="Takip Et"
+          aria-label="Takip Et Kazan"
         >
           <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
-          <span>TAKİP ET</span>
+          <span>TAKİP ET KAZAN</span>
         </button>
       </aside>
 
-      {/* TAKİP ET Modal */}
+      {/* TAKİP ET KAZAN Modal */}
       {followModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="bg-[#F8F7F4] border border-[#1A1A1A]/20 rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
@@ -256,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   Takip için teşekkürler! ✅
                 </h3>
                 <p className="text-xs text-[#1A1A1A]/70 leading-relaxed font-sans">
-                  Yeni kitaplar mailine gelecek.
+                  Yeni kitaplar ve özel fırsatlar mailine gelecek.
                 </p>
                 <div className="pt-2">
                   <button
@@ -274,10 +285,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     <Bell className="w-5 h-5" />
                   </div>
                   <h3 className="text-xl font-serif font-bold text-[#1A1A1A] tracking-tight">
-                    Yeniliklerden Haberdar Ol
+                    Takip Et Kazan
                   </h3>
                   <p className="text-xs text-[#1A1A1A]/70 leading-relaxed font-sans max-w-sm mx-auto">
-                    Yeni PDF kitaplar ve LGS-YKS araçları eklenince ilk sana haber verelim.
+                    Yeni PDF kitaplar, özel indirimler ve LGS-YKS hazırlık fırsatlarından ilk sen haberdar ol.
                   </p>
                 </div>
 
@@ -353,14 +364,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     id="takipBtn"
                     type="submit"
                     disabled={!kvkkConsent || loading}
-                    title={!kvkkConsent ? 'Lütfen onay verin' : 'TAKİP ET'}
+                    title={!kvkkConsent ? 'Lütfen onay verin' : 'TAKİP ET KAZAN'}
                     className={`w-full py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-200 shadow-md ${
                       kvkkConsent && !loading
                         ? 'bg-[#1A1A1A] hover:bg-black text-white hover:scale-[1.01] active:scale-98 cursor-pointer'
                         : 'bg-[#1A1A1A]/40 text-white/70 cursor-not-allowed opacity-60'
                     }`}
                   >
-                    {loading ? 'KAYDEDİLİYOR...' : 'TAKİP ET'}
+                    {loading ? 'KAYDEDİLİYOR...' : 'TAKİP ET KAZAN'}
                   </button>
 
                   {showKvkkDetail && (
