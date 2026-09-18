@@ -5,54 +5,94 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 
 const ASSISTANT_SYSTEM_INSTRUCTION = `
-Sen Aşkar Yayınları'nın (askaryayinlari.com.tr) resmi dijital asistanısın. Adın Aşkar Asistan.
+Sen Aşkar Yayınları'nın (askaryayinlari.com.tr) resmi dijital asistanısın. Adın Aşkar Asistan. Normal bir insan gibi düşün, hemen pes etme.
 
 GÖREVİN:
-- Önce TÜM soruları sen cevapla.
-- Asla uydurma. Cevabı aşağıdaki BİLGİ TABANINDA yoksa, direkt şu cümleyi kur: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
-- Sadece WhatsApp'a yönlendirmen gerektiğinde yönlendir. Öncelik her zaman sende.
+1. Önce TÜM soruları sen cevapla. Asla uydurma.
+2. Cevabı bilmiyorsan direkt WhatsApp'a ATMA. Önce "Bunu mu kastettiniz?" diye sor.
+3. Sadece 2. denemede de cevap veremezsen WhatsApp'a yönlendir.
 
-BİLGİ TABANIN - BURADAN CEVAP VER:
+BİLGİ TABANI - SADECE BURADAN CEVAP VER:
 
-DÜKKAN BİLGİSİ:
-- Aşkar Yayınları Dijital PDF Kütüphanesidir.
-- Tüm ürünler E-Kitap'tır. Kargo YOK, beklemek YOK. Shopier ile anında indir.
-- İletişim: WhatsApp üzerinden yetkilimiz destek sağlamaktadır.
-- Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
+[DÜKKAN] Aşkar Yayınları Dijital PDF Kütüphanesi. Tüm ürünler E-Kitap, Kargo YOK, Beklemek YOK, Shopier ile anında indir. WhatsApp: +90 505 716 29 39
+Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
 
-KİTAP 1 - 5. SINIF KOÇLUK & MOTİVASYON - "Ortaokula Güçlü Bir Başlangıç":
-- ORTAOKUL KOÇU 5. SINIF. Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.
-- 5. sınıfa geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. Bu kitap çocuğa "Ders çalış" demez, "Nasıl çalışılır"ı öğretir.
-- İlkokul bitti, şimdi 8 farklı öğretmen, 8 farklı ders, defter, ödev, yazılı var. Çocuk "Nereden başlayacağım?" diye kayboluyorsa bu kitap onun için.
-- Yazar: Koçunuz Mehmet Ali Aşkar. Sistem: 10 haftada ortaokula hazırlık. Her bölümde 1 beceri, 1 görev, 1 rozet var.
-- Bu kitap şu 5 sorunu çözmek için yazıldı:
-  1- Masaya oturup 10 dk sonra kalkma
-  2- "Ödevimi unuttum EBA'daymış" deme
-  3- Yazılı öncesi ağlayıp bildiğini unutma
-  4- Telefon/tablet altın zamanı çalma
-  5- "Öğretmene soru sormaya utanıyorum" deme.
+[VAR OLAN KİTAPLAR - TAM LİSTE]
 
-KİTAP 2 - 6. SINIF KOÇU:
-- LGS temelinin atıldığı sınıf. Hedef belirleme, planlama ve başarıyı yönetme üzerine.
+[ORTAOKUL GRUBU - 5'ten 8'e]
+- 5. SINIF KOÇU: 5. Sınıf Koçluk & Motivasyon - Ortaokula Güçlü Bir Başlangıç. SİSTEMSİZLİK sorununu çözer. 10 hafta, 1 beceri 1 görev 1 rozet. Soru bankası değil, başarı alışkanlığı kitabıdır. Masada oturamama, ödev unutma, sınav kaygısı, ekran bağımlılığı sorunlarına çözüm.
+- 6. SINIF KOÇU: 6. Sınıf Disiplin ve Başarı - Başarı Alışkanlıklarını Güçlendir. LGS temeli atma, hedef belirleme ve planlama, ertelememe.
+- 7. SINIF KOÇU: 7. Sınıf LGS Hazırlık - LGS Yolunda Sağlam Adımlar. LGS öncesi son strateji, odaklanma ve motivasyon. Günde 30 soru alışkanlığı, yeni nesil soru mantığı.
+- 8. SINIF KOÇU: 8. Sınıf LGS'DE KENDİ KOÇUN OL - 12 Adımda Disiplin, Plan ve Başarı Sistemi. LGS yolunda sağlam adımlar. Zaman yönetimi, MEB analizleri, deneme check-up.
 
-KİTAP 3 - 7. SINIF KOÇU:
-- LGS öncesi son strateji yılı. Sınav koçluğu.
+[LİSE GRUBU - 9'dan 12'ye]
+- 9. SINIF KOÇU: 9. Sınıf Lise Koçu - Liseye Güçlü Başlangıç. 8'den 9'a geçiş sistemi, liseye uyum, SMART hedefler, Pomodoro ve Cornell tekniği.
+- 10. SINIF KOÇU: 10. Sınıf Lise Koçu - Başarı Alışkanlıklarını Derinleştir. Liseye uyum ve TYT temeli atma. 9'dan 10'a geçişte sistem kurma, alan seçimi rehberi.
+- 11. SINIF KOÇU: 11. Sınıf Lise Koçu - YKS Yolunda Sağlam Adımlar. TYT-AYT dengesi kurma, 11. sınıfta TYT'yi bitirme sistemi.
+- 12. SINIF ve MEZUN: YKS'DE KENDİ KOÇUN OL. 12. sınıf ve mezunlar için YKS koçluk kitabı. Sınav sürecini kendi koçun olarak yönetme, planlama, stres yönetimi.
 
-KİTAP 4 - NASRETTİN HOCA'NIN TORUNLARI:
-- 99 sayfa, 3 MB PDF, hikaye kitabı (6-10 yaş).
+[MEZUN / YKS GRUBU]
+- YKS'de Kendi Koçun Ol (12. Sınıf ve Mezunlar için).
 
-DİĞER KİTAPLAR:
-- 8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin Plan ve Başarı Sistemi.
-- 9, 10, 11. Sınıf Lise Koçu ve YKS'de Kendi Koçun Ol kitapları.
-- Tarihi Romanlar: Şimşeğin Efendisi Tesla, Atomun Kalbi Rutherford.
-- Çocuk Kitapları: Sevimli Deniz Altı Kaşifleri, Ormanın Minik Koruyucuları, Uykudan Önce.
+[ÇOCUK KİTAPLARI GRUBU]
+- Nasrettin Hoca'nın Torunları (6-10 yaş fıkra ve değerler kitabı, 99 sayfa PDF) ve çocuk hikaye kitapları (Sevimli Deniz Altı Kaşifleri, Ormanın Minik Koruyucuları, Uykudan Önce).
 
-KONUŞMA VE YANITLAMA KURALLARI:
-- ASLA CEVAPLARIN BAŞINDA 'Merhaba', 'Selam' veya benzeri selamlama kelimeleri KULLANMA. Kullanıcı ile konuşma zaten devam etmektedir, doğrudan net ve samimi bir şekilde soruyu cevapla.
-- Cevaplarında telefon numarasını (+90 505...) açıkça metne yazma; doğrudan yönlendirme butonumuz bulunmaktadır. Yönlendirme yapacaksan sadece "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉" de.
-- Türkçe, kısa, samimi, veliye hitap et.
-- Satış odaklı ol ama zorlama.
-- Cevabın sonunda her zaman indirme linkini hatırlat: "Shopier ile anında indirebilirsiniz."
+[TARİHİ KURGU / BİLİM ROMANLARI]
+- Şimşeğin Efendisi Tesla (Nikola Tesla romanı, 205 sayfa PDF), Atomun Kalbi Rutherford (Ernest Rutherford romanı).
+
+AKILLI ONAY SİSTEMİ & KATEGORİ KURALLARI - BUNU MUTLAKA UYGULA:
+
+1. Eğer müşteri "ortaokul için ne var", "ortaokul kitapları" derse:
+Direkt şunu yaz:
+"Ortaokul için 4 kitabımız var:
+1- 5. Sınıf Koçluk & Motivasyon
+2- 6. Sınıf Disiplin ve Başarı
+3- 7. Sınıf LGS Hazırlık
+4- 8. Sınıf LGS'DE KENDİ KOÇUN OL
+Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz." ASLA WhatsApp'a atma.
+
+2. Eğer müşteri "lise için ne var", "lise kitapları" derse:
+Direkt şunu yaz:
+"Lise için 4 kitabımız var:
+1- 9. Sınıf Lise Koçu
+2- 10. Sınıf Lise Koçu
+3- 11. Sınıf Lise Koçu
+4- 12. Sınıf YKS'de Kendi Koçun Ol
+Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz."
+
+3. Eğer müşteri "mezun için ne var", "YKS için ne var", "12. sınıf" derse:
+Direkt şunu yaz:
+"Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz."
+
+4. Eğer müşteri "çocuk için ne var", "çocuk kitapları", "ilkokul hikaye" derse:
+Direkt şunu yaz:
+"Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var. Shopier ile anında indirebilirsiniz."
+
+5. SINIF SORULURSA (5-12 ve YKS):
+Direkt o kitabın açıklamasından cevap ver. Asla "yok" deme. Hepsi var.
+Örnek: "12.Sınıf için koçluk var mı" -> "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz."
+Örnek: "10. sınıf var mı" -> "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz."
+Örnek: "YKS kitabınız var mı" -> "Evet, 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var, bunu mu kastettiniz? Shopier ile anında indirebilirsiniz."
+
+6. OLMAYAN BİR ŞEY SORULURSA (Örn: 1, 2, 3, 4. sınıf ilkokul):
+Şunu de: "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi? Shopier ile anında indirebilirsiniz."
+
+7. MÜŞTERİ HAYIR DERSE VE YENİ SINIF YAZARSA:
+Onu yeni soru olarak algıla. "hayır"a takılı kalma. Örneğin "hayır 10. sınıf" derse hemen 10. Sınıf kitabını anlat.
+
+8. BİLMEDİĞİN BİR KAVRAM OLURSA (Sitedeki içerikle karşılaştır):
+- Örn: "disiplin" yazdıysa -> 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabını öner.
+- Örn: "motivasyon" yazdıysa -> 6. Sınıf Başarı Alışkanlıklarını Güçlendir veya 5. Sınıf kitabını öner.
+- Önce sor: "Bunu mu kastettiniz? [Kitap Adı] - [Açıklamadan 1 cümle özet]"
+- Müşteri EVET derse o kitabın detayını ver ve sonuna "Shopier ile anında indirebilirsiniz, kargo yok." ekle.
+- Müşteri HAYIR derse (yeni konu vermeden) -> "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?" de.
+- Sadece 2 denemede de cevap veremezsen WhatsApp'a yönlendir: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+
+KONUŞMA TARZI:
+- Türkçe, kısa, samimi, veliye hitap et. 3 cümle civarında tut. Listeleri maddeler halinde ver. Asla "bilmiyorum" deme.
+- Cevapların başında "Merhaba", "Selam" gereksiz tekrarlama; doğrudan konuya gir.
+- Sonuna hep ekle: "Shopier ile anında indirebilirsiniz."
+- Asla açık telefon numarası yazma; yönlendirme gerekirse "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉" de.
 `;
 
 async function startServer() {
@@ -207,39 +247,152 @@ async function startServer() {
   // Serve static images directly from public/images
   app.use('/images', express.static(publicImagesDir));
 
-// Knowledge base answer helper
-function getLocalKnowledgeAnswer(q: string): string | null {
-  const s = q.toLowerCase();
+// Knowledge base answer helper with smart confirmation and 2nd chance logic
+function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text: string }> = []): string | null {
+  const s = q.toLowerCase().trim();
+  const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
 
-  if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('koç'))) {
-    return "Ortaokul Koçu 5. Sınıf (\"Ortaokula Güçlü Bir Başlangıç\") kitabımız bir soru bankası değil, başarı alışkanlığı kitabıdır.\n\nİlkokuldan ortaokula geçen öğrencinin asıl sorunu dersler değil, sistemsizliktir (8 farklı öğretmen, 8 farklı ders, ödev ve sınavlar). Koçunuz Mehmet Ali Aşkar tarafından hazırlanan 10 haftalık sistemde; her bölümde 1 beceri, 1 görev ve 1 rozet yer alır.\n\nKitap şu 5 temel sorunu çözer:\n1- Masaya oturup 10 dakika sonra kalkma,\n2- \"Ödevimi unuttum\" deme,\n3- Yazılı öncesi panikleyip bildiğini unutma,\n4- Telefon/tabletin altın zamanı çalması,\n5- Öğretmene soru sormaya çekinme.\n\nShopier ile anında indirebilirsiniz.";
+  // 1. Direct confirmation checks if previous message was a clarification question
+  if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
+    const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+
+    if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
+      if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
+        return "5. Sınıf Koçluk & Motivasyon (Ortaokula Güçlü Başlangıç): Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR. İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, sistemsizliktir; 10 haftalık sistemle ödev unutma, sınav kaygısı ve odaklanma sorunlarını çözer. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('6. sınıf') || lastBotMsg.includes('disiplin')) {
+        return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('7. sınıf') || lastBotMsg.includes('lgs hazırlık')) {
+        return "7. Sınıf LGS Hazırlık: LGS öncesi son strateji yılıdır. Günde 30 soru alışkanlığı, odaklanma ve sınav koçluğuna odaklanır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('8. sınıf') || lastBotMsg.includes('lgs\'de kendi koçun ol')) {
+        return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('9. sınıf') || lastBotMsg.includes('liseye güçlü')) {
+        return "9. Sınıf Lise Koçu: Liseye Güçlü Başlangıç rehberimizdir; 8'den 9'a geçiş sistemi ve yeni ders temposuna uyum kazandırır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('10. sınıf')) {
+        return "10. Sınıf Lise Koçu: Liseye uyum ve TYT temeli atma üzerine, 9'dan 10'a geçişte sistem kurar ve başarı alışkanlıklarını derinleştirir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('11. sınıf')) {
+        return "11. Sınıf Lise Koçu: YKS omurgasını oluşturan kritik yıldır; TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemini kazandırır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('12. sınıf') || lastBotMsg.includes('yks') || lastBotMsg.includes('mezun')) {
+        return "12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol': Sınav sürecini kendi koçun olarak yönetme, hedef netleştirme, TYT-AYT dengesi ve stres kontrolü rehberidir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('nasrettin') || lastBotMsg.includes('çocuk') || lastBotMsg.includes('fıkra')) {
+        return "Nasrettin Hoca'nın Torunları: 6-10 yaş çocuklar için 99 sayfa, 3 MB PDF boyutunda keyifli ve öğretici bir fıkra/değerler kitabıdır. Shopier ile anında indirebilirsiniz.";
+      }
+      return "Koçluk kitaplarımız öğrencilerimize planlı çalışma, odaklanma ve başarı disiplini kazandırır. Shopier ile anında indirebilirsiniz.";
+    }
+
+    if (!hasNewSpecificTopic && (s === 'hayır' || s === 'hayir' || s === 'değil' || s === 'degil' || s === 'başka' || s === 'yok' || s === 'h')) {
+      return "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+    }
+    // If user says "hayır 10. sınıf var mı", continue below and handle 10. sınıf!
   }
 
-  if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('koç'))) {
-    return "6. Sınıf Ortaokul Koçu: LGS temelinin sağlam atıldığı sınıftır. Hedef belirleme, planlı çalışma ve başarı alışkanlıklarını güçlendirmeye odaklanır.\n\nShopier ile anında indirebilirsiniz.";
+  // 2. KATEGORİ KURALLARI (User specified exact outputs)
+  if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+    return "Ortaokul için 4 kitabımız var:\n1- 5. Sınıf Koçluk & Motivasyon\n2- 6. Sınıf Disiplin ve Başarı\n3- 7. Sınıf LGS Hazırlık\n4- 8. Sınıf LGS'DE KENDİ KOÇUN OL\nHangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
   }
 
-  if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('koç'))) {
-    return "7. Sınıf Ortaokul Koçu: LGS öncesindeki son strateji yılıdır. Sınav koçluğu, verimli çalışma ve LGS temposuna uyum rehberidir.\n\nShopier ile anında indirebilirsiniz.";
+  if (s.includes('lise için ne var') || s.includes('lise kitapları') || s.includes('lisede ne var') || (s.includes('lise') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+    return "Lise için 4 kitabımız var:\n1- 9. Sınıf Lise Koçu\n2- 10. Sınıf Lise Koçu\n3- 11. Sınıf Lise Koçu\n4- 12. Sınıf YKS'de Kendi Koçun Ol\nHangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
   }
 
-  if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('lgs') || (s.includes('8') && s.includes('koç'))) {
-    return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi, deneme takibi ve sınav stratejilerini içerir.\n\nShopier ile anında indirebilirsiniz.";
+  if (s.includes('mezun') || s.includes('yks için ne var') || s.includes('yks kitapları') || (s.includes('yks') && s.includes('var mı'))) {
+    return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz.";
   }
 
+  if (s.includes('çocuk için ne var') || s.includes('çocuk kitapları') || s.includes('ilkokul hikaye') || (s.includes('çocuk') && (s.includes('neler') || s.includes('kitap')))) {
+    return "Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var. Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)
+  if (s.includes('12. sınıf') || s.includes('12.sınıf') || s.includes('on ikinci sınıf') || (s.includes('12') && s.includes('sınıf'))) {
+    return "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('11. sınıf') || s.includes('11.sınıf') || s.includes('on birinci sınıf') || (s.includes('11') && s.includes('sınıf'))) {
+    return "Evet, 11. Sınıf Lise Koçu kitabımız var. TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemi üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('10. sınıf') || s.includes('10.sınıf') || s.includes('onuncu sınıf') || (s.includes('10') && s.includes('sınıf'))) {
+    return "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('9. sınıf') || s.includes('9.sınıf') || s.includes('dokuzuncu sınıf') || (s.includes('9') && s.includes('sınıf'))) {
+    return "Evet, 9. Sınıf Lise Koçu kitabımız var. Liseye Güçlü Başlangıç rehberimiz 8'den 9'a geçiş sistemi ve uyum kazandırır. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('sekizinci sınıf') || s.includes('lgs')) {
+    return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('sınıf'))) {
+    return "7. Sınıf LGS Hazırlık (LGS Yolunda Sağlam Adımlar): LGS öncesi son strateji yılıdır; günde 30 soru alışkanlığı, odaklanma ve sınav koçluğu sağlar. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('sınıf'))) {
+    return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('sınıf'))) {
+    return "ORTAOKUL KOÇU 5. SINIF: Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR. İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. Masada duramama, ödev unutma ve sınav stresi gibi 5 temel sorunu 10 haftada çözer. Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 4. OLMAYAN BİR ŞEY (Örn: 1, 2, 3, 4. sınıf ilkokul)
+  if (s.includes('1. sınıf') || s.includes('2. sınıf') || s.includes('3. sınıf') || s.includes('4. sınıf') || s.includes('ilkokul') || s.includes('1.sınıf') || s.includes('2.sınıf') || s.includes('3.sınıf') || s.includes('4.sınıf')) {
+    return "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 5. ÖZEL KİTAP VE TESLİMAT SORULARI
   if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
-    return "Aşkar Yayınları bir Dijital PDF Kütüphanesidir. Ürünlerimizin tamamı dijital E-Kitap (PDF) formatındadır. Kargo veya bekleme süresi yoktur; satın alma işleminin ardından Shopier güvencesiyle 7/24 anında indirebilirsiniz.\n\nShopier ile anında indirebilirsiniz.";
-  }
-
-  if (s.includes('nasrettin') || s.includes('nasreddin')) {
-    return "Nasrettin Hoca'nın Torunları: 99 sayfa, 3 MB PDF boyutunda keyifli bir çocuk hikaye kitabıdır (6-10 yaş grubu için uygundur).\n\nShopier ile anında indirebilirsiniz.";
+    return "Aşkar Yayınları Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap formatındadır, kargo ve bekleme süresi yoktur; Shopier ile anında indirebilirsiniz.";
   }
 
   if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
-    return "Kitaplarımızı resmi Shopier mağazamız üzerinden güvenli ödeme (kredi kartı / banka kartı) ile anında satın alabilir ve PDF olarak hemen cihazınıza indirebilirsiniz.\n\nShopier ile anında indirebilirsiniz.";
+    return "Kitaplarımızı Shopier resmi mağazamız üzerinden kredi kartı veya banka kartı ile güvenle alıp hemen PDF olarak indirebilirsiniz, kargo yoktur.";
   }
 
-  return null;
+  if (s.includes('nasrettin') || s.includes('nasreddin')) {
+    return "Nasrettin Hoca'nın Torunları: Tarihi kurgu ve fıkra kitabımızdır (99 sayfa, 3 MB PDF). Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tesla') || s.includes('şimşek') || s.includes('rutherford') || s.includes('atom')) {
+    return "Tarihi kurgu ve bilim romanlarımız 'Şimşeğin Efendisi Tesla' ve 'Atomun Kalbi Rutherford' dijital PDF olarak mevcuttur. Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 6. KİTAP AÇIKLAMALARI VE İÇERİK EŞLEŞTİRMESİ
+  if (s.includes('disiplin') || s.includes('planlama') || s.includes('çalışma planı')) {
+    return "Disiplin ve planlama için 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabımızı mı kastettiniz? Detay vereyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('motivasyon') || s.includes('ders çalışmak istemiyor') || s.includes('masada oturmuyor')) {
+    return "Motivasyon ve başarı alışkanlıkları için 5. veya 6. Sınıf Koçluk kitabımızı mı kastettiniz? Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tyt') || s.includes('ayt')) {
+    return "TYT-AYT hazırlığı için 10. Sınıf, 11. Sınıf veya YKS'de Kendi Koçun Ol kitabımızı mı kastettiniz? Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tarihi kurgu') || s.includes('roman') || s.includes('hikaye') || s.includes('masal')) {
+    return "Tarihi kurgu olarak 'Nasrettin Hoca'nın Torunları' serimizi mi kastettiniz? Eğer evetse detay vereyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('koç') || s.includes('koçluk') || s.includes('kitap')) {
+    return "Ortaokul veya lise koçluk serimizden bir kitabı mı kastettiniz? Örneğin 5. Sınıf Ortaokula Güçlü Başlangıç kitabımızdan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 7. İKİNCİ ŞANS / WHATSAPP KURALI
+  const secondChanceAsked = lastBotMsg.includes('tam olarak ne arıyordunuz') || lastBotMsg.includes('biraz daha açar mısınız');
+  if (secondChanceAsked) {
+    return "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+  }
+
+  return "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
 }
 
   // Health check endpoint
@@ -250,22 +403,39 @@ function getLocalKnowledgeAnswer(q: string): string | null {
   // Aşkar Yayınları AI Assistant API
   app.post('/api/assistant', async (req, res) => {
     try {
-      const { message } = req.body;
+      const { message, history } = req.body;
       if (!message || typeof message !== 'string' || !message.trim()) {
         return res.status(400).json({ error: 'Mesaj metni zorunludur.' });
       }
 
       const q = message.trim();
-      const localAns = getLocalKnowledgeAnswer(q);
+      const hist = Array.isArray(history) ? history : [];
+      const localAns = getLocalKnowledgeAnswer(q, hist);
 
       try {
         const ai = new GoogleGenAI({});
+        const contents: any[] = [];
+
+        // Add valid chat history for multi-turn conversational context
+        for (const item of hist.slice(-8)) {
+          if (item && item.text && typeof item.text === 'string' && item.text.trim()) {
+            contents.push({
+              role: item.role === 'model' ? 'model' : 'user',
+              parts: [{ text: item.text.trim() }]
+            });
+          }
+        }
+        contents.push({
+          role: 'user',
+          parts: [{ text: q }]
+        });
+
         const response = await ai.models.generateContent({
           model: 'gemini-3.8-flash',
-          contents: q,
+          contents: contents,
           config: {
             systemInstruction: ASSISTANT_SYSTEM_INSTRUCTION,
-            temperature: 0.3,
+            temperature: 0.2,
           },
         });
 
@@ -274,7 +444,7 @@ function getLocalKnowledgeAnswer(q: string): string | null {
           return res.json({ reply });
         }
       } catch (geminiError: any) {
-        console.warn('[Gemini Call Notice]: Falling back to local knowledge base', geminiError?.message);
+        console.warn('[Gemini Call Notice]: Falling back to local smart knowledge engine', geminiError?.message);
       }
 
       // If Gemini wasn't reached or returned empty, use knowledge base
@@ -283,11 +453,11 @@ function getLocalKnowledgeAnswer(q: string): string | null {
       }
 
       return res.json({
-        reply: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+        reply: "Anladım, tam olarak ne arıyordunuz, biraz daha açar mısınız?"
       });
     } catch (error: any) {
       console.error('[Assistant API Error]', error?.message || error);
-      const fallbackAns = getLocalKnowledgeAnswer(req.body?.message || '');
+      const fallbackAns = getLocalKnowledgeAnswer(req.body?.message || '', req.body?.history || []);
       res.json({
         reply: fallbackAns || "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
       });

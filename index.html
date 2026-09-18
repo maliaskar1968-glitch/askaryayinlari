@@ -261,14 +261,15 @@
 
       <div id="askar-ai-messages">
         <div class="msg bot">
-          Merhaba; Size nasıl yardımcı olabilirim?
+          Aşkar Yayınları'na hoş geldiniz. Size nasıl yardımcı olabilirim?
         </div>
       </div>
 
       <div id="askar-ai-chips">
-        <button class="chip-btn" type="button" onclick="askQuickPrompt('5. Sınıf Koçluk kitabı ne işe yarar?')">5. Sınıf Koçu</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Ortaokul kitapları nelerdir?')">Ortaokul Kitapları</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Lise kitapları nelerdir?')">Lise Kitapları</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('YKS ve mezun için ne var?')">YKS & Mezun</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Kitaplar basılı kargo mu yoksa PDF mi?')">PDF / Kargo</button>
-        <button class="chip-btn" type="button" onclick="askQuickPrompt('Yetkili ile görüşmek istiyorum')">Yetkili ile Görüş</button>
       </div>
 
       <div id="askar-ai-input">
@@ -302,30 +303,152 @@
         }
       }
 
-      function getClientKnowledgeAnswer(q) {
-        const s = (q || '').toLowerCase();
-        if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('koç'))) {
-          return '5. Sınıf Koçluk & Motivasyon kitabımız ("Ortaokula Güçlü Bir Başlangıç") kesinlikle bir soru bankası değil, bir **başarı alışkanlığı** kitabıdır.<br><br>İlkokuldan ortaokula geçen öğrencimizin asıl sorunu dersler değil, sistemsizliktir. 8 farklı öğretmen, 8 farklı ders, defter, ödev ve yazılılar arasında çocuğun kaybolmaması için Koçunuz Mehmet Ali Aşkar tarafından 10 haftalık bir sistem olarak tasarlandı.<br><br>Her bölümde 1 beceri, 1 görev ve 1 rozet yer alır. Kitap şu 5 temel sorunu çözmek için yazıldı:<br>1- Masaya oturup 10 dakika sonra kalkma,<br>2- "Ödevimi unuttum EBA\'daymış" deme,<br>3- Yazılı öncesi ağlayıp bildiğini unutma,<br>4- Telefon ve tabletin altın zamanı çalması,<br>5- Öğretmene soru sormaya utanma.<br><br>Shopier ile anında indirebilirsiniz.';
+      const askarChatHistory = [];
+
+      function getClientKnowledgeAnswer(q, history = []) {
+        const s = (q || '').toLowerCase().trim();
+        const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
+
+        // 1. Check clarification confirmation
+        if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
+          const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+
+          if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
+            if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
+              return '5. Sınıf Koçluk & Motivasyon (Ortaokula Güçlü Başlangıç): Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.<br><br>İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. 10 haftalık sistemle ödev unutma, sınav kaygısı ve odaklanma sorunlarını çözer.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('6. sınıf') || lastBotMsg.includes('disiplin')) {
+              return '6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('7. sınıf') || lastBotMsg.includes('lgs hazırlık')) {
+              return '7. Sınıf LGS Hazırlık: LGS öncesi son strateji yılıdır. Günde 30 soru alışkanlığı, odaklanma ve sınav koçluğuna odaklanır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('8. sınıf') || lastBotMsg.includes("lgs'de kendi koçun ol")) {
+              return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            if (lastBotMsg.includes('9. sınıf') || lastBotMsg.includes('liseye güçlü')) {
+              return '9. Sınıf Lise Koçu: Liseye Güçlü Başlangıç rehberimizdir; 8\'den 9\'a geçiş sistemi ve yeni ders temposuna uyum kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('10. sınıf')) {
+              return '10. Sınıf Lise Koçu: Liseye uyum ve TYT temeli atma üzerine, 9\'dan 10\'a geçişte sistem kurar ve başarı alışkanlıklarını derinleştirir.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('11. sınıf')) {
+              return '11. Sınıf Lise Koçu: YKS omurgasını oluşturan kritik yıldır; TYT-AYT dengesi kurma ve 11. sınıfta TYT\'yi bitirme sistemini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('12. sınıf') || lastBotMsg.includes('yks') || lastBotMsg.includes('mezun')) {
+              return "12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol': Sınav sürecini kendi koçun olarak yönetme, hedef netleştirme, TYT-AYT dengesi ve stres kontrolü rehberidir.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            if (lastBotMsg.includes('nasrettin') || lastBotMsg.includes('çocuk') || lastBotMsg.includes('fıkra')) {
+              return "Nasrettin Hoca'nın Torunları: 6-10 yaş çocuklar için 99 sayfa, 3 MB PDF boyutunda keyifli ve öğretici bir fıkra/değerler kitabıdır.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            return 'Koçluk kitaplarımız öğrencilerimize planlı çalışma, odaklanma ve başarı disiplini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+          }
+
+          if (!hasNewSpecificTopic && (s === 'hayır' || s === 'hayir' || s === 'değil' || s === 'degil' || s === 'başka' || s === 'yok' || s === 'h')) {
+            return 'Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?';
+          }
         }
-        if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('koç'))) {
-          return '6. Sınıf Ortaokul Koçu: LGS temelinin atıldığı en kritik sınıftır. Hedef belirleme, planlama ve başarıyı yönetme üzerine kuruludur.<br><br>Shopier ile anında indirebilirsiniz.';
+
+        // 2. KATEGORİ KURALLARI
+        if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+          return "Ortaokul için 4 kitabımız var:<br>1- 5. Sınıf Koçluk & Motivasyon<br>2- 6. Sınıf Disiplin ve Başarı<br>3- 7. Sınıf LGS Hazırlık<br>4- 8. Sınıf LGS'DE KENDİ KOÇUN OL<br><br>Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
         }
-        if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('koç'))) {
-          return '7. Sınıf Ortaokul Koçu: LGS öncesi son strateji yılıdır. Sınav koçluğu, tempo kazanma ve verimli çalışma sistemini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+
+        if (s.includes('lise için ne var') || s.includes('lise kitapları') || s.includes('lisede ne var') || (s.includes('lise') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+          return "Lise için 4 kitabımız var:<br>1- 9. Sınıf Lise Koçu<br>2- 10. Sınıf Lise Koçu<br>3- 11. Sınıf Lise Koçu<br>4- 12. Sınıf YKS'de Kendi Koçun Ol<br><br>Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
         }
-        if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('lgs') || (s.includes('8') && s.includes('koç'))) {
-          return '8. Sınıf LGS\'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Hedef netleştirme, zaman yönetimi, MEB kazanım takibi ve deneme analizini içerir.<br><br>Shopier ile anında indirebilirsiniz.';
+
+        if (s.includes('mezun') || s.includes('yks için ne var') || s.includes('yks kitapları') || (s.includes('yks') && s.includes('var mı'))) {
+          return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor.<br><br>Shopier ile anında indirebilirsiniz.";
         }
+
+        if (s.includes('çocuk için ne var') || s.includes('çocuk kitapları') || s.includes('ilkokul hikaye') || (s.includes('çocuk') && (s.includes('neler') || s.includes('kitap')))) {
+          return "Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)
+        if (s.includes('12. sınıf') || s.includes('12.sınıf') || s.includes('on ikinci sınıf') || (s.includes('12') && s.includes('sınıf'))) {
+          return "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('11. sınıf') || s.includes('11.sınıf') || s.includes('on birinci sınıf') || (s.includes('11') && s.includes('sınıf'))) {
+          return "Evet, 11. Sınıf Lise Koçu kitabımız var. TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemi üzerine. Bundan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('10. sınıf') || s.includes('10.sınıf') || s.includes('onuncu sınıf') || (s.includes('10') && s.includes('sınıf'))) {
+          return "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('9. sınıf') || s.includes('9.sınıf') || s.includes('dokuzuncu sınıf') || (s.includes('9') && s.includes('sınıf'))) {
+          return "Evet, 9. Sınıf Lise Koçu kitabımız var. Liseye Güçlü Başlangıç rehberimiz 8'den 9'a geçiş sistemi ve uyum kazandırır.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('sekizinci sınıf') || s.includes('lgs')) {
+          return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('sınıf'))) {
+          return "7. Sınıf LGS Hazırlık (LGS Yolunda Sağlam Adımlar): LGS öncesi son strateji yılıdır; günde 30 soru alışkanlığı, odaklanma ve sınav koçluğu sağlar.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('sınıf'))) {
+          return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('sınıf'))) {
+          return 'ORTAOKUL KOÇU 5. SINIF: Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.<br><br>İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. Masada duramama, ödev unutma ve sınav stresi gibi 5 temel sorunu 10 haftada çözer.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+
+        // 4. OLMAYAN BİR ŞEY (1-4 ilkokul)
+        if (s.includes('1. sınıf') || s.includes('2. sınıf') || s.includes('3. sınıf') || s.includes('4. sınıf') || s.includes('ilkokul') || s.includes('1.sınıf') || s.includes('2.sınıf') || s.includes('3.sınıf') || s.includes('4.sınıf')) {
+          return "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 5. ÖZEL KİTAP VE TESLİMAT SORULARI
         if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
-          return 'Aşkar Yayınları bir Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap (PDF) formatındadır. Kargo veya bekleme süresi YOKTUR; Shopier güvencesiyle satın alım sonrası anında indirebilirsiniz.<br><br>Shopier ile anında indirebilirsiniz.';
+          return 'Aşkar Yayınları Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap formatındadır, kargo ve bekleme süresi yoktur; Shopier ile anında indirebilirsiniz.';
         }
-        if (s.includes('nasrettin') || s.includes('nasreddin')) {
-          return "Nasrettin Hoca'nın Torunları: 99 sayfa, 3 MB PDF boyutunda keyifli ve eğitici bir çocuk hikaye kitabıdır.<br><br>Shopier ile anında indirebilirsiniz.";
-        }
+
         if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
-          return 'Tüm kitaplarımızı resmi Shopier mağazamız üzerinden güvenli ödeme ile anında satın alabilir ve hemen PDF olarak indirebilirsiniz.<br><br>Shopier ile anında indirebilirsiniz.';
+          return 'Kitaplarımızı Shopier resmi mağazamız üzerinden kredi kartı veya banka kartı ile güvenle alıp hemen PDF olarak indirebilirsiniz, kargo yoktur.';
         }
-        return null;
+
+        if (s.includes('nasrettin') || s.includes('nasreddin')) {
+          return "Nasrettin Hoca'nın Torunları: Tarihi kurgu ve fıkra kitabımızdır (99 sayfa, 3 MB PDF).<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tesla') || s.includes('şimşek') || s.includes('rutherford') || s.includes('atom')) {
+          return "Tarihi kurgu ve bilim romanlarımız 'Şimşeğin Efendisi Tesla' ve 'Atomun Kalbi Rutherford' dijital PDF olarak mevcuttur.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 6. KİTAP AÇIKLAMALARI VE İÇERİK EŞLEŞTİRMESİ
+        if (s.includes('disiplin') || s.includes('planlama') || s.includes('çalışma planı')) {
+          return "Disiplin ve planlama için 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabımızı mı kastettiniz? Detay vereyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('motivasyon') || s.includes('ders çalışmak istemiyor') || s.includes('masada oturmuyor')) {
+          return "Motivasyon ve başarı alışkanlıkları için 5. veya 6. Sınıf Koçluk kitabımızı mı kastettiniz? Hangisinden bahsedeyim?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tyt') || s.includes('ayt')) {
+          return "TYT-AYT hazırlığı için 10. Sınıf, 11. Sınıf veya YKS'de Kendi Koçun Ol kitabımızı mı kastettiniz? Hangisinden bahsedeyim?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tarihi kurgu') || s.includes('roman') || s.includes('hikaye') || s.includes('masal')) {
+          return "Tarihi kurgu olarak 'Nasrettin Hoca'nın Torunları' serimizi mi kastettiniz? Eğer evetse detay vereyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('koç') || s.includes('koçluk') || s.includes('kitap')) {
+          return "Ortaokul veya lise koçluk serimizden bir kitabı mı kastettiniz? Örneğin 5. Sınıf Ortaokula Güçlü Başlangıç kitabımızdan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 7. İKİNCİ ŞANS / WHATSAPP KURALI
+        const secondChanceAsked = lastBotMsg.includes('tam olarak ne arıyordunuz') || lastBotMsg.includes('biraz daha açar mısınız');
+        if (secondChanceAsked) {
+          return "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+        }
+
+        return 'Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?';
       }
 
       async function sendAskarMsg() {
@@ -336,6 +459,7 @@
         if (!text) return;
 
         addMsg(text, 'user');
+        askarChatHistory.push({ role: 'user', text: text });
         input.value = '';
         if (sendBtn) sendBtn.disabled = true;
 
@@ -344,6 +468,7 @@
         if (lower.includes('insan') || lower.includes('yetkili') || lower.includes('telefon') || lower.includes('whatsapp') || lower.includes('görüşmek istiyorum')) {
           const directText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
           addMsg(directText, 'bot', true);
+          askarChatHistory.push({ role: 'model', text: directText });
           if (sendBtn) sendBtn.disabled = false;
           return;
         }
@@ -352,13 +477,16 @@
         const loadingId = 'loading-' + Date.now();
         addLoadingMsg(loadingId);
 
-        const clientAnswer = getClientKnowledgeAnswer(text);
+        const clientAnswer = getClientKnowledgeAnswer(text, askarChatHistory.slice(0, -1));
 
         try {
           const response = await fetch('/api/assistant', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text })
+            body: JSON.stringify({
+              message: text,
+              history: askarChatHistory.slice(-8)
+            })
           });
 
           removeLoadingMsg(loadingId);
@@ -367,11 +495,9 @@
             const data = await response.json();
             let botReply = (data && data.reply) ? data.reply : "";
 
-            // If server returned fallback but we have direct knowledge, prioritize the knowledge
-            if ((!botReply || botReply.includes('yönlendireyim')) && clientAnswer) {
-              botReply = clientAnswer;
-            } else if (!botReply) {
-              botReply = "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+            // Prioritize smart knowledge if server gives empty fallback
+            if (!botReply) {
+              botReply = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
             }
 
             // Clean greetings and raw numbers
@@ -386,27 +512,31 @@
               actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
             }
 
+            askarChatHistory.push({ role: 'model', text: botReply });
             addMsg(botReply.replace(/\n/g, '<br>') + actionHtml, 'bot', true);
           } else {
-            // Server returned non-ok (e.g. 404/500 on static host) -> use client answer if available
-            if (clientAnswer) {
-              const actionHtml = `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
-              addMsg(clientAnswer + actionHtml, 'bot', true);
-            } else {
-              const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
-              addMsg(failText, 'bot', true);
+            // Server returned non-ok -> use smart client answer
+            const replyText = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+            let actionHtml = '';
+            if (replyText.includes('WhatsApp') || replyText.includes('yetkili') || replyText.includes('yönlendireyim')) {
+              actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            } else if (replyText.includes('Shopier')) {
+              actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
             }
+            askarChatHistory.push({ role: 'model', text: replyText });
+            addMsg(replyText + actionHtml, 'bot', true);
           }
         } catch (e) {
           removeLoadingMsg(loadingId);
-          // Network error or offline -> use client answer if available
-          if (clientAnswer) {
-            const actionHtml = `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
-            addMsg(clientAnswer + actionHtml, 'bot', true);
-          } else {
-            const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
-            addMsg(failText, 'bot', true);
+          const replyText = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+          let actionHtml = '';
+          if (replyText.includes('WhatsApp') || replyText.includes('yetkili') || replyText.includes('yönlendireyim')) {
+            actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+          } else if (replyText.includes('Shopier')) {
+            actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
           }
+          askarChatHistory.push({ role: 'model', text: replyText });
+          addMsg(replyText + actionHtml, 'bot', true);
         } finally {
           if (sendBtn) sendBtn.disabled = false;
         }
