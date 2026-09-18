@@ -12,7 +12,6 @@ import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { ToolsPage } from './components/ToolsPage';
 import { Footer } from './components/Footer';
-import { WhatsAppSupport } from './components/WhatsAppSupport';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PageTab>('magaza');
@@ -62,9 +61,6 @@ export const App: React.FC = () => {
 
         {/* Footer */}
         <Footer />
-
-        {/* WhatsApp Support Button */}
-        <WhatsAppSupport />
       </div>
     </PriceProvider>
   );

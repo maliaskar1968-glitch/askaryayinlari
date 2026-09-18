@@ -38,6 +38,367 @@
       <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=108846214385474&ev=PageView&noscript=1" alt="" />
     </noscript>
     <div id="root"></div>
+
+    <!-- Aşkar Yayınları - Dijital AI Asistan -->
+    <style>
+      #askar-ai-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+        border: 2px solid #C9A86A;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9998;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+        color: #C9A86A;
+        font-size: 24px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      #askar-ai-btn:hover {
+        transform: scale(1.06);
+        box-shadow: 0 6px 22px rgba(201, 168, 106, 0.35);
+      }
+      #askar-ai-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 360px;
+        max-width: calc(100vw - 32px);
+        height: 480px;
+        background: #FFFFFF;
+        border: 1px solid #E5E0D8;
+        border-radius: 16px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #askar-ai-header {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #C9A86A;
+      }
+      #askar-ai-header .title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #askar-ai-header .badge {
+        background: #C9A86A;
+        color: #1A1A1A;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      #askar-ai-header .name {
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+      }
+      #askar-ai-header .close-btn {
+        cursor: pointer;
+        font-size: 18px;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+        padding: 4px;
+      }
+      #askar-ai-header .close-btn:hover {
+        opacity: 1;
+      }
+      #askar-ai-messages {
+        flex: 1;
+        padding: 14px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #FDFCF7;
+      }
+      .msg {
+        padding: 10px 14px;
+        border-radius: 14px;
+        max-width: 84%;
+        font-size: 13.5px;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .msg.user {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+      }
+      .msg.bot {
+        background: #FFFFFF;
+        color: #2D2D2D;
+        align-self: flex-start;
+        border: 1px solid #EFECE6;
+        border-bottom-left-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .msg-time {
+        font-size: 10px;
+        opacity: 0.6;
+        margin-top: 4px;
+        text-align: right;
+      }
+      #askar-ai-chips {
+        padding: 6px 12px;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        background: #F8F6F0;
+        border-top: 1px solid #EEE9DF;
+      }
+      .chip-btn {
+        background: #FFFFFF;
+        border: 1px solid #D6CBB8;
+        color: #5A4E3C;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .chip-btn:hover {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        border-color: #1A1A1A;
+      }
+      #askar-ai-input {
+        display: flex;
+        border-top: 1px solid #EAE6DF;
+        padding: 10px 12px;
+        background: #FFFFFF;
+        gap: 8px;
+      }
+      #askar-ai-input input {
+        flex: 1;
+        border: 1px solid #D8D2C6;
+        border-radius: 20px;
+        padding: 9px 14px;
+        outline: none;
+        font-size: 13px;
+        background: #FDFCF7;
+        color: #1A1A1A;
+      }
+      #askar-ai-input input:focus {
+        border-color: #C9A86A;
+        background: #FFFFFF;
+      }
+      #askar-ai-input button {
+        background: #1A1A1A;
+        color: #C9A86A;
+        border: 1px solid #C9A86A;
+        border-radius: 20px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 12px;
+        transition: all 0.2s;
+      }
+      #askar-ai-input button:hover {
+        background: #C9A86A;
+        color: #1A1A1A;
+      }
+      .askar-wa-btn {
+        background: #25D366;
+        color: #FFFFFF !important;
+        padding: 7px 12px;
+        border-radius: 18px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+        box-shadow: 0 2px 6px rgba(37,211,102,0.25);
+      }
+      .askar-shop-btn {
+        background: #1A1A1A;
+        color: #C9A86A !important;
+        border: 1px solid #C9A86A;
+        padding: 7px 12px;
+        border-radius: 18px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+      }
+    </style>
+
+    <div id="askar-ai-btn" onclick="toggleAskarAI()" title="Aşkar Yayınları">
+      <span>💬</span>
+    </div>
+
+    <div id="askar-ai-window" role="dialog" aria-label="Aşkar Yayınları">
+      <div id="askar-ai-header">
+        <div class="title-wrap">
+          <span class="name">Aşkar Yayınları'na Hoş Geldiniz!</span>
+        </div>
+        <span class="close-btn" onclick="toggleAskarAI()" title="Kapat">✕</span>
+      </div>
+
+      <div id="askar-ai-messages">
+        <div class="msg bot">
+          Merhaba; Size nasıl yardımcı olabilirim?
+        </div>
+      </div>
+
+      <div id="askar-ai-chips">
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('5. Sınıf Koçluk kitabı ne işe yarar?')">5. Sınıf Koçu</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Kitaplar basılı kargo mu yoksa PDF mi?')">PDF / Kargo</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Yetkili ile görüşmek istiyorum')">Yetkili ile Görüş</button>
+      </div>
+
+      <div id="askar-ai-input">
+        <input id="askar-input" type="text" placeholder="Sorunuzu buraya yazın..." onkeypress="if(event.key==='Enter')sendAskarMsg()" />
+        <button type="button" id="askar-send-btn" onclick="sendAskarMsg()">Gönder</button>
+      </div>
+    </div>
+
+    <script>
+      const WHATSAPP_LINK = "https://wa.me/905057162939?text=Merhaba,%20Aşkar%20Yayınları%20kitapları%20hakkında%20bilgi%20almak%20istiyorum";
+      const SHOPIER_LINK = "https://www.shopier.com/mehmetaliaskar";
+
+      function toggleAskarAI() {
+        const w = document.getElementById('askar-ai-window');
+        if (!w) return;
+        const isShown = w.style.display === 'flex';
+        w.style.display = isShown ? 'none' : 'flex';
+        if (!isShown) {
+          setTimeout(() => {
+            const input = document.getElementById('askar-input');
+            if (input) input.focus();
+          }, 150);
+        }
+      }
+
+      function askQuickPrompt(text) {
+        const input = document.getElementById('askar-input');
+        if (input) {
+          input.value = text;
+          sendAskarMsg();
+        }
+      }
+
+      async function sendAskarMsg() {
+        const input = document.getElementById('askar-input');
+        const sendBtn = document.getElementById('askar-send-btn');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMsg(text, 'user');
+        input.value = '';
+        if (sendBtn) sendBtn.disabled = true;
+
+        const lower = text.toLowerCase();
+        // İnsan / yetkili talebi kontrolü
+        if (lower.includes('insan') || lower.includes('yetkili') || lower.includes('telefon') || lower.includes('whatsapp')) {
+          const directText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+          addMsg(directText, 'bot', true);
+          if (sendBtn) sendBtn.disabled = false;
+          return;
+        }
+
+        // Yükleniyor balonu
+        const loadingId = 'loading-' + Date.now();
+        addLoadingMsg(loadingId);
+
+        try {
+          const response = await fetch('/api/assistant', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+          });
+
+          removeLoadingMsg(loadingId);
+
+          if (response.ok) {
+            const data = await response.json();
+            let botReply = (data && data.reply) ? data.reply : "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+
+            // Remove any repetitive 'Merhaba' or 'Selam' at start
+            botReply = botReply.replace(/^(merhaba|selamlar|selam|iyi günler)[!.,\s-]*/i, '');
+
+            // Ensure raw phone number is never printed in reply
+            botReply = botReply.replace(/\+?90\s*505\s*716\s*29\s*39/g, '');
+            botReply = botReply.trim();
+
+            // Format buttons if applicable
+            let actionHtml = '';
+            if (botReply.includes('WhatsApp') || botReply.includes('yetkili') || botReply.includes('yönlendireyim')) {
+              actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            }
+            if (botReply.includes('Shopier')) {
+              actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+            }
+
+            addMsg(botReply.replace(/\n/g, '<br>') + actionHtml, 'bot', true);
+          } else {
+            const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            addMsg(failText, 'bot', true);
+          }
+        } catch (e) {
+          removeLoadingMsg(loadingId);
+          const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+          addMsg(failText, 'bot', true);
+        } finally {
+          if (sendBtn) sendBtn.disabled = false;
+        }
+      }
+
+      function addLoadingMsg(id) {
+        const box = document.getElementById('askar-ai-messages');
+        if (!box) return;
+        const d = document.createElement('div');
+        d.id = id;
+        d.className = 'msg bot';
+        d.innerHTML = '<span style="opacity:0.6;font-style:italic">Yanıt hazırlanıyor...</span>';
+        box.appendChild(d);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function removeLoadingMsg(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+      }
+
+      function addMsg(t, cls, isHtml = false) {
+        const box = document.getElementById('askar-ai-messages');
+        if (!box) return;
+        const d = document.createElement('div');
+        d.className = 'msg ' + cls;
+        if (isHtml) {
+          d.innerHTML = t;
+        } else {
+          d.textContent = t;
+        }
+        box.appendChild(d);
+        box.scrollTop = box.scrollHeight;
+      }
+    </script>
     <script type="module" defer src="/src/main.tsx"></script>
   </body>
 </html>
