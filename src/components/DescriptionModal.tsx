@@ -53,7 +53,7 @@ export const DescriptionModal: React.FC<DescriptionModalProps> = ({
                   />
                 </div>
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span
                       className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase"
                       style={{ backgroundColor: `${book.badgeColor}15`, color: book.badgeColor }}
@@ -64,6 +64,11 @@ export const DescriptionModal: React.FC<DescriptionModalProps> = ({
                       <ShieldCheck className="w-3 h-3" />
                       Dijital Ürün - Anında Teslim
                     </span>
+                    {(book.altBaslik || book.pageCount) && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-[#C9A86A]/20 text-[#856526] px-2.5 py-0.5 rounded-full border border-[#C9A86A]/40">
+                        {book.altBaslik || `${book.format || 'A5 Boyut'} • ${book.pageCount} Sayfa`}
+                      </span>
+                    )}
                   </div>
                   <h3 className="font-serif font-black text-base sm:text-lg text-[#1A1A1A] truncate mt-1">
                     {book.title}

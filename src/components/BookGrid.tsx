@@ -90,25 +90,33 @@ export const BookGrid: React.FC = () => {
                 </p>
               </div>
 
-              {/* Price & Format Information */}
-              <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 flex items-baseline justify-between mt-auto mb-3">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50">
-                    DİJİTAL PDF
+              {/* Price & Format Information (Alt Kısım) */}
+              <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3">
+                {/* Alt Kısım: Format ve Sayfa Sayısı */}
+                <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#856526] bg-[#FAF6EE] px-2.5 py-1.5 rounded-lg border border-[#C9A86A]/40 mb-2.5 shadow-2xs">
+                  <span className="flex items-center gap-1.5 truncate">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C9A86A] shrink-0"></span>
+                    <span className="truncate">{book.altBaslik || `${book.format || 'A5 Boyut'}, ${book.pageCount} Sayfa`}</span>
                   </span>
-                  <span className="text-[10px] text-emerald-700 font-sans font-semibold">
-                    Kargo Yok • Anında İndir
+                  <span className="text-[10px] text-emerald-700 font-sans font-semibold shrink-0">
+                    Kargo Yok
                   </span>
                 </div>
-                <div className="flex items-baseline gap-1.5 text-right">
-                  {bookPrice.originalPrice && (
-                    <span className="text-xs text-[#1A1A1A]/40 line-through font-sans">
-                      {bookPrice.originalPrice}
-                    </span>
-                  )}
-                  <span className="text-xl font-serif font-black text-[#1A1A1A] tracking-tight">
-                    {bookPrice.price}
+
+                <div className="flex items-baseline justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                    DİJİTAL PDF
                   </span>
+                  <div className="flex items-baseline gap-1.5 text-right">
+                    {bookPrice.originalPrice && (
+                      <span className="text-xs text-[#1A1A1A]/40 line-through font-sans">
+                        {bookPrice.originalPrice}
+                      </span>
+                    )}
+                    <span className="text-xl font-serif font-black text-[#1A1A1A] tracking-tight">
+                      {bookPrice.price}
+                    </span>
+                  </div>
                 </div>
               </div>
 

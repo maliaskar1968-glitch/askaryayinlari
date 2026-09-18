@@ -98,33 +98,34 @@ export const KidsBookGrid: React.FC = () => {
                 </p>
               </div>
 
-              {/* Price & Format */}
-              <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 flex items-baseline justify-between mt-auto mb-3">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50">
-                    DİJİTAL PDF
-                  </span>
-                  <span className="text-[10px] text-emerald-700 font-sans font-semibold">
-                    Anında İndirme
-                  </span>
+              {/* Price & Format (Alt Kısım) */}
+              <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3">
+                {/* Format ve Sayfa Sayısı - Tam genişlik, kırpılma yok */}
+                <div className="flex items-center gap-1.5 text-[11px] font-sans font-bold text-[#856526] bg-[#FAF6EE] px-2.5 py-1.5 rounded-lg border border-[#C9A86A]/40 mb-2.5 shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C9A86A] shrink-0"></span>
+                  <span className="whitespace-nowrap">{book.altBaslik || `${book.format || 'A4 Boyut'}, ${book.pageCount} Sayfa`}</span>
                 </div>
-                <div className="flex items-baseline gap-1.5 text-right">
-                  {bookPrice.originalPrice && (
-                    <span className="text-xs text-[#1A1A1A]/40 line-through font-sans">
-                      {bookPrice.originalPrice}
-                    </span>
-                  )}
-                  <span className="text-xl font-serif font-black text-[#1A1A1A] tracking-tight">
-                    {bookPrice.price}
-                  </span>
-                </div>
-              </div>
 
-              {/* Trust Badge */}
-              <div className="bg-[#F8F7F4] border border-[#1A1A1A]/8 rounded-xl p-2.5 mb-3 text-left">
-                <div className="flex items-center gap-1.5 text-[11px] font-sans font-semibold text-[#1A1A1A]">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Shopier güvencesi ile anında teslim</span>
+                {/* Alt Satır: Dijital PDF & Anında İndirme ve Fiyat */}
+                <div className="flex items-end justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                      DİJİTAL PDF
+                    </span>
+                    <span className="text-[10px] text-emerald-700 font-sans font-semibold">
+                      Anında İndirme
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-1.5 text-right">
+                    {bookPrice.originalPrice && (
+                      <span className="text-xs text-[#1A1A1A]/40 line-through font-sans">
+                        {bookPrice.originalPrice}
+                      </span>
+                    )}
+                    <span className="text-xl font-serif font-black text-[#1A1A1A] tracking-tight">
+                      {bookPrice.price}
+                    </span>
+                  </div>
                 </div>
               </div>
 

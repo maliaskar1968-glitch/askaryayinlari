@@ -13,7 +13,11 @@ export const BOOKS_DATA: Book[] = [
     price: '189 ₺',
     originalPrice: '250 ₺',
     previewUrl: 'https://drive.google.com/file/d/11VWx5Mb1EGHzA37jvMk-zvQ2x3CCbHPr/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 70,
+    altBaslik: 'A5 Boyut, 70 Sayfa',
     description: `ORTAOKUL KOÇU 5. SINIF - Ortaokula Güçlü Başlangıç
+Format: A5 Boyut · 70 Sayfa
 E-Kitap | Hemen İndir - Kargo Yok, Beklemek Yok
 
 5. sınıfa geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR.
@@ -32,8 +36,10 @@ Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.
 • Telefon/tablet Altın Zamanını çalıyor
 • "Öğretmene soru sormaya utanıyorum" diyor
 
-Bu kitap bu 5 sorunu çözmek için yazıldı.`,
-    contentDetails: `10 Haftalık Koçluk Sistemi:
+Bu kitap bu 5 sorunu çözmek için yazıldı.
+
+Format: A5 Boyut · 70 Sayfa`,
+    contentDetails: `10 Haftalık Koçluk Sistemi (A5 Boyut · 70 Sayfa):
 1. Hafta: Ortaokul Zihniyeti - İlkokul Alışkanlıklarını Geride Bırak
 2. Hafta: Çalışma Alanı ve Düzen - Dağınıklığa Son
 3. Hafta: Zaman Yönetimi - Altın Saatler ve Pomodoro
@@ -57,7 +63,11 @@ Bu kitap bu 5 sorunu çözmek için yazıldı.`,
     price: '189 ₺',
     originalPrice: '250 ₺',
     previewUrl: 'https://drive.google.com/file/d/1I53NLflZyyXlwwV3uQ-jhesiUZ_asFya/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 64,
+    altBaslik: 'A5 Boyut, 64 Sayfa',
     description: `ORTAOKUL KOÇU 6. SINIF - Başarı Alışkanlıklarını Güçlendir
+Format: A5 Boyut · 64 Sayfa
 E-Kitap | Hemen İndir - Kargo Yok, Beklemek Yok
 
 5. sınıfta sistemi kurdun. 6. sınıfta oyunun zor seviyesi başlıyor.
@@ -83,8 +93,10 @@ E-KİTAP AVANTAJI
 • Tablet / Telefon / Bilgisayar Uyumlu PDF
 • Çıktı al, rozetleri kes-yapıştır, duvara as
 • Kargo YOK, Kaybolma YOK
-• Ömür Boyu Güncelleme - Tek Fiyat`,
-    contentDetails: `10 Bölüm ve 10 Özel Rozet:
+• Ömür Boyu Güncelleme - Tek Fiyat
+
+Format: A5 Boyut · 64 Sayfa`,
+    contentDetails: `10 Bölüm ve 10 Özel Rozet (A5 Boyut · 64 Sayfa):
 1. Temel Odak ve Zihin Disiplini
 2. Derinleşen Konulara Karşı Not Alma Taktikleri
 3. Ertelemeyi Yok Eden 5 Saniye Kuralı
@@ -108,7 +120,11 @@ E-KİTAP AVANTAJI
     price: '199 ₺',
     originalPrice: '250 ₺',
     previewUrl: 'https://drive.google.com/file/d/1E1N-ou53Pt8yXa4YDMqaGgRUzfiH5WE5/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 104,
+    altBaslik: 'A5 Boyut, 104 Sayfa',
     description: `ORTAOKUL KOÇU 7. SINIF - LGS Yolunda Sağlam Adımlar
+Format: A5 Boyut · 104 Sayfa
 7'de iskeleti kur, 8'de meyvesini topla. Başla, yapabilirsin.
 E-Kitap | Hemen İndir - Kargo Yok, Beklemek Yok
 
@@ -134,8 +150,10 @@ E-KİTAP AVANTAJI
 • Çıktı Al, Rozetleri Kes, Duvara As
 • Kargo YOK - Kaybolma YOK
 • Ömür Boyu Güncelleme
+
+Format: A5 Boyut · 104 Sayfa
 Yazar: Mehmet Ali Aşkar - Aşkar Yayınları`,
-    contentDetails: `Kitap İçeriği ve Bölümler:
+    contentDetails: `Kitap İçeriği ve Bölümler (A5 Boyut · 104 Sayfa):
 • LGS Temelleri: Yeni Nesil Sorulara Giriş
 • Düzenli Masa Disiplini: Günde 30 Soru Alışkanlığı
 • Paragraf ve Mantık-Muhakeme Rutini
@@ -158,8 +176,12 @@ Yazar: Mehmet Ali Aşkar - Aşkar Yayınları`,
     price: '279 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1zesnHEhX4Ud6MDYI_7fxv7ffA8lnCRhd/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 102,
+    altBaslik: 'A5 Boyut, 102 Sayfa',
     description: `LGS'DE KENDİ KOÇUN OL - 8. Sınıf
 12 Adımda Disiplin, Plan ve Başarı Sistemi
+Format: A5 Boyut · 102 Sayfa
 Öğrenciler ve Veliler İçin Pratik Kılavuz
 
 Çocuğunuz LGS'ye hazırlanıyor ama plan yoksa, net de yok.
@@ -176,8 +198,10 @@ Ders çalış demiyor, nasıl çalışacağını öğretiyor.
 Ezber yok. Boş motivasyon yok.
 Sadece uygulanan, ölçülen, sonuç veren adımlar.
 Kargo Yok, Bekleme Yok
-e-Kitap & PDF – Anında İndir`,
-    contentDetails: `12 Adımlık LGS Başarı Yol Haritası:
+e-Kitap & PDF – Anında İndir
+
+Format: A5 Boyut · 102 Sayfa`,
+    contentDetails: `12 Adımlık LGS Başarı Yol Haritası (A5 Boyut · 102 Sayfa):
 1. Adım: Hedef Belirleme ve Lise Hayali
 2. Adım: Günlük 3 Altın İş Sistemi
 3. Adım: Blok Çalışma ve Masada Kalma Gücü
@@ -203,8 +227,12 @@ e-Kitap & PDF – Anında İndir`,
     price: '189 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/16KvnZb66YbtBp8xL5-Tihy06Myy3TP4L/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 96,
+    altBaslik: 'A5 Boyut, 96 Sayfa',
     description: `LİSE KOÇU 9. SINIF – Liseye Güçlü Bir Başlangıç
 Akademik Başarı • Öz Disiplin • Hedef Odaklı Lise Hayatı
+Format: A5 Boyut · 96 Sayfa
 
 Ortaokul bitti, artık liselisin. Peki bu yeni dönemde seni gerçekten güçlü kılacak şey ne — daha çok ders mi, yoksa doğru alışkanlıklar mı?
 Lise Koçu 9. Sınıf, bir ders kitabı değil, bir antrenman defteridir. 9. sınıf öğrencisinin liseye sağlam bir başlangıç yapması için hazırlanmış, 18 bölümden oluşan interaktif bir kişisel gelişim ve koçluk kitabıdır.
@@ -225,10 +253,10 @@ Her bölümde:
 • Bir Bölüm Mührü (o bölümü gerçekten "yaşadığını" gösteren küçük bir ritüel)
 Kitap sonunda Tamamlama Sertifikası ile 9. sınıf yolculuğu taçlandırılıyor.
 
-• Format: E-kitap (PDF), telefon/tablet/bilgisayar uyumlu — kargo yok, anında indir.
+• Format: A5 Boyut · 96 Sayfa, E-kitap (PDF), telefon/tablet/bilgisayar uyumlu — kargo yok, anında indir.
 • Ömür boyu güncelleme, tek fiyat.
 • Yazar: Mehmet Ali Aşkar — Aşkar Yayınları`,
-    contentDetails: `18 Bölüm ve Zengin İçerik:
+    contentDetails: `18 Bölüm ve Zengin İçerik (A5 Boyut · 96 Sayfa):
 • Kendini Tanıma ve Güçlü Yönler
 • SMART Hedefler ve 4 Yıllık Lise Haritası
 • Zaman Yönetimi ve Pomodoro Tekniği
@@ -250,7 +278,11 @@ Kitap sonunda Tamamlama Sertifikası ile 9. sınıf yolculuğu taçlandırılıy
     price: '189 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1Wb0UTJQjX8N6n_1DYdW2uTBJfdO8JgUA/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 115,
+    altBaslik: 'A5 Boyut, 115 Sayfa',
     description: `LİSE KOÇU 10. SINIF - Başarı Alışkanlıklarını Derinleştir
+Format: A5 Boyut · 115 Sayfa
 9. sınıfı bitirdin, sistemi öğrendin. Şimdi güçlenme zamanı.
 Lise Koçu 10. Sınıf, 10. sınıfa geçen lise öğrencileri için hazırlanmış, koçluk formatında bir başarı alışkanlıkları rehberi. Kuru bir ders kitabı değil — seninle konuşan, meydan okuyan, seni bir üst seviyeye taşımayı hedefleyen bir yol arkadaşı.
 
@@ -270,8 +302,10 @@ Tamamlama Sertifikası
 Kimler için?
 10. sınıfa başlayan, TYT'nin temelini bu yıl sağlamlaştırmak isteyen, alışkanlıklarını kalıcı hale getirmeye hazır her öğrenci için.
 Disiplini Güçlendir • Hedefini Netleştir • Geleceğini İnşa Et
-Satın alma sonrası anında PDF olarak indirilir.`,
-    contentDetails: `10. Sınıf Başarı Mimarisi:
+Satın alma sonrası anında PDF olarak indirilir.
+
+Format: A5 Boyut · 115 Sayfa`,
+    contentDetails: `10. Sınıf Başarı Mimarisi (A5 Boyut · 115 Sayfa):
 • TYT Temelini Bu Yıldan Sağlamlaştırma
 • Karikatürlü Vaka Analizleri ve Görevler
 • Hafıza Sarayı ve Aralıklı Tekrar Sistemi
@@ -291,8 +325,12 @@ Satın alma sonrası anında PDF olarak indirilir.`,
     price: '249 ₺',
     originalPrice: '350 ₺',
     previewUrl: 'https://drive.google.com/file/d/1dOAUExLMfBQPxf5_9Uwj0gEyiXbVlpRb/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 153,
+    altBaslik: 'A5 Boyut, 153 Sayfa',
     description: `LİSE KOÇU 11. SINIF - YKS Yolunda Sağlam Adımlar
 Planla • Derinleş • Güçlen • Hedefine Yürü
+Format: A5 Boyut · 153 Sayfa
 
 Artık lise yolculuğunun tam ortasındasın. 11. sınıf, YKS'de seni bekleyen sınavın omurgasını oluşturan konuların büyük kısmını taşıyor — ve bu kitap, bu kritik yılı bir borç biriktirmeden, sağlam adımlarla geçmen için yazıldı.
 
@@ -314,8 +352,10 @@ Ekstra içerikler dahil:
 • 18 Bölüm Başarı Mühür Sayfası
 • Tamamlama Sertifikası
 
-Bu kitap, olgun, net ve mentor bir dille, Z kuşağına hitap ediyor ama ciddiyetinden hiç ödün vermiyor.`,
-    contentDetails: `YKS Omurgası 11. Sınıf Rehberi:
+Bu kitap, olgun, net ve mentor bir dille, Z kuşağına hitap ediyor ama ciddiyetinden hiç ödün vermiyor.
+
+Format: A5 Boyut · 153 Sayfa`,
+    contentDetails: `YKS Omurgası 11. Sınıf Rehberi (A5 Boyut · 153 Sayfa):
 • 18 Tam Bölüm ve Gerçek Hayat Kıssaları
 • Bilimsel "Beynin Bunu Biliyor muydu?" Kutuları
 • TYT - AYT Eşzamanlı Yürütme Stratejisi
@@ -335,8 +375,12 @@ Bu kitap, olgun, net ve mentor bir dille, Z kuşağına hitap ediyor ama ciddiye
     price: '349 ₺',
     originalPrice: '450 ₺',
     previewUrl: 'https://drive.google.com/file/d/1TtngfRY4u2bIMgcXbNvwtjyQdeptsmFr/view?usp=drive_link',
+    format: 'A5 Boyut',
+    pageCount: 96,
+    altBaslik: 'A5 Boyut, 96 Sayfa',
     description: `YKS'DE KENDİ KOÇUN OL
 12 Adımda Disiplin, Plan ve Başarı Sistemi
+Format: A5 Boyut · 96 Sayfa
 Öğrenci, Veli ve Öğretmenler için Pratik Kılavuz
 
 YKS, bilginin yanında strateji ve sürdürülebilir çalışma gerektirir.
@@ -354,8 +398,10 @@ Bu kitap, kendi öğrenme sürecini yönetmek isteyen öğrenciler için 12 adı
 Öğretmenler ve eğitim koçları için: Her adımın sonunda sınıf içi uygulama önerileri ve öğrenci takip formları yer alır.
 12 tabela, 12 adım. Zirve için sistemli ilerle.
 Kargo YOK, Bekleme YOK
-e-Kitap & PDF – Anında İndir`,
-    contentDetails: `12 Adımda YKS Zirve Programı:
+e-Kitap & PDF – Anında İndir
+
+Format: A5 Boyut · 96 Sayfa`,
+    contentDetails: `12 Adımda YKS Zirve Programı (A5 Boyut · 96 Sayfa):
 1. Adım: Gerçekçi Hedef ve Sıralama Analizi
 2. Adım: TYT ve AYT Zaman Dengesi
 3. Adım: Günlük Blok Çalışma ve Odaklanma
@@ -381,17 +427,22 @@ e-Kitap & PDF – Anında İndir`,
     price: '199 ₺',
     originalPrice: '290 ₺',
     previewUrl: 'https://drive.google.com/file/d/1f-9UlmMIcTDnl8lIyq5ohSHU3VLDbfrb/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 205,
+    altBaslik: 'A5 Boyut, 205 Sayfa',
     description: `ŞİMŞEĞİN EFENDİSİ - Nikola Tesla'nın Romanı
 Nikola Tesla'nın Bilinmeyen Yılları
-Tarihî Kurgu · 25 Bölüm · 205 Sayfa
+Tarihî Kurgu · A5 Boyut · 25 Bölüm · 205 Sayfa
 
 Şimşeğin Efendisi; dâhilik ile yalnızlığın, vizyon ile paranın, ihanet ile sadakatin, ve nihayetinde bir insanın bıraktığı ışığın ne kadar uzağa gidebileceğinin romanıdır.
 Dünyayı aydınlatan adam, kendisi karanlıkta yaşadı.
 Ama o karanlık, sizi okurken bile aydınlatıyor.
 Nikola Tesla · 1856–1943
 
-Ve roman, 1943'te kapanmıyor. 2026'da, Hatay'da bir meslek lisesinin sıcak atölyesinde, hurda motorlardan drone yapan on yedi yaşında bir çocukla yeniden açılıyor. Çünkü Tesla'nın akımı kesilmedi — sadece biçim değiştirdi.`,
-    contentDetails: `Romanın Önemli Başlıkları:
+Ve roman, 1943'te kapanmıyor. 2026'da, Hatay'da bir meslek lisesinin sıcak atölyesinde, hurda motorlardan drone yapan on yedi yaşında bir çocukla yeniden açılıyor. Çünkü Tesla'nın akımı kesilmedi — sadece biçim değiştirdi.
+
+Format: A5 Boyut · 205 Sayfa`,
+    contentDetails: `Romanın Önemli Başlıkları (A5 Boyut · 205 Sayfa):
 • Smiljan'daki Çocukluk ve İlk Şimşekler
 • Graz ve Prag Yılları: Zihindeki Laboratuvar
 • Amerika'ya Varış ve Edison ile Akımlar Savaşı
@@ -412,8 +463,12 @@ Ve roman, 1943'te kapanmıyor. 2026'da, Hatay'da bir meslek lisesinin sıcak at�
     price: '199 ₺',
     originalPrice: '290 ₺',
     previewUrl: 'https://drive.google.com/file/d/1jMTtiGmI7CMknSroup1OykonoOrJxHMN/view?usp=drive_link',
+    format: 'A5 Boyut',
+    pageCount: 273,
+    altBaslik: 'A5 Boyut, 273 Sayfa',
     description: `ATOMUN KALBİ
 Ernest Rutherford'un Hayatından Esinlenmiş Tarihî Kurgu Roman
+Tarihî Kurgu · A5 Boyut · 273 Sayfa
 Bir bilim insanının azmi, atoma ışık tuttu.
 
 1895'te Yeni Zelanda'da patates tarlasından çıkan genç bir çiftçi oğlu, elinde bir tel bobiniyle Cambridge'e gittiğinde kimse onun evrenin sırlarını değiştireceğini bilmiyordu.
@@ -430,8 +485,10 @@ Bu kitapta ne bulacaksınız?
 • Niels Bohr, J.J. Thomson, Marie Curie ile dostluklar ve kavgalar
 • Bilimin "satılamaz" olduğuna inanan bir adamın hikâyesi
 • Bugüne uzanan bir miras: Bugün merak eden her gence bir çağrı
-Tarihî kurgu, bilimsel gerçeklere sadık kalınarak yazılmıştır.`,
-    contentDetails: `Romanın İçeriği:
+Tarihî kurgu, bilimsel gerçeklere sadık kalınarak yazılmıştır.
+
+Format: A5 Boyut · 273 Sayfa`,
+    contentDetails: `Romanın İçeriği (A5 Boyut · 273 Sayfa):
 • Yeni Zelanda Patates Tarlasından Cavendish'e
 • J.J. Thomson ile Karşılaşma ve Elektron Çağı
 • Montreal Yılları: Radyoaktivitenin Doğası
@@ -456,6 +513,9 @@ export const KIDS_BOOKS_DATA: Book[] = [
     price: '149 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1QqpUtKkeHfCKIjF3n8Agkk1X_Cbg1dBL/view?usp=sharing',
+    format: 'A4 Boyut',
+    pageCount: 153,
+    altBaslik: 'Resimli, A4 Boyut, 153 Sayfa',
     description: `SEVİMLİ DENİZ ALTI KAŞİFLERİ
 Yazdırılabilir Dijital Boyama Kitabı PDF | İlk Bölüm Önizlemeli
 Format: A4 Dikey PDF - 153 Sayfa
@@ -495,7 +555,11 @@ Lisans: Kişisel kullanım içindir, çoğaltıp satılamaz.`,
     price: '199 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1NFjq8HGazvHmxtf0PLeLdhwrImSFW-r0/view?usp=sharing',
+    format: 'A4 Boyut',
+    pageCount: 90,
+    altBaslik: 'Resimli, A4 Boyut, 90 Sayfa',
     description: `ORMANIN MİNİK KORUYUCULARI - Elif, Mert ve Can'ın Büyülü Orman Macerası
+Format: Resimli · A4 Boyut · 90 Sayfa
 6-9 Yaş | Doğa Sevgisi, Dayanışma ve Sorumluluk Hikayesi
 
 Hiç rüzgarın fısıldadığını duydunuz mu? Bu kitap, ormanı dinlemeyi öğrenen üç cesur arkadaşın hikayesi!
@@ -539,14 +603,18 @@ Boyut: A4 Dikey | Yaş Grubu: 6-9 Yaş | Tür: Resimli Hikaye / Değerler Eğiti
     price: '199 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1MrXW8yogjn_qpz4gISbpZRyMNVurb62s/view?usp=sharing',
+    format: 'A4 Boyut',
+    pageCount: 96,
+    altBaslik: 'Resimli, A4 Boyut, 96 Sayfa',
     description: `UYKUDAN ÖNCE - Her Çocuk İyi Bir Hikâye Hak Eder
 30 Gece • 30 Masal • Tatlı Rüyalar
+Format: Resimli · A4 Boyut · 96 Sayfa
 
 Çocuğunuzun günün telaşından uzaklaşıp huzurla uykuya hazırlanacağı, sıcacık ve sevgi dolu bir uyku yolculuğuna hazır mısınız?
 Uykudan Önce – Her Çocuk İyi Bir Hikâye Hak Eder, Uyku Tavşanı Momo ve orman arkadaşlarının eşlik ettiği 30 gecelik özel bir masal yolculuğu sunuyor.
 
 Kitabın İçinde Neler Var?
-• 30 farklı gece için 30 sıcak ve huzurlu masal
+• 96 sayfa dolu dolu resimli içerik ve 30 farklı gece için 30 sıcak masal
 • Uyku öncesi sakinleşmeye yardımcı “Minik Nefes” bölümleri
 • Günün güzel yanlarını fark etmeyi destekleyen “Minik Şükür” soruları
 • Her hikâyede çocuklara eşlik eden sevimli Uyku Tavşanı Momo
@@ -558,8 +626,10 @@ Kitabın İçinde Neler Var?
 • Sonra gözlerinizi yavaşça kapatın...
 
 Kitap Bilgileri:
+• Format: Resimli · A4 Boyut · 96 Sayfa
 • Yazar: Mehmet Ali AŞKAR — Aşkar Yayınları`,
-    contentDetails: `30 Gece 30 Masal:
+    contentDetails: `30 Gece 30 Masal (Resimli · A4 Boyut · 96 Sayfa):
+• 96 Sayfa Resimli Uyku Masalları
 • Huzurlu Uykuya Geçiş Rehberi
 • Minik Nefes Egzersizleri
 • Günlük Minik Şükür Soruları
@@ -577,7 +647,11 @@ Kitap Bilgileri:
     price: '149 ₺',
     originalPrice: '300 ₺',
     previewUrl: 'https://drive.google.com/file/d/1-luL-zeLEF1ysvjuMH9z_8lyaK5GLTPD/view?usp=sharing',
+    format: 'A5 Boyut',
+    pageCount: 99,
+    altBaslik: 'Resimli, A5 Boyut, 99 Sayfa',
     description: `NASREDDİN HOCA'NIN TORUNLARI - Fıkra Kitabı | 6-10 Yaş Değerler ve Mizah Kitabı
+Format: Resimli · A5 Boyut · 99 Sayfa
 Zeynep, Mert ve Elif ile Anadolu'da Kahkahalarla Dolu Bir Yolculuğa Çıkın!
 
 Yüzyıllardır güldüren ve düşündüren Nasreddin Hoca'nın torunları, bu kez sizinle! Meraklı Zeynep, sakar ama zeki Mert ve hayvanlarla konuşan Elif; eşeği kaybediyor, sofrada mantı yapıyor, imeceye katılıyor, Karadeniz'den Ege'ye kahkaha turuna çıkıyor... Her sayfada yeni bir gülüş, her fıkrada çocuğunuza kalıcı bir değer!

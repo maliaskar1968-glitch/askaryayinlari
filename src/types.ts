@@ -27,6 +27,8 @@ export interface Book {
   description?: string;
   contentDetails?: string;
   altBaslik?: string;
+  pageCount?: string | number;
+  format?: string;
 }
 
 export interface ValueCard {

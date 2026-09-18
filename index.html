@@ -165,23 +165,38 @@
         text-align: right;
       }
       #askar-ai-chips {
-        padding: 6px 12px;
-        display: flex;
-        gap: 6px;
-        overflow-x: auto;
+        padding: 6px 8px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
         background: #F8F6F0;
         border-top: 1px solid #EEE9DF;
+        overflow: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #askar-ai-chips::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
       }
       .chip-btn {
         background: #FFFFFF;
         border: 1px solid #D6CBB8;
         color: #5A4E3C;
-        font-size: 11px;
-        padding: 4px 10px;
-        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        padding: 5px 2px;
+        border-radius: 8px;
         white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
         cursor: pointer;
         transition: all 0.2s;
+        line-height: 1.25;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
       }
       .chip-btn:hover {
         background: #1A1A1A;
@@ -273,10 +288,11 @@
       </div>
 
       <div id="askar-ai-chips">
-        <button class="chip-btn" type="button" onclick="askQuickPrompt('Çocuklar için')">Çocuklar için</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Çocuklar için')">Çocuklar İçin</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Ortaokul kitapları nelerdir?')">Ortaokul Kitapları</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Lise kitapları nelerdir?')">Lise Kitapları</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('YKS ve mezun için ne var?')">YKS & Mezun</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Tarihi kurgu romanlar nelerdir?')">Tarihi Kurgu Roman</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Kitaplar basılı kargo mu yoksa PDF mi?')">PDF / Kargo</button>
       </div>
 
@@ -459,8 +475,15 @@
           return "TYT-AYT hazırlığı için 10. Sınıf, 11. Sınıf veya YKS'de Kendi Koçun Ol kitabımızı mı kastettiniz? Hangisinden bahsedeyim?<br><br>Shopier ile anında indirebilirsiniz.";
         }
 
-        if (s.includes('tarihi kurgu') || s.includes('roman') || s.includes('hikaye') || s.includes('masal')) {
-          return "Tarihi kurgu olarak 'Nasrettin Hoca'nın Torunları' serimizi mi kastettiniz? Eğer evetse detay vereyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        if (s.includes('tarihi kurgu') || s.includes('tarihi roman') || (s.includes('roman') && !s.includes('fıkra'))) {
+          return "Tarihî Kurgu Roman kategorimizde iki özel eserimiz bulunmaktadır:<br>" +
+                 "1- <b>Şimşeğin Efendisi Tesla</b> (Nikola Tesla'nın Bilinmeyen Yılları - A5 Boyut, 205 Sayfa Sürükleyici Roman)<br>" +
+                 "2- <b>Atomun Kalbi Rutherford</b> (Ernest Rutherford'un İlham Verici Bilim ve Azim Romanı - A5 Boyut, 273 Sayfa)<br><br>" +
+                 "Ayrıca çocuklar için tarihî-mizahi <b>Nasrettin Hoca'nın Torunları</b> kitabımız mevcuttur. Kitaplarımızı Shopier ile anında PDF olarak indirebilirsiniz.";
+        }
+
+        if (s.includes('hikaye') || s.includes('masal')) {
+          return "Hikâye ve masal olarak Çocuk Kitaplığı serimizde 'Sevimli Deniz Altı Kaşifleri', 'Ormanın Minik Koruyucuları', 'Uykudan Önce' ve 'Nasrettin Hoca\'nın Torunları' yer almaktadır.<br><br>Shopier ile anında indirebilirsiniz.";
         }
 
         if (s.includes('koç') || s.includes('koçluk') || s.includes('kitap')) {
