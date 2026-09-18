@@ -7,6 +7,13 @@
     <meta name="description" content="Aşkar Yayınları - LGS ve YKS Koçu Kitapları, Ortaokul ve Lise Koçu, Tarihi Kurgu Romanlar, Çocuk Dünyası Kitapları, Eğitsel ve Kontrol Uygulamaları" />
     <meta property="og:title" content="Aşkar Yayınları" />
     <meta property="og:description" content="Aşkar Yayınları - LGS ve YKS Koçu Kitapları, Ortaokul ve Lise Koçu, Tarihi Kurgu Romanlar, Çocuk Dünyası Kitapları, Eğitsel ve Kontrol Uygulamaları" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FAF9F6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Aşkar Yayın" />
+    <link rel="apple-touch-icon" href="/resimler/logo.jpg" />
     <link rel="preconnect" href="https://www.shopier.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.shopier.com" />
     <!-- Google tag (gtag.js) -->
@@ -266,6 +273,7 @@
       </div>
 
       <div id="askar-ai-chips">
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Çocuklar için')">Çocuklar için</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Ortaokul kitapları nelerdir?')">Ortaokul Kitapları</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Lise kitapları nelerdir?')">Lise Kitapları</button>
         <button class="chip-btn" type="button" onclick="askQuickPrompt('YKS ve mezun için ne var?')">YKS & Mezun</button>
@@ -362,8 +370,25 @@
           return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor.<br><br>Shopier ile anında indirebilirsiniz.";
         }
 
-        if (s.includes('çocuk için ne var') || s.includes('çocuk kitapları') || s.includes('ilkokul hikaye') || (s.includes('çocuk') && (s.includes('neler') || s.includes('kitap')))) {
-          return "Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var.<br><br>Shopier ile anında indirebilirsiniz.";
+        if (
+          s.includes('çocuk için') ||
+          s.includes('çocuklar için') ||
+          s.includes('çocuk kitapları') ||
+          s.includes('çocuk kitaplığı') ||
+          s.includes('cocuk') ||
+          s.includes('ilkokul hikaye') ||
+          s.includes('masal') ||
+          s.includes('boyama') ||
+          s === 'çocuklar' ||
+          s === 'çocuk'
+        ) {
+          return "Çocuk Kitaplığı serimizde yer alan kitaplarımız:<br>" +
+                 "1- <b>Sevimli Deniz Altı Kaşifleri</b> (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)<br>" +
+                 "2- <b>Ormanın Minik Koruyucuları</b> (Doğa Sevgisi ve Değerler Hikayesi)<br>" +
+                 "3- <b>Uykudan Önce</b> (30 Gece Masal & Uyku Kitabı)<br>" +
+                 "4- <b>Nasrettin Hoca'nın Torunları</b> (Eğitici Fıkra Kitabı)<br><br>" +
+                 "Ayrıca <b>'Sevimli Deniz Altı Kaşifleri'</b> interaktif uygulamamız, tüm çocuklarımıza <b>Aşkar Yayınları'nın özel bir armağanıdır</b> (ücretsizdir).<br><br>" +
+                 "Kitaplarımızı Shopier ile anında indirebilirsiniz.";
         }
 
         // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)
@@ -570,6 +595,14 @@
         }
         box.appendChild(d);
         box.scrollTop = box.scrollHeight;
+      }
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function(err) {
+            console.log('SW registration:', err);
+          });
+        });
       }
     </script>
     <script type="module" defer src="/src/main.tsx"></script>

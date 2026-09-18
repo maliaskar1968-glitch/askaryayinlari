@@ -34,8 +34,13 @@ Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
 [MEZUN / YKS GRUBU]
 - YKS'de Kendi Koçun Ol (12. Sınıf ve Mezunlar için).
 
-[ÇOCUK KİTAPLARI GRUBU]
-- Nasrettin Hoca'nın Torunları (6-10 yaş fıkra ve değerler kitabı, 99 sayfa PDF) ve çocuk hikaye kitapları (Sevimli Deniz Altı Kaşifleri, Ormanın Minik Koruyucuları, Uykudan Önce).
+[ÇOCUK KİTAPLARI GRUBU - ÇOCUK KİTAPLIĞI]
+- Çocuk Kitaplığı'ndaki Kitaplar:
+  1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı, 153 sayfa)
+  2- Ormanın Minik Koruyucuları (Elif, Mert ve Can'ın Büyülü Orman Macerası - Doğa Sevgisi ve Değerler Hikayesi)
+  3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)
+  4- Nasrettin Hoca'nın Torunları (6-10 yaş Eğitici ve Neşeli Fıkra Kitabı, 99 sayfa)
+- İnteraktif Uygulama: "Sevimli Deniz Altı Kaşifleri" web uygulaması, tüm çocuklara AŞKAR YAYINLARI'NIN ÖZEL BİR ARMAĞANIDIR (ücretsizdir).
 
 [TARİHİ KURGU / BİLİM ROMANLARI]
 - Şimşeğin Efendisi Tesla (Nikola Tesla romanı, 205 sayfa PDF), Atomun Kalbi Rutherford (Ernest Rutherford romanı).
@@ -64,9 +69,15 @@ Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz."
 Direkt şunu yaz:
 "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz."
 
-4. Eğer müşteri "çocuk için ne var", "çocuk kitapları", "ilkokul hikaye" derse:
+4. Eğer müşteri "çocuklar için", "çocuk için ne var", "çocuk kitapları", "çocuk kitaplığı" derse:
 Direkt şunu yaz:
-"Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var. Shopier ile anında indirebilirsiniz."
+"Çocuk Kitaplığı serimizde yer alan kitaplarımız:
+1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)
+2- Ormanın Minik Koruyucuları (Doğa Sevgisi ve Değerler Hikayesi)
+3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)
+4- Nasrettin Hoca'nın Torunları (Eğitici Fıkra Kitabı)
+
+Ayrıca 'Sevimli Deniz Altı Kaşifleri' interaktif uygulamamız, tüm çocuklarımıza Aşkar Yayınları'nın özel bir armağanıdır (ücretsizdir). Kitaplarımızı Shopier ile anında indirebilirsiniz."
 
 5. SINIF SORULURSA (5-12 ve YKS):
 Direkt o kitabın açıklamasından cevap ver. Asla "yok" deme. Hepsi var.
@@ -306,8 +317,19 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz.";
   }
 
-  if (s.includes('çocuk için ne var') || s.includes('çocuk kitapları') || s.includes('ilkokul hikaye') || (s.includes('çocuk') && (s.includes('neler') || s.includes('kitap')))) {
-    return "Çocuklar için 'Nasrettin Hoca'nın Torunları' serimiz ve hikaye kitaplarımız var. Shopier ile anında indirebilirsiniz.";
+  if (
+    s.includes('çocuk için') ||
+    s.includes('çocuklar için') ||
+    s.includes('çocuk kitapları') ||
+    s.includes('çocuk kitaplığı') ||
+    s.includes('cocuk') ||
+    s.includes('ilkokul hikaye') ||
+    s.includes('masal') ||
+    s.includes('boyama') ||
+    s === 'çocuklar' ||
+    s === 'çocuk'
+  ) {
+    return "Çocuk Kitaplığı serimizde yer alan kitaplarımız:\n1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)\n2- Ormanın Minik Koruyucuları (Doğa Sevgisi ve Değerler Hikayesi)\n3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)\n4- Nasrettin Hoca'nın Torunları (Eğitici Fıkra Kitabı)\n\nAyrıca 'Sevimli Deniz Altı Kaşifleri' interaktif uygulamamız, tüm çocuklarımıza Aşkar Yayınları'nın özel bir armağanıdır (ücretsizdir). Kitaplarımızı Shopier ile anında indirebilirsiniz.";
   }
 
   // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)

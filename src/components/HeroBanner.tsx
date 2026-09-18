@@ -6,11 +6,11 @@ import { Sparkles, ExternalLink, Gamepad2 } from 'lucide-react';
 export const HeroBanner: React.FC = () => {
   return (
     <div className="bg-white border border-[#1A1A1A]/10 rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-8 items-center my-6 overflow-hidden relative">
-      <div className="w-full md:w-64 aspect-square rounded-xl overflow-hidden shrink-0 border border-[#1A1A1A]/10 relative group bg-[#F8F7F4]">
+      <div className="w-full md:w-64 aspect-square rounded-xl overflow-hidden shrink-0 border border-[#1A1A1A]/10 relative group bg-[#F8F7F4] flex items-center justify-center">
         <ImgWithFallback
           src="/resimler/cocuk.png"
           alt="Sevimli Deniz Altı Kaşifleri"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute bottom-2 left-2 text-[8px] font-mono tracking-widest text-white/90 bg-[#1A1A1A]/70 px-2 py-0.5 rounded backdrop-blur-xs">
           REF. 092-KIDS

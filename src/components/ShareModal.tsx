@@ -204,11 +204,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
           </div>
         ) : (
           <div className="bg-[#F8F7F4] border border-[#1A1A1A]/10 rounded-xl p-3.5 flex gap-3.5 items-center mb-5">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden border border-[#1A1A1A]/10 bg-white shadow-xs">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden border border-[#1A1A1A]/10 bg-white shadow-xs flex items-center justify-center">
               <ImgWithFallback
                 src={item.image}
                 alt={`${item.title} - Aşkar Yayınları`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
             <div className="flex-1 min-w-0">

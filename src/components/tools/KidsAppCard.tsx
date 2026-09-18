@@ -7,11 +7,11 @@ export const KidsAppCard: React.FC = () => {
   return (
     <div className="bg-white border border-[#1A1A1A]/10 rounded-2xl p-6 sm:p-8 shadow-xs">
       <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center">
-        <div className="w-full sm:w-56 aspect-square rounded-xl overflow-hidden shrink-0 border border-[#1A1A1A]/10 relative group bg-[#F8F7F4]">
+        <div className="w-full sm:w-56 aspect-square rounded-xl overflow-hidden shrink-0 border border-[#1A1A1A]/10 relative group bg-[#F8F7F4] flex items-center justify-center">
           <ImgWithFallback
             src="/resimler/cocuk.png"
             alt="Sevimli Deniz Altı Kaşifleri"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
           />
         </div>
 

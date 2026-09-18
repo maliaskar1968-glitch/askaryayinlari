@@ -4,7 +4,9 @@ import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { ShareModal, ShareItem } from './ShareModal';
-import { ShoppingBag, Menu, X, BookOpen, Wrench, User, Mail, Bell, CheckCircle2, Share2 } from 'lucide-react';
+import { ShoppingBag, Menu, X, BookOpen, Wrench, User, Mail, Bell, CheckCircle2, Share2, ArrowDownToLine } from 'lucide-react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
+import { InstallModal } from './InstallModal';
 
 interface NavbarProps {
   activeTab: PageTab;
@@ -16,12 +18,25 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
+  const [installModalOpen, setInstallModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [kvkkConsent, setKvkkConsent] = useState(false);
   const [showKvkkDetail, setShowKvkkDetail] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { isInstallable, isInstalled, isIOS, isAndroid, triggerInstall } = usePWAInstall();
+
+  const handleInstallClick = async () => {
+    if (isInstallable) {
+      const res = await triggerInstall();
+      if (res === 'installed') {
+        return;
+      }
+    }
+    setInstallModalOpen(true);
+  };
 
   const siteShareData: ShareItem = {
     isSiteShare: true,
@@ -104,22 +119,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   return (
     <>
       <header className="bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#1A1A1A]/10 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-8 h-20 flex items-center justify-between gap-2">
           {/* Logo Section */}
           <div
-            className="flex items-center gap-3.5 cursor-pointer group"
+            className="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group shrink-0"
             onClick={() => handleTabClick('magaza')}
           >
             <ImgWithFallback
               src="/resimler/logo.jpg"
               alt="Aşkar Yayınları Logo"
-              className="w-11 h-11 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
             />
             <div>
-              <div className="font-serif font-black text-lg tracking-tight text-[#1A1A1A] leading-tight flex items-center gap-2">
+              <div className="font-serif font-black text-sm sm:text-lg tracking-tight text-[#1A1A1A] leading-tight flex items-center gap-2">
                 AŞKAR YAYINLARI
               </div>
-              <div className="text-[9px] tracking-[0.2em] uppercase text-[#1A1A1A]/60 font-medium">
+              <div className="text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#1A1A1A]/60 font-medium hidden xs:block">
                 Dijital PDF Kütüphanesi
               </div>
             </div>
@@ -146,7 +161,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
           </nav>
 
           {/* Right Action: Takip Et Kazan, Paylaş & Shopier Store Link */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* YÜKLE (Ana Ekrana İndir / Yükle) Butonu - Desktop & Tablet */}
+            <button
+              id="navbar-install-btn"
+              onClick={handleInstallClick}
+              title="Telefon ve tablet için Ana Ekrana İndir"
+              aria-label="Uygulamayı Ana Ekrana İndir"
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3.5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+            >
+              <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span className="hidden xl:inline">YÜKLE</span>
+            </button>
+
             {/* TAKİP ET KAZAN Button (Desktop / Tablet) */}
             <button
               onClick={() => setFollowModalOpen(true)}
@@ -156,14 +183,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               <span>TAKİP ET KAZAN</span>
             </button>
 
-            {/* PAYLAŞ Button */}
+            {/* PAYLAŞ Button (Desktop / Tablet) */}
             <button
               onClick={() => setSiteShareModalOpen(true)}
               title="Aşkar Yayınları Paylaş"
-              className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3.5 sm:px-4 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer flex items-center gap-1.5"
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
             >
               <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span className="hidden sm:inline">PAYLAŞ</span>
+              <span className="hidden xl:inline">PAYLAŞ</span>
             </button>
 
             {/* MAĞAZA Button */}
@@ -171,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               href={MAIN_SHOPIER_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1A1A1A] hover:bg-black text-white px-4 sm:px-5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-2 transition-all hover:scale-[1.02] active:scale-95 shadow-sm"
+              className="bg-[#1A1A1A] hover:bg-black text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 sm:gap-2 transition-all hover:scale-[1.02] active:scale-95 shadow-sm shrink-0"
             >
               <ShoppingBag className="w-3.5 h-3.5 text-[#C9A86A]" />
               <span>MAĞAZA</span>
@@ -180,10 +207,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg focus:outline-none"
+              className="md:hidden p-1.5 sm:p-2 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg focus:outline-none shrink-0"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
@@ -212,6 +239,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
+                handleInstallClick();
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>ANA EKRANA YÜKLE</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
                 setFollowModalOpen(true);
               }}
               className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
@@ -234,17 +272,40 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         )}
       </header>
 
-      {/* Mobile Floating TAKİP ET KAZAN Button (Fixed in Bottom Right Corner) */}
-      <aside aria-label="Mobil Takip Butonu" className="fixed bottom-5 right-4 z-40 sm:hidden">
+      {/* Mobile Actions Bar: YÜKLE, PAYLAŞ, TAKİP ET KAZAN (Right below header, no overflow) */}
+      <div className="sm:hidden w-full max-w-6xl mx-auto px-3 pt-2.5 pb-1 flex items-center justify-end gap-1.5">
+        {/* YÜKLE Butonu */}
+        <button
+          onClick={handleInstallClick}
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
+          aria-label="Ana Ekrana Yükle"
+          title="Ana Ekrana Yükle"
+        >
+          <ArrowDownToLine className="w-3 h-3 text-[#C9A86A]" />
+          <span>YÜKLE</span>
+        </button>
+
+        {/* PAYLAŞ Butonu */}
+        <button
+          onClick={() => setSiteShareModalOpen(true)}
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
+          aria-label="Paylaş"
+          title="Aşkar Yayınları Paylaş"
+        >
+          <Share2 className="w-3 h-3 text-[#C9A86A]" />
+          <span>PAYLAŞ</span>
+        </button>
+
+        {/* TAKİP ET KAZAN Butonu */}
         <button
           onClick={() => setFollowModalOpen(true)}
-          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border-2 border-[#1A1A1A] px-4 py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all duration-200 active:scale-95 shadow-xl flex items-center gap-2 cursor-pointer"
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3 py-1.5 rounded-full text-[10px] uppercase tracking-[0.12em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
           aria-label="Takip Et Kazan"
         >
-          <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
+          <Bell className="w-3 h-3 text-[#C9A86A]" />
           <span>TAKİP ET KAZAN</span>
         </button>
-      </aside>
+      </div>
 
       {/* TAKİP ET KAZAN Modal */}
       {followModalOpen && (
@@ -398,6 +459,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         item={siteShareData}
         isOpen={siteShareModalOpen}
         onClose={() => setSiteShareModalOpen(false)}
+      />
+
+      <InstallModal
+        isOpen={installModalOpen}
+        onClose={() => setInstallModalOpen(false)}
+        isIOS={isIOS}
+        isAndroid={isAndroid}
+        isInstallable={isInstallable}
+        isInstalled={isInstalled}
+        onDirectInstall={async () => {
+          await triggerInstall();
+        }}
       />
     </>
   );

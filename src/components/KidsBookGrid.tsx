@@ -75,11 +75,11 @@ export const KidsBookGrid: React.FC = () => {
               />
 
               {/* Book Cover Image Container */}
-              <div className="relative aspect-square rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
+              <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#F8F7F4] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex items-center justify-center">
                 <ImgWithFallback
                   src={book.image}
                   alt={`${book.title} - Mehmet Ali Aşkar - Aşkar Yayınları`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   itemProp="image"
                 />
 
