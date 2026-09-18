@@ -207,6 +207,41 @@ async function startServer() {
   // Serve static images directly from public/images
   app.use('/images', express.static(publicImagesDir));
 
+// Knowledge base answer helper
+function getLocalKnowledgeAnswer(q: string): string | null {
+  const s = q.toLowerCase();
+
+  if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('koç'))) {
+    return "Ortaokul Koçu 5. Sınıf (\"Ortaokula Güçlü Bir Başlangıç\") kitabımız bir soru bankası değil, başarı alışkanlığı kitabıdır.\n\nİlkokuldan ortaokula geçen öğrencinin asıl sorunu dersler değil, sistemsizliktir (8 farklı öğretmen, 8 farklı ders, ödev ve sınavlar). Koçunuz Mehmet Ali Aşkar tarafından hazırlanan 10 haftalık sistemde; her bölümde 1 beceri, 1 görev ve 1 rozet yer alır.\n\nKitap şu 5 temel sorunu çözer:\n1- Masaya oturup 10 dakika sonra kalkma,\n2- \"Ödevimi unuttum\" deme,\n3- Yazılı öncesi panikleyip bildiğini unutma,\n4- Telefon/tabletin altın zamanı çalması,\n5- Öğretmene soru sormaya çekinme.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('koç'))) {
+    return "6. Sınıf Ortaokul Koçu: LGS temelinin sağlam atıldığı sınıftır. Hedef belirleme, planlı çalışma ve başarı alışkanlıklarını güçlendirmeye odaklanır.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('koç'))) {
+    return "7. Sınıf Ortaokul Koçu: LGS öncesindeki son strateji yılıdır. Sınav koçluğu, verimli çalışma ve LGS temposuna uyum rehberidir.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('lgs') || (s.includes('8') && s.includes('koç'))) {
+    return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi, deneme takibi ve sınav stratejilerini içerir.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
+    return "Aşkar Yayınları bir Dijital PDF Kütüphanesidir. Ürünlerimizin tamamı dijital E-Kitap (PDF) formatındadır. Kargo veya bekleme süresi yoktur; satın alma işleminin ardından Shopier güvencesiyle 7/24 anında indirebilirsiniz.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('nasrettin') || s.includes('nasreddin')) {
+    return "Nasrettin Hoca'nın Torunları: 99 sayfa, 3 MB PDF boyutunda keyifli bir çocuk hikaye kitabıdır (6-10 yaş grubu için uygundur).\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
+    return "Kitaplarımızı resmi Shopier mağazamız üzerinden güvenli ödeme (kredi kartı / banka kartı) ile anında satın alabilir ve PDF olarak hemen cihazınıza indirebilirsiniz.\n\nShopier ile anında indirebilirsiniz.";
+  }
+
+  return null;
+}
+
   // Health check endpoint
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });
@@ -220,22 +255,41 @@ async function startServer() {
         return res.status(400).json({ error: 'Mesaj metni zorunludur.' });
       }
 
-      const ai = new GoogleGenAI({});
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: message.trim(),
-        config: {
-          systemInstruction: ASSISTANT_SYSTEM_INSTRUCTION,
-          temperature: 0.3,
-        },
-      });
+      const q = message.trim();
+      const localAns = getLocalKnowledgeAnswer(q);
 
-      const reply = response.text?.trim() || "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
-      res.json({ reply });
+      try {
+        const ai = new GoogleGenAI({});
+        const response = await ai.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents: q,
+          config: {
+            systemInstruction: ASSISTANT_SYSTEM_INSTRUCTION,
+            temperature: 0.3,
+          },
+        });
+
+        const reply = response.text?.trim();
+        if (reply) {
+          return res.json({ reply });
+        }
+      } catch (geminiError: any) {
+        console.warn('[Gemini Call Notice]: Falling back to local knowledge base', geminiError?.message);
+      }
+
+      // If Gemini wasn't reached or returned empty, use knowledge base
+      if (localAns) {
+        return res.json({ reply: localAns });
+      }
+
+      return res.json({
+        reply: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+      });
     } catch (error: any) {
       console.error('[Assistant API Error]', error?.message || error);
-      res.status(500).json({
-        reply: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+      const fallbackAns = getLocalKnowledgeAnswer(req.body?.message || '');
+      res.json({
+        reply: fallbackAns || "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
       });
     }
   });

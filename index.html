@@ -302,6 +302,32 @@
         }
       }
 
+      function getClientKnowledgeAnswer(q) {
+        const s = (q || '').toLowerCase();
+        if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('koç'))) {
+          return '5. Sınıf Koçluk & Motivasyon kitabımız ("Ortaokula Güçlü Bir Başlangıç") kesinlikle bir soru bankası değil, bir **başarı alışkanlığı** kitabıdır.<br><br>İlkokuldan ortaokula geçen öğrencimizin asıl sorunu dersler değil, sistemsizliktir. 8 farklı öğretmen, 8 farklı ders, defter, ödev ve yazılılar arasında çocuğun kaybolmaması için Koçunuz Mehmet Ali Aşkar tarafından 10 haftalık bir sistem olarak tasarlandı.<br><br>Her bölümde 1 beceri, 1 görev ve 1 rozet yer alır. Kitap şu 5 temel sorunu çözmek için yazıldı:<br>1- Masaya oturup 10 dakika sonra kalkma,<br>2- "Ödevimi unuttum EBA\'daymış" deme,<br>3- Yazılı öncesi ağlayıp bildiğini unutma,<br>4- Telefon ve tabletin altın zamanı çalması,<br>5- Öğretmene soru sormaya utanma.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('koç'))) {
+          return '6. Sınıf Ortaokul Koçu: LGS temelinin atıldığı en kritik sınıftır. Hedef belirleme, planlama ve başarıyı yönetme üzerine kuruludur.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('koç'))) {
+          return '7. Sınıf Ortaokul Koçu: LGS öncesi son strateji yılıdır. Sınav koçluğu, tempo kazanma ve verimli çalışma sistemini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('lgs') || (s.includes('8') && s.includes('koç'))) {
+          return '8. Sınıf LGS\'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Hedef netleştirme, zaman yönetimi, MEB kazanım takibi ve deneme analizini içerir.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
+          return 'Aşkar Yayınları bir Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap (PDF) formatındadır. Kargo veya bekleme süresi YOKTUR; Shopier güvencesiyle satın alım sonrası anında indirebilirsiniz.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        if (s.includes('nasrettin') || s.includes('nasreddin')) {
+          return "Nasrettin Hoca'nın Torunları: 99 sayfa, 3 MB PDF boyutunda keyifli ve eğitici bir çocuk hikaye kitabıdır.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+        if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
+          return 'Tüm kitaplarımızı resmi Shopier mağazamız üzerinden güvenli ödeme ile anında satın alabilir ve hemen PDF olarak indirebilirsiniz.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+        return null;
+      }
+
       async function sendAskarMsg() {
         const input = document.getElementById('askar-input');
         const sendBtn = document.getElementById('askar-send-btn');
@@ -315,7 +341,7 @@
 
         const lower = text.toLowerCase();
         // İnsan / yetkili talebi kontrolü
-        if (lower.includes('insan') || lower.includes('yetkili') || lower.includes('telefon') || lower.includes('whatsapp')) {
+        if (lower.includes('insan') || lower.includes('yetkili') || lower.includes('telefon') || lower.includes('whatsapp') || lower.includes('görüşmek istiyorum')) {
           const directText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
           addMsg(directText, 'bot', true);
           if (sendBtn) sendBtn.disabled = false;
@@ -325,6 +351,8 @@
         // Yükleniyor balonu
         const loadingId = 'loading-' + Date.now();
         addLoadingMsg(loadingId);
+
+        const clientAnswer = getClientKnowledgeAnswer(text);
 
         try {
           const response = await fetch('/api/assistant', {
@@ -337,16 +365,19 @@
 
           if (response.ok) {
             const data = await response.json();
-            let botReply = (data && data.reply) ? data.reply : "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+            let botReply = (data && data.reply) ? data.reply : "";
 
-            // Remove any repetitive 'Merhaba' or 'Selam' at start
+            // If server returned fallback but we have direct knowledge, prioritize the knowledge
+            if ((!botReply || botReply.includes('yönlendireyim')) && clientAnswer) {
+              botReply = clientAnswer;
+            } else if (!botReply) {
+              botReply = "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+            }
+
+            // Clean greetings and raw numbers
             botReply = botReply.replace(/^(merhaba|selamlar|selam|iyi günler)[!.,\s-]*/i, '');
+            botReply = botReply.replace(/\+?90\s*505\s*716\s*29\s*39/g, '').trim();
 
-            // Ensure raw phone number is never printed in reply
-            botReply = botReply.replace(/\+?90\s*505\s*716\s*29\s*39/g, '');
-            botReply = botReply.trim();
-
-            // Format buttons if applicable
             let actionHtml = '';
             if (botReply.includes('WhatsApp') || botReply.includes('yetkili') || botReply.includes('yönlendireyim')) {
               actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
@@ -357,13 +388,25 @@
 
             addMsg(botReply.replace(/\n/g, '<br>') + actionHtml, 'bot', true);
           } else {
-            const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
-            addMsg(failText, 'bot', true);
+            // Server returned non-ok (e.g. 404/500 on static host) -> use client answer if available
+            if (clientAnswer) {
+              const actionHtml = `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+              addMsg(clientAnswer + actionHtml, 'bot', true);
+            } else {
+              const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+              addMsg(failText, 'bot', true);
+            }
           }
         } catch (e) {
           removeLoadingMsg(loadingId);
-          const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
-          addMsg(failText, 'bot', true);
+          // Network error or offline -> use client answer if available
+          if (clientAnswer) {
+            const actionHtml = `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+            addMsg(clientAnswer + actionHtml, 'bot', true);
+          } else {
+            const failText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            addMsg(failText, 'bot', true);
+          }
         } finally {
           if (sendBtn) sendBtn.disabled = false;
         }
