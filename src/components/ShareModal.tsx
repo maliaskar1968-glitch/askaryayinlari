@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode';
 import {
   Share2,
   X,
@@ -11,7 +12,9 @@ import {
   Mail,
   Smartphone,
   ExternalLink,
-  Globe
+  Globe,
+  QrCode,
+  Download
 } from 'lucide-react';
 import { ImgWithFallback } from './ImgWithFallback';
 
@@ -33,15 +36,159 @@ interface ShareModalProps {
 
 export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [qrDataUrl, setQrDataUrl] = useState<string>('');
+  const [isGeneratingQr, setIsGeneratingQr] = useState(false);
+  const [qrSharedToast, setQrSharedToast] = useState(false);
+
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://www.askaryayinlari.com.tr';
+  const targetUrl = item
+    ? (item.isSiteShare
+        ? (item.url || 'https://www.askaryayinlari.com.tr/')
+        : (item.shopierUrl || currentOrigin))
+    : 'https://www.askaryayinlari.com.tr/';
+
+  const publisherName = 'AŞKAR YAYINLARI';
+
+  // Karekod oluşturma ve merkeze logo yerleştirme
+  useEffect(() => {
+    if (!isOpen || !item) return;
+
+    let isMounted = true;
+    const generateQr = async () => {
+      try {
+        setIsGeneratingQr(true);
+        // Hata toleransı 'H' (High) seviyesinde yüksek çözünürlüklü QR kod
+        const rawQr = await QRCode.toDataURL(targetUrl, {
+          width: 512,
+          margin: 2,
+          errorCorrectionLevel: 'H',
+          color: {
+            dark: '#1A1A1A',
+            light: '#FFFFFF',
+          },
+        });
+
+        // Ortasına Aşkar Yayınları logosunu eklemek için canvas kullanımı
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          if (isMounted) {
+            setQrDataUrl(rawQr);
+            setIsGeneratingQr(false);
+          }
+          return;
+        }
+
+        const qrImg = new Image();
+        qrImg.onload = () => {
+          ctx.drawImage(qrImg, 0, 0, 512, 512);
+
+          const logoImg = new Image();
+          logoImg.onload = () => {
+            const centerX = 256;
+            const centerY = 256;
+            const radius = 54;
+
+            ctx.save();
+            // Logo arkasına beyaz dairesel zemin ve altın kenarlık
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = '#C9A86A';
+            ctx.stroke();
+
+            // Logoyu yuvarlak maske içine çiz
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.drawImage(logoImg, centerX - radius, centerY - radius, radius * 2, radius * 2);
+            ctx.restore();
+
+            if (isMounted) {
+              setQrDataUrl(canvas.toDataURL('image/png'));
+              setIsGeneratingQr(false);
+            }
+          };
+          logoImg.onerror = () => {
+            if (isMounted) {
+              setQrDataUrl(rawQr);
+              setIsGeneratingQr(false);
+            }
+          };
+          logoImg.src = '/resimler/logo.jpg';
+        };
+        qrImg.src = rawQr;
+      } catch (err) {
+        console.error('Karekod oluşturma hatası:', err);
+        if (isMounted) setIsGeneratingQr(false);
+      }
+    };
+
+    generateQr();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen, item, targetUrl]);
 
   if (!isOpen || !item) return null;
 
-  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://www.askaryayinlari.com.tr';
-  const targetUrl = item.isSiteShare
-    ? (item.url || 'https://www.askaryayinlari.com.tr/')
-    : (item.shopierUrl || currentOrigin);
+  // Karekod Paylaş Fonksiyonu
+  const handleShareQrCode = async () => {
+    if (!showQrCode) {
+      setShowQrCode(true);
+    }
 
-  const publisherName = 'AŞKAR YAYINLARI';
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        if (qrDataUrl && navigator.canShare) {
+          try {
+            const res = await fetch(qrDataUrl);
+            const blob = await res.blob();
+            const file = new File([blob], 'askar-yayinlari-karekod.png', { type: 'image/png' });
+            if (navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                title: 'Aşkar Yayınları - Web Sitesi Karekodu',
+                text: 'Aşkar Yayınları web sitesine ulaşmak için bu karekodu telefonunuzla okutabilirsiniz:\n' + targetUrl,
+                files: [file],
+              });
+              return;
+            }
+          } catch {
+            // Dosya paylaşımı desteklenmiyorsa URL paylaşımına devam et
+          }
+        }
+
+        await navigator.share({
+          title: 'Aşkar Yayınları - Web Sitesi Karekodu',
+          text: `Aşkar Yayınları web sitesi (${targetUrl}). Telefon kameranızla karekodu okutarak hemen ziyaret edebilirsiniz.`,
+          url: targetUrl,
+        });
+      } catch {
+        // İptal edildi
+      }
+    } else {
+      await handleCopyLink();
+      setQrSharedToast(true);
+      setTimeout(() => setQrSharedToast(false), 3000);
+    }
+  };
+
+  // Karekod İndir Fonksiyonu (PNG)
+  const handleDownloadQr = () => {
+    if (!qrDataUrl) return;
+    const a = document.createElement('a');
+    a.href = qrDataUrl;
+    a.download = 'askar-yayinlari-karekod.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   // Share text template
   let shareTitle = '';
@@ -142,7 +289,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
       aria-modal="true"
     >
       <div
-        className="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-[#1A1A1A]/10 relative animate-in zoom-in-95 duration-200"
+        className="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-[#1A1A1A]/10 relative animate-in zoom-in-95 duration-200 max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -311,6 +458,105 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
               )}
             </button>
           </div>
+        </div>
+
+        {/* KAREKOD BÖLÜMÜ: "KODU GÖSTER" VE "KAREKODU PAYLAŞ" */}
+        <div className="mt-4 pt-4 border-t border-[#1A1A1A]/10">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#1A1A1A]/60 font-semibold flex items-center gap-1.5">
+              <QrCode className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>SİTE KAREKODU (QR KOD)</span>
+            </span>
+            <span className="text-[10px] text-emerald-700 font-sans font-semibold">
+              Kamerayla Okutun
+            </span>
+          </div>
+
+          {/* İki Buton: Kodu Göster ve Karekodu Paylaş */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setShowQrCode((prev) => !prev)}
+              className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-sans font-bold transition-all duration-200 active:scale-95 shadow-xs cursor-pointer ${
+                showQrCode
+                  ? 'bg-[#1A1A1A] hover:bg-black text-white'
+                  : 'bg-[#C9A86A] hover:bg-[#b89555] text-white'
+              }`}
+            >
+              <QrCode className="w-4 h-4" />
+              <span>{showQrCode ? 'Kodu Gizle' : 'Kodu Göster'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleShareQrCode}
+              className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-sans font-bold transition-all duration-200 active:scale-95 shadow-xs bg-[#1A1A1A] hover:bg-black text-white cursor-pointer"
+            >
+              <Share2 className="w-4 h-4 text-[#C9A86A]" />
+              <span>Karekodu Paylaş</span>
+            </button>
+          </div>
+
+          {/* Açılan Karekod Kartı */}
+          {showQrCode && (
+            <div className="mt-3 p-4 bg-[#F8F7F4] border border-[#C9A86A]/40 rounded-2xl text-center animate-in fade-in zoom-in-95 duration-200 shadow-inner">
+              <div className="inline-block p-3 bg-white rounded-2xl shadow-md border border-[#1A1A1A]/10 mb-3 relative">
+                {qrDataUrl ? (
+                  <img
+                    src={qrDataUrl}
+                    alt="Aşkar Yayınları Karekod"
+                    className="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-lg block object-contain"
+                  />
+                ) : (
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center text-xs font-sans text-neutral-400">
+                    {isGeneratingQr ? 'Karekod hazırlanıyor...' : 'Karekod yüklenemedi'}
+                  </div>
+                )}
+              </div>
+
+              {/* Bilgi Kutusu */}
+              <div className="bg-white/90 border border-[#1A1A1A]/8 rounded-xl p-3 mb-3 text-left">
+                <div className="flex items-start gap-2.5 text-xs font-sans text-[#1A1A1A]/80 leading-relaxed">
+                  <span className="text-lg leading-none shrink-0">📸</span>
+                  <div>
+                    <span className="font-bold text-[#1A1A1A] block text-[13px] mb-0.5">
+                      Kameranızı Doğrultun veya Fotoğrafını Çekin
+                    </span>
+                    <span className="text-[11px] text-[#1A1A1A]/70">
+                      Bu karekodun fotoğrafını çeken veya telefon kamerasını doğrultan kişi doğrudan <b>askaryayinlari.com.tr</b> sitesine yönlendirilir.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Karekod İndir ve Paylaş Butonları */}
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={handleDownloadQr}
+                  className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-sans font-bold bg-[#1A1A1A] hover:bg-black text-white transition-all active:scale-95 cursor-pointer shadow-xs"
+                >
+                  <Download className="w-3.5 h-3.5 text-[#C9A86A]" />
+                  <span>Karekodu İndir</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleShareQrCode}
+                  className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-sans font-bold bg-[#C9A86A] hover:bg-[#b89555] text-white transition-all active:scale-95 cursor-pointer shadow-xs"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Karekodu Paylaş</span>
+                </button>
+              </div>
+
+              {qrSharedToast && (
+                <div className="mt-2 text-[11px] text-emerald-700 font-sans font-semibold">
+                  ✓ Bağlantı panoya kopyalandı!
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { MAIN_SHOPIER_URL } from '../data/books';
-import { ShoppingBag, ShieldCheck, Users } from 'lucide-react';
+import { ShoppingBag, ShieldCheck, Users, QrCode } from 'lucide-react';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { PriceEditorModal } from './PriceEditorModal';
+import { ShareModal, ShareItem } from './ShareModal';
 import { usePrice } from '../context/PriceContext';
 
 export const Footer: React.FC = () => {
   const [uploaderOpen, setUploaderOpen] = useState(false);
+  const [siteShareOpen, setSiteShareOpen] = useState(false);
   const { isPriceModalOpen, setPriceModalOpen } = usePrice();
   const [totalVisitors, setTotalVisitors] = useState<number>(5420);
+
+  const siteShareData: ShareItem = {
+    isSiteShare: true,
+    title: 'Aşkar Yayınları',
+    subtitle: 'Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde.',
+    image: '/resimler/logo.jpg',
+    url: 'https://www.askaryayinlari.com.tr/',
+  };
 
   useEffect(() => {
     const BASE_COUNT = 5420;
@@ -71,8 +81,19 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-xs font-bold text-neutral-700 tracking-wide">
-          www.askaryayinlari.com.tr
+        <div className="flex items-center justify-center gap-2.5 flex-wrap">
+          <span className="text-xs font-bold text-neutral-700 tracking-wide">
+            www.askaryayinlari.com.tr
+          </span>
+          <button
+            type="button"
+            onClick={() => setSiteShareOpen(true)}
+            className="inline-flex items-center gap-1 px-3 py-1 bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] rounded-full text-[11px] font-sans font-bold transition-all shadow-2xs cursor-pointer"
+            title="Site Karekodunu Göster ve Paylaş"
+          >
+            <QrCode className="w-3.5 h-3.5 text-[#C9A86A]" />
+            <span>Site Karekodu</span>
+          </button>
         </div>
 
         <div className="text-[11px] text-neutral-500 max-w-md mx-auto leading-relaxed">
@@ -103,6 +124,12 @@ export const Footer: React.FC = () => {
       <PriceEditorModal
         isOpen={isPriceModalOpen}
         onClose={() => setPriceModalOpen(false)}
+      />
+
+      <ShareModal
+        item={siteShareData}
+        isOpen={siteShareOpen}
+        onClose={() => setSiteShareOpen(false)}
       />
     </>
   );
