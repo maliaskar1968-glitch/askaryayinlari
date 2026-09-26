@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { KIDS_BOOKS_DATA } from '../data/books';
-import { Book, ShareItem } from '../types';
+import { Book, ShareItem, FilterCategory } from '../types';
 import { ImgWithFallback } from './ImgWithFallback';
 import { Download, Sparkles, ExternalLink, Eye, BookOpen, ShieldCheck } from 'lucide-react';
 import { ShareModal } from './ShareModal';
@@ -9,7 +9,11 @@ import { DescriptionModal } from './DescriptionModal';
 import { ProductCardHeader } from './ProductCardHeader';
 import { usePrice } from '../context/PriceContext';
 
-export const KidsBookGrid: React.FC = () => {
+interface KidsBookGridProps {
+  activeFilter?: FilterCategory;
+}
+
+export const KidsBookGrid: React.FC<KidsBookGridProps> = ({ activeFilter = 'tumu' }) => {
   const [selectedShareItem, setSelectedShareItem] = useState<ShareItem | null>(null);
   const [previewBook, setPreviewBook] = useState<Book | null>(null);
   const [descBook, setDescBook] = useState<Book | null>(null);
@@ -18,6 +22,11 @@ export const KidsBookGrid: React.FC = () => {
   const handleOpenPreview = (book: Book) => {
     setPreviewBook(book);
   };
+
+  // If a specific grade filter like 5, 6, 7, 8, lise, yks is chosen, hide children's books
+  if (activeFilter !== 'tumu') {
+    return null;
+  }
 
   return (
     <div id="cocuk-kitapligi" className="my-12 pt-8 border-t border-[#1A1A1A]/10">

@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { BOOKS_DATA } from '../data/books';
-import { Book, ShareItem } from '../types';
+import { Book, ShareItem, FilterCategory } from '../types';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, ExternalLink, Eye, BookOpen } from 'lucide-react';
+import { Download, ExternalLink, Eye, BookOpen, Calculator, ArrowRight, CheckCircle2, Sparkles, Award, Target, Compass, Timer } from 'lucide-react';
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
 import { ShareModal } from './ShareModal';
 import { ProductCardHeader } from './ProductCardHeader';
 import { usePrice } from '../context/PriceContext';
 
-export const BookGrid: React.FC = () => {
+interface BookGridProps {
+  activeFilter?: FilterCategory;
+  onSelectToolSlug?: (slug: string) => void;
+}
+
+export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSelectToolSlug }) => {
   const [selectedPreviewBook, setSelectedPreviewBook] = useState<Book | null>(null);
   const [selectedDescBook, setSelectedDescBook] = useState<Book | null>(null);
   const [selectedShareItem, setSelectedShareItem] = useState<ShareItem | null>(null);
   const { getPrice } = usePrice();
+
+  const showIokbsCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === 'tumu';
+  const showKapCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'tumu';
+  const showTakdirCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'lise' || activeFilter === 'tumu';
+  const showLgsPuanCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
+  const showTercihCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
+  const showLgsSayacCard = activeFilter === '8-lgs' || activeFilter === 'tumu';
 
   const handleOpenPreview = (book: Book) => {
     setSelectedPreviewBook(book);
@@ -22,6 +34,36 @@ export const BookGrid: React.FC = () => {
   const handleOpenDesc = (book: Book) => {
     setSelectedDescBook(book);
   };
+
+  const filteredBooks = BOOKS_DATA.filter((book) => {
+    if (activeFilter === 'tumu') return true;
+    if (activeFilter === '5') {
+      return book.id === 'k5' || book.badge.includes('5');
+    }
+    if (activeFilter === '6') {
+      return book.id === 'k6' || book.badge.includes('6');
+    }
+    if (activeFilter === '7') {
+      return book.id === 'k7' || book.badge.includes('7');
+    }
+    if (activeFilter === '8-lgs') {
+      return book.id === 'k8' || book.badge.includes('8') || book.title.includes('LGS');
+    }
+    if (activeFilter === 'lise') {
+      return (
+        ['k9', 'k10', 'k11', 'k_yks'].includes(book.id) ||
+        book.badge.includes('LİSE') ||
+        book.title.includes('Lise') ||
+        book.badge.includes('9.') ||
+        book.badge.includes('10.') ||
+        book.badge.includes('11.')
+      );
+    }
+    if (activeFilter === 'yks') {
+      return book.id === 'k_yks' || book.id === 'k11' || book.badge.includes('YKS') || book.title.includes('YKS');
+    }
+    return true;
+  });
 
   return (
     <section id="kitaplarimiz" className="py-8">
@@ -42,7 +84,7 @@ export const BookGrid: React.FC = () => {
 
       {/* Book Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
-        {BOOKS_DATA.map((book) => {
+        {filteredBooks.map((book) => {
           const bookPrice = getPrice(book.id, book.price, book.originalPrice);
 
           return (
@@ -161,6 +203,678 @@ export const BookGrid: React.FC = () => {
             </article>
           );
         })}
+
+        {/* İOKBS Bursluluk Puan Hesaplama 2025 Özel Kartı (5. Sınıf Kategorisi & Ortaokul) */}
+        {showIokbsCard && (
+          <article
+            id="card-iokbs-bursluluk-2025"
+            className="bg-white border-2 border-[#059669]/40 hover:border-[#059669] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="5. SINIF • İOKBS 2025"
+              title="İOKBS Bursluluk Puan Hesaplama 2025"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
+                  subtitle: '2025 İOKBS puanını saniyede hesapla, kaç net kaç puan eder öğren.',
+                  image: '/resimler/k5.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/bursluluk-puan-hesaplama-2025',
+                  badge: '5, 6, 7. SINIF • İOKBS 2025'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FAF6EE] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Calculator className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#059669]/15 text-[#059669] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>5, 6, 7. SINIFLAR İÇİN</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                MEB Katsayı & Standart Sapma
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#059669] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ÜCRETSİZ ONLİNE
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#059669] transition-colors">
+                İOKBS Bursluluk Puan Hesaplama 2025
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                5, 6 ve 7. sınıf MEB bursluluk sınavı net ve puan hesaplama robotu. 3 yanlış 1 doğru kuralı ile anında puanını öğren.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#059669] bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#059669] shrink-0" />
+                  <span>Saniyede Sonuç • Burs Baraj Tahmini</span>
+                </span>
+                <span className="text-[10px] text-emerald-800 font-mono font-bold shrink-0">
+                  MEB 2025
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  ONLİNE ARAÇ
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#059669] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-iokbs-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('bursluluk-puan-hesaplama-2025');
+                  } else {
+                    window.location.href = '/uygulamalar/bursluluk-puan-hesaplama-2025';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Calculator className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>PUANI HESAPLA</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/bursluluk-puan-hesaplama-2025"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('bursluluk-puan-hesaplama-2025');
+                  } else {
+                    window.location.href = '/uygulamalar/bursluluk-puan-hesaplama-2025';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#059669] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/bursluluk-puan-hesaplama-2025</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* KAP Dijital Kazanım Analiz Paneli Özel Kartı (5, 6, 7 ve 8. SINIF LGS Kategorisi) */}
+        {showKapCard && (
+          <article
+            id="card-kap-analiz-paneli"
+            className="bg-white border-2 border-[#ea580c]/40 hover:border-[#ea580c] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="5-8. SINIF • DİJİTAL KAP"
+              title="KAP Dijital Kazanım Analiz Paneli"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
+                  subtitle: 'KAP deneme analizini dijital yap, eksik kazanımlarını gör.',
+                  image: '/resimler/k8.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/kap-analiz-paneli',
+                  badge: '5-8. SINIF • DİJİTAL KOÇLUK'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Target className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>EN EKSİK 3 KAZANIM RAPORU</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Deneme Ameliyatı & Sıfır Hata
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                KAP SİSTEMİ
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#ea580c] transition-colors">
+                KAP Dijital Kazanım Analiz Paneli
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                Deneme adı ve yanlış konularını gir, sistem localStorage'da biriktirip en çok eksik çıkan ilk 3 kritik kazanımını anında raporlasın.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#ea580c] bg-orange-50 px-2.5 py-1.5 rounded-lg border border-orange-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ea580c] shrink-0" />
+                  <span>5, 6, 7 ve 8. Sınıf LGS</span>
+                </span>
+                <span className="text-[10px] text-orange-800 font-mono font-bold shrink-0">
+                  AKILLI TAKİP
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#ea580c] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-kap-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('kap-analiz-paneli');
+                  } else {
+                    window.location.href = '/uygulamalar/kap-analiz-paneli';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Target className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>EKSİKLERİ ANALİZ ET</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/kap-analiz-paneli"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('kap-analiz-paneli');
+                  } else {
+                    window.location.href = '/uygulamalar/kap-analiz-paneli';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#ea580c] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/kap-analiz-paneli</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* Takdir Teşekkür Hesaplayıcı & Planlayıcı 2025 Özel Kartı (5, 6, 7, 8. SINIF LGS ve Lise) */}
+        {showTakdirCard && (
+          <article
+            id="card-takdir-tesekkur-2025"
+            className="bg-white border-2 border-[#2563eb]/40 hover:border-[#2563eb] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category={
+                activeFilter === '8-lgs'
+                  ? '8. SINIF LGS • E-OKUL'
+                  : activeFilter === 'lise'
+                  ? 'LİSE • E-OKUL'
+                  : '5-12. SINIF • E-OKUL'
+              }
+              title="Takdir Teşekkür Planlayıcı 2025"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
+                  subtitle: 'E-Okul uyumlu takdir teşekkür hesapla ve planla.',
+                  image: activeFilter === '8-lgs' ? '/resimler/k8.webp' : '/resimler/k5.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/takdir-tesekkur-hesaplama',
+                  badge: activeFilter === '8-lgs' ? '8. SINIF LGS • E-OKUL' : '5-12. SINIF • E-OKUL'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#EFF6FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Award className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#2563eb]/15 text-[#2563eb] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>TAKDİR (85+) & TEŞEKKÜR (70+)</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Ders Notları & Haftalık Saat
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#2563eb] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                E-OKUL 2025
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#2563eb] transition-colors">
+                Takdir Teşekkür Planlayıcı 2025
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                Ders notlarını gir, dönem ağırlıklı genel ortalamanı ve takdir/teşekkür belge durumunu MEB yönetmeliğine göre saniyede planla ve hesapla.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#2563eb] bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                  <span>{activeFilter === '8-lgs' ? '8. Sınıf LGS ve Tüm Kademeler' : '5, 6, 7, 8 ve Tüm Sınıflar'}</span>
+                </span>
+                <span className="text-[10px] text-blue-800 font-mono font-bold shrink-0">
+                  MEB UYUMLU
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  ONLİNE ARAÇ
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#2563eb] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-takdir-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('takdir-tesekkur-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/takdir-tesekkur-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Award className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>BELGE HESAPLA & PLANLA</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/takdir-tesekkur-hesaplama"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('takdir-tesekkur-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/takdir-tesekkur-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#2563eb] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/takdir-tesekkur-hesaplama</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* LGS Puan Hesaplama Robotu Özel Kartı (8. SINIF LGS) */}
+        {showLgsPuanCard && (
+          <article
+            id="card-lgs-puan-hesaplama"
+            className="bg-white border-2 border-[#C9A86A]/40 hover:border-[#C9A86A] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="8. SINIF LGS • MEB 2026"
+              title="LGS Puan Hesaplama Robotu"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'LGS Puan Hesaplama 2026 | MEB Uyumlu - Aşkar Yayınları',
+                  subtitle: '2026 MEB standart sapma ve ders katsayılarıyla net ve puanını anında hesapla.',
+                  image: '/resimler/k8.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-puan-hesaplama',
+                  badge: '8. SINIF LGS • MEB 2026'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FAF6EE] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Calculator className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#C9A86A]/15 text-[#856526] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>MEB KATSAYI & SAPMA UYUMLU</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Türkçe, Mat, Fen 4.33 Katsayı
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#1A1A1A] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                MEB 2026
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#856526] transition-colors">
+                LGS Puan Hesaplama Robotu
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                2026 MEB güncel standart sapma ve katsayılarına göre 90 soru üzerinden toplam net ve sınav puanınızı hesaplayın.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#856526] bg-[#FAF6EE] px-2.5 py-1.5 rounded-lg border border-[#C9A86A]/30 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#856526] shrink-0" />
+                  <span>3 Yanlış 1 Doğruyu Götürür</span>
+                </span>
+                <span className="text-[10px] text-[#856526] font-mono font-bold shrink-0">
+                  500 TAM PUAN
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  ONLİNE ARAÇ
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#856526] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-lgs-calc-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-puan-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-puan-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Calculator className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>PUANI HESAPLA</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/lgs-puan-hesaplama"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-puan-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-puan-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#C9A86A] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/lgs-puan-hesaplama</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* LGS Tercih Robotu - Yüzdelik Dilim Özel Kartı (8. SINIF LGS) */}
+        {showTercihCard && (
+          <article
+            id="card-lgs-tercih-robotu"
+            className="bg-white border-2 border-[#0284c7]/40 hover:border-[#0284c7] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="8. SINIF LGS • TERCİH ROBOTU"
+              title="LGS Tercih Robotu - Yüzdelik Dilim"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+                  subtitle: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
+                  image: '/resimler/k8.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-tercih-robotu',
+                  badge: '8. SINIF LGS • 2024 TABAN PUANLARI'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#F0F9FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Compass className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#0284c7]/15 text-[#0284c7] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>2024 MEB TABAN PUANLARI</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Fen, Anadolu, İHL & Sosyal Bilimler
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#0284c7] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ŞEHİR FİLTRELİ
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#0284c7] transition-colors">
+                LGS Tercih Robotu - Yüzdelik Dilim
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                Puanını veya yüzdelik dilimini gir, 2024 resmi taban puanlarına göre yerleşebileceğin liseleri anında gör ve şehir bazında filtrele.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#0284c7] bg-sky-50 px-2.5 py-1.5 rounded-lg border border-sky-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
+                  <span>Güvenli, İdeal ve Riskli Analizi</span>
+                </span>
+                <span className="text-[10px] text-sky-800 font-mono font-bold shrink-0">
+                  MEB GÜNCEL
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#0284c7] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-lgs-tercih-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>LİSELERİ LİSTELE</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/lgs-tercih-robotu"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#0284c7] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/lgs-tercih-robotu</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* LGS 2026 Geri Sayım Sayacı Özel Kartı (8. SINIF LGS) */}
+        {showLgsSayacCard && (
+          <article
+            id="card-lgs-geri-sayim"
+            className="bg-white border-2 border-[#dc2626]/40 hover:border-[#dc2626] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="8. SINIF LGS • 15 HAZİRAN 2026"
+              title="LGS 2026 Geri Sayım Sayacı"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
+                  subtitle: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
+                  image: '/resimler/k8.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-geri-sayim',
+                  badge: '8. SINIF LGS • 15 HAZİRAN 2026'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FEF2F2] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Timer className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#dc2626]/15 text-[#dc2626] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>CANLI GERİ SAYIM & MOTİVASYON</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                15 Haziran 2026 • 09:30
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#dc2626] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                CANLI SAYAÇ
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#dc2626] transition-colors">
+                LGS 2026 Geri Sayım Sayacı
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                15 Haziran 2026 MEB LGS sınavına kaç gün, saat ve saniye kaldığını canlı takip edin, günün motivasyon sözleriyle enerjinizi koruyun.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#dc2626] bg-red-50 px-2.5 py-1.5 rounded-lg border border-red-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#dc2626] shrink-0" />
+                  <span>Sözel (09:30) & Sayısal (11:30)</span>
+                </span>
+                <span className="text-[10px] text-red-800 font-mono font-bold shrink-0">
+                  MEB TAKVİMİ
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  ONLİNE ARAÇ
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#dc2626] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-lgs-sayac-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-geri-sayim');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-geri-sayim';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Timer className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>SAYACI GÖRÜNTÜLE</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/lgs-geri-sayim"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lgs-geri-sayim');
+                  } else {
+                    window.location.href = '/uygulamalar/lgs-geri-sayim';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#dc2626] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/lgs-geri-sayim</span>
+              </a>
+            </div>
+          </article>
+        )}
       </div>
 
       {/* In-App Preview Modal (Opens Google Drive PDF internally) */}

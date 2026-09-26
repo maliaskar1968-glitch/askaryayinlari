@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { PageTab } from './types';
+import React, { useState, useEffect, useCallback } from 'react';
+import { PageTab, FilterCategory } from './types';
 import { PriceProvider } from './context/PriceContext';
 import { Navbar } from './components/Navbar';
+import { FilterBar } from './components/FilterBar';
 import { MottoSection } from './components/MottoSection';
 import { HeroBanner } from './components/HeroBanner';
 import { BookGrid } from './components/BookGrid';
@@ -12,29 +13,133 @@ import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { ToolsPage } from './components/ToolsPage';
 import { Footer } from './components/Footer';
-import { Home, ArrowUp, Wrench, User, Mail, BookOpen } from 'lucide-react';
+import { updatePageSeo } from './utils/seo';
+import { Home, ArrowUp, Wrench, User, Mail } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PageTab>('magaza');
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('tumu');
+  const [toolSlug, setToolSlug] = useState<string | null>(null);
 
-  // Scroll to top smoothly when tab changes
+  // URL Path parser helper
+  const parsePathname = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+    if (path.startsWith('/uygulamalar/')) {
+      const slug = path.replace('/uygulamalar/', '');
+      setActiveTab('uygulamalar');
+      setToolSlug(slug);
+    } else if (path === '/uygulamalar') {
+      setActiveTab('uygulamalar');
+      setToolSlug(null);
+    } else if (path === '/hakkimizda' || path === '/hakkimda') {
+      setActiveTab('hakkimizda');
+      setToolSlug(null);
+    } else if (path === '/iletisim') {
+      setActiveTab('iletisim');
+      setToolSlug(null);
+    } else {
+      setActiveTab('magaza');
+      setToolSlug(null);
+    }
+  }, []);
+
+  // Initialize and listen to popstate (Browser Back/Forward navigation)
   useEffect(() => {
+    parsePathname();
+
+    const handlePopState = () => {
+      parsePathname();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [parsePathname]);
+
+  // Navigate between tabs with clean URLs
+  const handleTabChange = (newTab: PageTab) => {
+    setActiveTab(newTab);
+    setToolSlug(null);
+
+    let targetPath = '/';
+    if (newTab === 'uygulamalar') targetPath = '/uygulamalar';
+    else if (newTab === 'hakkimizda' || newTab === 'hakkimda') targetPath = '/hakkimizda';
+    else if (newTab === 'iletisim') targetPath = '/iletisim';
+
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Navigate to a specific tool or back to tools catalog
+  const handleSelectToolSlug = (slug: string | null) => {
+    setToolSlug(slug);
+    setActiveTab('uygulamalar');
+
+    const targetPath = slug ? `/uygulamalar/${slug}` : '/uygulamalar';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Sync default home / store page SEO
+  useEffect(() => {
+    if (activeTab === 'magaza') {
+      updatePageSeo({
+        title: 'Aşkar Yayınları | LGS ve YKS Koçluk Kitapları & Çocuk Kitaplığı',
+        description: 'Aşkar Yayınları resmi dijital PDF kütüphanesi. 5-8. sınıf LGS ve 9-12. sınıf YKS koçluk kitapları, çocuk masalları ve ücretsiz eğitim araçları.',
+        url: 'https://www.askaryayinlari.com.tr/',
+        image: 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
+        type: 'website'
+      });
+    } else if (activeTab === 'hakkimizda' || activeTab === 'hakkimda') {
+      updatePageSeo({
+        title: 'Hakkımızda | Aşkar Yayınları ve Mehmet Ali Aşkar',
+        description: 'Aşkar Yayınları ve eğitim koçu yazar Mehmet Ali Aşkar hakkında bilgi edinin. Vizyonumuz, misyonumuz ve öğrenci koçluğu sistemimiz.',
+        url: 'https://www.askaryayinlari.com.tr/hakkimizda',
+        image: 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
+        type: 'website'
+      });
+    } else if (activeTab === 'iletisim') {
+      updatePageSeo({
+        title: 'İletişim & WhatsApp Destek | Aşkar Yayınları',
+        description: 'Aşkar Yayınları ile iletişime geçin. WhatsApp canlı destek, e-posta ve kurumsal iletişim bilgileri.',
+        url: 'https://www.askaryayinlari.com.tr/iletisim',
+        image: 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
+        type: 'website'
+      });
+    }
   }, [activeTab]);
 
   return (
     <PriceProvider>
       <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased w-full max-w-[100vw] overflow-x-hidden">
         {/* Top Navbar */}
-        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Navbar activeTab={activeTab} setActiveTab={handleTabChange} />
 
         {/* Main Content Area */}
-        <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          {/* Sayfanın En Üstündeki Filtre Barı: [TÜMÜ] [5.SINIF] [6.SINIF] [7.SINIF] [8.SINIF LGS] [LİSE] [YKS] */}
+          <FilterBar
+            activeFilter={activeFilter}
+            onSelectFilter={(newFilter) => {
+              setActiveFilter(newFilter);
+              if (activeTab !== 'magaza') {
+                handleTabChange('magaza');
+              }
+            }}
+          />
+
           {activeTab === 'magaza' && (
             <div className="space-y-6 animate-fadeIn">
               <MottoSection />
-              <BookGrid />
-              <KidsBookGrid />
+              <BookGrid activeFilter={activeFilter} onSelectToolSlug={handleSelectToolSlug} />
+              <KidsBookGrid activeFilter={activeFilter} />
               <HeroBanner />
               <CoreValues />
               <FaqSection />
@@ -43,7 +148,11 @@ export const App: React.FC = () => {
 
           {activeTab === 'uygulamalar' && (
             <div className="animate-fadeIn">
-              <ToolsPage />
+              <ToolsPage
+                currentSlug={toolSlug}
+                onSelectSlug={handleSelectToolSlug}
+                onNavigateHome={() => handleTabChange('magaza')}
+              />
             </div>
           )}
 
@@ -69,10 +178,7 @@ export const App: React.FC = () => {
                 {/* Ana Sayfaya Dön Butonu */}
                 <button
                   id="page-end-home-btn"
-                  onClick={() => {
-                    setActiveTab('magaza');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
+                  onClick={() => handleTabChange('magaza')}
                   className="bg-[#1A1A1A] hover:bg-black text-white px-8 py-3.5 rounded-full text-xs uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2.5 transition-all duration-200 hover:scale-[1.03] active:scale-95 shadow-md hover:shadow-lg cursor-pointer border border-[#1A1A1A]"
                 >
                   <Home className="w-4 h-4 text-[#C9A86A]" />
@@ -84,13 +190,10 @@ export const App: React.FC = () => {
                   <span className="text-[11px] uppercase tracking-[0.15em] text-[#1A1A1A]/50 font-semibold mr-1">
                     Diğer Sayfalar:
                   </span>
-                  
+
                   {activeTab !== 'uygulamalar' && (
                     <button
-                      onClick={() => {
-                        setActiveTab('uygulamalar');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
+                      onClick={() => handleTabChange('uygulamalar')}
                       className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     >
                       <Wrench className="w-3 h-3 text-[#C9A86A]" />
@@ -100,10 +203,7 @@ export const App: React.FC = () => {
 
                   {activeTab !== 'hakkimda' && activeTab !== 'hakkimizda' && (
                     <button
-                      onClick={() => {
-                        setActiveTab('hakkimizda');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
+                      onClick={() => handleTabChange('hakkimizda')}
                       className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     >
                       <User className="w-3 h-3 text-[#C9A86A]" />
@@ -113,10 +213,7 @@ export const App: React.FC = () => {
 
                   {activeTab !== 'iletisim' && (
                     <button
-                      onClick={() => {
-                        setActiveTab('iletisim');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
+                      onClick={() => handleTabChange('iletisim')}
                       className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     >
                       <Mail className="w-3 h-3 text-[#C9A86A]" />
@@ -143,12 +240,9 @@ export const App: React.FC = () => {
                   <span className="text-[11px] uppercase tracking-[0.15em] text-[#1A1A1A]/50 font-semibold mr-1">
                     Hızlı Sayfa Geçişi:
                   </span>
-                  
+
                   <button
-                    onClick={() => {
-                      setActiveTab('uygulamalar');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
+                    onClick={() => handleTabChange('uygulamalar')}
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                   >
                     <Wrench className="w-3 h-3 text-[#C9A86A]" />
@@ -156,10 +250,7 @@ export const App: React.FC = () => {
                   </button>
 
                   <button
-                    onClick={() => {
-                      setActiveTab('hakkimizda');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
+                    onClick={() => handleTabChange('hakkimizda')}
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                   >
                     <User className="w-3 h-3 text-[#C9A86A]" />
@@ -167,10 +258,7 @@ export const App: React.FC = () => {
                   </button>
 
                   <button
-                    onClick={() => {
-                      setActiveTab('iletisim');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
+                    onClick={() => handleTabChange('iletisim')}
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                   >
                     <Mail className="w-3 h-3 text-[#C9A86A]" />

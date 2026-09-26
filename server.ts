@@ -592,6 +592,137 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     }
   });
 
+  // --- Dynamic Sitemap Endpoint ---
+  app.get('/sitemap.xml', (req, res) => {
+    try {
+      const sitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+      if (fs.existsSync(sitemapPath)) {
+        res.type('application/xml');
+        return res.sendFile(sitemapPath);
+      }
+      return res.status(404).send('Sitemap not found');
+    } catch (err: any) {
+      return res.status(500).send('Error reading sitemap');
+    }
+  });
+
+  const TOOLS_SEO_MAP: Record<string, { title: string; desc: string; h1: string }> = {
+    'lgs-geri-sayim': {
+      title: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
+      desc: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
+      h1: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?'
+    },
+    'lgs-tercih-robotu': {
+      title: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+      desc: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
+      h1: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul'
+    },
+    'kap-analiz-paneli': {
+      title: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
+      desc: 'KAP deneme analizini dijital yap, eksik kazanımlarını gör.',
+      h1: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul'
+    },
+    'takdir-tesekkur-hesaplama': {
+      title: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
+      desc: 'E-Okul uyumlu takdir teşekkür hesapla.',
+      h1: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu'
+    },
+    'bursluluk-puan-hesaplama-2025': {
+      title: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
+      desc: '2025 İOKBS puanını saniyede hesapla, kaç net kaç puan eder öğren.',
+      h1: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf'
+    },
+    'lgs-puan-hesaplama': {
+      title: 'LGS Puan Hesaplama 2026 | MEB Uyumlu LGS Net ve Standart Puan Robotu - Aşkar Yayınları',
+      desc: '2026 MEB güncel standart sapma ve ders katsayılarına göre LGS puanınızı ve toplam netinizi anında hesaplayın. Türkçe, Matematik ve Fen 4.33 katsayı uyumlu.',
+      h1: 'LGS Puan Hesaplama ve Net Sihirbazı (2026 MEB Uyumlu)'
+    },
+    'tyt-puan-hesaplama': {
+      title: 'TYT Puan Hesaplama 2026 | ÖSYM Uyumlu TYT Net ve Puan Robotu - Aşkar Yayınları',
+      desc: 'ÖSYM güncel standartlarında 2026 YKS TYT puanınızı hesaplayın. Türkçe, Temel Matematik, Sosyal ve Fen netlerinizle tahmini yerleştirme puanınızı hemen görün.',
+      h1: 'YKS - TYT Puan ve Net Hesaplama Robotu (2026 ÖSYM Uyumlu)'
+    },
+    'ayt-puan-hesaplama': {
+      title: 'AYT Puan Hesaplama 2026 | Sayısal, Eşit Ağırlık, Sözel Net Hesaplama - Aşkar Yayınları',
+      desc: '2026 YKS Alan Yeterlilik Testi (AYT) Sayısal, Eşit Ağırlık ve Sözel puanınızı hesaplayın. Matematik, Fen, Edebiyat testleri net analizi.',
+      h1: 'YKS - AYT Puan ve Net Hesaplama Motoru (SAY - EA - SÖZ)'
+    },
+    'pomodoro-sayaci': {
+      title: 'Pomodoro Çalışma Sayacı | Odaklanma ve Ders Zamanlayıcı Robotu - Aşkar Yayınları',
+      desc: 'Sınavlara hazırlanan öğrenciler için ücretsiz Pomodoro ders çalışma sayacı. 25 dakikalık odak seansları ve mola sistemiyle ders veriminizi katlayın.',
+      h1: 'Pomodoro Çalışma Sayacı ve Odaklanma Zamanlayıcısı'
+    },
+    'kelime-sayaci': {
+      title: 'Kelime Sayacı ve Karakter Sayımı | Hızlı Metin Analiz Aracı - Aşkar Yayınları',
+      desc: 'Metinlerinizin kelime, boşluklu/boşluksuz karakter, cümle, paragraf sayısı ve tahmini sesli okuma süresini anlık olarak ücretsiz analiz edin.',
+      h1: 'Online Kelime Sayacı ve Metin Analiz Aracı'
+    },
+    'apa-kaynakca-olusturucu': {
+      title: 'APA 7 Kaynakça Oluşturucu | Otomatik Kaynakça ve Alıntı Robotu - Aşkar Yayınları',
+      desc: 'Kitap, bilimsel makale ve web siteleri için uluslararası APA 7 formatında standart alıntı ve kaynakça listesi hazırlama aracı.',
+      h1: 'APA 7 Formatında Otomatik Kaynakça Oluşturucu'
+    },
+    'sevimli-deniz-alti-kasifleri': {
+      title: 'Sevimli Deniz Altı Kaşifleri | Ücretsiz Çocuk Eğitici Oyunu - Aşkar Yayınları',
+      desc: 'Aşkar Yayınları\'nın tüm çocuklara özel ücretsiz armağanı! Mor Ahtapot Lili ve Tosbiş ile deniz altı keşfi, boyama ve eğitici mini oyunlar.',
+      h1: 'Sevimli Deniz Altı Kaşifleri İnteraktif Çocuk Uygulaması'
+    }
+  };
+
+  // Helper to inject SEO meta tags into HTML
+  const injectSeoToHtml = (rawHtml: string, reqUrl: string) => {
+    let html = rawHtml;
+    const cleanUrl = reqUrl.split('?')[0].replace(/\/+$/, '');
+    const toolMatch = cleanUrl.match(/^\/uygulamalar\/([a-z0-9-]+)$/);
+
+    if (toolMatch && TOOLS_SEO_MAP[toolMatch[1]]) {
+      const info = TOOLS_SEO_MAP[toolMatch[1]];
+      const canonical = `https://www.askaryayinlari.com.tr/uygulamalar/${toolMatch[1]}`;
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${info.title}</title>`);
+      html = html.replace(
+        /<meta name="description" content=".*?" \/>/i,
+        `<meta name="description" content="${info.desc}" />`
+      );
+      html = html.replace(
+        /<meta property="og:title" content=".*?" \/>/i,
+        `<meta property="og:title" content="${info.title}" />`
+      );
+      html = html.replace(
+        /<meta property="og:description" content=".*?" \/>/i,
+        `<meta property="og:description" content="${info.desc}" />`
+      );
+
+      // Inject canonical and twitter tags if not present
+      const tagsToInject = `
+    <link rel="canonical" href="${canonical}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta name="twitter:title" content="${info.title}" />
+    <meta name="twitter:description" content="${info.desc}" />
+      `;
+      html = html.replace('</head>', `${tagsToInject}\n  </head>`);
+    } else if (cleanUrl === '/uygulamalar') {
+      const canonical = 'https://www.askaryayinlari.com.tr/uygulamalar';
+      const title = 'Uygulamalar ve Eğitim Araçları | LGS & YKS Hesaplama - Aşkar Yayınları';
+      const desc = '2026 LGS ve YKS TYT-AYT net ve puan hesaplama robotları, Pomodoro çalışma sayacı, kelime analiz aracı ve çocuk uygulaması.';
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
+      html = html.replace(
+        /<meta name="description" content=".*?" \/>/i,
+        `<meta name="description" content="${desc}" />`
+      );
+      html = html.replace(
+        /<meta property="og:title" content=".*?" \/>/i,
+        `<meta property="og:title" content="${title}" />`
+      );
+      html = html.replace(
+        /<meta property="og:description" content=".*?" \/>/i,
+        `<meta property="og:description" content="${desc}" />`
+      );
+    }
+    return html;
+  };
+
   // Vite middleware for development vs static build for production
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
@@ -601,9 +732,20 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
+    const indexHtmlPath = path.join(distPath, 'index.html');
+
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      try {
+        if (fs.existsSync(indexHtmlPath)) {
+          let html = fs.readFileSync(indexHtmlPath, 'utf-8');
+          html = injectSeoToHtml(html, req.url);
+          return res.send(html);
+        }
+      } catch (e) {
+        console.error('[SSR Meta Injection Error]', e);
+      }
+      return res.sendFile(indexHtmlPath);
     });
   }
 
