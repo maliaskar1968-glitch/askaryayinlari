@@ -4,7 +4,34 @@ import { BOOKS_DATA } from '../../data/books';
 import { Book } from '../../types';
 import { PreviewModal } from '../PreviewModal';
 
-const TARGET_DATE = new Date('2026-06-15T09:30:00+03:00').getTime();
+// Robust cross-browser countdown calculation to June 15, 09:30
+const calculateRemainingTime = () => {
+  const now = new Date();
+  const currentMs = now.getTime();
+
+  // Target: 15 Haziran 2026, 09:30 (Month is 0-indexed: 5 = June)
+  let target = new Date(2026, 5, 15, 9, 30, 0, 0).getTime();
+
+  // If the environment/system clock has passed June 15, 2026 (e.g. testing in late 2026),
+  // dynamically advance to the upcoming June 15 exam so the timer is ALWAYS alive and ticking!
+  if (currentMs >= target) {
+    let nextYear = now.getFullYear();
+    const candidateThisYear = new Date(nextYear, 5, 15, 9, 30, 0, 0).getTime();
+    if (currentMs >= candidateThisYear) {
+      nextYear += 1;
+    }
+    target = new Date(nextYear, 5, 15, 9, 30, 0, 0).getTime();
+  }
+
+  const diff = Math.max(1000, target - currentMs);
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  return { days, hours, minutes, seconds, totalMs: diff };
+};
 
 const MOTIVATION_QUOTES = [
   { text: "Hedefine giden yol, bugün attığın küçük ama kararlı bir adımla başlar.", author: "Mehmet Ali Aşkar - Eğitim Koçu" },
@@ -16,32 +43,27 @@ const MOTIVATION_QUOTES = [
 ];
 
 export const LgsCountdownTimer: React.FC = () => {
+  // Initialize state immediately with computed values (prevents 00:00 flash)
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
     minutes: number;
     seconds: number;
     totalMs: number;
-  }>({ days: 0, hours: 0, minutes: 0, seconds: 0, totalMs: 0 });
+  }>(calculateRemainingTime);
 
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [previewBook, setPreviewBook] = useState<Book | null>(null);
 
   useEffect(() => {
-    const calculateTime = () => {
-      const now = new Date().getTime();
-      const diff = Math.max(0, TARGET_DATE - now);
+    // Immediate initial sync
+    setTimeLeft(calculateRemainingTime());
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+    // Live continuous 1-second interval
+    const interval = setInterval(() => {
+      setTimeLeft(calculateRemainingTime());
+    }, 1000);
 
-      setTimeLeft({ days, hours, minutes, seconds, totalMs: diff });
-    };
-
-    calculateTime();
-    const interval = setInterval(calculateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -72,8 +94,11 @@ export const LgsCountdownTimer: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 text-red-700 text-xs font-mono font-bold border border-red-200">
-            <Flame className="w-3.5 h-3.5 text-red-600 animate-pulse" />
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-mono font-bold border border-emerald-200">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
             <span>CANLI SAYIM AKTİF</span>
           </span>
         </div>
@@ -98,7 +123,7 @@ export const LgsCountdownTimer: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 max-w-3xl mx-auto">
             {/* GÜN */}
             <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-6 rounded-2xl border border-white/15 shadow-inner flex flex-col items-center justify-center">
-              <span className="text-4xl sm:text-6xl font-serif font-black text-[#C9A86A] tracking-tight">
+              <span className="text-4xl sm:text-6xl font-serif font-black text-[#C9A86A] tracking-tight tabular-nums">
                 {timeLeft.days}
               </span>
               <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-white/70 font-bold mt-2">
@@ -108,7 +133,7 @@ export const LgsCountdownTimer: React.FC = () => {
 
             {/* SAAT */}
             <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-6 rounded-2xl border border-white/15 shadow-inner flex flex-col items-center justify-center">
-              <span className="text-4xl sm:text-6xl font-serif font-black text-white tracking-tight">
+              <span className="text-4xl sm:text-6xl font-serif font-black text-white tracking-tight tabular-nums">
                 {String(timeLeft.hours).padStart(2, '0')}
               </span>
               <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-white/70 font-bold mt-2">
@@ -118,7 +143,7 @@ export const LgsCountdownTimer: React.FC = () => {
 
             {/* DAKİKA */}
             <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-6 rounded-2xl border border-white/15 shadow-inner flex flex-col items-center justify-center">
-              <span className="text-4xl sm:text-6xl font-serif font-black text-white tracking-tight">
+              <span className="text-4xl sm:text-6xl font-serif font-black text-white tracking-tight tabular-nums">
                 {String(timeLeft.minutes).padStart(2, '0')}
               </span>
               <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-white/70 font-bold mt-2">
@@ -127,12 +152,13 @@ export const LgsCountdownTimer: React.FC = () => {
             </div>
 
             {/* SANİYE */}
-            <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-6 rounded-2xl border border-white/15 shadow-inner flex flex-col items-center justify-center">
-              <span className="text-4xl sm:text-6xl font-serif font-black text-[#C9A86A] tracking-tight">
+            <div className="bg-white/5 backdrop-blur-xs p-4 sm:p-6 rounded-2xl border border-[#C9A86A]/40 shadow-inner flex flex-col items-center justify-center ring-1 ring-[#C9A86A]/30">
+              <span className="text-4xl sm:text-6xl font-serif font-black text-[#C9A86A] tracking-tight tabular-nums">
                 {String(timeLeft.seconds).padStart(2, '0')}
               </span>
-              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-white/70 font-bold mt-2">
-                SANİYE
+              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#C9A86A] font-bold mt-2 flex items-center gap-1.5">
+                <span>SANİYE</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#C9A86A] animate-pulse" />
               </span>
             </div>
           </div>
