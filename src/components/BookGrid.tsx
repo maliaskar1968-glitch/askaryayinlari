@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BOOKS_DATA } from '../data/books';
 import { Book, ShareItem, FilterCategory } from '../types';
 import { ImgWithFallback } from './ImgWithFallback';
-import { Download, ExternalLink, Eye, BookOpen, Calculator, ArrowRight, CheckCircle2, Sparkles, Award, Target, Compass, Timer } from 'lucide-react';
+import { Download, ExternalLink, Eye, BookOpen, Calculator, ArrowRight, CheckCircle2, Sparkles, Award, Target, Compass, Timer, GraduationCap } from 'lucide-react';
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
 import { ShareModal } from './ShareModal';
@@ -22,10 +22,14 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
 
   const showIokbsCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === 'tumu';
   const showKapCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'tumu';
-  const showTakdirCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'lise' || activeFilter === 'tumu';
+  const showTakdirCard = activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'tumu';
   const showLgsPuanCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
   const showTercihCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
   const showLgsSayacCard = activeFilter === '8-lgs' || activeFilter === 'tumu';
+  const showAltinIsCard = activeFilter === 'tumu' || activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'yks';
+  const showLiseOrtalamaCard = activeFilter === 'lise' || activeFilter === 'tumu';
+  const showYksCard = activeFilter === 'yks' || activeFilter === 'tumu';
+  const showYksTercihCard = activeFilter === 'yks' || activeFilter === 'tumu';
 
   const handleOpenPreview = (book: Book) => {
     setSelectedPreviewBook(book);
@@ -51,9 +55,9 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
     }
     if (activeFilter === 'lise') {
       return (
-        ['k9', 'k10', 'k11', 'k_yks'].includes(book.id) ||
-        book.badge.includes('LİSE') ||
-        book.title.includes('Lise') ||
+        ['k9', 'k10', 'k11'].includes(book.id) ||
+        (book.badge.includes('LİSE') && !book.badge.includes('YKS')) ||
+        (book.title.includes('Lise') && !book.title.includes('YKS')) ||
         book.badge.includes('9.') ||
         book.badge.includes('10.') ||
         book.badge.includes('11.')
@@ -426,10 +430,10 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
           </article>
         )}
 
-        {/* Takdir Teşekkür Hesaplayıcı & Planlayıcı 2025 Özel Kartı (5, 6, 7, 8. SINIF LGS ve Lise) */}
+        {/* Takdir Teşekkür Hesaplayıcı & Planlayıcı Özel Kartı (5, 6, 7, 8. SINIF Ortaokul) */}
         {showTakdirCard && (
           <article
-            id="card-takdir-tesekkur-2025"
+            id="card-takdir-tesekkur"
             className="bg-white border-2 border-[#2563eb]/40 hover:border-[#2563eb] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
           >
             {/* Header */}
@@ -437,18 +441,16 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
               category={
                 activeFilter === '8-lgs'
                   ? '8. SINIF LGS • E-OKUL'
-                  : activeFilter === 'lise'
-                  ? 'LİSE • E-OKUL'
-                  : '5-12. SINIF • E-OKUL'
+                  : '5-8. SINIF ORTAOKUL • E-OKUL'
               }
-              title="Takdir Teşekkür Planlayıcı 2025"
+              title="Takdir Teşekkür Planlayıcı"
               onShare={() =>
                 setSelectedShareItem({
-                  title: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
+                  title: 'Takdir Teşekkür Hesaplama - 5,6,7,8. Sınıf E-Okul Uyumlu',
                   subtitle: 'E-Okul uyumlu takdir teşekkür hesapla ve planla.',
                   image: activeFilter === '8-lgs' ? '/resimler/k8.webp' : '/resimler/k5.webp',
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/takdir-tesekkur-hesaplama',
-                  badge: activeFilter === '8-lgs' ? '8. SINIF LGS • E-OKUL' : '5-12. SINIF • E-OKUL'
+                  badge: activeFilter === '8-lgs' ? '8. SINIF LGS • E-OKUL' : '5-8. SINIF • E-OKUL'
                 })
               }
             />
@@ -468,14 +470,14 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
 
               {/* Badge */}
               <div className="absolute bottom-2.5 right-2.5 bg-[#2563eb] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
-                E-OKUL 2025
+                5-8. SINIF
               </div>
             </div>
 
             {/* Title & Subtitle */}
             <div className="mb-4 flex-1">
               <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#2563eb] transition-colors">
-                Takdir Teşekkür Planlayıcı 2025
+                Takdir Teşekkür Planlayıcı
               </h3>
               <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
                 Ders notlarını gir, dönem ağırlıklı genel ortalamanı ve takdir/teşekkür belge durumunu MEB yönetmeliğine göre saniyede planla ve hesapla.
@@ -487,7 +489,7 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
               <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#2563eb] bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
                 <span className="flex items-center gap-1.5 truncate">
                   <Sparkles className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-                  <span>{activeFilter === '8-lgs' ? '8. Sınıf LGS ve Tüm Kademeler' : '5, 6, 7, 8 ve Tüm Sınıflar'}</span>
+                  <span>{activeFilter === '8-lgs' ? '8. Sınıf LGS MEB Müfredatı' : '5, 6, 7 ve 8. Sınıf Ortaokul'}</span>
                 </span>
                 <span className="text-[10px] text-blue-800 font-mono font-bold shrink-0">
                   MEB UYUMLU
@@ -871,6 +873,459 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#dc2626] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
               >
                 <span>/uygulamalar/lgs-geri-sayim</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* Günde 3 Altın İş Takip - Tüm Sınıflar Özel Kartı (TÜMÜ, 5, 6, 7, 8-lgs, lise, yks) */}
+        {showAltinIsCard && (
+          <article
+            id="card-3-altin-is"
+            className="bg-white border-2 border-[#2563eb]/40 hover:border-[#2563eb] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="TÜM SINIFLAR • DİSİPLİN"
+              title="Günde 3 Altın İş Takip - Tüm Sınıflar"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
+                  subtitle: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+                  image: '/resimler/k5.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/3-altin-is-takip',
+                  badge: 'TÜM SINIFLAR • DİSİPLİN UYGULAMASI'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area - Defter Dokulu */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF3E0] via-[#FFFDF9] to-[#FAF6EE] border-2 border-[#D8C7A5] mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              {/* Defter spiral noktaları */}
+              <div className="absolute top-2 left-3 right-3 flex justify-between items-center opacity-40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+              </div>
+
+              <div className="w-14 h-14 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center mb-2 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <CheckCircle2 className="w-7 h-7 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#2563eb]/15 text-[#2563eb] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>GÜNDE SADECE 3 ALTIN İŞ</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#856526] font-semibold">
+                5, 6, 7, 8, Lise & YKS Görevleri
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#2563eb] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                5-12 & YKS
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#2563eb] transition-colors">
+                Günde 3 Altın İş Takip - Tüm Sınıflar
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. Sınıfını seç, görevlerini tamamla ve haftalık istikrarını gör.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#2563eb] bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                  <span>Sınıf Bazlı Görev & Grafik</span>
+                </span>
+                <span className="text-[10px] text-blue-800 font-mono font-bold shrink-0">
+                  DİSİPLİN SİSTEMİ
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#2563eb] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-3altin-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('3-altin-is-takip');
+                  } else {
+                    window.location.href = '/uygulamalar/3-altin-is-takip';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>3 ALTIN İŞİ TAKİP ET</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/3-altin-is-takip"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('3-altin-is-takip');
+                  } else {
+                    window.location.href = '/uygulamalar/3-altin-is-takip';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#2563eb] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/3-altin-is-takip</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* Lise Ortalama, Takdir ve Devamsızlık Hesaplayıcı Özel Kartı (LİSE ve TÜMÜ) */}
+        {showLiseOrtalamaCard && (
+          <article
+            id="card-lise-ortalama"
+            className="bg-white border-2 border-[#7c3aed]/40 hover:border-[#7c3aed] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="LİSE 9-12 • E-OKUL"
+              title="Lise Ortalama, Takdir ve Devamsızlık Hesaplayıcı"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+                  subtitle: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+                  image: '/resimler/k9.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/lise-ortalama-hesaplama',
+                  badge: '9-12. SINIF LİSE • MEB E-OKUL'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#F5F3FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#7c3aed] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#7c3aed]/15 text-[#7c3aed] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>3'Ü 1 ARADA SİSTEM</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Ortalama • Belge • Devamsızlık
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#7c3aed] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                9-12. SINIF
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#7c3aed] transition-colors">
+                Lise Ortalama, Takdir ve Devamsızlık Hesaplayıcı
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                9, 10, 11 ve 12. sınıf dönem ortalamanızı, takdir-teşekkür durumunuzu ve 10/30 gün devamsızlık sınırınızı anında hesaplayın.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#7c3aed] bg-purple-50 px-2.5 py-1.5 rounded-lg border border-purple-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#7c3aed] shrink-0" />
+                  <span>Özürsüz 10 Gün & 5 Gün Belge Kuralı</span>
+                </span>
+                <span className="text-[10px] text-purple-800 font-mono font-bold shrink-0">
+                  MEB 2025
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#7c3aed] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-lise-ortalama-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lise-ortalama-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/lise-ortalama-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Calculator className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>HESAPLAMAYI BAŞLAT</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/lise-ortalama-hesaplama"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('lise-ortalama-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/lise-ortalama-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#7c3aed] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/lise-ortalama-hesaplama</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* YKS Puan Hesaplama 2025 TYT AYT + OBP Özel Kartı (YKS ve TÜMÜ) */}
+        {showYksCard && (
+          <article
+            id="card-yks-puan-hesaplama"
+            className="bg-white border-2 border-[#ea580c]/40 hover:border-[#ea580c] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="YKS 2025 • TYT AYT OBP"
+              title="YKS Puan Hesaplama 2025 TYT AYT + OBP"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
+                  subtitle: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+                  image: '/resimler/k_yks.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/yks-puan-hesaplama',
+                  badge: 'YKS 2025 • TYT AYT OBP'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#ea580c] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <GraduationCap className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>ÖSYM PUAN & SIRALAMA</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                SAY • EA • SÖZ • TYT + OBP
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ÖSYM 2025
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#ea580c] transition-colors">
+                YKS Puan Hesaplama 2025 TYT AYT + OBP
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                TYT AYT netlerini ve diploma notunu gir, OBP katkılı Sayısal, Eşit Ağırlık, Sözel puanlarını ve tahmini başarı sıralamanı anında gör.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#ea580c] bg-orange-50 px-2.5 py-1.5 rounded-lg border border-orange-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ea580c] shrink-0" />
+                  <span>SAY - EA - SÖZ + Tahmini Sıralama</span>
+                </span>
+                <span className="text-[10px] text-orange-800 font-mono font-bold shrink-0">
+                  ÖSYM 2025
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#ea580c] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-yks-puan-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-puan-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-puan-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Calculator className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>YKS PUANINI HESAPLA</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/yks-puan-hesaplama"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-puan-hesaplama');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-puan-hesaplama';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#ea580c] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/yks-puan-hesaplama</span>
+              </a>
+            </div>
+          </article>
+        )}
+
+        {/* YKS Tercih Sihirbazı 2025 + PDF İndir Özel Kartı (YKS ve TÜMÜ) */}
+        {showYksTercihCard && (
+          <article
+            id="card-yks-tercih-robotu"
+            className="bg-white border-2 border-[#ea580c]/40 hover:border-[#ea580c] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="YKS 2025 • TERCİH SİHİRBAZI"
+              title="YKS Tercih Sihirbazı 2025 + PDF İndir"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+                  subtitle: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+                  image: '/resimler/k_yks.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/yks-tercih-robotu',
+                  badge: 'YKS 2025 • YÖK ATLAS UYUMLU'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#ea580c] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <Compass className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>YÖK ATLAS 2024 RESMİ VERİ</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                SAY • EA • SÖZ • DİL + PDF İndir
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                PDF ÇIKTILI
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#ea580c] transition-colors">
+                YKS Tercih Sihirbazı 2025 + PDF İndir
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                YKS puanını, puan türünü ve şehrini seç; 2024 YÖK taban puanlarına göre uygun bölümleri filtrele ve tercih listenin PDF çıktısını anında al.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#ea580c] bg-orange-50 px-2.5 py-1.5 rounded-lg border border-orange-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ea580c] shrink-0" />
+                  <span>Şehir & Devlet/Vakıf Filtresi + QR PDF</span>
+                </span>
+                <span className="text-[10px] text-orange-800 font-mono font-bold shrink-0">
+                  ÖSYM 2025
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#ea580c] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-yks-tercih-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>TERCİH SİHİRBAZINI AÇ</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/yks-tercih-robotu"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#ea580c] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/yks-tercih-robotu</span>
               </a>
             </div>
           </article>

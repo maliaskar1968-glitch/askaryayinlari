@@ -15,6 +15,10 @@ import { TakdirCalculator } from './tools/TakdirCalculator';
 import { KapAnalysisPanel } from './tools/KapAnalysisPanel';
 import { LgsTercihRobotu } from './tools/LgsTercihRobotu';
 import { LgsCountdownTimer } from './tools/LgsCountdownTimer';
+import { AltinIsTracker } from './tools/AltinIsTracker';
+import { LiseOrtalamaCalculator } from './tools/LiseOrtalamaCalculator';
+import { YksCalculator } from './tools/YksCalculator';
+import { YksTercihRobotu } from './tools/YksTercihRobotu';
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
 import { ShareModal, ShareItem } from './ShareModal';
@@ -168,6 +172,14 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
 
   const renderToolComponent = () => {
     switch (tool.id) {
+      case 'yks-tercih':
+        return <YksTercihRobotu />;
+      case 'yks':
+        return <YksCalculator />;
+      case 'lise-ortalama':
+        return <LiseOrtalamaCalculator />;
+      case 'altin-is':
+        return <AltinIsTracker />;
       case 'lgs-sayac':
         return <LgsCountdownTimer />;
       case 'tercih':
@@ -333,7 +345,15 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
             <h2 className="text-lg sm:text-xl font-serif font-bold text-[#1A1A1A] flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-[#C9A86A]" />
               <span>
-                {tool.id === 'lgs-sayac'
+                {tool.id === 'yks-tercih'
+                  ? 'YKS Tercih Rehberi: Üniversite ve Bölüm Seçim Stratejisi'
+                  : tool.id === 'yks'
+                  ? 'YKS Puanı Nasıl Hesaplanır? (TYT AYT OBP Rehberi)'
+                  : tool.id === 'lise-ortalama'
+                  ? 'Lise Ortalama ve Devamsızlık Yönetmeliği Rehberi'
+                  : tool.id === 'altin-is'
+                  ? '3 Altın İş Sistemi Nedir? (Disiplin & Alışkanlık Rehberi)'
+                  : tool.id === 'lgs-sayac'
                   ? 'LGS 2026 Sınav Tarihi & Zaman Yönetimi Rehberi'
                   : tool.id === 'tercih'
                   ? 'LGS Tercih Nasıl Yapılır? (Yüzdelik Dilim & Taban Puan Rehberi)'

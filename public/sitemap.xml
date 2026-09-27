@@ -32,6 +32,34 @@
 
   <!-- Uygulamalar - SEO Özel Sayfaları -->
   <url>
+    <loc>https://www.askaryayinlari.com.tr/uygulamalar/yks-tercih-robotu</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.99</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/uygulamalar/yks-puan-hesaplama</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.99</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/uygulamalar/lise-ortalama-hesaplama</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.99</priority>
+  </url>
+
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/uygulamalar/3-altin-is-takip</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.99</priority>
+  </url>
+
+  <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/lgs-geri-sayim</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>

@@ -1,5 +1,5 @@
 export type PageTab = 'magaza' | 'uygulamalar' | 'hakkimda' | 'hakkimizda' | 'iletisim';
-export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'lgs-sayac';
+export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'yks' | 'yks-tercih' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'lgs-sayac' | 'altin-is' | 'lise-ortalama';
 export type FilterCategory = 'tumu' | '5' | '6' | '7' | '8-lgs' | 'lise' | 'yks';
 
 export interface ShareItem {

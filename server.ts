@@ -607,6 +607,26 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   });
 
   const TOOLS_SEO_MAP: Record<string, { title: string; desc: string; h1: string }> = {
+    'yks-tercih-robotu': {
+      title: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+      desc: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+      h1: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul'
+    },
+    'yks-puan-hesaplama': {
+      title: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
+      desc: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+      h1: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li'
+    },
+    'lise-ortalama-hesaplama': {
+      title: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+      desc: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+      h1: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür'
+    },
+    '3-altin-is-takip': {
+      title: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
+      desc: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+      h1: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması'
+    },
     'lgs-geri-sayim': {
       title: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
       desc: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
@@ -623,9 +643,9 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
       h1: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul'
     },
     'takdir-tesekkur-hesaplama': {
-      title: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
+      title: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
       desc: 'E-Okul uyumlu takdir teşekkür hesapla.',
-      h1: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu'
+      h1: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu'
     },
     'bursluluk-puan-hesaplama-2025': {
       title: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',

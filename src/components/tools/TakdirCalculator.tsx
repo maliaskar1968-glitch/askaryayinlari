@@ -11,7 +11,7 @@ interface SubjectRow {
   grade: number;
 }
 
-type GradeLevel = '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+type GradeLevel = '5' | '6' | '7' | '8';
 
 interface TakdirCalculatorProps {
   onGradeChange?: (grade: GradeLevel, bookId: string) => void;
@@ -73,58 +73,6 @@ const DEFAULT_SUBJECTS: Record<GradeLevel, { name: string; hours: number; grade:
     { name: 'Beden Eğitimi ve Spor', hours: 2, grade: 100 },
     { name: 'Seçmeli Dersler', hours: 4, grade: 88 },
   ],
-  '9': [
-    { name: 'Türk Dili ve Edebiyatı', hours: 5, grade: 80 },
-    { name: 'Matematik', hours: 6, grade: 75 },
-    { name: 'Fizik', hours: 2, grade: 78 },
-    { name: 'Kimya', hours: 2, grade: 82 },
-    { name: 'Biyoloji', hours: 2, grade: 80 },
-    { name: 'Tarih', hours: 2, grade: 85 },
-    { name: 'Coğrafya', hours: 2, grade: 85 },
-    { name: 'Birinci Yabancı Dil (İngilizce)', hours: 4, grade: 82 },
-    { name: 'İkinci Yabancı Dil (Almanca)', hours: 2, grade: 88 },
-    { name: 'Din Kültürü ve Ahlak Bilgisi', hours: 2, grade: 92 },
-    { name: 'Beden Eğitimi ve Spor', hours: 2, grade: 98 },
-    { name: 'Görsel Sanatlar / Müzik', hours: 2, grade: 95 },
-    { name: 'Sağlık Bilgisi ve Trafik Kültürü', hours: 1, grade: 90 },
-  ],
-  '10': [
-    { name: 'Türk Dili ve Edebiyatı', hours: 5, grade: 82 },
-    { name: 'Matematik', hours: 6, grade: 78 },
-    { name: 'Fizik', hours: 2, grade: 76 },
-    { name: 'Kimya', hours: 2, grade: 80 },
-    { name: 'Biyoloji', hours: 2, grade: 82 },
-    { name: 'Tarih', hours: 2, grade: 86 },
-    { name: 'Coğrafya', hours: 2, grade: 88 },
-    { name: 'Felsefe', hours: 2, grade: 85 },
-    { name: 'Birinci Yabancı Dil (İngilizce)', hours: 4, grade: 84 },
-    { name: 'İkinci Yabancı Dil', hours: 2, grade: 88 },
-    { name: 'Din Kültürü ve Ahlak Bilgisi', hours: 2, grade: 94 },
-    { name: 'Beden Eğitimi ve Spor', hours: 2, grade: 98 },
-  ],
-  '11': [
-    { name: 'Türk Dili ve Edebiyatı', hours: 5, grade: 84 },
-    { name: 'Matematik', hours: 6, grade: 80 },
-    { name: 'Fizik / Alan Dersi 1', hours: 4, grade: 78 },
-    { name: 'Kimya / Alan Dersi 2', hours: 4, grade: 82 },
-    { name: 'Biyoloji / Alan Dersi 3', hours: 4, grade: 80 },
-    { name: 'Tarih', hours: 2, grade: 88 },
-    { name: 'Felsefe', hours: 2, grade: 86 },
-    { name: 'Yabancı Dil', hours: 4, grade: 85 },
-    { name: 'Din Kültürü ve Ahlak Bilgisi', hours: 2, grade: 95 },
-    { name: 'Beden Eğitimi ve Spor', hours: 2, grade: 98 },
-  ],
-  '12': [
-    { name: 'Türk Dili ve Edebiyatı', hours: 5, grade: 85 },
-    { name: 'Matematik', hours: 6, grade: 82 },
-    { name: 'Alan Dersi 1 (Fizik/Edebiyat)', hours: 4, grade: 80 },
-    { name: 'Alan Dersi 2 (Kimya/Tarih)', hours: 4, grade: 84 },
-    { name: 'Alan Dersi 3 (Biyoloji/Coğrafya)', hours: 4, grade: 82 },
-    { name: 'T.C. İnkılap Tarihi ve Atatürkçülük', hours: 2, grade: 90 },
-    { name: 'Yabancı Dil', hours: 4, grade: 86 },
-    { name: 'Din Kültürü ve Ahlak Bilgisi', hours: 2, grade: 95 },
-    { name: 'Beden Eğitimi ve Spor', hours: 2, grade: 100 },
-  ],
 };
 
 const GRADE_BOOK_MAPPING: Record<GradeLevel, string> = {
@@ -132,10 +80,6 @@ const GRADE_BOOK_MAPPING: Record<GradeLevel, string> = {
   '6': 'k6',
   '7': 'k7',
   '8': 'k8',
-  '9': 'k9',
-  '10': 'k10',
-  '11': 'k11',
-  '12': 'k_yks',
 };
 
 export const TakdirCalculator: React.FC<TakdirCalculatorProps> = ({ onGradeChange }) => {
@@ -269,10 +213,10 @@ export const TakdirCalculator: React.FC<TakdirCalculatorProps> = ({ onGradeChang
           </div>
           <div>
             <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#856526] font-bold">
-              MEB E-OKUL UYUMLU • 2025 DÖNEM SONU
+              MEB E-OKUL UYUMLU • DÖNEM SONU
             </div>
             <h2 className="font-serif font-black text-xl sm:text-2xl text-[#1A1A1A] tracking-tight">
-              Takdir Teşekkür Hesaplayıcı 2025
+              Takdir Teşekkür Hesaplayıcı
             </h2>
           </div>
         </div>
@@ -318,23 +262,13 @@ export const TakdirCalculator: React.FC<TakdirCalculatorProps> = ({ onGradeChang
             </button>
           ))}
 
-          <span className="text-[10px] font-mono uppercase font-bold text-[#1A1A1A]/50 ml-2 mr-1">
-            LİSE:
-          </span>
-          {(['9', '10', '11', '12'] as const).map((grade) => (
-            <button
-              key={grade}
-              id={`btn-takdir-grade-${grade}`}
-              onClick={() => handleSelectGrade(grade)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
-                selectedGrade === grade
-                  ? 'bg-[#1A1A1A] text-white ring-2 ring-[#C9A86A]/70 shadow-2xs scale-[1.02]'
-                  : 'bg-white text-[#1A1A1A]/70 hover:bg-[#FAF6EE] border border-[#1A1A1A]/15'
-              }`}
-            >
-              [{grade}. SINIF]
-            </button>
-          ))}
+          <a
+            href="/uygulamalar/lise-ortalama-hesaplama"
+            className="ml-auto text-[11px] font-mono font-bold text-[#7c3aed] hover:underline flex items-center gap-1 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200"
+          >
+            <span>Lise (9, 10, 11, 12) Hesaplayıcısı için tıklayın</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
 

@@ -23,6 +23,211 @@ export interface ToolDefinition {
 
 export const TOOLS_DATA: ToolDefinition[] = [
   {
+    id: 'yks-tercih',
+    slug: 'yks-tercih-robotu',
+    name: 'YKS Tercih Sihirbazı 2025 + PDF İndir',
+    shortName: 'YKS Tercih Sihirbazı',
+    badge: 'YKS 2025 • YÖK ATLAS UYUMLU',
+    badgeColor: '#ea580c',
+    category: 'YKS',
+    metaTitle: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+    metaDescription: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+    h1: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+    tagline: 'YKS puanınızı, puan türünüzü (SAY, EA, SÖZ, DİL), şehir ve üniversite türünüzü seçin; 2024 YÖK taban puanlarına göre uygun bölümleri filtreleyin ve tercih listenizi anında PDF olarak indirin.',
+    detailedDescription: "### YKS Tercih Sürecinde Başarı Sırası ve Puan Dinamikleri\nÜniversite yerleştirme sürecinde adayların en sık düştüğü yanılgı, tercih listesini yalnızca aldıkları puana göre oluşturmaktır. Oysa YKS sınavının zorluk derecesi, standart sapmalar ve aday sayıları her yıl değişir. Bu sebeple 2024 yılında 430 puanla kapatan bir bölüm, 2025 yılında 415 veya 445 puanla kapatabilir. Tercih listesi hazırlanırken asıl güvenilir referans başarı sırasıdır. Puanlar dalgalanır ancak başarı sıraları genel yönelimleri çok daha isabetli yansıtır. YKS Tercih Sihirbazı, YÖK Atlas'ın en güncel yerleştirme verilerini kullanarak hem taban puan hem de başarı sırası karşılaştırmasını tek tabloda sunar.\n\n### 24 Tercih Kuralı: İdeal Liste Dağılımı Nasıl Yapılmalı?\nÖSYM adaylara toplam 24 tercih hakkı tanır. Başarılı bir tercih stratejisinde listenin dağılımı piramit kuralına dayanmalıdır:\n1. İlk 4-5 Tercih (Hayal & Sürpriz Grubu): Sıralamanızın veya puanınızın %15-20 üzerinde olan, 'gelmesi zor ama gelirse çok mutlu olurum' dediğiniz bölümler.\n2. Orta 12-14 Tercih (İdeal & Gerçekçi Grup): Sıralamanızın ve puanınızın tam denk geldiği (%10 altı ve %10 üstü), yerleşme ihtimalinizin en yüksek olduğu çekirdek tercihler.\n3. Son 4-5 Tercih (Garanti & Güvenlik Grubu): Sıralamanızın %25-35 altında kalan, açıkta kalma riskinizi sıfırlayan güvenli tercihler.\n\n### Ölü Tercih Tuzağından Kaçınma ve Şehir Seçimi\nBir adayın daha çok istediği ancak taban puanı/sıralaması daha düşük olan bir bölümü, istemediği yüksek puanlı bir bölümün altına yazması tercih hatasıdır. Unutmayın ki ÖSYM sistemi yukarıdan aşağıya doğru ilk tutan tercihinize yerleştirir. Ayrıca devlet ve vakıf üniversitelerinin burs koşulları, kampüs imkanları ve şehir yaşam maliyetleri tercih listesinde titizlikle değerlendirilmelidir. Aşkar Yayınları logolu resmi PDF tercih çıktısı ile listenizi kaydedebilir, aileniz ve rehber öğretmeninizle masaya yatırabilirsiniz.",
+    iconName: 'Compass',
+    highlights: [
+      '2024 YÖK Atlas Resmi Taban Puanları ve Başarı Sıraları',
+      'SAY, EA, SÖZ ve DİL Puan Türlerinde Şehir ve Üniversite Filtreleme',
+      '24 Tercih Listesi Oluşturma ve Anlık Durum Analizi',
+      'Aşkar Yayınları Logolu, QR Kodlu ve Tıklanabilir Linkli Resmi PDF Çıktısı'
+    ],
+    howToUse: [
+      'YKS yerleştirme puanınızı yazın ve puan türünüzü (SAY, EA, SÖZ veya DİL) belirleyin.',
+      'İlginizi çeken şehirleri ve üniversite türünü (Devlet / Vakıf) filtreleyin.',
+      'Tablodan beğendiğiniz bölümlerin yanındaki "+" butonuna tıklayarak listenize ekleyin.',
+      'Üstteki siyah "PDF OLARAK İNDİR" butonuna basarak logolu ve QR kodlu tercih listenizi anında cihazınıza kaydedin.'
+    ],
+    faq: [
+      {
+        q: 'YKS tercihlerinde puana mı yoksa başarı sırasına mı bakılmalıdır?',
+        a: 'Tercih yaparken birincil kriter kesinlikle başarı sırasıdır. Puanlar sınavın genel zorluğuna göre yıldan yıla onlarca puan değişebilirken başarı sırası çok daha kararlıdır. Ancak fikir vermesi açısından puan ve sıralama birlikte değerlendirilmelidir.'
+      },
+      {
+        q: 'Kaç tercih hakkımız vardır ve nasıl dağıtılmalıdır?',
+        a: 'ÖSYM yerleştirmelerinde toplam 24 tercih hakkı bulunur. Bu hakların %20\'si sürpriz/yüksek, %60\'ı kendi puan aralığınız, %20\'si ise açıkta kalmayı önleyecek güvenlik tercihlerine ayrılmalıdır.'
+      },
+      {
+        q: 'Ölü tercih nedir ve nasıl önlenir?',
+        a: 'Ölü tercih; adayın daha az istediği veya sıralaması çok daha düşük olan bir bölümü daha üst sıralara yazıp, daha çok istediği bir bölümü alt sıralara koyması durumudur. ÖSYM üstten alta doğru tarama yaptığı için listeyi puan sırasına değil kişisel istek sırasına göre dizmek gerekir.'
+      },
+      {
+        q: 'Vakıf üniversitelerinde tam burslu bölümlerde burs kesilir mi?',
+        a: 'YÖK mevzuatına göre ÖSYM kılavuzunda yer alan başarı bursları normal eğitim-öğretim süresi boyunca (hazırlık + 4 yıl) ders başarısızlığından dolayı kesilemez. Yalnızca disiplin suçlarında kesilebilir.'
+      },
+      {
+        q: 'YKS tercih listesini PDF olarak indirdikten sonra ne yapmalıyım?',
+        a: 'PDF çıktınızı rehber öğretmeniniz ve ailenizle birlikte inceleyip bölüm kodlarını kontrol ettikten sonra tercih dönemi açıldığında ÖSYM Aday İşlemleri Sistemi (AİS) üzerinden resmi tercihinizi onaylamalısınız.'
+      }
+    ],
+    relatedBookId: 'k_yks',
+    relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
+  },
+  {
+    id: 'yks',
+    slug: 'yks-puan-hesaplama',
+    name: 'YKS Puan Hesaplama 2025 TYT AYT + OBP',
+    shortName: 'YKS Puan Hesaplama',
+    badge: 'YKS 2025 • TYT AYT OBP',
+    badgeColor: '#ea580c',
+    category: 'YKS',
+    metaTitle: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
+    metaDescription: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+    h1: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
+    tagline: 'ÖSYM standartlarına uygun TYT ve AYT netlerinizi ve diploma notunuzu girerek OBP katkılı SAY, EA, SÖZ ve TYT yerleştirme puanınızı ve tahmini sıralamanızı anında hesaplayın.',
+    detailedDescription: "### YKS Puanı Nasıl Hesaplanır?\nYükseköğretim Kurumları Sınavı (YKS) puanı, ÖSYM tarafından her yıl iki temel oturum ve adayların lise mezuniyet başarısını temsil eden Ortaöğretim Başarı Puanı'nın (OBP) ağırlıklı birleşimiyle hesaplanır.\n\n1. Birinci Oturum: Temel Yeterlilik Testi (TYT)\nTYT oturumunda tüm adaylara ortak 120 soru (40 Türkçe, 20 Sosyal Bilimler, 40 Temel Matematik, 20 Fen Bilimleri) yöneltilir. 4 yanlış cevabın 1 doğru cevabı elediği sınavda ham netler hesaplanır. ÖSYM'nin 100 taban puanı üzerine derslerin standart sapma katsayıları eklenerek adayların TYT Ham Puanı (100-500 aralığında) elde edilir. TYT puanı tek başına 2 yıllık önlisans programlarına yerleşmede ve özel yetenek sınavlarında kullanılır.\n\n2. İkinci Oturum: Alan Yeterlilik Testleri (AYT)\n4 yıllık lisans fakültelerine yerleşmek isteyen adaylar için AYT puanı hayati önem taşır. YKS yerleştirme puanının %40'ı TYT oturumundan, %60'ı ise AYT oturumundan gelir. AYT puan türleri adayın hedeflediği alana göre üç ana grupta toplanır:\n• Sayısal (SAY): TYT katkısı (%40) + AYT Matematik (40 soru) + AYT Fen Bilimleri (14 Fizik, 13 Kimya, 13 Biyoloji).\n• Eşit Ağırlık (EA): TYT katkısı (%40) + AYT Matematik (40 soru) + AYT Türk Dili ve Edebiyatı-Sosyal-1 (24 Edebiyat, 10 Tarih-1, 6 Coğrafya-1).\n• Sözel (SÖZ): TYT katkısı (%40) + Türk Dili ve Edebiyatı-Sosyal-1 (40 soru) + Sosyal Bilimler-2 (11 Tarih-2, 11 Coğrafya-2, 12 Felsefe Grubu, 6 Din Kültürü).\n\n3. OBP (Ortaöğretim Başarı Puanı) Katkısı Nasıl Eklenir?\nAdayın lise diploma notu (50-100 aralığında) 5 ile çarpılarak 250 ile 500 arasında OBP puanına dönüştürülür. Standart yerleştirmede bu OBP puanı 0,12 katsayısıyla çarpılarak adayın ham puanına eklenir (+30 ile +60 puan arası). Ancak adayın bir önceki yıl üniversiteye yerleşip yerleşmediği kontrol edilir; bir önceki yıl merkezi yerleştirmeyle bir bölüme yerleşen adayların OBP katsayısı 0,06'ya (yarıya) düşer ve 'Kırık OBP' uygulanır.\n\n4. Tahmini Sıralama Simülasyonu\nPuanlar kadar üniversite tercihlerinde en belirleyici unsur başarı sıralamasıdır. Hesaplama motorumuz, geçmiş yılların (2023 ve 2024 ÖSYM yığılma verileri) standart sapma ve net dağılım projeksiyonlarını kullanarak hesaplanan Y-SAY, Y-EA ve Y-SÖZ puanlarına karşılık gelen tahmini başarı sıralama aralığını anında sunar.",
+    iconName: 'GraduationCap',
+    highlights: [
+      'TYT 120 Soru & AYT 80 Soru ÖSYM Net Sihirbazı',
+      'Diploma Notu ile OBP ve Kırık OBP Yerleştirme Hesabı',
+      'Sayısal (SAY), Eşit Ağırlık (EA), Sözel (SÖZ) ve TYT Puanları',
+      'ÖSYM 2024 Yığılma Verilerine Dayalı Tahmini Başarı Sıralaması'
+    ],
+    howToUse: [
+      'Üstteki hedef alan butonlarından alanınızı (Sayısal, Eşit Ağırlık veya Sözel) seçin.',
+      'Sol panelde 120 soruluk TYT doğru ve yanlış sayılarınızı girin.',
+      'Sağ panelde alanınıza ait AYT branş testlerinin doğru ve yanlışlarını yazın.',
+      'Diploma notunuzu girin; geçen yıl yerleştiyseniz "Kırık OBP" kutusunu işaretleyin.',
+      'Sonuç kartında OBP eklenmiş yerleştirme puanlarınızı ve tahmini başarı sıranızı inceleyin.'
+    ],
+    faq: [
+      {
+        q: 'YKS yerleştirme puanı nasıl hesaplanır?',
+        a: 'YKS yerleştirme puanı; TYT ham puanının %40\'ı, AYT ham puanının %60\'ı ve adayın Ortaöğretim Başarı Puanı\'nın (Diploma Notu x 5 x 0.12) toplanmasıyla 560 tam puan üzerinden hesaplanır.'
+      },
+      {
+        q: 'TYT\'de 4 yanlış 1 doğruyu götürür mü?',
+        a: 'Evet. ÖSYM mevzuatına göre TYT ve AYT oturumlarındaki tüm alt testlerde 4 yanlış cevap 1 doğru cevabı götürür. Net sayısı; [Doğru Sayısı - (Yanlış Sayısı / 4)] formülüyle hesaplanır.'
+      },
+      {
+        q: 'Kırık OBP nedir ve puanı ne kadar düşürür?',
+        a: 'Bir önceki yıl YKS ile bir örgün veya açıköğretim lisans/önlisans programına yerleşen adayın (kayıt yaptırsın veya yaptırmasın) takip eden yılda OBP katsayısı 0.12\'den 0.06\'ya düşer. Bu durum adayın yerleştirme puanında yaklaşık 15 ila 30 puanlık bir kayba neden olur.'
+      },
+      {
+        q: 'YKS baraj puanı kalktı mı?',
+        a: 'Evet, YÖK kararıyla TYT (eski 150 barajı) ve AYT (eski 180 barajı) puan barajları kaldırılmıştır. Ancak Tıp (ilk 50 bin), Hukuk (ilk 125 bin), Mühendislik (ilk 300 bin), Mimarlık ve Öğretmenlik gibi bölümlerde başarı sırası barajları geçerliliğini korumaktadır.'
+      },
+      {
+        q: 'Sayısal puan için Türkçe ve Sosyal çözmek gerekir mi?',
+        a: 'Evet. TYT oturumu tüm puan türlerine %40 etki ettiği için TYT Türkçe ve TYT Sosyal netleri de Sayısal puanınızı doğrudan yükseltir. Ancak AYT oturumunda yalnızca Matematik ve Fen testleri Sayısal puanına dahil edilir.'
+      }
+    ],
+    relatedBookId: 'k_yks',
+    relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
+  },
+  {
+    id: 'lise-ortalama',
+    slug: 'lise-ortalama-hesaplama',
+    name: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+    shortName: 'Lise Ortalama & Devamsızlık',
+    badge: '9-12. SINIF LİSE • MEB E-OKUL',
+    badgeColor: '#7c3aed',
+    category: 'ARAÇLAR',
+    metaTitle: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+    metaDescription: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+    h1: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+    tagline: '9, 10, 11 ve 12. sınıf dönem ortalamanızı, takdir-teşekkür belge durumunuzu ve MEB 10/30 gün devamsızlık sınırınızı saniyede hesaplayın.',
+    detailedDescription: "Milli Eğitim Bakanlığı (MEB) Ortaöğretim Kurumları Yönetmeliği uyarınca, liselerde (9, 10, 11 ve 12. sınıflar) dönem sonu ağırlıklı not ortalaması, her dersin haftalık ders saati ile o dersten alınan dönem puanının çarpımlarının toplam ders saatine bölünmesiyle hesaplanır. Türk Dili ve Edebiyatı, Matematik ve Fizik gibi haftalık ders saati yüksek olan branşlar genel ortalamayı doğrudan belirler.\n\nTakdir ve teşekkür belgesi kazanımında iki kritik kural mevcuttur: Öğrencinin dönem ortalaması 70,00 ile 84,99 arasında ise Teşekkür, 85,00 ve üzerinde ise Takdir belgesi almaya hak kazanır. Ancak öğrencinin tek bir dersinin dönem puanı dahi 50,00'nin altında (zayıf) ise ortalaması ne kadar yüksek olursa olsun belge verilmez. Ayrıca yönetmeliğin 160. maddesine göre, özürsüz devamsızlık süresi 5 günü geçen öğrenciler takdir ya da teşekkür belgesi alma hakkını kaybeder.\n\nDevamsızlık ve sınıf tekrarı konusunda ise MEB yönetmeliği son derece katıdır: Liselerde özürsüz devamsızlık hakkı en fazla 10 gün, özürlü (sağlık raporu veya veli izin dilekçesi) devamsızlık hakkı 20 gün olup toplam devamsızlık süresi 30 günü geçemez. Özürsüz devamsızlığı 10 günü veya toplam devamsızlığı 30 günü aşan lise öğrencileri ders başarı durumuna bakılmaksızın doğrudan sınıf tekrarına (devamsızlıktan kalma) kalır. Aşkar Yayınları Lise Koçluk Serisi (9, 10, 11 ve YKS), lise sürecinde ders başarısını ve devam disiplinini sürdürmeniz için rehberlik eder.",
+    iconName: 'Award',
+    highlights: [
+      '9, 10, 11 ve 12. Sınıf MEB Müfredatına Uygun Ağırlıklı Ortalama',
+      'Takdir (85+) ve Teşekkür (70-84.99) Belge Kriteri Hesabı',
+      '50 Puan Altı Zayıf Ders ve Özürsüz 5 Gün Belge Kuralı Denetimi',
+      'Özürsüz (10 Gün) ve Toplam (30 Gün) Devamsızlık Kalan Hak Analizi'
+    ],
+    howToUse: [
+      'Üstteki sekmelerden "Ortalama", "Takdir-Teşekkür" veya "Devamsızlık Hakkı" bölümünü seçin.',
+      'Sınıfınızı (9, 10, 11 veya 12. Sınıf) seçerek ders notlarınızı ve haftalık saatlerinizi girin.',
+      'Devamsızlık sekmesinde özürsüz ve raporlu gün sayılarınızı yazarak kalan günlerinizi görün.',
+      'Sonuç panelinden belgenizi, ortalamanızı ve sınıfınıza özel Aşkar lise koçluk kitabını inceleyin.'
+    ],
+    faq: [
+      {
+        q: 'Kaç gün devamsızlık kalınca kalınır?',
+        a: 'MEB Ortaöğretim Kurumları Yönetmeliği Madde 36 uyarınca liselerde özürsüz devamsızlık sınırı 10 gün, toplam (özürlü + özürsüz) devamsızlık sınırı ise 30 gündür. Özürsüz devamsızlığı 10 günü (10.5 gün ve üzeri) veya toplam devamsızlığı 30 günü aşan öğrenciler not ortalamaları ne olursa olsun sınıfta kalır.'
+      },
+      {
+        q: 'Özürsüz 5 günü aşan devamsızlıkta takdir ve teşekkür belgesi alınabilir mi?',
+        a: 'Hayır. MEB Ortaöğretim Kurumları Yönetmeliği Madde 160 uyarınca, dönem ortalaması 70 veya 85 üzerinde olsa dahi özürsüz devamsızlığı 5 günü geçen öğrenciler takdir ya da teşekkür belgesi alamaz.'
+      },
+      {
+        q: '1 dersi 50 altı olan lise öğrencisi takdir veya teşekkür alabilir mi?',
+        a: 'Hayır. Karne genel ortalaması 95 dahi olsa, herhangi bir dersten alınan dönem puanı 50,00 altında kalırsa E-Okul sistemi öğrenciye başarı belgesi vermez.'
+      },
+      {
+        q: 'Lise ders ortalamasında performans ve yazılı notları nasıl hesaplanır?',
+        a: 'Bir dersin dönem puanı; o dersten yapılan yazılı sınavlar ile performans çalışmalarının aritmetik ortalaması alınarak belirlenir. Ardından dersin haftalık ders saatiyle çarpılarak ağırlıklı puana dönüştürülür.'
+      },
+      {
+        q: 'Lise ortalamasını yükseltmek için en etkili yol nedir?',
+        a: 'Haftalık ders saati yüksek olan Türk Dili ve Edebiyatı (5 saat), Matematik (6 saat) veya Yabancı Dil gibi derslerin notlarını yükseltmek ortalamayı en hızlı artıran stratejidir.'
+      }
+    ],
+    relatedBookId: 'k9',
+    relatedBookTitle: '9. Sınıf Liseye Başlangıç & Uyum Rehberi'
+  },
+  {
+    id: 'altin-is',
+    slug: '3-altin-is-takip',
+    name: 'Günde 3 Altın İş Takip - Tüm Sınıflar',
+    shortName: '3 Altın İş Takip',
+    badge: 'TÜM SINIFLAR • DİSİPLİN UYGULAMASI',
+    badgeColor: '#2563eb',
+    category: 'ARAÇLAR',
+    metaTitle: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
+    metaDescription: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+    h1: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
+    tagline: "Günde sadece 3 kritik görevi tamamlayarak erteleme hastalığına son verin. 5. sınıftan YKS'ye kadar seviyenize özel görevlerle ders disiplininizi kurun.",
+    detailedDescription: "### 3 Altın İş Sistemi Nedir?\nGünde 3 Altın İş Sistemi, eğitim koçu ve yazar Mehmet Ali Aşkar tarafından geliştirilen, aşırı planlama ve erteleme hastalığını kökten çözen minimal fakat yüksek etkili bir ders çalışma metodolojisidir. Birçok öğrenci her gün 10 farklı ders ve onlarca görev içeren devasa çalışma listeleri hazırlar. Günün sonunda bu hedeflerin yarısı bile tamamlanamayınca öğrenci suçluluk hisseder, özgüveni zedelenir ve zamanla masaya oturmaktan kaçınmaya başlar. 3 Altın İş felsefesinin kalbinde 'Az olan çoktur' ve 'Önceliklendirme' prensibi yatar. Bu sistemde günün başlangıcında öğrenci kendine yalnızca o günün akademik gidişatını gerçekten değiştirecek 3 hayati görev seçer. Bu 3 iş bitmeden diğer hiçbir tali işle vakit kaybedilmez. Üç görevi tamamlayan öğrenci, günün zaferini ilan eder ve iç huzuruyla dinlenir.\n\n### 5. Sınıfta Nasıl Uygulanır?\nİlkokuldan ortaokula geçen 5. sınıf öğrencileri birden fazla branş öğretmeni ve artan ödev yüküyle karşılaşır. Bu kademede çocuğa saatlerce masada oturmayı dayatmak derslerden soğumasına yol açar. 5. sınıfta 3 Altın İş sistemi, temel alışkanlık kazandırma aracıdır: Birinci altın iş her gün düzenli 20 paragraf sorusuyla okuma anlama becerisini geliştirmek; ikinci altın iş 10 beceri temelli matematik problemiyle akıl yürütmeyi pekiştirmek; üçüncü altın iş ise günün ders notlarını 15 dakika gözden geçirmektir. Bu 3 görev tamamlandığında çocuğun ortaokul başarı temeli sağlam bir disiplinle atılmış olur.\n\n### LGS'de Nasıl Uygulanır?\n8. sınıf LGS hazırlığında öğrencilerin en büyük engeli dikkat dağınıklığı ve sınav kaygısıdır. LGS'de 3 Altın İş; öğrenciyi deneme netlerini doğrudan yukarı çekecek 'ameliyatlık' noktalara odaklar. Örneğin bir LGS öğrencisinin günlük altın işleri: 30 yeni nesil Türkçe paragrafı, 20 yeni nesil matematik/fen sorusu ve yapılan son denemedeki boş/yanlış soruların video çözüm analizidir. Öğrenci sadece bu 3 çekirdek görevi eksiksiz yaparak haftada 21 kritik hamleyi başarıyla tamamlar.\n\n### YKS'de Nasıl Uygulanır?\nTYT ve AYT gibi uçsuz bucaksız bir müfredatla yarışan lise ve mezun öğrencilerinde konu yetiştirememe paniği yaygındır. YKS'de 3 Altın İş sistemi, dev müfredatı yönetilebilir parçalara böler. Birinci altın iş günlük TYT paragraf ve problem rutini, ikinci altın iş hedef branştan (örneğin AYT Matematik veya AYT Edebiyat) 30-40 nitelikli soru çözümü, üçüncü altın iş ise haftalık eksik kazanım kapatma veya branş denemesi analizidir. Her gün sadece 3 altın işi tamamlayan bir YKS adayı, yılda 1000'den fazla stratejik görevi bitirerek dereceye ulaşır.",
+    iconName: 'CheckCircle2',
+    highlights: [
+      '5. Sınıftan Mezun YKS Seviyesine Kadar Sınıfa Özel Görev Önerileri',
+      'Kişiselleştirilebilir ve Düzenlenebilir 3 Günlük Altın Görev',
+      'Sınıf Bazlı Bağımsız localStorage Hafıza Kaydı',
+      'Son 7 Günlük Haftalık İstikrar ve Başarı Grafiği'
+    ],
+    howToUse: [
+      'En üstteki açılır menüden sınıfınızı (5, 6, 7, 8, 9, 10, 11, 12 veya Mezun) seçin.',
+      'Sınıfınıza özel otomatik gelen 3 altın görevi inceleyin veya kalem simgesine basarak kendi hedefinizi yazın.',
+      'Görevi bitirdiğinizde numaralı kutucuğa tıklayarak görevinize yeşil tik atın.',
+      'Haftalık grafikten son 7 gündeki istikrarınızı izleyin ve sayfa altındaki sınıfınıza özel Aşkar kitabını edinin.'
+    ],
+    faq: [
+      {
+        q: 'Günde 3 Altın İş sistemi neden geleneksel programlardan daha etkilidir?',
+        a: 'Çünkü uzun ve gerçekçi olmayan listeler erteleme ve motivasyon kaybına yol açar. 3 Altın İş ise netlik sağlar; beyin 3 göreve kolayca odaklanır ve tamamlandığında yüksek tatmin ve süreklilik yaratır.'
+      },
+      {
+        q: '3 altın iş bittikten sonra fazladan ders çalışabilir miyim?',
+        a: 'Evet, kesinlikle! Sistemin amacı minimum başarı standardını garanti etmektir. 3 altın işinizi bitirdikten sonra enerjiniz varsa ek çalışmalar yapabilirsiniz; ancak yapamadığınız günlerde bile bu 3 işi tamamlamak vicdani rahatlık ve kesintisiz disiplin sağlar.'
+      },
+      {
+        q: 'Görevlerimi gün içinde değiştirebilir miyim?',
+        a: 'Gün ortasında görev değiştirmek tavsiye edilmez. Görevlerinizi bir gün önceden veya sabah masaya otururken belirlemeli ve o gün boyunca bu 3 hedefe sadık kalmalısınız.'
+      },
+      {
+        q: 'Haftalık takip grafiği ne işe yarar?',
+        a: 'Haftalık takip grafiği, son 7 gündeki başarı yüzdenizi ve sürekliliğinizi görselleştirir. Boş günlerinizi fark etmenizi ve istikrarınızı somut olarak görmenizi sağlar.'
+      },
+      {
+        q: 'Hangi Aşkar koçluk kaynağı benim sınıfıma uygundur?',
+        a: 'Uygulama içindeki sınıf seçiminize göre sistem otomatik olarak seviyenize özel Aşkar Yayınları koçluk kitabını önerir. 5, 6, 7, 8. sınıf LGS, lise ve YKS kademeleri için hazırlanan rehberler, 3 Altın İş sistemini detaylı olarak uygulamalı sunar.'
+      }
+    ],
+    relatedBookId: 'k8',
+    relatedBookTitle: "LGS'de Kendi Koçun Ol 8.Sınıf"
+  },
+  {
     id: 'lgs-sayac',
     slug: 'lgs-geri-sayim',
     name: 'LGS 2026 Geri Sayım Sayacı',
@@ -154,25 +359,25 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'takdir',
     slug: 'takdir-tesekkur-hesaplama',
-    name: 'Takdir Teşekkür Hesaplama 2025',
+    name: 'Takdir Teşekkür Hesaplama',
     shortName: 'Takdir Teşekkür',
-    badge: '5-12. SINIF • E-OKUL UYUMLU',
+    badge: '5-8. SINIF ORTAOKUL • E-OKUL',
     badgeColor: '#2563eb',
     category: 'ARAÇLAR',
-    metaTitle: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
+    metaTitle: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
     metaDescription: 'E-Okul uyumlu takdir teşekkür hesapla.',
-    h1: 'Takdir Teşekkür Hesaplama 2025 - 5,6,7,8,9,10,11,12. Sınıf E-Okul Uyumlu',
-    tagline: '5, 6, 7, 8, 9, 10, 11 ve 12. sınıf ders notlarınızı ve haftalık ders saatlerinizi girerek E-Okul uyumlu ağırlıklı ortalamanızı ve takdir-teşekkür belge durumunuzu saniyede hesaplayın.',
-    detailedDescription: "Milli Eğitim Bakanlığı (MEB) Ortaöğretim ve İlköğretim Kurumları Yönetmeliği uyarınca, öğrencilerin dönem sonunda takdir veya teşekkür belgesi alabilmesi için belirli başarı ölçütlerini sağlaması gerekmektedir. Takdir belgesi alabilmek için öğrencinin dönem ağırlıklı genel not ortalamasının en az 85,00 ve üzeri olması şarttır. Dönem ortalaması 70,00 ile 84,99 puan arasında olan öğrenciler ise teşekkür belgesi almaya hak kazanır.\n\nAncak yalnızca genel ortalamanın 85,00 veya 70,00 puanın üzerinde olması belge almak için yeterli değildir. MEB mevzuatının en kritik kuralına göre, öğrencinin hiçbir dersinin dönem sonu puanı 50,00'nin altında (yani başarısız veya zayıf) olmamalıdır. Örneğin bir öğrencinin genel not ortalaması 88,50 olsa bile, tek bir dersten aldığı not 48,00 ise E-Okul sistemi o öğrenciye takdir veya teşekkür belgesi düzenlemez. Ayrıca öğrencinin davranış puanının da olumlu olması ve disiplin cezası almamış olması zorunludur.\n\nE-Okul sisteminde dönem not ortalaması hesaplanırken her dersin haftalık ders saati devreye girer. Haftalık ders saati fazla olan Türkçe, Matematik, Fen Bilimleri veya Edebiyat gibi derslerin ortalamaya etkisi çok daha yüksektir. Bu sebeple dönem ortalamasını yükseltmek ve takdir belgesine ulaşmak isteyen öğrencilerin öncelikle haftalık saati yüksek derslere ağırlık vermesi büyük avantaj sağlar. Düzenli çalışma disiplini, haftalık planlama ve eksik analizi için Aşkar Yayınları koçluk kitapları öğrencilere rehberlik etmektedir.",
+    h1: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
+    tagline: '5, 6, 7 ve 8. sınıf ders notlarınızı ve haftalık ders saatlerinizi girerek E-Okul uyumlu ağırlıklı ortalamanızı ve takdir-teşekkür belge durumunuzu saniyede hesaplayın.',
+    detailedDescription: "Milli Eğitim Bakanlığı (MEB) Ortaöğretim ve İlköğretim Kurumları Yönetmeliği uyarınca, öğrencilerin dönem sonunda takdir veya teşekkür belgesi alabilmesi için belirli başarı ölçütlerini sağlaması gerekmektedir. Takdir belgesi alabilmek için öğrencinin dönem ağırlıklı genel not ortalamasının en az 85,00 ve üzeri olması şarttır. Dönem ortalaması 70,00 ile 84,99 puan arasında olan öğrenciler ise teşekkür belgesi almaya hak kazanır.\n\nAncak yalnızca genel ortalamanın 85,00 veya 70,00 puanın üzerinde olması belge almak için yeterli değildir. MEB mevzuatının en kritik kuralına göre, öğrencinin hiçbir dersinin dönem sonu puanı 50,00'nin altında (yani başarısız veya zayıf) olmamalıdır. Örneğin bir öğrencinin genel not ortalaması 88,50 olsa bile, tek bir dersten aldığı not 48,00 ise E-Okul sistemi o öğrenciye takdir veya teşekkür belgesi düzenlemez. Ayrıca öğrencinin davranış puanının da olumlu olması ve disiplin cezası almamış olması zorunludur.\n\nE-Okul sisteminde dönem not ortalaması hesaplanırken her dersin haftalık ders saati devreye girer. Haftalık ders saati fazla olan Türkçe, Matematik, Fen Bilimleri gibi derslerin ortalamaya etkisi çok daha yüksektir. Bu sebeple dönem ortalamasını yükseltmek ve takdir belgesine ulaşmak isteyen öğrencilerin öncelikle haftalık saati yüksek derslere ağırlık vermesi büyük avantaj sağlar. Düzenli çalışma disiplini, haftalık planlama ve eksik analizi için Aşkar Yayınları koçluk kitapları öğrencilere rehberlik etmektedir.",
     iconName: 'Award',
     highlights: [
-      '5, 6, 7, 8, 9, 10, 11 ve 12. Sınıf E-Okul Müfredatları',
+      '5, 6, 7 ve 8. Sınıf E-Okul Müfredatları',
       'Haftalık Ders Saati Ağırlıklı Ortalama Hesabı',
       'Takdir (85+) ve Teşekkür (70-84.99) Belge Kriteri',
       '50 Altı Zayıf Ders Yönetmelik Kontrolü'
     ],
     howToUse: [
-      'Sayfanın üst kısmından öğrenim gördüğünüz sınıfı (5, 6, 7, 8, 9, 10, 11 veya 12. Sınıf) seçin.',
+      'Sayfanın üst kısmından ortaokul sınıfınızı (5, 6, 7 veya 8. Sınıf) seçin.',
       'Derslerinizin haftalık ders saatlerini ve dönem sonu ders notlarınızı (0-100) ilgili kutucuklara girin.',
       'Varsa seçmeli derslerinizi "Ders Ekle" butonuyla listeye dahil edin.',
       'Sistem anlık olarak E-Okul ağırlıklı ortalamanızı ve takdir ya da teşekkür belgesi kazanma durumunuzu hesaplayacaktır.'
