@@ -45,11 +45,18 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
   const targetUrl = item
     ? (item.isSiteShare
         ? (item.url || 'https://www.askaryayinlari.com.tr/')
+<<<<<<< HEAD
         : (item.shopierUrl || item.url || currentOrigin))
     : 'https://www.askaryayinlari.com.tr/';
 
   const publisherName = 'AŞKAR YAYINLARI';
   const siteShareTitle = 'Doğru Sistemle Çalış, Sınavı Kazan';
+=======
+        : (item.shopierUrl || currentOrigin))
+    : 'https://www.askaryayinlari.com.tr/';
+
+  const publisherName = 'AŞKAR YAYINLARI';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
   // Karekod oluşturma ve merkeze logo yerleştirme
   useEffect(() => {
@@ -196,8 +203,13 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
   let shareMessage = '';
 
   if (item.isSiteShare) {
+<<<<<<< HEAD
     shareTitle = `${siteShareTitle} - Aşkar Yayınları`;
     shareMessage = `📚 *${publisherName}* - ${siteShareTitle}\n\n${item.subtitle}\n\n🌐 Web Sitesi: ${targetUrl}`;
+=======
+    shareTitle = `Aşkar Yayınları - Çocuğunuz Kendi Çalışma Sistemini Kursun`;
+    shareMessage = `📚 *${publisherName}* - Çocuğunuz Kendi Çalışma Sistemini Kursun\n\n"${item.subtitle}"\n\n🌐 Web Sitesi: ${targetUrl}`;
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   } else {
     shareTitle = `${item.title} - ${publisherName}`;
     shareMessage = `📚 *${item.title}*\n${item.subtitle}\n\n🏛 *${publisherName}*\n🛒 Shopier Erişimi: ${targetUrl}`;
@@ -221,7 +233,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
       color: 'bg-[#229ED9] hover:bg-[#1f8ec3] text-white',
       url: `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(
         item.isSiteShare
+<<<<<<< HEAD
           ? `📚 ${publisherName} - ${siteShareTitle}\n${item.subtitle}`
+=======
+          ? `📚 ${publisherName} - Çocuğunuz Kendi Çalışma Sistemini Kursun\n"${item.subtitle}"`
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
           : `📚 ${item.title} - ${publisherName}\n${item.subtitle}`
       )}`,
     },
@@ -270,7 +286,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
         await navigator.share({
           title: shareTitle,
           text: item.isSiteShare
+<<<<<<< HEAD
             ? `📚 ${publisherName}\n${siteShareTitle}\n${item.subtitle}`
+=======
+            ? `📚 ${publisherName}\nÇocuğunuz Kendi Çalışma Sistemini Kursun\n"${item.subtitle}"`
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             : `📚 ${item.title} - ${publisherName}\n${item.subtitle}`,
           url: targetUrl,
         });
@@ -347,15 +367,26 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
 
             {/* Büyük puntolu başlık */}
             <h4 className="font-serif font-bold text-base sm:text-lg text-[#1A1A1A] tracking-tight mt-1 mb-1">
+<<<<<<< HEAD
               {siteShareTitle}
+=======
+              Çocuğunuz Kendi Çalışma Sistemini Kursun
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </h4>
 
             {/* Küçültülmüş tek satır metin */}
             <p
+<<<<<<< HEAD
               className="text-[11px] sm:text-xs text-[#1A1A1A]/70 font-medium font-sans px-1 italic leading-relaxed break-words"
               title={item.subtitle}
             >
               {item.subtitle}
+=======
+              className="text-[11px] sm:text-xs text-[#1A1A1A]/70 font-medium font-sans px-1 italic truncate whitespace-nowrap overflow-hidden text-ellipsis block"
+              title={item.subtitle}
+            >
+              "{item.subtitle}"
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </p>
           </div>
         ) : (

@@ -1,14 +1,20 @@
 # robots.txt for www.askaryayinlari.com.tr
 User-agent: *
 Allow: /
+<<<<<<< HEAD
 Allow: /rehber
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 Allow: /resimler/
 Allow: /images/
 
 # Search Engine & AI Crawlers
 User-agent: Googlebot
 Allow: /
+<<<<<<< HEAD
 Allow: /rehber
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 Allow: /resimler/
 Allow: /images/
 

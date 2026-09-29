@@ -15,7 +15,11 @@ export const Footer: React.FC = () => {
   const siteShareData: ShareItem = {
     isSiteShare: true,
     title: 'Aşkar Yayınları',
+<<<<<<< HEAD
     subtitle: 'Ezber değil, kendi sistemini kuran kazanır. Tüm araçlar anında cebinde.',
+=======
+    subtitle: 'Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde.',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     image: '/resimler/logo.jpg',
     url: 'https://www.askaryayinlari.com.tr/',
   };

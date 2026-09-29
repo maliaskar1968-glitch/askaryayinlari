@@ -108,7 +108,11 @@ KONUŞMA TARZI:
 
 async function startServer() {
   const app = express();
+<<<<<<< HEAD
   const PORT = 5173;
+=======
+  const PORT = 3000;
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
   // Body parser for JSON with base64 images (up to 50MB)
   app.use(express.json({ limit: '50mb' }));
@@ -422,6 +426,7 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     res.json({ status: 'ok' });
   });
 
+<<<<<<< HEAD
   // ÖSYM sınav takvimi: tarih açıklanınca sayaçların yeniden derlenmesi gerekmez.
   let examCalendarCache: { checkedAt: number; data: { yks: string | null; lgs: string | null; source: string } } | null = null;
   const parseExamDate = (text: string, examCode: string): string | null => {
@@ -533,6 +538,8 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     }
   });
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   // Aşkar Yayınları AI Assistant API
   app.post('/api/assistant', async (req, res) => {
     try {
@@ -706,12 +713,17 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   // --- Dynamic Sitemap Endpoint ---
   app.get('/sitemap.xml', (req, res) => {
     try {
+<<<<<<< HEAD
       const sitemapPaths = [
         path.join(process.cwd(), 'dist', 'sitemap.xml'),
         path.join(process.cwd(), 'public', 'sitemap.xml')
       ];
       const sitemapPath = sitemapPaths.find((candidate) => fs.existsSync(candidate));
       if (sitemapPath) {
+=======
+      const sitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+      if (fs.existsSync(sitemapPath)) {
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
         res.type('application/xml');
         return res.sendFile(sitemapPath);
       }
@@ -722,6 +734,14 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   });
 
   const TOOLS_SEO_MAP: Record<string, { title: string; desc: string; h1: string }> = {
+<<<<<<< HEAD
+=======
+    'yks-tercih-robotu': {
+      title: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+      desc: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+      h1: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul'
+    },
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     'yks-puan-hesaplama': {
       title: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
       desc: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
@@ -799,6 +819,7 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     }
   };
 
+<<<<<<< HEAD
   const GUIDE_SEO_MAP: Record<string, { title: string; desc: string; image: string; schema: object }> = {};
   const guideFiles = ['ders-calisma-rehberi.json', 'lgs-rehberi.json', 'lise-dersleri.json', 'tyt-ayt-rehberi.json', 'mezun-rehberi.json'];
   for (const fileName of guideFiles) {
@@ -855,11 +876,14 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     }
   }
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   // Helper to inject SEO meta tags into HTML
   const injectSeoToHtml = (rawHtml: string, reqUrl: string) => {
     let html = rawHtml;
     const cleanUrl = reqUrl.split('?')[0].replace(/\/+$/, '');
     const toolMatch = cleanUrl.match(/^\/uygulamalar\/([a-z0-9-]+)$/);
+<<<<<<< HEAD
     const guideMatch = cleanUrl.match(/^\/rehber\/([a-z0-9-]+)$/);
 
     if (cleanUrl === '/rehber') {
@@ -881,6 +905,10 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
       const schema = JSON.stringify(info.schema).replace(/<\/script/gi, '<\\/script');
       html = html.replace('</head>', `\n    <link rel="canonical" href="${canonical}" />\n    <meta property="og:url" content="${canonical}" />\n    <meta property="og:image" content="${info.image}" />\n    <meta name="twitter:title" content="${info.title}" />\n    <meta name="twitter:description" content="${info.desc}" />\n    <script type="application/ld+json">${schema}</script>\n  </head>`);
     } else if (toolMatch && TOOLS_SEO_MAP[toolMatch[1]]) {
+=======
+
+    if (toolMatch && TOOLS_SEO_MAP[toolMatch[1]]) {
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       const info = TOOLS_SEO_MAP[toolMatch[1]];
       const canonical = `https://www.askaryayinlari.com.tr/uygulamalar/${toolMatch[1]}`;
 
@@ -928,6 +956,7 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
     return html;
   };
 
+<<<<<<< HEAD
   // Public static assets (fonts, images, data)
   app.use(express.static(path.resolve(process.cwd(), 'public')));
   app.use('/fonts', express.static(path.resolve(process.cwd(), 'public/fonts')));
@@ -937,6 +966,11 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
       optimizeDeps: { force: process.argv.includes('--force') },
+=======
+  // Vite middleware for development vs static build for production
+  if (process.env.NODE_ENV !== 'production') {
+    const vite = await createViteServer({
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       server: { middlewareMode: true },
       appType: 'spa',
     });

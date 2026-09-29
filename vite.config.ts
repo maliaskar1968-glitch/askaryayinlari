@@ -30,9 +30,13 @@ export default defineConfig(() => {
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
+<<<<<<< HEAD
       watch: process.env.DISABLE_HMR === 'true' ? null : {
         ignored: ['**/.tmp.driveupload/**', '**/dist/**', '**/visitor_stats.json'],
       },
+=======
+      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     },
   };
 });

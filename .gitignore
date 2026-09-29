@@ -6,6 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+<<<<<<< HEAD
 
 .vercel
 .env*
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25

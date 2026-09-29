@@ -1,32 +1,59 @@
+<<<<<<< HEAD
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { TOOLS_DATA, ToolDefinition, getToolBySlug } from '../data/toolsData';
 import { updatePageSeo } from '../utils/seo';
 import { DersCalismaKarti } from './DersCalismaKarti';
 import {
+=======
+import React, { useEffect, useState } from 'react';
+import { TOOLS_DATA, ToolDefinition, getToolBySlug } from '../data/toolsData';
+import { ToolDetailPage } from './ToolDetailPage';
+import { updatePageSeo } from '../utils/seo';
+import {
+  Calculator,
+  GraduationCap,
+  BookMarked,
+  Timer,
+  Type,
+  BookOpenText,
+  Gamepad2,
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   ArrowRight,
   Sparkles,
   CheckCircle2,
   Search
 } from 'lucide-react';
 
+<<<<<<< HEAD
 const ToolDetailPage = lazy(() => import('./ToolDetailPage').then(({ ToolDetailPage }) => ({ default: ToolDetailPage })));
 
 interface ToolsPageProps {
   currentSlug?: string | null;
   onSelectSlug: (slug: string | null) => void;
   onSelectGuide: (slug: string | null) => void;
+=======
+interface ToolsPageProps {
+  currentSlug?: string | null;
+  onSelectSlug: (slug: string | null) => void;
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   onNavigateHome: () => void;
 }
 
 export const ToolsPage: React.FC<ToolsPageProps> = ({
   currentSlug,
   onSelectSlug,
+<<<<<<< HEAD
   onSelectGuide,
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   onNavigateHome
 }) => {
   const [filterCategory, setFilterCategory] = useState<'HEPSİ' | 'BURSLULUK' | 'LGS' | 'YKS' | 'ARAÇLAR' | 'ÇOCUK'>('HEPSİ');
   const [searchQuery, setSearchQuery] = useState('');
+<<<<<<< HEAD
   const [isYksDateAnnounced, setIsYksDateAnnounced] = useState(false);
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
   // If a specific tool slug is active, render its dedicated SEO page
   const activeTool: ToolDefinition | undefined = currentSlug ? getToolBySlug(currentSlug) : undefined;
@@ -45,6 +72,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
     }
   }, [activeTool]);
 
+<<<<<<< HEAD
   useEffect(() => {
     fetch('/api/exam-calendar')
       .then((response) => response.json())
@@ -62,18 +90,32 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
           onSelectToolSlug={(slug) => onSelectSlug(slug)}
         />
       </Suspense>
+=======
+  if (activeTool) {
+    return (
+      <ToolDetailPage
+        tool={activeTool}
+        onNavigateHome={onNavigateHome}
+        onNavigateTools={() => onSelectSlug(null)}
+        onSelectToolSlug={(slug) => onSelectSlug(slug)}
+      />
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     );
   }
 
   // Filter tools by category and search
   const filteredTools = TOOLS_DATA.filter((tool) => {
     const matchesCat = filterCategory === 'HEPSİ' || tool.category === filterCategory;
+<<<<<<< HEAD
     const isVisibleInCurrentCategory = tool.id !== 'yks-sayac' || filterCategory === 'YKS' || filterCategory === 'HEPSİ';
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     const matchesSearch =
       searchQuery.trim() === '' ||
       tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.badge.toLowerCase().includes(searchQuery.toLowerCase());
+<<<<<<< HEAD
     return matchesCat && matchesSearch && isVisibleInCurrentCategory;
   }).sort((first, second) => {
     if (first.id === 'yks-sayac') return -1;
@@ -81,6 +123,32 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
     return 0;
   });
 
+=======
+    return matchesCat && matchesSearch;
+  });
+
+  const renderIcon = (name: string, className = 'w-5 h-5') => {
+    switch (name) {
+      case 'Calculator':
+        return <Calculator className={className} />;
+      case 'GraduationCap':
+        return <GraduationCap className={className} />;
+      case 'BookMarked':
+        return <BookMarked className={className} />;
+      case 'Timer':
+        return <Timer className={className} />;
+      case 'Type':
+        return <Type className={className} />;
+      case 'BookOpenText':
+        return <BookOpenText className={className} />;
+      case 'Gamepad2':
+        return <Gamepad2 className={className} />;
+      default:
+        return <Calculator className={className} />;
+    }
+  };
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   return (
     <div className="my-8 space-y-8 animate-fadeIn text-[#1A1A1A]">
       {/* 1. Page Header (SEO H1) */}
@@ -101,7 +169,11 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
 
         {/* Filters & Search */}
         <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<<<<<<< HEAD
           <div className="flex min-w-0 flex-wrap items-center gap-1.5 py-1 sm:flex-1">
+=======
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             {(['HEPSİ', 'BURSLULUK', 'LGS', 'YKS', 'ARAÇLAR', 'ÇOCUK'] as const).map((cat) => {
               const isActive = filterCategory === cat;
               return (
@@ -120,7 +192,11 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
             })}
           </div>
 
+<<<<<<< HEAD
           <div className="relative w-full min-w-0 sm:w-56 sm:shrink-0">
+=======
+          <div className="relative min-w-[200px]">
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             <Search className="w-3.5 h-3.5 text-[#1A1A1A]/40 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -151,10 +227,16 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
                   {tool.badge}
                 </span>
 
+<<<<<<< HEAD
               </div>
 
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4">
                 <img src={tool.image} alt={tool.name} className="w-full h-full object-cover" loading="lazy" />
+=======
+                <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] group-hover:bg-[#1A1A1A] text-[#1A1A1A] group-hover:text-[#C9A86A] border border-[#1A1A1A]/10 flex items-center justify-center transition-all duration-200 shrink-0">
+                  {renderIcon(tool.iconName, 'w-5 h-5')}
+                </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
               </div>
 
               {/* Başlık ve Açıklama */}
@@ -185,11 +267,18 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
 
               <button
                 onClick={() => onSelectSlug(tool.slug)}
+<<<<<<< HEAD
                 disabled={tool.id === 'yks-sayac' && !isYksDateAnnounced}
                 className={`w-full px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all duration-200 shadow-sm border ${tool.id === 'yks-sayac' && !isYksDateAnnounced ? 'bg-stone-200 text-stone-500 border-stone-200 cursor-not-allowed' : 'bg-[#1A1A1A] hover:bg-black text-white hover:scale-[1.02] active:scale-95 group-hover:shadow-md cursor-pointer border-[#1A1A1A]'}`}
               >
                 <span>{tool.id === 'yks-sayac' && !isYksDateAnnounced ? 'TARİH BEKLENİYOR' : 'UYGULAMAYI AÇ'}</span>
                 <ArrowRight className={`w-3.5 h-3.5 ${tool.id === 'yks-sayac' && !isYksDateAnnounced ? 'text-stone-400' : 'text-[#C9A86A] group-hover:translate-x-1 transition-transform'}`} />
+=======
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm group-hover:shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <span>UYGULAMAYI AÇ</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A] group-hover:translate-x-1 transition-transform" />
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
               </button>
             </div>
           </article>
@@ -212,6 +301,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
           </button>
         </div>
       )}
+<<<<<<< HEAD
 
       <DersCalismaKarti level="ortaokul" title="Ortaokul Ders Çalışma Kartları" onSelectGuide={onSelectGuide} />
       <DersCalismaKarti level="lise" title="Lise Dersleri Nasıl Çalışılır?" onSelectGuide={onSelectGuide} />
@@ -222,6 +312,8 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
           Tüm çalışma rehberleri <ArrowRight className="h-4 w-4" />
         </button>
       </div>
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     </div>
   );
 };

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { lazy, Suspense, useState, useEffect, useCallback } from 'react';
+=======
+import React, { useState, useEffect, useCallback } from 'react';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 import { PageTab, FilterCategory } from './types';
 import { PriceProvider } from './context/PriceContext';
 import { Navbar } from './components/Navbar';
@@ -11,6 +15,7 @@ import { CoreValues } from './components/CoreValues';
 import { FaqSection } from './components/FaqSection';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
+<<<<<<< HEAD
 import { Footer } from './components/Footer';
 import { AdminKilavuzGuncelle } from './components/AdminKilavuzGuncelle';
 import { checkOsymUpdate } from './utils/osymKilavuz';
@@ -19,18 +24,28 @@ import { Home, ArrowUp, Wrench, User, Mail, GraduationCap } from 'lucide-react';
 
 const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
 const RehberPage = lazy(() => import('./components/RehberPage').then(({ RehberPage }) => ({ default: RehberPage })));
+=======
+import { ToolsPage } from './components/ToolsPage';
+import { Footer } from './components/Footer';
+import { updatePageSeo } from './utils/seo';
+import { Home, ArrowUp, Wrench, User, Mail } from 'lucide-react';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PageTab>('magaza');
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('tumu');
   const [toolSlug, setToolSlug] = useState<string | null>(null);
+<<<<<<< HEAD
   const [guideSlug, setGuideSlug] = useState<string | null>(null);
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
   // URL Path parser helper
   const parsePathname = useCallback(() => {
     if (typeof window === 'undefined') return;
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
 
+<<<<<<< HEAD
     if (path === '/admin/kilavuz-guncelle' || path.startsWith('/admin/kilavuz-guncelle')) {
       setActiveTab('admin-kilavuz');
       setToolSlug(null);
@@ -67,6 +82,30 @@ export const App: React.FC = () => {
   useEffect(() => {
     parsePathname();
     checkOsymUpdate();
+=======
+    if (path.startsWith('/uygulamalar/')) {
+      const slug = path.replace('/uygulamalar/', '');
+      setActiveTab('uygulamalar');
+      setToolSlug(slug);
+    } else if (path === '/uygulamalar') {
+      setActiveTab('uygulamalar');
+      setToolSlug(null);
+    } else if (path === '/hakkimizda' || path === '/hakkimda') {
+      setActiveTab('hakkimizda');
+      setToolSlug(null);
+    } else if (path === '/iletisim') {
+      setActiveTab('iletisim');
+      setToolSlug(null);
+    } else {
+      setActiveTab('magaza');
+      setToolSlug(null);
+    }
+  }, []);
+
+  // Initialize and listen to popstate (Browser Back/Forward navigation)
+  useEffect(() => {
+    parsePathname();
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
     const handlePopState = () => {
       parsePathname();
@@ -80,11 +119,17 @@ export const App: React.FC = () => {
   const handleTabChange = (newTab: PageTab) => {
     setActiveTab(newTab);
     setToolSlug(null);
+<<<<<<< HEAD
     setGuideSlug(null);
 
     let targetPath = '/';
     if (newTab === 'uygulamalar') targetPath = '/uygulamalar';
     else if (newTab === 'rehber') targetPath = '/rehber';
+=======
+
+    let targetPath = '/';
+    if (newTab === 'uygulamalar') targetPath = '/uygulamalar';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     else if (newTab === 'hakkimizda' || newTab === 'hakkimda') targetPath = '/hakkimizda';
     else if (newTab === 'iletisim') targetPath = '/iletisim';
 
@@ -108,6 +153,7 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+<<<<<<< HEAD
   const handleSelectGuideSlug = (slug: string | null) => {
     setGuideSlug(slug);
     setToolSlug(null);
@@ -117,11 +163,17 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   // Sync default home / store page SEO
   useEffect(() => {
     if (activeTab === 'magaza') {
       updatePageSeo({
+<<<<<<< HEAD
         title: 'Doğru Sistemle Çalış Sınavı Kazan - Aşkar Yayınları LGS YKS Koçluk Sistemi',
+=======
+        title: 'Aşkar Yayınları | LGS ve YKS Koçluk Kitapları & Çocuk Kitaplığı',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
         description: 'Aşkar Yayınları resmi dijital PDF kütüphanesi. 5-8. sınıf LGS ve 9-12. sınıf YKS koçluk kitapları, çocuk masalları ve ücretsiz eğitim araçları.',
         url: 'https://www.askaryayinlari.com.tr/',
         image: 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
@@ -148,7 +200,11 @@ export const App: React.FC = () => {
 
   return (
     <PriceProvider>
+<<<<<<< HEAD
       <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased w-full max-w-[100vw] overflow-x-clip">
+=======
+      <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased w-full max-w-[100vw] overflow-x-hidden">
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
         {/* Top Navbar */}
         <Navbar activeTab={activeTab} setActiveTab={handleTabChange} />
 
@@ -177,6 +233,7 @@ export const App: React.FC = () => {
           )}
 
           {activeTab === 'uygulamalar' && (
+<<<<<<< HEAD
             <Suspense fallback={<div className="py-12 text-center text-sm text-[#1A1A1A]/60">Uygulamalar yükleniyor...</div>}>
               <div className="animate-fadeIn">
                 <ToolsPage
@@ -197,6 +254,15 @@ export const App: React.FC = () => {
                 onNavigateHome={() => handleTabChange('magaza')}
               />
             </Suspense>
+=======
+            <div className="animate-fadeIn">
+              <ToolsPage
+                currentSlug={toolSlug}
+                onSelectSlug={handleSelectToolSlug}
+                onNavigateHome={() => handleTabChange('magaza')}
+              />
+            </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
           )}
 
           {(activeTab === 'hakkimda' || activeTab === 'hakkimizda') && (
@@ -211,12 +277,15 @@ export const App: React.FC = () => {
             </div>
           )}
 
+<<<<<<< HEAD
           {activeTab === 'admin-kilavuz' && (
             <div className="animate-fadeIn">
               <AdminKilavuzGuncelle onNavigateHome={() => handleTabChange('magaza')} />
             </div>
           )}
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
           {/* Her Sayfanın Sonunda: Ana Sayfaya Dön ve Hızlı Sayfa Geçiş Alanı */}
           <section
             aria-label="Sayfalar Arası Geçiş"
@@ -250,6 +319,7 @@ export const App: React.FC = () => {
                     </button>
                   )}
 
+<<<<<<< HEAD
                   <a
                     href="/uygulamalar/yks-geri-sayim"
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-violet-200 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
@@ -258,6 +328,8 @@ export const App: React.FC = () => {
                     <span>YKS Sayaç</span>
                   </a>
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   {activeTab !== 'hakkimda' && activeTab !== 'hakkimizda' && (
                     <button
                       onClick={() => handleTabChange('hakkimizda')}
@@ -306,6 +378,7 @@ export const App: React.FC = () => {
                     <span>Uygulamalar</span>
                   </button>
 
+<<<<<<< HEAD
                   <a
                     href="/uygulamalar/yks-geri-sayim"
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-violet-200 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
@@ -314,6 +387,8 @@ export const App: React.FC = () => {
                     <span>YKS Sayaç</span>
                   </a>
 
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   <button
                     onClick={() => handleTabChange('hakkimizda')}
                     className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"

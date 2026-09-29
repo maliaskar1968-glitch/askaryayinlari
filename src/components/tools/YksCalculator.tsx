@@ -3,7 +3,10 @@ import { Calculator, Award, GraduationCap, TrendingUp, RotateCcw, Sparkles, Book
 import { BOOKS_DATA } from '../../data/books';
 import { Book } from '../../types';
 import { PreviewModal } from '../PreviewModal';
+<<<<<<< HEAD
 import { getOsymKilavuz } from '../../utils/osymKilavuz';
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
 type TargetField = 'say' | 'ea' | 'soz' | 'tyt';
 
@@ -13,7 +16,10 @@ interface ScoreItem {
 }
 
 export const YksCalculator: React.FC = () => {
+<<<<<<< HEAD
   const osymData = useMemo(() => getOsymKilavuz(), []);
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   const [activeField, setActiveField] = useState<TargetField>('say');
 
   // TYT Testleri (120 Soru)
@@ -291,10 +297,17 @@ export const YksCalculator: React.FC = () => {
           </div>
           <div>
             <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#ea580c] font-bold">
+<<<<<<< HEAD
               ÖSYM {osymData.yil} YKS UYUMLU • TYT + AYT + OBP
             </div>
             <h2 className="font-serif font-black text-xl sm:text-2xl text-[#1A1A1A] tracking-tight">
               YKS Puan Hesaplama {osymData.yil} TYT AYT + OBP
+=======
+              ÖSYM 2025 YKS UYUMLU • TYT + AYT + OBP
+            </div>
+            <h2 className="font-serif font-black text-xl sm:text-2xl text-[#1A1A1A] tracking-tight">
+              YKS Puan Hesaplama 2025 TYT AYT + OBP
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </h2>
           </div>
         </div>

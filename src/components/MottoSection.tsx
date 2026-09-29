@@ -24,17 +24,30 @@ export const MottoSection: React.FC<MottoSectionProps> = ({ showAuthorPhoto = fa
           </div>
         )}
 
+<<<<<<< HEAD
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black text-[#1A1A1A] leading-[1.08] tracking-tight">
           Doğru Sistemle Çalış, <br />
           <span className="italic font-normal text-[#D4AF37] pl-2 sm:pl-6 inline-block mt-1 sm:mt-2">
             Sınavı Kazan
           </span>
         </h1>
+=======
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black text-[#1A1A1A] leading-[1.08] tracking-tight">
+          Çocuğunuz Kendi <br />
+          <span className="italic font-normal text-[#C9A86A] pl-2 sm:pl-6 inline-block mt-1 sm:mt-2">
+            Çalışma Sistemini Kursun
+          </span>
+        </h2>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
         <div className="w-12 h-[2px] bg-[#1A1A1A]/20 mx-auto my-6" />
 
         <p className="max-w-xl mx-auto text-sm sm:text-base text-[#1A1A1A]/85 font-medium leading-relaxed font-sans">
+<<<<<<< HEAD
           Ezber değil, kendi sistemini kuran kazanır. Tüm araçlar anında cebinde.
+=======
+          "Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde."
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
         </p>
 
         <p className="text-[11px] sm:text-xs text-[#1A1A1A]/55 font-sans flex items-center justify-center gap-1.5 pt-1">

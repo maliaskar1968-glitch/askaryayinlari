@@ -26,10 +26,17 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
   const showLgsPuanCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
   const showTercihCard = activeFilter === '8-lgs' || activeFilter === '7' || activeFilter === 'tumu';
   const showLgsSayacCard = activeFilter === '8-lgs' || activeFilter === 'tumu';
+<<<<<<< HEAD
   const showAltinIsCard = activeFilter === 'tumu' || activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'lise' || activeFilter === 'yks';
   const showLiseOrtalamaCard = activeFilter === 'lise' || activeFilter === 'tumu';
   const showYksCard = activeFilter === 'yks' || activeFilter === 'tumu';
 
+=======
+  const showAltinIsCard = activeFilter === 'tumu' || activeFilter === '5' || activeFilter === '6' || activeFilter === '7' || activeFilter === '8-lgs' || activeFilter === 'yks';
+  const showLiseOrtalamaCard = activeFilter === 'lise' || activeFilter === 'tumu';
+  const showYksCard = activeFilter === 'yks' || activeFilter === 'tumu';
+  const showYksTercihCard = activeFilter === 'yks' || activeFilter === 'tumu';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
   const handleOpenPreview = (book: Book) => {
     setSelectedPreviewBook(book);
@@ -222,7 +229,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
                   subtitle: '2025 İOKBS puanını saniyede hesapla, kaç net kaç puan eder öğren.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/iokbs.jpg",
+=======
+                  image: '/resimler/k5.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/bursluluk-puan-hesaplama-2025',
                   badge: '5, 6, 7. SINIF • İOKBS 2025'
                 })
@@ -230,8 +241,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/iokbs.jpg" alt="?OKBS Bursluluk Puan Hesaplama" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FAF6EE] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Calculator className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#059669]/15 text-[#059669] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>5, 6, 7. SINIFLAR İÇİN</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                MEB Katsayı & Standart Sapma
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#059669] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ÜCRETSİZ ONLİNE
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -319,7 +349,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
                   subtitle: 'KAP deneme analizini dijital yap, eksik kazanımlarını gör.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/kap-analiz.jpg",
+=======
+                  image: '/resimler/k8.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/kap-analiz-paneli',
                   badge: '5-8. SINIF • DİJİTAL KOÇLUK'
                 })
@@ -327,8 +361,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/kap-analiz.jpg" alt="KAP Dijital Kazan?m Analiz Paneli" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Target className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>EN EKSİK 3 KAZANIM RAPORU</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Deneme Ameliyatı & Sıfır Hata
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                KAP SİSTEMİ
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -420,7 +473,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'Takdir Teşekkür Hesaplama - 5,6,7,8. Sınıf E-Okul Uyumlu',
                   subtitle: 'E-Okul uyumlu takdir teşekkür hesapla ve planla.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/takdir-hesaplama.jpg",
+=======
+                  image: activeFilter === '8-lgs' ? '/resimler/k8.webp' : '/resimler/k5.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/takdir-tesekkur-hesaplama',
                   badge: activeFilter === '8-lgs' ? '8. SINIF LGS • E-OKUL' : '5-8. SINIF • E-OKUL'
                 })
@@ -428,8 +485,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/takdir-hesaplama.jpg" alt="Takdir Te?ekk?r Planlay?c?" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#EFF6FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Award className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#2563eb]/15 text-[#2563eb] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>TAKDİR (85+) & TEŞEKKÜR (70+)</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Ders Notları & Haftalık Saat
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#2563eb] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                5-8. SINIF
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -517,7 +593,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'LGS Puan Hesaplama 2026 | MEB Uyumlu - Aşkar Yayınları',
                   subtitle: '2026 MEB standart sapma ve ders katsayılarıyla net ve puanını anında hesapla.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/lgs-hesaplama.jpg",
+=======
+                  image: '/resimler/k8.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-puan-hesaplama',
                   badge: '8. SINIF LGS • MEB 2026'
                 })
@@ -525,8 +605,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/lgs-hesaplama.jpg" alt="LGS Puan Hesaplama Robotu" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FAF6EE] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Calculator className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#C9A86A]/15 text-[#856526] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>MEB KATSAYI & SAPMA UYUMLU</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Türkçe, Mat, Fen 4.33 Katsayı
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#1A1A1A] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                MEB 2026
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -601,7 +700,10 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
         )}
 
         {/* LGS Tercih Robotu - Yüzdelik Dilim Özel Kartı (8. SINIF LGS) */}
+<<<<<<< HEAD
         {/* LGS Tercih Sihirbazı - Yüzdelik Dilime Göre Gerçek Liste Özel Kartı (8. SINIF LGS) */}
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
         {showTercihCard && (
           <article
             id="card-lgs-tercih-robotu"
@@ -609,6 +711,7 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
           >
             {/* Header */}
             <ProductCardHeader
+<<<<<<< HEAD
               category="8. SINIF LGS • TERCİH SİHİRBAZI"
               title="LGS Tercih Sihirbazı - Yüzdelik Dilime Göre Gerçek Liste"
               onShare={() =>
@@ -618,22 +721,59 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                   image: "/assets/free-covers/lgs-tercih.jpg",
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-tercih-robotu',
                   badge: '8. SINIF LGS • 2024-2025 TABAN PUANLARI'
+=======
+              category="8. SINIF LGS • TERCİH ROBOTU"
+              title="LGS Tercih Robotu - Yüzdelik Dilim"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+                  subtitle: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
+                  image: '/resimler/k8.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-tercih-robotu',
+                  badge: '8. SINIF LGS • 2024 TABAN PUANLARI'
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                 })
               }
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/lgs-tercih.jpg" alt="LGS Tercih Sihirbaz?" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#F0F9FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Compass className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#0284c7]/15 text-[#0284c7] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>2024 MEB TABAN PUANLARI</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Fen, Anadolu, İHL & Sosyal Bilimler
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#0284c7] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ŞEHİR FİLTRELİ
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
             <div className="mb-4 flex-1">
               <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#0284c7] transition-colors">
+<<<<<<< HEAD
                 LGS Tercih Sihirbazı - Yüzdelik Dilime Göre Gerçek Liste
               </h3>
               <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
                 Puanınızı veya yüzdelik diliminizi girin, 10'lu gerçek tercih listenizi oluşturun, sürükle-bırak ile sıralayın, PDF olarak indirin ve paylaşın.
+=======
+                LGS Tercih Robotu - Yüzdelik Dilim
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                Puanını veya yüzdelik dilimini gir, 2024 resmi taban puanlarına göre yerleşebileceğin liseleri anında gör ve şehir bazında filtrele.
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
               </p>
             </div>
 
@@ -642,7 +782,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
               <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#0284c7] bg-sky-50 px-2.5 py-1.5 rounded-lg border border-sky-200 shadow-2xs">
                 <span className="flex items-center gap-1.5 truncate">
                   <Sparkles className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
+<<<<<<< HEAD
                   <span>10 Tercih Listesi + QR PDF & Paylaş</span>
+=======
+                  <span>Güvenli, İdeal ve Riskli Analizi</span>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                 </span>
                 <span className="text-[10px] text-sky-800 font-mono font-bold shrink-0">
                   MEB GÜNCEL
@@ -676,7 +820,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
               >
                 <Compass className="w-3.5 h-3.5 text-[#C9A86A]" />
+<<<<<<< HEAD
                 <span>TERCİH SİHİRBAZINI AÇ</span>
+=======
+                <span>LİSELERİ LİSTELE</span>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                 <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
               </button>
 
@@ -712,7 +860,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
                   subtitle: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
+<<<<<<< HEAD
                   image: "/assets/free-covers/lgs-sayac.jpg",
+=======
+                  image: '/resimler/k8.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/lgs-geri-sayim',
                   badge: '8. SINIF LGS • 15 HAZİRAN 2026'
                 })
@@ -720,8 +872,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/lgs-sayac.jpg" alt="LGS Geri Say?m Sayac?" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FEF2F2] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center mb-3 shadow-md border-2 border-[#C9A86A]/40 group-hover:border-[#C9A86A] transition-colors">
+                <Timer className="w-8 h-8 text-[#C9A86A]" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#dc2626]/15 text-[#dc2626] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>CANLI GERİ SAYIM & MOTİVASYON</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                15 Haziran 2026 • 09:30
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#dc2626] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                CANLI SAYAÇ
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -809,7 +980,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
                   subtitle: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+<<<<<<< HEAD
                   image: "/assets/free-covers/3-altin-is.jpg",
+=======
+                  image: '/resimler/k5.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/3-altin-is-takip',
                   badge: 'TÜM SINIFLAR • DİSİPLİN UYGULAMASI'
                 })
@@ -817,8 +992,36 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area - Defter Dokulu */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/3-altin-is.jpg" alt="G?nde 3 Alt?n ?? Takip" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF3E0] via-[#FFFDF9] to-[#FAF6EE] border-2 border-[#D8C7A5] mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              {/* Defter spiral noktaları */}
+              <div className="absolute top-2 left-3 right-3 flex justify-between items-center opacity-40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#856526]" />
+              </div>
+
+              <div className="w-14 h-14 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center mb-2 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <CheckCircle2 className="w-7 h-7 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#2563eb]/15 text-[#2563eb] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>GÜNDE SADECE 3 ALTIN İŞ</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#856526] font-semibold">
+                5, 6, 7, 8, Lise & YKS Görevleri
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#2563eb] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                5-12 & YKS
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -906,7 +1109,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
                   subtitle: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/lise-ortalama.jpg",
+=======
+                  image: '/resimler/k9.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/lise-ortalama-hesaplama',
                   badge: '9-12. SINIF LİSE • MEB E-OKUL'
                 })
@@ -914,8 +1121,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/lise-ortalama.jpg" alt="Lise Ortalama Hesaplama" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#F5F3FF] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#7c3aed] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#7c3aed]/15 text-[#7c3aed] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>3'Ü 1 ARADA SİSTEM</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                Ortalama • Belge • Devamsızlık
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#7c3aed] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                9-12. SINIF
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -1003,7 +1229,11 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
                 setSelectedShareItem({
                   title: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
                   subtitle: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+<<<<<<< HEAD
                   image: "/assets/free-covers/yks-hesaplama.jpg",
+=======
+                  image: '/resimler/k_yks.webp',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   url: 'https://www.askaryayinlari.com.tr/uygulamalar/yks-puan-hesaplama',
                   badge: 'YKS 2025 • TYT AYT OBP'
                 })
@@ -1011,8 +1241,27 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
             />
 
             {/* Visual Box / Hero Area */}
+<<<<<<< HEAD
             <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300">
               <img src="/assets/free-covers/yks-hesaplama.jpg" alt="YKS Puan Hesaplama" className="h-full w-full object-cover" loading="lazy" />
+=======
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#ea580c] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <GraduationCap className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>ÖSYM PUAN & SIRALAMA</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                SAY • EA • SÖZ • TYT + OBP
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                ÖSYM 2025
+              </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             </div>
 
             {/* Title & Subtitle */}
@@ -1087,7 +1336,119 @@ export const BookGrid: React.FC<BookGridProps> = ({ activeFilter = 'tumu', onSel
         )}
 
         {/* YKS Tercih Sihirbazı 2025 + PDF İndir Özel Kartı (YKS ve TÜMÜ) */}
+<<<<<<< HEAD
         
+=======
+        {showYksTercihCard && (
+          <article
+            id="card-yks-tercih-robotu"
+            className="bg-white border-2 border-[#ea580c]/40 hover:border-[#ea580c] rounded-2xl p-4 sm:p-5 flex flex-col h-full transition-all duration-300 group hover:shadow-lg relative overflow-hidden"
+          >
+            {/* Header */}
+            <ProductCardHeader
+              category="YKS 2025 • TERCİH SİHİRBAZI"
+              title="YKS Tercih Sihirbazı 2025 + PDF İndir"
+              onShare={() =>
+                setSelectedShareItem({
+                  title: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+                  subtitle: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+                  image: '/resimler/k_yks.webp',
+                  url: 'https://www.askaryayinlari.com.tr/uygulamalar/yks-tercih-robotu',
+                  badge: 'YKS 2025 • YÖK ATLAS UYUMLU'
+                })
+              }
+            />
+
+            {/* Visual Box / Hero Area */}
+            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF9F6] to-[#FFF7ED] border border-[#1A1A1A]/10 mb-4 group-hover:scale-[1.01] transition-transform duration-300 flex flex-col items-center justify-center p-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#ea580c] text-white flex items-center justify-center mb-3 shadow-md border-2 border-white group-hover:scale-105 transition-transform">
+                <Compass className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1 bg-[#ea580c]/15 text-[#ea580c] text-[10px] font-mono uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full mb-1">
+                <span>YÖK ATLAS 2024 RESMİ VERİ</span>
+              </div>
+              <span className="text-[11px] font-mono text-[#1A1A1A]/70 font-semibold">
+                SAY • EA • SÖZ • DİL + PDF İndir
+              </span>
+
+              {/* Badge */}
+              <div className="absolute bottom-2.5 right-2.5 bg-[#ea580c] text-white text-[9px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs font-bold shadow-xs">
+                PDF ÇIKTILI
+              </div>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="mb-4 flex-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold text-[#1A1A1A] leading-snug min-h-[2.75rem] group-hover:text-[#ea580c] transition-colors">
+                YKS Tercih Sihirbazı 2025 + PDF İndir
+              </h3>
+              <p className="text-xs text-[#1A1A1A]/70 font-sans italic mt-1 leading-relaxed">
+                YKS puanını, puan türünü ve şehrini seç; 2024 YÖK taban puanlarına göre uygun bölümleri filtrele ve tercih listenin PDF çıktısını anında al.
+              </p>
+            </div>
+
+            {/* Features Info */}
+            <div className="pt-3 pb-3 border-t border-[#1A1A1A]/10 mt-auto mb-3 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px] font-sans font-bold text-[#ea580c] bg-orange-50 px-2.5 py-1.5 rounded-lg border border-orange-200 shadow-2xs">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ea580c] shrink-0" />
+                  <span>Şehir & Devlet/Vakıf Filtresi + QR PDF</span>
+                </span>
+                <span className="text-[10px] text-orange-800 font-mono font-bold shrink-0">
+                  ÖSYM 2025
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                  DİJİTAL SİSTEM
+                </span>
+                <div className="flex items-baseline gap-1.5 text-right">
+                  <span className="text-xl font-serif font-black text-[#ea580c] tracking-tight">
+                    ÜCRETSİZ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Section */}
+            <div className="space-y-2 mt-auto">
+              <button
+                type="button"
+                id="btn-open-yks-tercih-tool"
+                onClick={() => {
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#1A1A1A] hover:bg-black text-white text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-md cursor-pointer border border-[#1A1A1A]"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>TERCİH SİHİRBAZINI AÇ</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+              </button>
+
+              <a
+                href="/uygulamalar/yks-tercih-robotu"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSelectToolSlug) {
+                    onSelectToolSlug('yks-tercih-robotu');
+                  } else {
+                    window.location.href = '/uygulamalar/yks-tercih-robotu';
+                  }
+                }}
+                className="w-full bg-[#FAF9F6] hover:bg-[#F3EFE6] text-[#1A1A1A] border border-[#1A1A1A]/20 hover:border-[#ea580c] text-center py-2 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              >
+                <span>/uygulamalar/yks-tercih-robotu</span>
+              </a>
+            </div>
+          </article>
+        )}
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       </div>
 
       {/* In-App Preview Modal (Opens Google Drive PDF internally) */}

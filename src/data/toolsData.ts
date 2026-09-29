@@ -3,7 +3,10 @@ import { ToolTab } from '../types';
 export interface ToolDefinition {
   id: ToolTab;
   slug: string;
+<<<<<<< HEAD
   image: string;
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   name: string;
   shortName: string;
   badge: string;
@@ -24,9 +27,65 @@ export interface ToolDefinition {
 
 export const TOOLS_DATA: ToolDefinition[] = [
   {
+<<<<<<< HEAD
     id: 'yks',
     slug: 'yks-puan-hesaplama',
     image: '/assets/free-covers/yks-hesaplama.jpg',
+=======
+    id: 'yks-tercih',
+    slug: 'yks-tercih-robotu',
+    name: 'YKS Tercih Sihirbazı 2025 + PDF İndir',
+    shortName: 'YKS Tercih Sihirbazı',
+    badge: 'YKS 2025 • YÖK ATLAS UYUMLU',
+    badgeColor: '#ea580c',
+    category: 'YKS',
+    metaTitle: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+    metaDescription: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
+    h1: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
+    tagline: 'YKS puanınızı, puan türünüzü (SAY, EA, SÖZ, DİL), şehir ve üniversite türünüzü seçin; 2024 YÖK taban puanlarına göre uygun bölümleri filtreleyin ve tercih listenizi anında PDF olarak indirin.',
+    detailedDescription: "### YKS Tercih Sürecinde Başarı Sırası ve Puan Dinamikleri\nÜniversite yerleştirme sürecinde adayların en sık düştüğü yanılgı, tercih listesini yalnızca aldıkları puana göre oluşturmaktır. Oysa YKS sınavının zorluk derecesi, standart sapmalar ve aday sayıları her yıl değişir. Bu sebeple 2024 yılında 430 puanla kapatan bir bölüm, 2025 yılında 415 veya 445 puanla kapatabilir. Tercih listesi hazırlanırken asıl güvenilir referans başarı sırasıdır. Puanlar dalgalanır ancak başarı sıraları genel yönelimleri çok daha isabetli yansıtır. YKS Tercih Sihirbazı, YÖK Atlas'ın en güncel yerleştirme verilerini kullanarak hem taban puan hem de başarı sırası karşılaştırmasını tek tabloda sunar.\n\n### 24 Tercih Kuralı: İdeal Liste Dağılımı Nasıl Yapılmalı?\nÖSYM adaylara toplam 24 tercih hakkı tanır. Başarılı bir tercih stratejisinde listenin dağılımı piramit kuralına dayanmalıdır:\n1. İlk 4-5 Tercih (Hayal & Sürpriz Grubu): Sıralamanızın veya puanınızın %15-20 üzerinde olan, 'gelmesi zor ama gelirse çok mutlu olurum' dediğiniz bölümler.\n2. Orta 12-14 Tercih (İdeal & Gerçekçi Grup): Sıralamanızın ve puanınızın tam denk geldiği (%10 altı ve %10 üstü), yerleşme ihtimalinizin en yüksek olduğu çekirdek tercihler.\n3. Son 4-5 Tercih (Garanti & Güvenlik Grubu): Sıralamanızın %25-35 altında kalan, açıkta kalma riskinizi sıfırlayan güvenli tercihler.\n\n### Ölü Tercih Tuzağından Kaçınma ve Şehir Seçimi\nBir adayın daha çok istediği ancak taban puanı/sıralaması daha düşük olan bir bölümü, istemediği yüksek puanlı bir bölümün altına yazması tercih hatasıdır. Unutmayın ki ÖSYM sistemi yukarıdan aşağıya doğru ilk tutan tercihinize yerleştirir. Ayrıca devlet ve vakıf üniversitelerinin burs koşulları, kampüs imkanları ve şehir yaşam maliyetleri tercih listesinde titizlikle değerlendirilmelidir. Aşkar Yayınları logolu resmi PDF tercih çıktısı ile listenizi kaydedebilir, aileniz ve rehber öğretmeninizle masaya yatırabilirsiniz.",
+    iconName: 'Compass',
+    highlights: [
+      '2024 YÖK Atlas Resmi Taban Puanları ve Başarı Sıraları',
+      'SAY, EA, SÖZ ve DİL Puan Türlerinde Şehir ve Üniversite Filtreleme',
+      '24 Tercih Listesi Oluşturma ve Anlık Durum Analizi',
+      'Aşkar Yayınları Logolu, QR Kodlu ve Tıklanabilir Linkli Resmi PDF Çıktısı'
+    ],
+    howToUse: [
+      'YKS yerleştirme puanınızı yazın ve puan türünüzü (SAY, EA, SÖZ veya DİL) belirleyin.',
+      'İlginizi çeken şehirleri ve üniversite türünü (Devlet / Vakıf) filtreleyin.',
+      'Tablodan beğendiğiniz bölümlerin yanındaki "+" butonuna tıklayarak listenize ekleyin.',
+      'Üstteki siyah "PDF OLARAK İNDİR" butonuna basarak logolu ve QR kodlu tercih listenizi anında cihazınıza kaydedin.'
+    ],
+    faq: [
+      {
+        q: 'YKS tercihlerinde puana mı yoksa başarı sırasına mı bakılmalıdır?',
+        a: 'Tercih yaparken birincil kriter kesinlikle başarı sırasıdır. Puanlar sınavın genel zorluğuna göre yıldan yıla onlarca puan değişebilirken başarı sırası çok daha kararlıdır. Ancak fikir vermesi açısından puan ve sıralama birlikte değerlendirilmelidir.'
+      },
+      {
+        q: 'Kaç tercih hakkımız vardır ve nasıl dağıtılmalıdır?',
+        a: 'ÖSYM yerleştirmelerinde toplam 24 tercih hakkı bulunur. Bu hakların %20\'si sürpriz/yüksek, %60\'ı kendi puan aralığınız, %20\'si ise açıkta kalmayı önleyecek güvenlik tercihlerine ayrılmalıdır.'
+      },
+      {
+        q: 'Ölü tercih nedir ve nasıl önlenir?',
+        a: 'Ölü tercih; adayın daha az istediği veya sıralaması çok daha düşük olan bir bölümü daha üst sıralara yazıp, daha çok istediği bir bölümü alt sıralara koyması durumudur. ÖSYM üstten alta doğru tarama yaptığı için listeyi puan sırasına değil kişisel istek sırasına göre dizmek gerekir.'
+      },
+      {
+        q: 'Vakıf üniversitelerinde tam burslu bölümlerde burs kesilir mi?',
+        a: 'YÖK mevzuatına göre ÖSYM kılavuzunda yer alan başarı bursları normal eğitim-öğretim süresi boyunca (hazırlık + 4 yıl) ders başarısızlığından dolayı kesilemez. Yalnızca disiplin suçlarında kesilebilir.'
+      },
+      {
+        q: 'YKS tercih listesini PDF olarak indirdikten sonra ne yapmalıyım?',
+        a: 'PDF çıktınızı rehber öğretmeniniz ve ailenizle birlikte inceleyip bölüm kodlarını kontrol ettikten sonra tercih dönemi açıldığında ÖSYM Aday İşlemleri Sistemi (AİS) üzerinden resmi tercihinizi onaylamalısınız.'
+      }
+    ],
+    relatedBookId: 'k_yks',
+    relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
+  },
+  {
+    id: 'yks',
+    slug: 'yks-puan-hesaplama',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS Puan Hesaplama 2025 TYT AYT + OBP',
     shortName: 'YKS Puan Hesaplama',
     badge: 'YKS 2025 • TYT AYT OBP',
@@ -79,7 +138,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'lise-ortalama',
     slug: 'lise-ortalama-hesaplama',
+<<<<<<< HEAD
     image: '/assets/free-covers/lise-ortalama.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
     shortName: 'Lise Ortalama & Devamsızlık',
     badge: '9-12. SINIF LİSE • MEB E-OKUL',
@@ -131,7 +193,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'altin-is',
     slug: '3-altin-is-takip',
+<<<<<<< HEAD
     image: '/assets/free-covers/3-altin-is.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Günde 3 Altın İş Takip - Tüm Sınıflar',
     shortName: '3 Altın İş Takip',
     badge: 'TÜM SINIFLAR • DİSİPLİN UYGULAMASI',
@@ -183,7 +248,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'lgs-sayac',
     slug: 'lgs-geri-sayim',
+<<<<<<< HEAD
     image: '/assets/free-covers/lgs-sayac.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'LGS 2026 Geri Sayım Sayacı',
     shortName: 'LGS Geri Sayım',
     badge: '8. SINIF LGS • 15 HAZİRAN 2026',
@@ -227,6 +295,7 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'tercih',
     slug: 'lgs-tercih-robotu',
+<<<<<<< HEAD
     image: '/assets/free-covers/lgs-tercih.jpg',
     name: 'LGS Tercih Sihirbazı - Yüzdelik Dilime Göre Gerçek Liste',
     shortName: 'LGS Tercih Sihirbazı',
@@ -251,6 +320,30 @@ export const TOOLS_DATA: ToolDefinition[] = [
       'Sol tablodaki okulların yanındaki "+ Ekle" butonuna basarak 10 tercih listenize aktarın.',
       'Sağdaki listenizi sürükle-bırak ile veya yukarı/aşağı oklarla kişisel istek sıranıza göre düzenleyin.',
       'Siyah "PDF İNDİR" butonuyla listenizi kaydedin, "PDF\'Yİ PAYLAŞ" ile dosya olarak veya "LİSTEYİ PAYLAŞ" ile metin olarak gönderin.'
+=======
+    name: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+    shortName: 'LGS Tercih Robotu',
+    badge: '8. SINIF LGS • 2024 TABAN PUANLARI',
+    badgeColor: '#0284c7',
+    category: 'LGS',
+    metaTitle: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+    metaDescription: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
+    h1: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+    tagline: 'LGS puanınızı veya genel yüzdelik diliminizi girin; 2024 MEB resmi taban puanlarına göre Fen, Anadolu ve Sosyal Bilimler liselerini şehir bazında listeleyin.',
+    detailedDescription: "LGS (Liselere Geçiş Sistemi) tercih süreci, bir yıl boyunca verilen emeğin en doğru şekilde geleceğe taşındığı kritik bir strateji dönemidir. Tercih döneminde velilerin ve öğrencilerin en sık yaptığı hata, yalnızca 'LGS puanı' üzerinden liste hazırlamaktır. Oysa sınavın zorluk derecesi, standart sapması ve katılımcı sayısı her yıl değişkenlik gösterdiğinden, puanlar yanıltıcı olabilir. LGS tercihlerinde tek ve en sağlıklı pusula 'Genel Yüzdelik Dilim'dir.\n\nLGS tercihleri Milli Eğitim Bakanlığı (MEB) e-Okul sistemi üzerinden üç aşamalı olarak gerçekleştirilir: Yerel Yerleştirme (ikametgaha göre sınavsız), Merkezi Yerleştirme (LGS puanıyla sınavla alan okullar) ve Pansiyonlu Okullar. Merkezi yerleştirme kapsamında öğrencilere en fazla 10 lise tercih hakkı tanınır. Bu 10 tercihi planlarken uzmanların önerdiği altın kural 'Tercih Yelpazesi' taktiğidir.\n\nBaşarılı bir tercih listesi oluşturmak için 10 tercih şu şekilde dengelenmelidir:\n1. Üst / Hayal Tercihler (İlk 2-3 Tercih): Yüzdelik diliminizin %20-%30 üzerinde olan, girme şansınız düşük görünse de çok istediğiniz Fen veya prestijli Anadolu liselerine yer verin. Örneğin diliminiz %3 ise, %2-%2.5 dilimdeki okulları yazabilirsiniz.\n2. İdeal / Gerçekçi Tercihler (Orta 4-5 Tercih): Kendi yüzdelik diliminize çok yakın (diliminizin %0.5 altı ve üstü) olan liseleri bu bölüme yazın. Yerleşme ihtimalinizin en yüksek olduğu çekirdek liste burasıdır.\n3. Güvenli / Garanti Tercihler (Son 2-3 Tercih): Yüzdelik diliminizin oldukça altında (örneğin %3 dilimdeki öğrenci için %5-%6 dilimdeki okullar) yer alan kaliteli liseleri listenizin sonuna ekleyin. Bu adım, açıkta kalma riskini tamamen ortadan kaldırır.\n\nOkul seçimi yaparken yalnızca taban puanına değil, okulun yabancı dil eğitimi, üniversiteye yerleştirme başarısı, ulaşım imkanları ve fiziki donanımına da dikkat edilmelidir. Tercih süreci bir şans oyunu değil, bilinçli bir planlama sürecidir. Aşkar Yayınları koçluk kitapları, lise hayatına adım atarken öğrencilerin vizyonunu ve hedeflerini netleştirmelerine rehberlik eder.",
+    iconName: 'Compass',
+    highlights: [
+      '2024 MEB Resmi LGS Taban Puanları & Yüzdelik Dilimleri',
+      'Şehir ve Okul Türü Filtreleme (Fen, Anadolu, İHL, Sosyal Bilimler)',
+      'Güvenli, İdeal ve Riskli Tercih İhtimali Analizi',
+      'Aşkar KAP LGS Başarı ve Koçluk Rehberi Desteği'
+    ],
+    howToUse: [
+      'LGS sınav puanınızı (100 - 500) veya genel yüzdelik diliminizi ilgili kutucuğa girin.',
+      'Hedeflediğiniz şehri ve okul türünü (Fen Lisesi, Anadolu Lisesi vb.) filtre bölümünden seçin.',
+      'Girme ihtimali "Güvenli" veya "İdeal" olan liseleri inceleyerek kendi 10 tercihinizi oluşturun.',
+      'Sağ alandaki Aşkar KAP LGS koçluk kaynağını inceleyerek lise hazırlık sürecinizi tamamlayın.'
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     ],
     faq: [
       {
@@ -270,6 +363,7 @@ export const TOOLS_DATA: ToolDefinition[] = [
     relatedBookTitle: "LGS'de Kendi Koçun Ol 8.Sınıf"
   },
   {
+<<<<<<< HEAD
     id: 'yks-sayac',
     slug: 'yks-geri-sayim',
     image: '/resimler/yks-sayac.jpg',
@@ -312,6 +406,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
     id: 'kap',
     slug: 'kap-analiz-paneli',
     image: '/assets/free-covers/kap-analiz.jpg',
+=======
+    id: 'kap',
+    slug: 'kap-analiz-paneli',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'KAP Dijital Kazanım Analiz Paneli',
     shortName: 'KAP Analiz Paneli',
     badge: '5-8. SINIF • DİJİTAL KOÇLUK',
@@ -355,7 +453,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'takdir',
     slug: 'takdir-tesekkur-hesaplama',
+<<<<<<< HEAD
     image: '/assets/free-covers/takdir-hesaplama.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Takdir Teşekkür Hesaplama',
     shortName: 'Takdir Teşekkür',
     badge: '5-8. SINIF ORTAOKUL • E-OKUL',
@@ -399,7 +500,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'iokbs',
     slug: 'bursluluk-puan-hesaplama-2025',
+<<<<<<< HEAD
     image: '/assets/free-covers/iokbs.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
     shortName: 'İOKBS Bursluluk',
     badge: '5, 6, 7. SINIF • İOKBS 2025',
@@ -443,7 +547,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'lgs',
     slug: 'lgs-puan-hesaplama',
+<<<<<<< HEAD
     image: '/assets/free-covers/lgs-hesaplama.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'LGS Puan Hesaplama 2026 & Net Sihirbazı',
     shortName: 'LGS Puan',
     badge: '8. SINIF • LGS 2026',
@@ -483,7 +590,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'tyt',
     slug: 'tyt-puan-hesaplama',
+<<<<<<< HEAD
     image: '/assets/free-covers/tyt-hesaplama.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS TYT Puan ve Net Hesaplama Robotu',
     shortName: 'YKS - TYT',
     badge: 'YKS • TYT 2026',
@@ -522,7 +632,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'ayt',
     slug: 'ayt-puan-hesaplama',
+<<<<<<< HEAD
     image: '/assets/free-covers/ayt-hesaplama.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS AYT Puan Hesaplama (SAY - EA - SÖZ)',
     shortName: 'YKS - AYT',
     badge: 'YKS • AYT 2026',
@@ -556,7 +669,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'pomodoro',
     slug: 'pomodoro-sayaci',
+<<<<<<< HEAD
     image: '/assets/free-covers/pomodoro.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Pomodoro Çalışma Sayacı & Odaklanma Zamanlayıcısı',
     shortName: 'Pomodoro Sayacı',
     badge: 'DİSİPLİN • KOÇLUK',
@@ -592,7 +708,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'kelime',
     slug: 'kelime-sayaci',
+<<<<<<< HEAD
     image: '/assets/free-covers/kelime-analizi.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Kelime ve Karakter Sayacı Metin Analiz Aracı',
     shortName: 'Kelime Sayacı',
     badge: 'YAZARLIK • EDİTÖRYAL',
@@ -627,7 +746,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'kaynak',
     slug: 'apa-kaynakca-olusturucu',
+<<<<<<< HEAD
     image: '/assets/free-covers/apa-kaynakca.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'APA 7 Otomatik Kaynakça ve Alıntı Oluşturucu',
     shortName: 'Kaynakça APA',
     badge: 'AKADEMİK • BİLİMSEL',
@@ -662,7 +784,10 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'cocuk',
     slug: 'sevimli-deniz-alti-kasifleri',
+<<<<<<< HEAD
     image: '/assets/free-covers/cocuk-deniz-alti.jpg',
+=======
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Sevimli Deniz Altı Kaşifleri İnteraktif Çocuk Oyunu',
     shortName: 'Çocuk Uygulaması',
     badge: 'ÇOCUK DÜNYASI • ÜCRETSİZ',

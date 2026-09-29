@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useMemo, useEffect } from 'react';
+=======
+import React, { useState, useMemo } from 'react';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 import { Award, Calculator, Clock, AlertTriangle, CheckCircle2, RotateCcw, Plus, Trash2, BookOpen, ExternalLink, Eye, ShieldAlert, Sparkles, ChevronRight } from 'lucide-react';
 import { BOOKS_DATA } from '../../data/books';
 import { Book } from '../../types';
@@ -83,11 +87,15 @@ const GRADE_BOOK_MAPPING: Record<LiseGrade, string> = {
   '12': 'k_yks'
 };
 
+<<<<<<< HEAD
 interface LiseOrtalamaCalculatorProps {
   onGradeChange?: (grade: LiseGrade, bookId: string) => void;
 }
 
 export const LiseOrtalamaCalculator: React.FC<LiseOrtalamaCalculatorProps> = ({ onGradeChange }) => {
+=======
+export const LiseOrtalamaCalculator: React.FC = () => {
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   const [activeTab, setActiveTab] = useState<ActiveTab>('ortalama');
   const [selectedGrade, setSelectedGrade] = useState<LiseGrade>('9');
   const [subjects, setSubjects] = useState<SubjectRow[]>(() =>
@@ -103,6 +111,7 @@ export const LiseOrtalamaCalculator: React.FC<LiseOrtalamaCalculatorProps> = ({ 
   const [newSubjectGrade, setNewSubjectGrade] = useState(85);
   const [previewBook, setPreviewBook] = useState<Book | null>(null);
 
+<<<<<<< HEAD
   useEffect(() => {
     onGradeChange?.(selectedGrade, GRADE_BOOK_MAPPING[selectedGrade]);
   }, [selectedGrade]);
@@ -111,6 +120,11 @@ export const LiseOrtalamaCalculator: React.FC<LiseOrtalamaCalculatorProps> = ({ 
   const handleGradeChange = (grade: LiseGrade) => {
     setSelectedGrade(grade);
     onGradeChange?.(grade, GRADE_BOOK_MAPPING[grade]);
+=======
+  // Switch grade
+  const handleGradeChange = (grade: LiseGrade) => {
+    setSelectedGrade(grade);
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     setSubjects(
       DEFAULT_LISE_SUBJECTS[grade].map((s, idx) => ({
         ...s,

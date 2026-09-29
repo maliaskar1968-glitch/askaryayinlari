@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- Ana Sayfa (Home) -->
   <url>
     <loc>https://www.askaryayinlari.com.tr/</loc>
@@ -12,6 +19,10 @@
       <image:caption>Mehmet Ali Askar LGS ve YKS Koçluk Kitapları ve Çocuk Masalları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- Ana Sayfa Bölümleri & Uygulamalar -->
   <url>
     <loc>https://www.askaryayinlari.com.tr/magaza</loc>
@@ -19,114 +30,198 @@
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+  <!-- Uygulamalar - SEO Özel Sayfaları -->
+  <url>
+    <loc>https://www.askaryayinlari.com.tr/uygulamalar/yks-tercih-robotu</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.99</priority>
+  </url>
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/yks-puan-hesaplama</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.99</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/lise-ortalama-hesaplama</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.99</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/3-altin-is-takip</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.99</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/lgs-geri-sayim</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.98</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/lgs-tercih-robotu</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.98</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/kap-analiz-paneli</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.98</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/takdir-tesekkur-hesaplama</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.98</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/bursluluk-puan-hesaplama-2025</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.98</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/lgs-puan-hesaplama</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/tyt-puan-hesaplama</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/ayt-puan-hesaplama</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/pomodoro-sayaci</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/kelime-sayaci</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/apa-kaynakca-olusturucu</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/uygulamalar/sevimli-deniz-alti-kasifleri</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.92</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/hakkimizda</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <url>
     <loc>https://www.askaryayinlari.com.tr/iletisim</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 1. 8. Sınıf LGS'de Kendi Koçun Ol PDF (En Önemli Ürün) -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47825857</loc>
@@ -139,6 +234,10 @@
       <image:caption>12 Adımda Disiplin Plan ve Başarı Sistemi LGS Hazırlık Kitabı</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 2. 9. Sınıf Lise Koçu PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50117381</loc>
@@ -151,6 +250,10 @@
       <image:caption>Liseye Güçlü Bir Başlangıç Koçluk Rehberi</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 2b. 10. Sınıf Lise Koçu PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50260994</loc>
@@ -163,6 +266,10 @@
       <image:caption>10. Sınıf Lise Koçluk Kitabı PDF - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 2c. 11. Sınıf Lise Koçu PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50926937</loc>
@@ -175,6 +282,10 @@
       <image:caption>11. Sınıf Lise Koçluk Kitabı PDF - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 3. YKS'de Kendi Koçun Ol PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47825620</loc>
@@ -187,6 +298,10 @@
       <image:caption>Üniversiteye Hazırlık 12 Adımda Başarı ve Disiplin Sistemi</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 3. 5. Sınıf Koçluk & Motivasyon PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/49121936</loc>
@@ -199,6 +314,10 @@
       <image:caption>Ortaokula Güçlü Bir Başlangıç Rehberi</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 4. 6. Sınıf Disiplin ve Başarı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/49168747</loc>
@@ -211,6 +330,10 @@
       <image:caption>Başarı Alışkanlıklarını Güçlendiren Koçluk Rehberi</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 5. 7. Sınıf LGS Hazırlık PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/49247904</loc>
@@ -223,6 +346,10 @@
       <image:caption>LGS Yolunda Sağlam Adımlar ve Yeni Nesil Stratejiler</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 6. Sevimli Deniz Altı Kaşifleri Masal & Boyama PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/49854224</loc>
@@ -235,6 +362,10 @@
       <image:caption>Çocuklar İçin Büyülü Hikayeler ve Yaratıcı Boyama Dünyası</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 6b. Ormanın Minik Koruyucuları Doğa & Değerler Masalı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50238751</loc>
@@ -247,6 +378,10 @@
       <image:caption>6-9 Yaş Çocuk Kitabı PDF - Doğa Sevgisi, Çevre Bilinci ve Dayanışma Masalı - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 6c. Uykudan Önce Masal ve Uyku Hikayeleri PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50302573</loc>
@@ -259,6 +394,10 @@
       <image:caption>Çocuk Masalları ve Uyku Hikayeleri PDF - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 6d. Nasrettin Hoca'nın Torunları Fıkra Kitabı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/50802783</loc>
@@ -271,6 +410,10 @@
       <image:caption>Çocuk Fıkra ve Mizah Kitabı PDF - Aşkar Yayınları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 7. Şimşeğin Efendisi Tesla Romanı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/47292545</loc>
@@ -283,6 +426,10 @@
       <image:caption>Nikola Tesla'nın İlham Veren Bilinmeyen Yılları</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   <!-- 8. Atomun Kalbi Rutherford Romanı PDF -->
   <url>
     <loc>https://www.shopier.com/mehmetaliaskar/48381441</loc>
@@ -295,6 +442,7 @@
       <image:caption>Ernest Rutherford'un İlham Verici Bilim Romanı</image:caption>
     </image:image>
   </url>
+<<<<<<< HEAD
   <url>
     <loc>https://www.askaryayinlari.com.tr/rehber</loc>
     <lastmod>2026-09-29</lastmod>
@@ -512,3 +660,8 @@
     <priority>0.8</priority>
   </url>
 </urlset>
+=======
+
+</urlset>
+
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25

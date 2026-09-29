@@ -4,7 +4,11 @@ import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { ShareModal, ShareItem } from './ShareModal';
+<<<<<<< HEAD
 import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu } from 'lucide-react';
+=======
+import { ShoppingBag, Menu, X, BookOpen, Wrench, User, Mail, Bell, CheckCircle2, Share2, ArrowDownToLine } from 'lucide-react';
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { InstallModal } from './InstallModal';
 
@@ -14,7 +18,11 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
+<<<<<<< HEAD
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
+=======
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
@@ -41,7 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const siteShareData: ShareItem = {
     isSiteShare: true,
     title: 'Aşkar Yayınları',
+<<<<<<< HEAD
     subtitle: 'Ezber değil, kendi sistemini kuran kazanır. Tüm araçlar anında cebinde.',
+=======
+    subtitle: 'Çocuğunun sınavda bir adım öne geçmesi için aradığın her şey, anında cebinde.',
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     image: '/resimler/logo.jpg',
     url: 'https://www.askaryayinlari.com.tr/',
   };
@@ -103,22 +115,35 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
     setShowKvkkDetail(false);
   };
 
+<<<<<<< HEAD
   const navItems: { id: PageTab; label: string }[] = [
     { id: 'magaza', label: 'KİTAPLIK' },
     { id: 'uygulamalar', label: 'UYGULAMALAR' },
     { id: 'rehber', label: 'DERS REHBERİ' },
     { id: 'hakkimizda', label: 'HAKKIMIZDA' },
     { id: 'iletisim', label: 'İLETİŞİM' },
+=======
+  const navItems: { id: PageTab; label: string; icon: React.ReactNode }[] = [
+    { id: 'magaza', label: 'KİTAPLIK', icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { id: 'uygulamalar', label: 'UYGULAMALAR', icon: <Wrench className="w-3.5 h-3.5" /> },
+    { id: 'hakkimizda', label: 'HAKKIMIZDA', icon: <User className="w-3.5 h-3.5" /> },
+    { id: 'iletisim', label: 'İLETİŞİM', icon: <Mail className="w-3.5 h-3.5" /> },
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   ];
 
   const handleTabClick = (id: PageTab) => {
     setActiveTab(id);
+<<<<<<< HEAD
     setMobileMoreOpen(false);
+=======
+    setMobileMenuOpen(false);
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
+<<<<<<< HEAD
       <header className="bg-[#F8F7F4] border-b border-[#1A1A1A]/10">
         <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between gap-3">
           {/* Logo Section */}
@@ -127,10 +152,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             onClick={() => handleTabClick('magaza')}
             className="flex items-center gap-2 cursor-pointer group shrink-0"
             aria-label="Aşkar Yayınları ana sayfa"
+=======
+      <header className="bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#1A1A1A]/10 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-3 sm:px-8 h-20 flex items-center justify-between gap-2">
+          {/* Logo Section */}
+          <div
+            className="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group shrink-0"
+            onClick={() => handleTabClick('magaza')}
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
           >
             <ImgWithFallback
               src="/resimler/logo.jpg"
               alt="Aşkar Yayınları Logo"
+<<<<<<< HEAD
               className="w-8 h-8 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
             />
             <span className="font-serif font-bold text-sm sm:text-lg tracking-wide text-[#1A1A1A] leading-tight whitespace-nowrap">
@@ -186,11 +220,28 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
       >
         <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-12 flex items-center">
           <div className="hidden md:flex w-full h-full items-center gap-8">
+=======
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
+            />
+            <div>
+              <div className="font-serif font-black text-sm sm:text-lg tracking-tight text-[#1A1A1A] leading-tight flex items-center gap-2">
+                AŞKAR YAYINLARI
+              </div>
+              <div className="text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#1A1A1A]/60 font-medium hidden xs:block">
+                Dijital PDF Kütüphanesi
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
             {navItems.map((item) => {
               const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
               return (
                 <button
                   key={item.id}
+<<<<<<< HEAD
                   type="button"
                   onClick={() => handleTabClick(item.id)}
                   aria-current={isActive ? 'page' : undefined}
@@ -198,12 +249,20 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     isActive
                       ? 'border-black font-bold text-black'
                       : 'border-transparent font-medium text-zinc-600 hover:text-black'
+=======
+                  onClick={() => handleTabClick(item.id)}
+                  className={`text-xs uppercase tracking-[0.2em] font-semibold transition-all py-2 border-b-2 ${
+                    isActive
+                      ? 'text-[#1A1A1A] border-[#1A1A1A]'
+                      : 'text-[#1A1A1A]/60 border-transparent hover:text-[#1A1A1A] hover:border-[#1A1A1A]/30'
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   }`}
                 >
                   {item.label}
                 </button>
               );
             })}
+<<<<<<< HEAD
           </div>
 
           <div className="grid w-full grid-cols-4 md:hidden">
@@ -267,6 +326,156 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
           </div>
         )}
       </nav>
+=======
+          </nav>
+
+          {/* Right Action: Takip Et Kazan, Paylaş & Shopier Store Link */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* YÜKLE (Ana Ekrana İndir / Yükle) Butonu - Desktop & Tablet */}
+            <button
+              id="navbar-install-btn"
+              onClick={handleInstallClick}
+              title="Telefon ve tablet için Ana Ekrana İndir"
+              aria-label="Uygulamayı Ana Ekrana İndir"
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3.5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+            >
+              <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span className="hidden xl:inline">YÜKLE</span>
+            </button>
+
+            {/* TAKİP ET KAZAN Button (Desktop / Tablet) */}
+            <button
+              onClick={() => setFollowModalOpen(true)}
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 sm:px-5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+            >
+              <Bell className="w-3 h-3 text-[#C9A86A]" />
+              <span>TAKİP ET KAZAN</span>
+            </button>
+
+            {/* PAYLAŞ Button (Desktop / Tablet) */}
+            <button
+              onClick={() => setSiteShareModalOpen(true)}
+              title="Aşkar Yayınları Paylaş"
+              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span className="hidden xl:inline">PAYLAŞ</span>
+            </button>
+
+            {/* MAĞAZA Button */}
+            <a
+              href={MAIN_SHOPIER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#1A1A1A] hover:bg-black text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 sm:gap-2 transition-all hover:scale-[1.02] active:scale-95 shadow-sm shrink-0"
+            >
+              <ShoppingBag className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>MAĞAZA</span>
+            </a>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 sm:p-2 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg focus:outline-none shrink-0"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Nav Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#F8F7F4] border-b border-[#1A1A1A]/10 px-6 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+            {navItems.map((item) => {
+              const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleTabClick(item.id)}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors ${
+                    isActive
+                      ? 'bg-[#1A1A1A] text-white'
+                      : 'text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5'
+                  }`}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+            
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleInstallClick();
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>ANA EKRANA YÜKLE</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setFollowModalOpen(true);
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>TAKİP ET KAZAN</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setSiteShareModalOpen(true);
+              }}
+              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>PAYLAŞ</span>
+            </button>
+          </div>
+        )}
+      </header>
+
+      {/* Mobile Actions Bar: YÜKLE, PAYLAŞ, TAKİP ET KAZAN (Right below header, no overflow) */}
+      <div className="sm:hidden w-full max-w-6xl mx-auto px-3 pt-2.5 pb-1 flex items-center justify-end gap-1.5">
+        {/* YÜKLE Butonu */}
+        <button
+          onClick={handleInstallClick}
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
+          aria-label="Ana Ekrana Yükle"
+          title="Ana Ekrana Yükle"
+        >
+          <ArrowDownToLine className="w-3 h-3 text-[#C9A86A]" />
+          <span>YÜKLE</span>
+        </button>
+
+        {/* PAYLAŞ Butonu */}
+        <button
+          onClick={() => setSiteShareModalOpen(true)}
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
+          aria-label="Paylaş"
+          title="Aşkar Yayınları Paylaş"
+        >
+          <Share2 className="w-3 h-3 text-[#C9A86A]" />
+          <span>PAYLAŞ</span>
+        </button>
+
+        {/* TAKİP ET KAZAN Butonu */}
+        <button
+          onClick={() => setFollowModalOpen(true)}
+          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3 py-1.5 rounded-full text-[10px] uppercase tracking-[0.12em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
+          aria-label="Takip Et Kazan"
+        >
+          <Bell className="w-3 h-3 text-[#C9A86A]" />
+          <span>TAKİP ET KAZAN</span>
+        </button>
+      </div>
+>>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 
       {/* TAKİP ET KAZAN Modal */}
       {followModalOpen && (
