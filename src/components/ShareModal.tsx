@@ -45,7 +45,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ item, isOpen, onClose })
   const targetUrl = item
     ? (item.isSiteShare
         ? (item.url || 'https://www.askaryayinlari.com.tr/')
-        : (item.shopierUrl || currentOrigin))
+        : (item.shopierUrl || item.url || currentOrigin))
     : 'https://www.askaryayinlari.com.tr/';
 
   const publisherName = 'AŞKAR YAYINLARI';

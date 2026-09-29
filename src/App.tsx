@@ -15,7 +15,7 @@ import { Footer } from './components/Footer';
 import { AdminKilavuzGuncelle } from './components/AdminKilavuzGuncelle';
 import { checkOsymUpdate } from './utils/osymKilavuz';
 import { updatePageSeo } from './utils/seo';
-import { Home, ArrowUp, Wrench, User, Mail, BookOpenText, GraduationCap } from 'lucide-react';
+import { Home, ArrowUp, Wrench, User, Mail, GraduationCap } from 'lucide-react';
 
 const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
 const RehberPage = lazy(() => import('./components/RehberPage').then(({ RehberPage }) => ({ default: RehberPage })));
@@ -148,7 +148,7 @@ export const App: React.FC = () => {
 
   return (
     <PriceProvider>
-      <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased w-full max-w-[100vw] overflow-x-hidden">
+      <div className="min-h-screen bg-[#FAF9F6] text-[#1A1A1A] font-sans selection:bg-[#C9A86A]/30 selection:text-[#1A1A1A] flex flex-col antialiased w-full max-w-[100vw] overflow-x-clip">
         {/* Top Navbar */}
         <Navbar activeTab={activeTab} setActiveTab={handleTabChange} />
 
@@ -164,14 +164,6 @@ export const App: React.FC = () => {
               }
             }}
           />
-
-          {activeTab === 'magaza' && (
-            <div className="mb-4 flex justify-end">
-              <button type="button" onClick={() => handleSelectGuideSlug(null)} className="inline-flex items-center gap-2 text-xs font-bold text-[#856526] hover:text-[#1A1A1A]">
-                <BookOpenText className="h-4 w-4" /> Ders Çalışma Rehberi
-              </button>
-            </div>
-          )}
 
           {activeTab === 'magaza' && (
             <div className="space-y-6 animate-fadeIn">

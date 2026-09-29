@@ -101,7 +101,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
 
         {/* Filters & Search */}
         <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <div className="flex min-w-0 flex-wrap items-center gap-1.5 py-1 sm:flex-1">
             {(['HEPSİ', 'BURSLULUK', 'LGS', 'YKS', 'ARAÇLAR', 'ÇOCUK'] as const).map((cat) => {
               const isActive = filterCategory === cat;
               return (
@@ -120,7 +120,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({
             })}
           </div>
 
-          <div className="relative min-w-[200px]">
+          <div className="relative w-full min-w-0 sm:w-56 sm:shrink-0">
             <Search className="w-3.5 h-3.5 text-[#1A1A1A]/40 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"

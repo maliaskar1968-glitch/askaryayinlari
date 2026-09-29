@@ -4,7 +4,7 @@ import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { ShareModal, ShareItem } from './ShareModal';
-import { ShoppingBag, Menu, X, BookOpen, BookOpenText, Wrench, User, Mail, Bell, CheckCircle2, Share2, ArrowDownToLine } from 'lucide-react';
+import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { InstallModal } from './InstallModal';
 
@@ -14,7 +14,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
@@ -103,214 +103,170 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
     setShowKvkkDetail(false);
   };
 
-  const navItems: { id: PageTab; label: string; icon: React.ReactNode }[] = [
-    { id: 'magaza', label: 'KİTAPLIK', icon: <BookOpen className="w-3.5 h-3.5" /> },
-    { id: 'uygulamalar', label: 'UYGULAMALAR', icon: <Wrench className="w-3.5 h-3.5" /> },
-    { id: 'rehber', label: 'DERS REHBERİ', icon: <BookOpenText className="w-3.5 h-3.5" /> },
-    { id: 'hakkimizda', label: 'HAKKIMIZDA', icon: <User className="w-3.5 h-3.5" /> },
-    { id: 'iletisim', label: 'İLETİŞİM', icon: <Mail className="w-3.5 h-3.5" /> },
+  const navItems: { id: PageTab; label: string }[] = [
+    { id: 'magaza', label: 'KİTAPLIK' },
+    { id: 'uygulamalar', label: 'UYGULAMALAR' },
+    { id: 'rehber', label: 'DERS REHBERİ' },
+    { id: 'hakkimizda', label: 'HAKKIMIZDA' },
+    { id: 'iletisim', label: 'İLETİŞİM' },
   ];
 
   const handleTabClick = (id: PageTab) => {
     setActiveTab(id);
-    setMobileMenuOpen(false);
+    setMobileMoreOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
-      <header className="bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#1A1A1A]/10 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-3 sm:px-8 h-20 flex items-center justify-between gap-2">
+      <header className="bg-[#F8F7F4] border-b border-[#1A1A1A]/10">
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between gap-3">
           {/* Logo Section */}
-          <div
-            className="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group shrink-0"
+          <button
+            type="button"
             onClick={() => handleTabClick('magaza')}
+            className="flex items-center gap-2 cursor-pointer group shrink-0"
+            aria-label="Aşkar Yayınları ana sayfa"
           >
             <ImgWithFallback
               src="/resimler/logo.jpg"
               alt="Aşkar Yayınları Logo"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
+              className="w-8 h-8 rounded-full border border-[#C9A86A]/40 object-cover bg-black shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-xs"
             />
-            <div>
-              <div className="font-serif font-black text-sm sm:text-lg tracking-tight text-[#1A1A1A] leading-tight flex items-center gap-2">
-                AŞKAR YAYINLARI
-              </div>
-              <div className="text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-[#1A1A1A]/60 font-medium hidden xs:block">
-                Dijital PDF Kütüphanesi
-              </div>
-            </div>
-          </div>
+            <span className="font-serif font-bold text-sm sm:text-lg tracking-wide text-[#1A1A1A] leading-tight whitespace-nowrap">
+              AŞKAR YAYINLARI
+            </span>
+          </button>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => {
-              const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleTabClick(item.id)}
-                  title={item.id === 'iletisim' ? 'İletişim' : item.label}
-                  aria-label={item.id === 'iletisim' ? 'İletişim' : item.label}
-                  className={`text-xs uppercase tracking-[0.2em] font-semibold transition-all py-2 border-b-2 ${
-                    isActive
-                      ? 'text-[#1A1A1A] border-[#1A1A1A]'
-                      : 'text-[#1A1A1A]/60 border-transparent hover:text-[#1A1A1A] hover:border-[#1A1A1A]/30'
-                  }`}
-                >
-                  {item.id === 'iletisim' ? <Mail className="h-4 w-4" /> : item.label}
-                </button>
-              );
-            })}
-          </nav>
-
-          {/* Right Action: Takip Et Kazan, Paylaş & Shopier Store Link */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            {/* YÜKLE (Ana Ekrana İndir / Yükle) Butonu - Desktop & Tablet */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               id="navbar-install-btn"
               onClick={handleInstallClick}
               title="Telefon ve tablet için Ana Ekrana İndir"
               aria-label="Uygulamayı Ana Ekrana İndir"
-              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-3.5 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
             >
               <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span className="hidden xl:inline">YÜKLE</span>
+              YÜKLE
             </button>
-
-            {/* TAKİP ET KAZAN Button (Desktop / Tablet) */}
             <button
               onClick={() => setFollowModalOpen(true)}
               title="Takip Et Kazan"
               aria-label="Takip Et Kazan"
-              className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#1A1A1A] bg-white text-[#1A1A1A] shadow-2xs transition-all duration-200 hover:scale-[1.02] hover:bg-[#1A1A1A] hover:text-white active:scale-95 cursor-pointer"
+              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
             >
               <Bell className="h-4 w-4 text-[#C9A86A]" />
+              TAKİP ET KAZAN
             </button>
-
-            {/* PAYLAŞ Button (Desktop / Tablet) */}
             <button
+              type="button"
               onClick={() => setSiteShareModalOpen(true)}
               title="Aşkar Yayınları Paylaş"
-              className="hidden sm:inline-flex bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-4 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-2xs cursor-pointer items-center gap-1.5"
+              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
             >
-              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span className="hidden xl:inline">PAYLAŞ</span>
+              <Share2 className="h-4 w-4 text-[#C9A86A]" />
+              PAYLAŞ
             </button>
-
-            {/* MAĞAZA Button */}
             <a
               href={MAIN_SHOPIER_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1A1A1A] hover:bg-black text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 sm:gap-2 transition-all hover:scale-[1.02] active:scale-95 shadow-sm shrink-0"
+              className="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-black bg-black px-3 text-[10px] uppercase tracking-wider font-semibold text-white transition-colors hover:bg-[#1A1A1A]"
             >
-              <ShoppingBag className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span>MAĞAZA</span>
+              <Store className="w-3.5 h-3.5 text-[#C9A86A]" />
+              MAĞAZA
             </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 sm:p-2 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg focus:outline-none shrink-0"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
-            </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Nav Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-[#F8F7F4] border-b border-[#1A1A1A]/10 px-6 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+      <nav
+        aria-label="Ana navigasyon"
+        className="sticky top-0 z-50 relative bg-[#F8F7F4]/95 backdrop-blur-md border-y border-[#1A1A1A]/10 shadow-sm"
+      >
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-12 flex items-center">
+          <div className="hidden md:flex w-full h-full items-center gap-8">
             {navItems.map((item) => {
               const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
               return (
                 <button
                   key={item.id}
+                  type="button"
                   onClick={() => handleTabClick(item.id)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`h-full border-b-2 pt-1 text-sm uppercase tracking-wider transition-colors ${
                     isActive
-                      ? 'bg-[#1A1A1A] text-white'
-                      : 'text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5'
+                      ? 'border-black font-bold text-black'
+                      : 'border-transparent font-medium text-zinc-600 hover:text-black'
                   }`}
                 >
-                  {item.icon}
-                  {item.id !== 'iletisim' && <span>{item.label}</span>}
+                  {item.label}
                 </button>
               );
             })}
-            
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleInstallClick();
-              }}
-              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
-            >
-              <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span>ANA EKRANA YÜKLE</span>
-            </button>
+          </div>
 
+          <div className="grid w-full grid-cols-4 md:hidden">
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setFollowModalOpen(true);
-              }}
-              aria-label="Takip Et Kazan"
-              title="Takip Et Kazan"
-              className="flex h-10 w-10 items-center justify-center rounded-xl text-[#1A1A1A]/80 transition-colors hover:bg-[#1A1A1A]/5"
+              type="button"
+              onClick={() => handleTabClick('magaza')}
+              aria-current={activeTab === 'magaza' ? 'page' : undefined}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'magaza' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
-              <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <BookOpen className="h-4 w-4" />
+              Kitaplık
             </button>
-
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setSiteShareModalOpen(true);
-              }}
-              className="w-full text-left px-4 py-3 rounded-xl text-xs uppercase tracking-[0.2em] font-bold flex items-center gap-3 transition-colors text-[#1A1A1A]/80 hover:bg-[#1A1A1A]/5"
+              type="button"
+              onClick={() => handleTabClick('uygulamalar')}
+              aria-current={activeTab === 'uygulamalar' ? 'page' : undefined}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'uygulamalar' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
-              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
-              <span>PAYLAŞ</span>
+              <Wrench className="h-4 w-4" />
+              Araçlar
+            </button>
+            <button
+              type="button"
+              onClick={() => handleTabClick('rehber')}
+              aria-current={activeTab === 'rehber' ? 'page' : undefined}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'rehber' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+            >
+              <BookOpenText className="h-4 w-4" />
+              Rehber
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileMoreOpen((open) => !open)}
+              aria-expanded={mobileMoreOpen}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${mobileMoreOpen ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+            >
+              {mobileMoreOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              Daha Fazla
             </button>
           </div>
+        </div>
+        {mobileMoreOpen && (
+          <div className="absolute inset-x-0 top-full border-t border-[#1A1A1A]/10 bg-[#F8F7F4] px-4 py-3 shadow-lg md:hidden">
+            <div className="mx-auto grid max-w-md grid-cols-2 gap-1">
+              <button type="button" onClick={() => handleTabClick('hakkimizda')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+                <User className="h-4 w-4 text-[#9A783C]" /> Hakkımızda
+              </button>
+              <button type="button" onClick={() => handleTabClick('iletisim')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+                <Mail className="h-4 w-4 text-[#9A783C]" /> İletişim
+              </button>
+              <button type="button" onClick={() => { setMobileMoreOpen(false); setSiteShareModalOpen(true); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+                <Share2 className="h-4 w-4 text-[#9A783C]" /> Paylaş
+              </button>
+              <button type="button" onClick={() => { setMobileMoreOpen(false); handleInstallClick(); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+                <ArrowDownToLine className="h-4 w-4 text-[#9A783C]" /> Yükle
+              </button>
+              <button type="button" onClick={() => { setMobileMoreOpen(false); setFollowModalOpen(true); }} className="col-span-2 flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+                <Bell className="h-4 w-4 text-[#9A783C]" /> Takip Et Kazan
+              </button>
+            </div>
+          </div>
         )}
-      </header>
-
-      {/* Mobile Actions Bar: YÜKLE, PAYLAŞ, TAKİP ET KAZAN (Right below header, no overflow) */}
-      <div className="sm:hidden w-full max-w-6xl mx-auto px-3 pt-2.5 pb-1 flex items-center justify-end gap-1.5">
-        {/* YÜKLE Butonu */}
-        <button
-          onClick={handleInstallClick}
-          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
-          aria-label="Ana Ekrana Yükle"
-          title="Ana Ekrana Yükle"
-        >
-          <ArrowDownToLine className="w-3 h-3 text-[#C9A86A]" />
-          <span>YÜKLE</span>
-        </button>
-
-        {/* PAYLAŞ Butonu */}
-        <button
-          onClick={() => setSiteShareModalOpen(true)}
-          className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] px-2.5 py-1.5 rounded-full text-[10px] uppercase tracking-[0.1em] font-bold transition-all duration-200 active:scale-95 shadow-2xs flex items-center gap-1 cursor-pointer shrink-0"
-          aria-label="Paylaş"
-          title="Aşkar Yayınları Paylaş"
-        >
-          <Share2 className="w-3 h-3 text-[#C9A86A]" />
-          <span>PAYLAŞ</span>
-        </button>
-
-        {/* TAKİP ET KAZAN Butonu */}
-        <button
-          onClick={() => setFollowModalOpen(true)}
-          aria-label="Takip Et Kazan"
-          title="Takip Et Kazan"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#1A1A1A] bg-white text-[#1A1A1A] shadow-2xs transition-all duration-200 hover:bg-[#1A1A1A] hover:text-white active:scale-95 cursor-pointer"
-        >
-          <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
-        </button>
-      </div>
+      </nav>
 
       {/* TAKİP ET KAZAN Modal */}
       {followModalOpen && (

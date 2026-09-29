@@ -340,6 +340,30 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
         </Suspense>
       </section>
 
+      {tool.id === 'yks' && (
+        <button
+          type="button"
+          onClick={() => onSelectToolSlug('yks-geri-sayim')}
+          className="w-full text-left bg-white border border-[#1A1A1A]/10 hover:border-[#C9A86A] rounded-2xl p-4 sm:p-5 flex items-center gap-4 transition-colors group"
+        >
+          <span className="w-12 h-12 rounded-xl bg-[#1A1A1A] text-[#C9A86A] flex items-center justify-center shrink-0">
+            <Timer className="w-6 h-6" />
+          </span>
+          <span className="flex-1 min-w-0">
+            <span className="block text-[10px] font-mono uppercase tracking-wider font-bold text-[#856526]">
+              YKS HAZIRLIK
+            </span>
+            <span className="block text-base font-serif font-bold text-[#1A1A1A]">
+              YKS Geri Sayım Sayacı
+            </span>
+            <span className="block text-xs text-[#1A1A1A]/65 mt-0.5">
+              Sınava kalan süreyi gün, saat ve dakika olarak takip et.
+            </span>
+          </span>
+          <ChevronRight className="w-5 h-5 text-[#C9A86A] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      )}
+
       {/* 4. Rehber & Nasıl Kullanılır (SEO & Bilgi Bölümü) */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Sol 2 Kolon: Detaylı Açıklama & Adımlar & SSS */}
