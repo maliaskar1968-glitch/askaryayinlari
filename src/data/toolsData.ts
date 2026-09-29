@@ -272,7 +272,7 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'yks-sayac',
     slug: 'yks-geri-sayim',
-    image: '/assets/yks-geri-sayim-sayaci-1x1.jpg',
+    image: '/resimler/yks-sayac.jpg',
     name: 'YKS Geri Sayım Sayacı',
     shortName: 'YKS Geri Sayım',
     badge: 'ÖSYM TAKVİMİ • YKS',
