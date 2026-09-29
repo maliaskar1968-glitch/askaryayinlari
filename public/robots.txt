@@ -1,0 +1,32 @@
+# robots.txt for www.askaryayinlari.com.tr
+User-agent: *
+Allow: /
+Allow: /rehber
+Allow: /resimler/
+Allow: /images/
+
+# Search Engine & AI Crawlers
+User-agent: Googlebot
+Allow: /
+Allow: /rehber
+Allow: /resimler/
+Allow: /images/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /resimler/
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /
+Allow: /resimler/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Gemini
+Allow: /
+
+# Sitemap Location
+Sitemap: https://www.askaryayinlari.com.tr/sitemap.xml
+

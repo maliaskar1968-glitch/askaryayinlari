@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Aşkar Yayınları",
+  "short_name": "Aşkar Yayın",
+  "description": "Aşkar Yayınları - Dijital PDF Kütüphanesi ve Öğrenci Koçluğu Kitapları",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#FAF9F6",
+  "background_color": "#FAF9F6",
+  "icons": [
+    {
+      "src": "/resimler/logo.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

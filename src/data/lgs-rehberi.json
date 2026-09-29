@@ -1,0 +1,92 @@
+[
+  {
+    "id": "lgs-matematik",
+    "ad": "LGS Matematik",
+    "seviye": "lgs",
+    "slug": "lgs-matematik-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/matematik-1x1.jpg",
+    "kisa": ["Konu eksiğini kazanım bazında bul.", "Yeni nesil soruyu küçük adımlara ayır.", "Haftada bir süreli matematik denemesi çöz."],
+    "uzun": {
+      "basari": "LGS matematik hazırlığında önce MEB kazanımlarındaki konu eksiğini belirle, sonra her kazanımı kolaydan yeni nesil sorulara doğru çalış. Uzun problemde verilenleri not et, şema çiz ve soruyu küçük hedeflere ayır. Düzenli matematik pratiğini deneme analiziyle destekle.",
+      "dikkat": "Soru kökünü ve tüm koşulları iki kez oku; işlem, birim ve şekil bilgilerini kontrol et. Çözüm yolun uzarsa aynı soruda takılı kalma, işaretleyip denemeden sonra yeniden ele al.",
+      "hatalar": "Yalnızca zor sorular çözmek, temel kazanımı atlamak ve çözüm videosunu izleyince soruyu öğrendiğini sanmak sık hatalardır. Yanlış soruyu bir gün sonra çözüme bakmadan yeniden çöz.",
+      "haftalik": "Pazartesi konu özeti, Salı kazanım testi, Çarşamba yeni nesil problem, Perşembe karışık test, Cuma yanlış defteri; hafta sonunda süreli LGS matematik denemesi ve analizi."
+    },
+    "anahtarKelimeler": ["LGS matematik nasıl çalışılır", "2026 LGS matematik taktikleri", "yeni nesil matematik", "LGS problem"]
+  },
+  {
+    "id": "lgs-turkce",
+    "ad": "LGS Türkçe ve Paragraf",
+    "seviye": "lgs",
+    "slug": "lgs-turkce-paragraf-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/turkce-1x1.jpg",
+    "kisa": ["Her gün paragraf oku ve çöz.", "Soru kökünde isteneni belirle.", "Yanlış seçeneği metinden kanıtla ele."],
+    "uzun": {
+      "basari": "LGS Türkçe’de paragraf, sözel mantık ve dil bilgisi çalışmalarını haftaya yay. Her gün düzenli okuma ve paragraf pratiği yap; önce soru kökünü anlayıp metindeki kanıtı bul. Denemelerde doğru sayısı kadar süre kullanımını da takip et.",
+      "dikkat": "Olumsuz soru köklerini, altı çizili ifadeleri ve seçeneklerdeki küçük anlam farklarını kaçırma. Sözel mantıkta koşulları tabloya aktar, aceleyle ilk uygun görünen seçeneği işaretleme.",
+      "hatalar": "Metni hızlıca tarayıp soruyu tahmin etmek, kendi yorumunu metne eklemek ve paragraf yanlışlarını analiz etmeden geçmek sık hatalardır. Her yanlışta kanıt cümlesini işaretle.",
+      "haftalik": "Her gün 20 dakika okuma ve 15-20 paragraf; Pazartesi dil bilgisi, Çarşamba sözel mantık, Cuma süreli Türkçe testi; hafta sonunda yanlış türlerini gözden geçir."
+    },
+    "anahtarKelimeler": ["LGS Türkçe nasıl çalışılır", "2026 paragraf taktikleri", "LGS Türkçe çalışma programı", "sözel mantık"]
+  },
+  {
+    "id": "lgs-fen",
+    "ad": "LGS Fen Bilimleri",
+    "seviye": "lgs",
+    "slug": "lgs-fen-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/fen-1x1.jpg",
+    "kisa": ["Kavramı deney ve günlük hayatla bağla.", "Grafik ve düzeneklerde değişkenleri bul.", "Yanlış kazanımlara kısa tekrar ekle."],
+    "uzun": {
+      "basari": "LGS Fen’de ünite kavramlarını deney, grafik ve günlük yaşam örnekleriyle anlamlandır. Her konudan sonra MEB kazanım soruları çöz; deney düzeneğinde değişkenleri belirle ve sonuçları kendi cümlenle açıkla. Unuttuğun bilgiyi kısa notlarla aralıklı tekrar et.",
+      "dikkat": "Grafik eksenlerini, birimleri, düzenek koşullarını ve soruda verilen bilgileri dikkatle oku. Bir deney sonucundan yalnızca kanıtlanan çıkarımı yap; soruda belirtilmeyen koşulları varsayma.",
+      "hatalar": "Kavramları tanım olarak ezberlemek, şekil/grafik incelemeden şık seçmek ve benzer kavramları karıştırmak net kaybettirir. Yanlışlarını ünite ve kazanım başlığıyla kaydet.",
+      "haftalik": "Pazartesi konu şeması, Salı deney soruları, Çarşamba grafik ve tablo, Perşembe kazanım testi, Cuma yanlış analizi; hafta sonunda karışık fen denemesi."
+    },
+    "anahtarKelimeler": ["LGS fen nasıl çalışılır", "2026 LGS fen taktikleri", "deney soruları", "grafik yorumlama"]
+  },
+  {
+    "id": "lgs-inkilap",
+    "ad": "LGS T.C. İnkılap Tarihi",
+    "seviye": "lgs",
+    "slug": "lgs-inkilap-tarihi-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/sosyal-1x1.jpg",
+    "kisa": ["Olayları kronolojiye yerleştir.", "Neden-sonuç ve amaç ilişkisi kur.", "Harita ve kaynak metinleri yorumla."],
+    "uzun": {
+      "basari": "İnkılap Tarihi konularını ezber listesi yerine kronoloji, amaç ve sonuç bağlantılarıyla öğren. Olayları zaman çizgisine koy; kişi, belge ve gelişmeleri ilgili dönemle eşleştir. Kaynak metin ve harita sorularıyla bilgiyi yorumlama pratiği yap.",
+      "dikkat": "Benzer olayların tarihlerini ve amaçlarını karşılaştır. Sorudaki belge, harita veya görselin verdiği kanıta bağlı kal; metinde olmayan yorumu cevaba ekleme.",
+      "hatalar": "Tarihleri bağlam olmadan ezberlemek, olayların sırasını karıştırmak ve yalnızca konu özeti okuyup soru çözmemek sık hatalardır. Yanlışları ünite ve kronoloji başlığına göre ayır.",
+      "haftalik": "Pazartesi ünite özeti, Salı zaman çizgisi, Çarşamba belge ve harita soruları, Perşembe kazanım testi, Cuma yanlış analizi ve önceki ünitelerden kısa tekrar."
+    },
+    "anahtarKelimeler": ["LGS inkılap tarihi nasıl çalışılır", "2026 inkılap taktikleri", "kronoloji", "LGS tarih soruları"]
+  },
+  {
+    "id": "lgs-din",
+    "ad": "LGS Din Kültürü",
+    "seviye": "lgs",
+    "slug": "lgs-din-kulturu-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/din-1x1.jpg",
+    "kisa": ["Kavramları kısa kartlarla öğren.", "Metnin ana mesajını kendi sözünle yaz.", "Çeldiricileri soru köküne göre ele."],
+    "uzun": {
+      "basari": "LGS Din Kültürü’nde temel kavramları, ünite mesajlarını ve metin yorumlama becerisini birlikte geliştir. Konu tekrarından sonra kavram kartları hazırla ve ayet/hadis içeren sorularda ana mesajı kendi cümlenle ifade et.",
+      "dikkat": "Soru kökünde istenen çıkarım türünü belirle. Kavramların kapsamını ayırt et ve verilen metinde bulunmayan bir bilgiyi doğru kabul etme.",
+      "hatalar": "Kavramları birbirine karıştırmak, uzun metni okumadan genel bilgiyle yanıtlamak ve yanlışın nedenini incelememek sık hatalardır. Hataları konu başlığına göre düzenli biçimde tekrar et.",
+      "haftalik": "Pazartesi kavram kartları, Salı konu özeti, Çarşamba metin yorumlama, Perşembe kazanım testi, Cuma yanlış analizi; hafta sonunda kısa ünite tekrarı."
+    },
+    "anahtarKelimeler": ["LGS din kültürü nasıl çalışılır", "2026 LGS din taktikleri", "kavram soruları", "LGS çalışma planı"]
+  },
+  {
+    "id": "lgs-ingilizce",
+    "ad": "LGS İngilizce",
+    "seviye": "lgs",
+    "slug": "lgs-ingilizce-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/ingilizce-1x1.jpg",
+    "kisa": ["Ünite kelimelerini aralıklı tekrar et.", "Kısa diyaloglarda bağlamı bul.", "Görsel ve tablo sorularını incele."],
+    "uzun": {
+      "basari": "LGS İngilizce için her ünitenin temel kelimelerini örnek cümlelerle öğren, kısa diyalog ve metin sorularıyla kullanımını pekiştir. Kelime kartlarını birkaç güne yayarak tekrar et; görsel, davet ve tablo sorularını süre tutarak çöz.",
+      "dikkat": "Diyalogda konuşmacının amacı, zaman ifadesi ve olumlu/olumsuz anlamı takip et. Görsellerde başlık, saat, yer ve kişi bilgilerini seçeneklerle karşılaştır.",
+      "hatalar": "Kelimeleri sadece Türkçe karşılığıyla ezberlemek, bağlamı okumadan tahmin etmek ve benzer seçeneklerde ayrıntıyı kaçırmak sık hatalardır. Yanlış kelimeyi örnek cümleyle tekrar et.",
+      "haftalik": "Her gün 10 dakika kelime kartı; Pazartesi ünite kelimeleri, Salı diyalog, Çarşamba görsel soru, Perşembe ünite testi, Cuma yanlış kelime tekrarı."
+    },
+    "anahtarKelimeler": ["LGS İngilizce nasıl çalışılır", "2026 LGS İngilizce taktikleri", "kelime tekrarı", "LGS diyalog soruları"]
+  }
+]

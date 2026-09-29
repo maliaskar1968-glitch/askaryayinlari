@@ -1,0 +1,104 @@
+[
+  {
+    "id": "matematik",
+    "ad": "Matematik Nasıl Çalışılır?",
+    "renk": "blue",
+    "resim": "/assets/ders-kartlari/matematik-1x1.jpg",
+    "kisa": [
+      "Her gün 20 problem çöz.",
+      "Formülü ezberleme, mantığını anla.",
+      "Yanlış defteri tut ve tekrar çöz."
+    ],
+    "uzun": {
+      "basari": "Matematikte başarı formül ezberiyle değil, her gün düzenli pratikle gelir. Önce konunun mantığını kendi cümlelerinle anlat, ardından kolaydan zora ilerleyen sorular çöz. Aşkar Koçluk sisteminde konuyu öğrendikten sonra 10 kolay, 10 orta ve 5 zor soruyla bilgiyi pekiştirirsin. Çözemediğin soruda çözümü okumadan önce şekil çizip bildiklerini yaz.",
+      "dikkat": "İşlem hatalarına dikkat et; soruyu iki kez oku ve verilenlerin altını çiz. Geometri sorularında şekli kendin çizmeden işleme başlama. Bir soruda uzun süre takılırsan işaretleyip sonra geri dön.",
+      "hatalar": "Sadece test çözmek, konu eksiğini görmezden gelmek ve yanlış sorunun çözümünü incelemeden geçmek ilerlemeyi yavaşlatır. Yanlışlarını konu başlığıyla kaydet; aynı tipten birkaç gün sonra yeni bir soru çöz.",
+      "haftalik": "Pazartesi konu ve örnek, Salı 20 problem, Çarşamba yeni nesil sorular, Perşembe karışık test, Cuma yanlış analizi ve tekrar. Hafta sonunda süre tutarak kısa bir tarama testi çöz."
+    }
+  },
+  {
+    "id": "fen",
+    "ad": "Fen Bilimleri Nasıl Çalışılır?",
+    "renk": "green",
+    "resim": "/assets/ders-kartlari/fen-1x1.jpg",
+    "kisa": [
+      "Kavramı günlük hayattan örnekle.",
+      "Deneylerde değişkenleri karşılaştır.",
+      "Şema çiz ve neden-sonuç kur."
+    ],
+    "uzun": {
+      "basari": "Fen konularını ezberlemek yerine gözlem, deney ve neden-sonuç ilişkisiyle öğren. Her konu için önce temel kavramları kısa bir şemaya yerleştir; sonra bu bilginin günlük hayatta nerede karşına çıktığını düşün. Sorularda deney düzeneğini inceleyip hangi değişkenin değiştiğini, hangilerinin sabit kaldığını belirle.",
+      "dikkat": "Grafik ve deney sorularında eksenleri, ölçü birimlerini ve değişkenleri dikkatle oku. Bir sonuçtan doğrudan çıkarım yap; soruda verilmeyen bilgileri varsayma. Deneyleri yalnızca güvenli, öğretmen gözetiminde ve uygun malzemeyle yap.",
+      "hatalar": "Kavramları birbirine karıştırmak, şekil ve grafiklere bakmadan seçenek işaretlemek, deney sonucunu ezberleyip nedenini anlamamak sık görülen hatalardır. Yanlış soruyu ilgili kavramla eşleştir ve kendi cümlenle açıkla.",
+      "haftalik": "Pazartesi kavram haritası, Salı kısa konu tekrarı ve örnek, Çarşamba deney/grafik soruları, Perşembe kazanım testi, Cuma yanlışların nedeni ve düzeltme notu."
+    }
+  },
+  {
+    "id": "turkce",
+    "ad": "Türkçe Nasıl Çalışılır?",
+    "renk": "orange",
+    "resim": "/assets/ders-kartlari/turkce-1x1.jpg",
+    "kisa": [
+      "Her gün düzenli paragraf oku ve çöz.",
+      "Soruda isteneni kendi sözlerinle bul.",
+      "Yanlış seçeneklerin nedenini incele."
+    ],
+    "uzun": {
+      "basari": "Türkçede hız ve anlama, düzenli okumayla gelişir. Her gün kısa bir metin oku, ardından paragraf sorularında önce kökü inceleyip senden ne istendiğini belirle. Ana düşünce, yardımcı düşünce ve çıkarım sorularında metindeki kanıtı bul; cevabı kendi cümlenle özetle.",
+      "dikkat": "Olumsuz soru köklerini, altı çizili ifadeleri ve 'değinilmemiştir' gibi belirleyicileri kaçırma. Seçeneği yalnızca kulağa doğru geldiği için işaretleme; metinden kanıt göster. Bilmediğin kelimenin anlamını cümlenin bağlamından tahmin et.",
+      "hatalar": "Metni okumadan seçeneklere geçmek, kendi bilgisini metnin önüne koymak ve yanlışın nedenini incelemeden yeni teste geçmek sık yapılan hatalardır. Her yanlışta hangi cümleyi yanlış yorumladığını belirle.",
+      "haftalik": "Her gün 20 dakika okuma ve 15 paragraf sorusu; Pazartesi dil bilgisi konusu, Çarşamba metin türü çalışması, Cuma süreli paragraf seti ve hafta boyunca biriken yanlışların analizi."
+    }
+  },
+  {
+    "id": "sosyal",
+    "ad": "Sosyal Bilgiler Nasıl Çalışılır?",
+    "renk": "purple",
+    "resim": "/assets/ders-kartlari/sosyal-1x1.jpg",
+    "kisa": [
+      "Tarihi olayları zaman çizgisine koy.",
+      "Harita ve görsellerle tekrar yap.",
+      "Olayların nedenini ve sonucunu açıkla."
+    ],
+    "uzun": {
+      "basari": "Sosyal Bilgilerde bilgileri tek tek ezberlemek yerine olaylar, yerler ve insanlar arasındaki bağlantıyı kur. Tarih konularını zaman çizgisiyle sırala; coğrafya konularını harita üzerinde çalış; vatandaşlık kavramlarını günlük yaşamdan örnekle açıkla. Her başlık için 'neden oldu, ne değişti?' sorularını cevapla.",
+      "dikkat": "Harita, grafik, kaynak metin ve görsellerdeki başlıkları ve işaretleri mutlaka oku. Tarih sıralamasında önce-sonra ilişkisini kontrol et. Benzer kavramları küçük karşılaştırma tablolarıyla ayır.",
+      "hatalar": "Uzun metinleri aynen ezberlemek, olayları kronoloji dışında öğrenmek ve harita sorularında yön/ölçek bilgilerini gözden kaçırmak hataya yol açar. Bilgiyi kendi cümlelerinle anlatıp kaynağa dönerek doğrula.",
+      "haftalik": "Pazartesi konu özeti ve zaman çizgisi, Salı harita çalışması, Çarşamba kavram kartları, Perşembe kaynak yorumlama soruları, Cuma karışık test ve yanlış analizi."
+    }
+  },
+  {
+    "id": "ingilizce",
+    "ad": "İngilizce Nasıl Çalışılır?",
+    "renk": "red",
+    "resim": "/assets/ders-kartlari/ingilizce-1x1.jpg",
+    "kisa": [
+      "Kelimeleri aralıklı tekrar et.",
+      "Yeni kelimeyi bir cümlede kullan.",
+      "Her gün kısa süre dinleme yap."
+    ],
+    "uzun": {
+      "basari": "İngilizcede kalıcı öğrenme için kelime, okuma, dinleme ve kullanım birlikte ilerlemeli. Her gün az sayıda yeni kelime seç; anlamını, örnek cümlesini ve mümkünse görselini kartın ön-arka yüzüne yaz. Kelimeyi aynı gün, ertesi gün ve hafta sonunda yeniden hatırla; kendi cümlende kullan.",
+      "dikkat": "Kelimeleri yalnızca Türkçe karşılığıyla ezberleme; cümledeki kullanımını ve eşlik ettiği sözcükleri öğren. Dinleme çalışmasında önce genel anlamı yakala, sonra ayrıntılara dön. Bilmediğin her kelimede durmak yerine bağlamdan tahmin et.",
+      "hatalar": "Bir oturuşta çok fazla kelime ezberlemek, tekrar yapmamak ve sözcüğü cümle içinde kullanmamak çabuk unutmaya neden olur. Telaffuzu göz ardı etme; kısa ses kayıtlarını dinleyip yüksek sesle tekrar et.",
+      "haftalik": "Her gün 10 dakika kelime kartı ve kısa dinleme; Pazartesi yeni kelimeler, Salı örnek cümleler, Çarşamba kısa okuma, Perşembe kelime tekrar testi, Cuma haftanın kelimeleriyle mini paragraf."
+    }
+  },
+  {
+    "id": "din",
+    "ad": "Din Kültürü Nasıl Çalışılır?",
+    "renk": "teal",
+    "resim": "/assets/ders-kartlari/din-1x1.jpg",
+    "kisa": [
+      "Kavramları anlamlarıyla eşleştir.",
+      "Ayet ve hadislerin ana mesajını bul.",
+      "Değerleri günlük yaşamla ilişkilendir."
+    ],
+    "uzun": {
+      "basari": "Din Kültürü konularını kavramların anlamını anlayarak ve aralarındaki bağı kurarak öğren. Konu özetinde temel terimleri ayır; ayet ve hadislerde ana mesajı belirle; değer ve davranış örneklerini günlük yaşamla ilişkilendir. Her konuyu kısa bir soru-cevap kartıyla tekrar et.",
+      "dikkat": "Kavramların tanımını ve birbirinden farkını dikkatle oku. Metin sorularında verilen mesajı esas al; yorumunu kaynak metnin önüne geçirme. Sorudaki 'ulaşılabilir' ve 'çıkarılamaz' gibi ifadelere özellikle dikkat et.",
+      "hatalar": "Terimleri sadece ezberlemek, benzer kavramları birbirine karıştırmak ve metni okumadan genel bilgiyle cevap vermek sık görülen hatalardır. Yanlış cevabın hangi kavram eksiğinden kaynaklandığını not et.",
+      "haftalik": "Pazartesi kavram kartları, Salı konu özeti, Çarşamba ayet/hadis ana mesajı, Perşembe yorum soruları, Cuma karışık test ve yanlışların kısa tekrarı."
+    }
+  }
+]

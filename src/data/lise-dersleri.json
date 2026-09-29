@@ -1,0 +1,167 @@
+[
+  {
+    "id": "matematik",
+    "ad": "Lise Matematik",
+    "seviye": "lise",
+    "slug": "lise-matematik-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-matematik-1x1.jpg",
+    "kisa": ["Her gün farklı seviyede soru çöz.", "Çözüm yolunu adım adım yaz.", "Yanlışlarını konuya göre sınıflandır."],
+    "uzun": {
+      "basari": "Lise matematiğinde kalıcı başarı, konuyu anlamak ve düzenli soru pratiğiyle gelir. Önce tanım ve örnekleri incele; ardından kolay, orta ve zor sorularla ilerle. Çözümünü satır satır yaz ki doğru düşünme yolunu işlem hatasından ayırabilesin.",
+      "dikkat": "Sorudaki koşulları ve isteneni belirle, gerektiğinde grafik veya şekil çiz. Fonksiyon, denklem ve eşitsizliklerde tanım koşullarını kontrol et. Bir soruyu çözemezsen çözümü ezberlemek yerine hangi adımda takıldığını bul.",
+      "hatalar": "Konu öğrenmeden yalnızca test çözmek, çözümleri kopyalayıp geçmek ve aynı yanlışları kaydetmemek ilerlemeyi yavaşlatır. Formülün hangi koşulda kullanıldığını anlamadan ezberlemek de yeni nesil sorularda zorlanmaya yol açar.",
+      "haftalik": "Pazartesi-Çarşamba konu ve örnek sorular; Perşembe karışık test; Cuma yanlış analizi. Hafta sonunda kısa süreli tarama testi çöz ve sonraki haftanın eksik konularını belirle."
+    },
+    "anahtarKelimeler": ["lise matematik nasıl çalışılır", "matematik taktikleri", "2026 lise matematik", "TYT", "AYT"]
+  },
+  {
+    "id": "geometri",
+    "ad": "Lise Geometri",
+    "seviye": "lise",
+    "slug": "lise-geometri-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-geometri-1x1.jpg",
+    "kisa": ["Şekli kendin çiz ve işaretle.", "Teoremin nedenini açıklayarak öğren.", "Her gün kısa bir geometri seti çöz."],
+    "uzun": {
+      "basari": "Geometri görsel düşünme ve temel ilişkileri fark etme becerisiyle gelişir. Her soruda şekli yeniden çiz, verilen açı ve uzunlukları işaretle. Bir teoremi ezberlemek yerine benzerlik, eşlik veya açı ilişkilerinin şekil üzerinde nasıl oluştuğunu araştır.",
+      "dikkat": "Şekilde ölçekli görünmeyen uzunlukları gerçek kabul etme. Yardımcı çizgi eklediğinde neden eklediğini ve hangi ilişkiyi ortaya çıkardığını not et. Analitik geometride koordinatları ve işaretleri dikkatle kontrol et.",
+      "hatalar": "Şekli çizmeden çözmeye çalışmak, gördüğünü varsaymak ve çözümde kullanılan yardımcı çizgiyi anlamadan ezberlemek sık hatalardır. Bir soruyu bitirdikten sonra başka bir çözüm yolu olup olmadığını da incele.",
+      "haftalik": "Pazartesi üçgenler, Salı dörtgenler, Çarşamba çember, Perşembe analitik geometri, Cuma karışık soru ve yanlış analizi. Her gün 20-30 dakikalık şekil çizme pratiği ekle."
+    },
+    "anahtarKelimeler": ["lise geometri nasıl çalışılır", "geometri soruları", "2026 geometri taktikleri", "TYT geometri", "AYT geometri"]
+  },
+  {
+    "id": "fizik",
+    "ad": "Lise Fizik",
+    "seviye": "lise",
+    "slug": "lise-fizik-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-fizik-1x1.jpg",
+    "kisa": ["Olayı çizim ve birimlerle modelle.", "Formülün hangi koşulda geçerli olduğunu öğren.", "Sonucu yaklaşık değerle kontrol et."],
+    "uzun": {
+      "basari": "Fizik sorularını önce bir olayı anlamlandırıp sonra matematiksel modele çevirerek çöz. Konu anlatımından sonra temel kavramları kendi cümlenle açıkla, serbest cisim diyagramı veya grafik çiz ve değişkenler arasındaki ilişkiyi belirle.",
+      "dikkat": "Birimleri, yönleri ve başlangıç koşullarını yaz. Grafiklerde eksenleri ve eğim/alanın neyi gösterdiğini incele. Formül kullanırken varsayımları kontrol et; örneğin sürtünme veya ideal sistem bilgisi soruda belirtilmiş mi bak.",
+      "hatalar": "Formülü anlamadan yerine koyma, yön bilgisini atlama ve birim dönüşümünü unutma sık görülen hatalardır. Sonucun büyüklüğünü fiziksel sezgiyle kontrol et; gerçekçi olmayan sonuçta işlemleri yeniden incele.",
+      "haftalik": "Pazartesi kavram ve gösterimler, Salı çözümlü örnekler, Çarşamba grafik ve deney soruları, Perşembe yeni nesil test, Cuma yanlış analizi ve kısa konu tekrarı."
+    },
+    "anahtarKelimeler": ["lise fizik nasıl çalışılır", "fizik soru çözme taktikleri", "2026 fizik", "TYT fizik", "AYT fizik"]
+  },
+  {
+    "id": "kimya",
+    "ad": "Lise Kimya",
+    "seviye": "lise",
+    "slug": "lise-kimya-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-kimya-1x1.jpg",
+    "kisa": ["Kavramları küçük şemalarla bağla.", "Tepkimelerde atom ve yük dengesini izle.", "Hesaplamada birimleri en başta yaz."],
+    "uzun": {
+      "basari": "Kimyada kavram, sembol ve işlem becerisi birlikte ilerler. Konuyu okuduktan sonra parçacık düzeyinde neler olduğunu çizerek açıkla; ardından tepkime ve hesaplama sorularına geç. Periyodik tabloyu ezber listesi değil, düzeni ve eğilimleri gösteren bir harita gibi kullan.",
+      "dikkat": "Kimyasal gösterimlerde alt indis, katsayı, iyon yükü ve hâl sembollerini ayırt et. Hesaplama sorularında verilenleri birimleriyle yaz ve sonuç birimini kontrol et. Deney sorularında değişkenleri belirle.",
+      "hatalar": "Katsayı ile alt indisi karıştırmak, denklemi denkleştirmeden işlem yapmak ve kavramları yalnızca tanım olarak ezberlemek sık hatalardır. Yanlış soruda hangi basamağın eksik olduğunu not al.",
+      "haftalik": "Pazartesi kavram şeması, Salı tepkime ve gösterimler, Çarşamba hesaplama örnekleri, Perşembe karışık test, Cuma yanlış analizi ve kısa tekrar."
+    },
+    "anahtarKelimeler": ["lise kimya nasıl çalışılır", "kimya taktikleri", "2026 kimya", "TYT kimya", "AYT kimya"]
+  },
+  {
+    "id": "biyoloji",
+    "ad": "Lise Biyoloji",
+    "seviye": "lise",
+    "slug": "lise-biyoloji-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-biyoloji-1x1.jpg",
+    "kisa": ["Süreçleri akış şemasıyla anlat.", "Benzer kavramları karşılaştır.", "Şekil ve deney sorularını yorumla."],
+    "uzun": {
+      "basari": "Biyolojide terimleri tek tek ezberlemek yerine sistemlerin nasıl çalıştığını ve birbirini nasıl etkilediğini öğren. Konuyu akış şeması, hücre çizimi veya karşılaştırma tablosuyla yeniden kur; sonra kitabı kapatıp bilgiyi kendi sözlerinle anlat.",
+      "dikkat": "Benzer organel, yapı ve süreçlerin görevlerini karşılaştır. Deney sorularında kontrol edilen ve değiştirilen değişkenleri ayırt et. Şemadaki ok yönleri, etiketler ve ölçek bilgilerini dikkatle takip et.",
+      "hatalar": "Uzun tanımları aynen ezberlemek, terim benzerliklerinden dolayı görevleri karıştırmak ve neden-sonuç sırasını atlamak hataya yol açar. Konuyu küçük parçalara bölüp aralıklı tekrar et.",
+      "haftalik": "Pazartesi konu haritası, Salı kavram kartları, Çarşamba şekil/deney yorumlama, Perşembe test, Cuma yanlış analizi ve haftalık aralıklı tekrar."
+    },
+    "anahtarKelimeler": ["lise biyoloji nasıl çalışılır", "biyoloji tekrar taktikleri", "2026 biyoloji", "TYT biyoloji", "AYT biyoloji"]
+  },
+  {
+    "id": "turk-dili-edebiyat",
+    "ad": "Türk Dili ve Edebiyatı",
+    "seviye": "lise",
+    "slug": "lise-turk-dili-edebiyat-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-turk-dili-edebiyat-1x1.jpg",
+    "kisa": ["Eser-yazar-dönem eşleştirmesi yap.", "Metnin türünü ve anlatımını incele.", "Her gün paragraf ve anlam çalış."],
+    "uzun": {
+      "basari": "Edebiyat bilgilerini dönemlerin özellikleri ve eserlerin bağlamıyla birlikte öğren. Eser, yazar, tür ve dönem için kısa eşleştirme tabloları hazırla; metin örnekleriyle anlatım biçimini incele. Dil bilgisi ve paragraf çalışmalarını da haftaya düzenli yay.",
+      "dikkat": "Birbirine yakın dönem ve türleri karşılaştır; eserin yalnızca adını değil ayırt edici özelliğini hatırla. Paragraf sorularında metnin kanıtına bağlı kal ve soru kökünün istediğini belirle.",
+      "hatalar": "Eser-yazar listesini bağlam olmadan ezberlemek, dönem özelliklerini karıştırmak ve paragraf sorularında kendi yorumunu metnin önüne geçirmek puan kaybettirir. Yanlış seçeneğin neden yanlış olduğunu açıklamaya çalış.",
+      "haftalik": "Pazartesi bir edebiyat dönemi, Salı eser-yazar kartları, Çarşamba dil bilgisi, Perşembe paragraf ve metin türü, Cuma karışık test ve yanlış analizi."
+    },
+    "anahtarKelimeler": ["lise edebiyat nasıl çalışılır", "Türk dili ve edebiyatı taktikleri", "2026 edebiyat", "TYT Türkçe", "AYT edebiyat"]
+  },
+  {
+    "id": "tarih",
+    "ad": "Lise Tarih",
+    "seviye": "lise",
+    "slug": "lise-tarih-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-tarih-1x1.jpg",
+    "kisa": ["Olayları zaman çizgisine yerleştir.", "Neden-sonuç ve değişim ilişkisi kur.", "Harita ve kaynak metinle tekrar et."],
+    "uzun": {
+      "basari": "Tarihi olayları kopuk ezberler yerine kronoloji, neden-sonuç ve değişim ilişkileriyle öğren. Her konuyu birkaç temel soruyla özetle: Kim, ne zaman, nerede, neden ve ne değişti? Dönemleri karşılaştırmalı tablolarla ayır.",
+      "dikkat": "Tarih aralıklarını, aktörleri ve olayların sırasını kontrol et. Kaynak metin ve harita sorularında belge türü, yön ve lejant gibi ayrıntılara bak. Sorunun istediği doğrudan bilgi mi yorum mu olduğunu belirle.",
+      "hatalar": "Tarihleri tek başına ezberlemek, benzer olayları birbirine karıştırmak ve kaynağa dayanmayan çıkarım yapmak sık görülen hatalardır. Kısa zaman çizgileri ve kendi sorularınla bilgiyi pekiştir.",
+      "haftalik": "Pazartesi dönem özeti, Salı zaman çizgisi, Çarşamba neden-sonuç tablosu, Perşembe kaynak/harita soruları, Cuma karışık test ve yanlışların aralıklı tekrarı."
+    },
+    "anahtarKelimeler": ["lise tarih nasıl çalışılır", "tarih konu tekrar taktikleri", "2026 tarih", "TYT tarih", "AYT tarih"]
+  },
+  {
+    "id": "cografya",
+    "ad": "Lise Coğrafya",
+    "seviye": "lise",
+    "slug": "lise-cografya-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-cografya-1x1.jpg",
+    "kisa": ["Haritayı her konuya dahil et.", "Grafik ve tabloyu yorumla.", "Doğal ve beşerî süreçleri ilişkilendir."],
+    "uzun": {
+      "basari": "Coğrafya, mekân ve süreçler arasındaki ilişkiyi kurarak öğrenilir. Konuyu haritada göster, temel dağılışları işaretle ve doğal koşulların insan faaliyetlerini nasıl etkilediğini örnekle açıkla. Grafik ve tabloları kendi cümlenle özetle.",
+      "dikkat": "Harita ölçeği, yön, lejant ve grafik eksenlerini incele. Bir dağılışın tek bir nedeni olduğunu varsayma; iklim, yer şekilleri, nüfus ve ekonomik koşullar birlikte etkili olabilir.",
+      "hatalar": "Harita çalışmadan yer adlarını ezberlemek, grafik başlığını okumamak ve neden-sonuç ilişkisini tek yönlü kurmak yanlışlara yol açar. Bilgiyi bir yer örneği üzerinde test et.",
+      "haftalik": "Pazartesi konu ve harita, Salı kavram kartları, Çarşamba grafik yorumlama, Perşembe neden-sonuç soruları, Cuma karışık test ve harita üzerinden tekrar."
+    },
+    "anahtarKelimeler": ["lise coğrafya nasıl çalışılır", "coğrafya harita taktikleri", "2026 coğrafya", "TYT coğrafya", "AYT coğrafya"]
+  },
+  {
+    "id": "felsefe",
+    "ad": "Lise Felsefe",
+    "seviye": "lise",
+    "slug": "lise-felsefe-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-felsefe-1x1.jpg",
+    "kisa": ["Kavramı örnek ve karşı örnekle öğren.", "Paragraftaki temel iddiayı bul.", "Görüşleri karşılaştırma tablosuna yaz."],
+    "uzun": {
+      "basari": "Felsefede başarı, kavramları anlamak ve bir düşüncenin hangi iddiayı savunduğunu bulmaktan gelir. Her görüşü temel kavram, savunduğu düşünce ve kısa bir örnekle özetle. Filozof adlarını görüşlerin içeriğiyle eşleştir.",
+      "dikkat": "Paragrafta yazarın ana iddiasını ve gerekçesini ayır. Günlük anlamla felsefi terim anlamının farklı olabileceğini unutma. Seçeneklerde metinde bulunmayan güçlü yargılara dikkat et.",
+      "hatalar": "Filozof isimlerini görüşlerden bağımsız ezberlemek, kavramları birbirine karıştırmak ve paragrafı okumadan genel kültürle yanıt vermek sık hatalardır. Her cevabını metinden kanıtla.",
+      "haftalik": "Pazartesi kavram kartları, Salı görüş karşılaştırma tablosu, Çarşamba kısa metin analizi, Perşembe test, Cuma yanlışların gerekçesi ve kısa tekrar."
+    },
+    "anahtarKelimeler": ["lise felsefe nasıl çalışılır", "felsefe paragraf taktikleri", "2026 felsefe", "TYT felsefe", "AYT felsefe"]
+  },
+  {
+    "id": "din-kulturu",
+    "ad": "Lise Din Kültürü",
+    "seviye": "lise",
+    "slug": "lise-din-kulturu-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-din-kulturu-1x1.jpg",
+    "kisa": ["Kavramları anlamlarıyla eşleştir.", "Metindeki temel mesajı belirle.", "Yorum sorularında kanıta bağlı kal."],
+    "uzun": {
+      "basari": "Din Kültürü konularını terimlerin anlamı, temel ilkeler ve metin yorumlarıyla birlikte çalış. Benzer kavramları karşılaştırma tablosuna yaz; ayet, hadis veya açıklama metinlerinde ana mesajı kendi cümlenle ifade et.",
+      "dikkat": "Kavramların kapsamını ve birbirinden farkını kontrol et. Soru kökünde istenen çıkarım türünü belirle; verilen metinde olmayan bir bilgiyi cevaba ekleme.",
+      "hatalar": "Tanımları anlamadan ezberlemek, yakın kavramları karıştırmak ve sorudaki metni okumadan genel bilgiyle cevaplamak sık hatalardır. Yanlışlarını konu ve kavram başlığıyla kaydet.",
+      "haftalik": "Pazartesi kavram kartları, Salı konu özeti, Çarşamba metin yorumlama, Perşembe kazanım testi, Cuma karışık tekrar ve yanlış analizi."
+    },
+    "anahtarKelimeler": ["lise din kültürü nasıl çalışılır", "din kültürü taktikleri", "2026 din kültürü", "TYT din kültürü", "AYT din kültürü"]
+  },
+  {
+    "id": "ingilizce",
+    "ad": "Lise İngilizce",
+    "seviye": "lise",
+    "slug": "lise-ingilizce-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/lise/lise-ingilizce-1x1.jpg",
+    "kisa": ["Kelimeleri aralıklı tekrar et.", "Yeni kelimeyi örnek cümlede kullan.", "Her gün kısa dinleme ve okuma yap."],
+    "uzun": {
+      "basari": "İngilizcede kelime, okuma, dinleme ve dil bilgisi çalışmalarını birlikte yürüt. Kelime kartlarında yalnızca çeviriyi değil örnek cümleyi ve kullanım bağlamını da yaz. Kısa ama düzenli tekrarlarla bilgiyi uzun süreli belleğe taşı.",
+      "dikkat": "Soru metninde bağlaç, zaman ifadesi ve zamirlerin neye gönderme yaptığını izle. Kelimeyi cümleden bağımsız ezberleme; dinleme sırasında önce ana fikri yakala, sonra ayrıntıyı kontrol et.",
+      "hatalar": "Bir günde çok kelime yüklemek, tekrar etmemek ve seçenekleri metin kanıtı olmadan işaretlemek sık hatalardır. Bilmediğin kelimede durmak yerine bağlamdan tahmin yürüt.",
+      "haftalik": "Her gün 10 dakika kelime tekrarı; Pazartesi dil bilgisi, Salı kısa okuma, Çarşamba dinleme, Perşembe soru çözümü, Cuma haftalık kelimelerle mini paragraf."
+    },
+    "anahtarKelimeler": ["lise ingilizce nasıl çalışılır", "ingilizce kelime taktikleri", "2026 ingilizce", "TYT İngilizce", "AYT İngilizce"]
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "mezun-psikolojisi",
+    "ad": "Mezun Psikolojisi ve Motivasyon",
+    "seviye": "mezun",
+    "slug": "mezun-psikolojisi-motivasyon",
+    "resim": "/assets/ders-kartlari/mezun/mezun-psikolojisi-1x1.jpg",
+    "kisa": ["Kendini başkalarıyla değil dünkü hâlinle karşılaştır.", "Dinlenmeyi programın parçası yap.", "Zorlandığında güvendiğin biriyle konuş."],
+    "uzun": {
+      "basari": "Mezun senesi yalnızca daha uzun çalışmak değil, sürdürülebilir bir düzen kurmaktır. Önce bu yıl için kişisel nedenini ve ulaşılabilir hedefini yaz. Günlük planı küçük görevlere böl; tamamladıklarını görünür kıl ve ilerlemeni haftalık değerlendir. Motivasyonun azaldığı günlerde programı tamamen bırakmak yerine en küçük temel göreve dön.",
+      "dikkat": "Sınav sonucunu kişisel değerinin ölçüsü gibi görme; dinlenme, uyku, hareket ve sosyal destek de hazırlığın parçasıdır. Yoğun kaygı günlük yaşamını uzun süre etkiliyorsa güvendiğin bir yetişkinden veya uygun bir uzmandan destek iste. Kendine başkalarının programını aynen uygulama zorunluluğu koyma.",
+      "hatalar": "Sürekli başkalarının netleriyle kıyaslanmak, bir kötü denemeyi tüm yılın göstergesi saymak ve dinlenmeden çalışmayı başarı sanmak motivasyonu tüketebilir. Bir gün aksadığında tüm planı bırakma; ertesi gün küçük bir adımla yeniden başla.",
+      "haftalik": "Haftanın başında üç öncelikli hedef belirle. Beş gün çalışma blokları ve kısa molalar uygula; bir yarım günü dinlenme ve toparlanmaya ayır. Hafta sonunda yalnız netleri değil uyku, odak ve tamamlanan görevleri de değerlendir."
+    },
+    "anahtarKelimeler": ["mezun psikolojisi", "mezun motivasyon", "YKS kaygısı", "2026 YKS hazırlığı"]
+  },
+  {
+    "id": "mezun-tekrar-stratejisi",
+    "ad": "Mezunlar İçin Tekrar Stratejisi",
+    "seviye": "mezun",
+    "slug": "mezun-tekrar-stratejisi",
+    "resim": "/assets/ders-kartlari/mezun/mezun-tekrar-stratejisi-1x1.jpg",
+    "kisa": ["Önce deneme analiziyle eksiği bul.", "Aralıklı tekrar döngüsü kur.", "Bildiğin konuları da kısa testle koru."],
+    "uzun": {
+      "basari": "Mezun senesinde tekrar, bütün konuları baştan aynı hızla okumak değildir. Güncel deneme ve yanlış analizinden eksik başlıkları çıkar; konu tekrarı, hedefli soru seti ve birkaç gün sonra hatırlama testiyle bir döngü kur. Güçlü olduğun konuları kısa aralıklı testlerle canlı tut.",
+      "dikkat": "Yanlışları bilgi eksiği, işlem/dikkat hatası ve süre yönetimi olarak sınıflandır. Bir konuya ayıracağın zamanı yalnızca hisle değil soru performansı ve deneme eğilimiyle belirle. Yeni kaynak eklemek yerine elindeki kaynakları tamamla.",
+      "hatalar": "Her konuya eşit süre ayırmak, yalnızca konu videosu izlemek ve tekrarları sınavdan önceye yığmak verimi düşürür. Çözümlü soruyu izledikten sonra kapatıp aynı soruyu kendin çöz.",
+      "haftalik": "Pazartesi eksik konu listesi, Salı-Çarşamba hedefli konu ve soru, Perşembe karışık tekrar, Cuma branş denemesi, hafta sonunda TYT/AYT denemesi ve analiz. Her gün kısa bir eski konu tekrarı ekle."
+    },
+    "anahtarKelimeler": ["mezun tekrar stratejisi", "YKS konu tekrarı", "2026 mezun çalışma programı", "deneme analizi"]
+  },
+  {
+    "id": "mezun-yks-programi",
+    "ad": "Mezunlar İçin YKS Programı",
+    "seviye": "mezun",
+    "slug": "mezun-yks-programi-olusturma",
+    "resim": "/assets/ders-kartlari/mezun/mezun-yks-programi-1x1.jpg",
+    "kisa": ["Günlük kapasiten kadar blok planla.", "TYT ve AYT’yi haftaya dengeli yay.", "Deneme analizine ayrı zaman ayır."],
+    "uzun": {
+      "basari": "İyi YKS programı kişisel başlangıç seviyene, hedef alanına ve gün içindeki sorumluluklarına uyar. Önce haftalık sabit zamanlarını belirle, sonra TYT temel çalışması, AYT alan dersi, soru pratiği ve deneme analizini dengeli bloklara yerleştir. Programı bir hafta dene ve gerçek veriye göre düzenle.",
+      "dikkat": "Her güne aşırı sayıda görev yazma; mola ve uyku için gerçekçi yer bırak. Ders bloklarını 40-60 dakika gibi yönetilebilir aralıklara bölüp aralarda kısa mola ver. Haftalık deneme ve analiz sürelerini plana baştan ekle.",
+      "hatalar": "Başkasının saat saat programını kopyalamak, tamamlanmayan görevleri sürekli sonraki güne taşımak ve deneme analizini atlamak programı sürdürülemez kılar. Bir blok aksarsa tüm günü iptal etmek yerine sıradaki göreve dön.",
+      "haftalik": "Haftada 5-6 çalışma günü planla: her gün bir TYT temeli, bir veya iki AYT alan bloğu, kısa tekrar ve soru çözümü. Bir tam deneme oturumu ve ayrı analiz bloğu ekle; en az bir dinlenme aralığını koru."
+    },
+    "anahtarKelimeler": ["mezun YKS programı", "2026 mezun ders çalışma planı", "TYT AYT çalışma taktiği", "YKS haftalık program"]
+  }
+]

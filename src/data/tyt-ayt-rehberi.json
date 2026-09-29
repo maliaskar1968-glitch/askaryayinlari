@@ -1,0 +1,137 @@
+[
+  {
+    "id": "tyt-genel",
+    "ad": "TYT Genel Strateji",
+    "seviye": "tyt",
+    "slug": "tyt-genel-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/tyt-genel-1x1.jpg",
+    "kisa": ["Deneme sonuçlarını ders ders incele.", "Temel konuları kısa bloklarla tamamla.", "Süre yönetimini düzenli prova et."],
+    "uzun": {
+      "basari": "TYT başarısı konu bilgisi, okuma hızı ve zaman yönetiminin birlikte gelişmesiyle gelir. Önce eksiklerini deneme analizinden çıkar, sonra temel konuları kısa çalışma bloklarıyla tamamla. Her hafta bir süreli deneme çöz ve net değişimini tek bir sonuçla değil birkaç haftalık eğilimle değerlendir.",
+      "dikkat": "Denemede takıldığın soruya işaret koyup ilerle; tek soruya gereğinden fazla süre ayırma. Yanlış ve boşları konu eksiği, dikkat hatası ve süre sorunu olarak ayır. Uyku ve mola düzenini sınav provasında da koru.",
+      "hatalar": "Sadece deneme çözmek, deneme analizini atlamak ve her gün gerçekçi olmayan uzun programlar yapmak verimi düşürür. Netler dalgalandığında planı aniden değiştirmek yerine birkaç haftalık veriyi karşılaştır.",
+      "haftalik": "Pazartesi eksik konu, Salı temel soru setleri, Çarşamba Türkçe ve problem pratiği, Perşembe karışık test, Cuma yanlış defteri, hafta sonunda süreli TYT denemesi ve analiz."
+    },
+    "anahtarKelimeler": ["TYT nasıl çalışılır", "2026 TYT taktikleri", "TYT çalışma programı", "deneme analizi"]
+  },
+  {
+    "id": "tyt-matematik",
+    "ad": "TYT Matematik",
+    "seviye": "tyt",
+    "slug": "tyt-matematik-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/tyt-matematik-1x1.jpg",
+    "kisa": ["Temel kavramları soru içinde pekiştir.", "Her gün problem çözme rutini kur.", "Çözümünü yazarak işlem hatasını bul."],
+    "uzun": {
+      "basari": "TYT matematikte önce temel kavram, sayı ve denklem becerilerini sağlamlaştır; ardından problem türlerine geç. Her gün kısa bir problem seti çöz ve soruyu matematik diline çevirirken verilenleri, isteneni ve uygun modeli yaz. Kolaydan zora düzenli ilerle.",
+      "dikkat": "Sorunun tüm koşullarını oku, birim ve işlem işaretlerini kontrol et. Uzun problemde gereksiz bilgiyi ayır; tablo veya şema kullan. Süreli denemede takıldığın soruyu bırakıp daha sonra geri dön.",
+      "hatalar": "Konu temelini atlayıp yalnız zor soru çözmek, çözüm izleyip kendin denememek ve problem metnini hızlıca geçmek sık hatalardır. Yanlış soruyu birkaç gün sonra çözüme bakmadan yeniden çöz.",
+      "haftalik": "Pazartesi temel konu, Salı 20 problem, Çarşamba sayı/denklem karışık seti, Perşembe süreli mini test, Cuma yanlış analizi; hafta sonunda TYT matematik denemesi."
+    },
+    "anahtarKelimeler": ["TYT matematik nasıl çalışılır", "2026 TYT matematik taktikleri", "TYT problemler", "TYT matematik programı"]
+  },
+  {
+    "id": "tyt-turkce",
+    "ad": "TYT Türkçe ve Paragraf",
+    "seviye": "tyt",
+    "slug": "tyt-turkce-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/tyt-turkce-1x1.jpg",
+    "kisa": ["Her gün paragraf çöz ve oku.", "Soru kökündeki belirleyici sözcüğü bul.", "Yanlış seçeneği metin kanıtıyla ele."],
+    "uzun": {
+      "basari": "TYT Türkçe netleri düzenli okuma, paragraf pratiği ve dil bilgisi tekrarının birlikte sürdürülmesiyle gelişir. Soru kökünü önce oku, senden isteneni belirle ve paragrafta kanıt cümlesini bul. Süre tutarken önce doğruluğu oturt, sonra hızını artır.",
+      "dikkat": "Olumsuz kökleri, karşılaştırma ifadelerini ve paragrafın bütününü gözden kaçırma. Seçenek metinle çelişiyorsa kendi genel bilgin doğru olsa bile o seçeneği işaretleme.",
+      "hatalar": "Yalnızca çok soru çözmek, yanlışın nedenini analiz etmemek ve metni kendi fikrine göre yorumlamak gelişimi yavaşlatır. Dil bilgisinde kuralı örnek cümleyle pekiştir.",
+      "haftalik": "Her gün 20-30 paragraf ve 15 dakika okuma; Pazartesi dil bilgisi, Çarşamba anlam bilgisi, Cuma süreli Türkçe seti, hafta sonunda yanlış türlerine göre analiz."
+    },
+    "anahtarKelimeler": ["TYT Türkçe nasıl çalışılır", "2026 paragraf taktikleri", "TYT Türkçe hız", "TYT dil bilgisi"]
+  },
+  {
+    "id": "tyt-fen",
+    "ad": "TYT Fen Bilimleri",
+    "seviye": "tyt",
+    "slug": "tyt-fen-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/tyt-fen-1x1.jpg",
+    "kisa": ["Kavramı kısa notla kendi dilinde anlat.", "Grafik ve deney sorusu çöz.", "Fizik, kimya, biyolojiyi dönüşümlü çalış."],
+    "uzun": {
+      "basari": "TYT Fen’de temel kavramları anlamlandırıp farklı soru biçimlerinde kullan. Fizikte çizim ve birim, kimyada gösterim ve oran, biyolojide süreç ve yapı ilişkilerine odaklan. Konu özetini kısa tut; öğrenmenin çoğunu soru çözümü ve yanlış analiziyle tamamla.",
+      "dikkat": "Deney, grafik ve tablo sorularında değişkenleri ve eksenleri belirle. Soruda verilen bilgiyle kendi varsayımını ayır. Bir dersin eksiğini kapatırken diğer fen derslerini tamamen bırakma.",
+      "hatalar": "Tanımları ezberleyip uygulama sorusu çözmemek, tüm dersleri son haftaya bırakmak ve yanlışların nedenini incelememek net artışını sınırlar. Her yanlış için eksik kavramı bir cümleyle kaydet.",
+      "haftalik": "Pazartesi fizik temeli, Salı kimya kavramları, Çarşamba biyoloji süreçleri, Perşembe karma fen testi, Cuma yanlış analizi; hafta sonunda kısa süreli fen denemesi."
+    },
+    "anahtarKelimeler": ["TYT fen nasıl çalışılır", "2026 TYT fen taktikleri", "TYT fizik kimya biyoloji", "TYT fen programı"]
+  },
+  {
+    "id": "tyt-sosyal",
+    "ad": "TYT Sosyal Bilimler",
+    "seviye": "tyt",
+    "slug": "tyt-sosyal-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/tyt-sosyal-1x1.jpg",
+    "kisa": ["Kısa konu notlarını düzenli tekrar et.", "Harita, kronoloji ve kavramları kullan.", "Paragraf sorularında kanıtı bul."],
+    "uzun": {
+      "basari": "TYT Sosyal için tarih ve coğrafyada temel çerçeveyi kur; felsefe ve din kültüründe kavramları metin içinde tanı. Kısa konu tekrarlarını harita, zaman çizgisi ve kavram kartlarıyla destekle. Soru çözümünde metinden çıkarılabileni belirle.",
+      "dikkat": "Tarih sorularında kronoloji ve neden-sonuç ilişkisini, coğrafyada harita ve grafik işaretlerini, felsefede temel iddiayı kontrol et. Din kültürü metinlerinde verilen mesajın dışına çıkma.",
+      "hatalar": "Uzun notları yeniden yeniden okumak, konu başlıklarını birbirine karıştırmak ve yorum sorularında metin kanıtını göz ardı etmek sık hatalardır. Yanlışlarını alt derse göre ayır.",
+      "haftalik": "Pazartesi tarih, Salı coğrafya, Çarşamba felsefe ve din kavramları, Perşembe karma sosyal testi, Cuma yanlış analizi; hafta sonunda kısa tekrar."
+    },
+    "anahtarKelimeler": ["TYT sosyal nasıl çalışılır", "2026 TYT sosyal taktikleri", "TYT tarih coğrafya", "TYT felsefe"]
+  },
+  {
+    "id": "ayt-matematik",
+    "ad": "AYT Matematik",
+    "seviye": "ayt",
+    "slug": "ayt-matematik-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/ayt-matematik-1x1.jpg",
+    "kisa": ["Konu ön koşullarını sırayla tamamla.", "Çözüm adımlarını açıkça yaz.", "Branş denemesi sonrası yanlışları dön."],
+    "uzun": {
+      "basari": "AYT matematikte konu zincirini koru: ön koşul eksiklerini tamamla, tanım ve yöntemleri öğren, sonra farklı zorlukta sorular çöz. Çözüm adımlarını yazarak hangi yöntemin neden işe yaradığını gör. Konu testlerinden branş denemelerine kademeli geç.",
+      "dikkat": "Fonksiyon, limit, türev ve integral gibi konularda tanım kümesi ve işlem koşullarını kontrol et. Uzun çözümde ara sonuçları işaretle; süreli çalışmada zor soruya takılı kalma.",
+      "hatalar": "Çözümü izleyince anladığını sanmak, eksik ön koşulu görmezden gelmek ve yanlış soruyu tekrar denememek ilerlemeyi yavaşlatır. Her hafta eski konulardan da karışık soru ekle.",
+      "haftalik": "Haftanın üç günü yeni konu ve örnek, bir gün eski konu karışık test, bir gün branş denemesi, son gün deneme analizi ve eksik tamamlama."
+    },
+    "anahtarKelimeler": ["AYT matematik nasıl çalışılır", "2026 AYT matematik taktikleri", "AYT matematik programı", "AYT branş denemesi"]
+  },
+  {
+    "id": "ayt-edebiyat",
+    "ad": "AYT Edebiyat",
+    "seviye": "ayt",
+    "slug": "ayt-edebiyat-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/ayt-edebiyat-1x1.jpg",
+    "kisa": ["Dönemleri özellikleriyle karşılaştır.", "Eser-yazar bilgisini bağlamla öğren.", "Bilgiyi aralıklı kartlarla tekrar et."],
+    "uzun": {
+      "basari": "AYT edebiyat bilgisini dönem, sanat anlayışı, tür, eser ve yazar bağlarıyla öğren. Her dönem için ayırt edici özellikleri özetle; eser-yazar kartları hazırla ve kartları aralıklı tekrar et. Düzenli testlerle bilgiyi seçenekler arasında ayırt etme pratiği kazan.",
+      "dikkat": "Birbirine yakın sanatçı ve dönemleri yan yana karşılaştır. Eser adlarının benzerliğine değil, tür ve dönem bilgisine bak. Bilgi sorularında seçeneklerdeki küçük ayrıntıları kontrol et.",
+      "hatalar": "Uzun listeleri tek oturuşta ezberlemek, dönemleri karıştırmak ve tekrar aralığı bırakmamak çabuk unutmaya neden olur. Her yanlış eşleştirme için doğru ilişkiyi kartına ekle.",
+      "haftalik": "Pazartesi dönem özeti, Salı eser-yazar kartları, Çarşamba şiir bilgisi, Perşembe branş testi, Cuma yanlış kartları; hafta sonunda karışık tekrar."
+    },
+    "anahtarKelimeler": ["AYT edebiyat nasıl çalışılır", "2026 edebiyat taktikleri", "AYT eser yazar ezberi", "AYT edebiyat programı"]
+  },
+  {
+    "id": "ayt-fen",
+    "ad": "AYT Fen Bilimleri",
+    "seviye": "ayt",
+    "slug": "ayt-fen-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/ayt-fen-1x1.jpg",
+    "kisa": ["Alan konularını haftaya dengeli dağıt.", "Kavramı soruda uygulayarak öğren.", "Branş denemelerini analiz et."],
+    "uzun": {
+      "basari": "AYT Fen’de fizik, kimya ve biyolojiyi düzenli dağıt; her derste konu anlatımı ile soru pratiğini aynı hafta içinde birleştir. Fizikte model kur, kimyada gösterim ve hesaplamayı, biyolojide süreçler arası bağı çalış. Branş testleriyle konu eksiğini ölç.",
+      "dikkat": "İşlemli sorularda birim ve koşulları; deney sorularında değişkenleri; biyoloji sorularında süreç sırasını kontrol et. TYT temelindeki eksikler AYT konusunu etkiliyorsa önce o ön koşulu tamamla.",
+      "hatalar": "Bir dersi sürekli ertelemek, konu bitmeden yalnız deneme çözmek ve deneme yanlışlarını tekrar etmemek alan başarısını düşürür. Her branş için ayrı gelişim kaydı tut.",
+      "haftalik": "Pazartesi fizik, Salı kimya, Çarşamba biyoloji, Perşembe dönüşümlü konu testi, Cuma branş denemesi; hafta sonunda yanlış analizi ve eksik konu tekrarı."
+    },
+    "anahtarKelimeler": ["AYT fen nasıl çalışılır", "2026 AYT fen taktikleri", "AYT fizik kimya biyoloji", "AYT fen çalışma programı"]
+  },
+  {
+    "id": "ayt-sosyal",
+    "ad": "AYT Sosyal Bilimler",
+    "seviye": "ayt",
+    "slug": "ayt-sosyal-nasil-calisilir",
+    "resim": "/assets/ders-kartlari/tyt-ayt/ayt-sosyal-1x1.jpg",
+    "kisa": ["Alan derslerini ayrı planla.", "Kronoloji ve kavram bağlantıları kur.", "Uzun metinlerde soru köküne dön."],
+    "uzun": {
+      "basari": "AYT Sosyal çalışmalarını puan türüne ve sınav kapsamına göre planla. Tarih ve coğrafyada kronoloji, mekân ve neden-sonuç ilişkilerini; felsefe grubunda kavramları ve argümanları; edebiyatta dönem bağlantılarını düzenli tekrar et.",
+      "dikkat": "Sorunun hangi alan ve kazanımı ölçtüğünü belirle. Harita, kaynak, tablo ve paragraf verilerini birlikte oku; seçenekleri metindeki kanıta göre değerlendir. Benzer kavramları karşılaştırmalı not et.",
+      "hatalar": "Dersleri yalnızca ezber listesi gibi çalışmak, kaynak yorumunu atlamak ve konular arasında uzun ara vermek bilgiyi karıştırır. Kısa tekrar ve karma testlerle kalıcılığı artır.",
+      "haftalik": "Pazartesi tarih, Salı coğrafya, Çarşamba felsefe grubu, Perşembe alanına göre karma test, Cuma branş denemesi; hafta sonunda analiz ve tekrar."
+    },
+    "anahtarKelimeler": ["AYT sosyal nasıl çalışılır", "2026 AYT sosyal taktikleri", "AYT tarih coğrafya", "AYT sosyal programı"]
+  }
+]

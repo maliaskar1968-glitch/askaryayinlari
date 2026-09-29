@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doğru Sistemle Çalış Sınavı Kazan - Aşkar Yayınları LGS YKS Koçluk Sistemi</title>
+    <meta name="description" content="Aşkar Yayınları - LGS ve YKS Koçu Kitapları, Ortaokul ve Lise Koçu, Tarihi Kurgu Romanlar, Çocuk Dünyası Kitapları, Eğitsel ve Kontrol Uygulamaları" />
+    <meta property="og:title" content="Aşkar Yayınları" />
+    <meta property="og:description" content="Aşkar Yayınları - LGS ve YKS Koçu Kitapları, Ortaokul ve Lise Koçu, Tarihi Kurgu Romanlar, Çocuk Dünyası Kitapları, Eğitsel ve Kontrol Uygulamaları" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FAF9F6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Aşkar Yayın" />
+    <link rel="apple-touch-icon" href="/resimler/logo.jpg" />
+    <link rel="preconnect" href="https://www.shopier.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.shopier.com" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J4C80P2KTX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J4C80P2KTX');
+</script>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '108846214385474');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body>
+    <noscript>
+      <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=108846214385474&ev=PageView&noscript=1" alt="" />
+    </noscript>
+    <div id="root"></div>
+
+    <!-- Aşkar Yayınları - Dijital AI Asistan -->
+    <style>
+      #askar-ai-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+        border: 2px solid #C9A86A;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9998;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+        color: #C9A86A;
+        font-size: 24px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      #askar-ai-btn:hover {
+        transform: scale(1.06);
+        box-shadow: 0 6px 22px rgba(201, 168, 106, 0.35);
+      }
+      #askar-ai-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 360px;
+        max-width: calc(100vw - 32px);
+        height: 480px;
+        background: #FFFFFF;
+        border: 1px solid #E5E0D8;
+        border-radius: 16px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #askar-ai-header {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #C9A86A;
+      }
+      #askar-ai-header .title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #askar-ai-header .badge {
+        background: #C9A86A;
+        color: #1A1A1A;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      #askar-ai-header .name {
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+      }
+      #askar-ai-header .close-btn {
+        cursor: pointer;
+        font-size: 18px;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+        padding: 4px;
+      }
+      #askar-ai-header .close-btn:hover {
+        opacity: 1;
+      }
+      #askar-ai-messages {
+        flex: 1;
+        padding: 14px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #FDFCF7;
+      }
+      .msg {
+        padding: 10px 14px;
+        border-radius: 14px;
+        max-width: 84%;
+        font-size: 13.5px;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .msg.user {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+      }
+      .msg.bot {
+        background: #FFFFFF;
+        color: #2D2D2D;
+        align-self: flex-start;
+        border: 1px solid #EFECE6;
+        border-bottom-left-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .msg-time {
+        font-size: 10px;
+        opacity: 0.6;
+        margin-top: 4px;
+        text-align: right;
+      }
+      #askar-ai-chips {
+        padding: 6px 8px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        background: #F8F6F0;
+        border-top: 1px solid #EEE9DF;
+        overflow: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #askar-ai-chips::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+      .chip-btn {
+        background: #FFFFFF;
+        border: 1px solid #D6CBB8;
+        color: #5A4E3C;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        padding: 5px 2px;
+        border-radius: 8px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        line-height: 1.25;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      }
+      .chip-btn:hover {
+        background: #1A1A1A;
+        color: #FFFFFF;
+        border-color: #1A1A1A;
+      }
+      #askar-ai-input {
+        display: flex;
+        border-top: 1px solid #EAE6DF;
+        padding: 10px 12px;
+        background: #FFFFFF;
+        gap: 8px;
+      }
+      #askar-ai-input input {
+        flex: 1;
+        border: 1px solid #D8D2C6;
+        border-radius: 20px;
+        padding: 9px 14px;
+        outline: none;
+        font-size: 13px;
+        background: #FDFCF7;
+        color: #1A1A1A;
+      }
+      #askar-ai-input input:focus {
+        border-color: #C9A86A;
+        background: #FFFFFF;
+      }
+      #askar-ai-input button {
+        background: #1A1A1A;
+        color: #C9A86A;
+        border: 1px solid #C9A86A;
+        border-radius: 20px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 12px;
+        transition: all 0.2s;
+      }
+      #askar-ai-input button:hover {
+        background: #C9A86A;
+        color: #1A1A1A;
+      }
+      .askar-wa-btn {
+        background: #25D366;
+        color: #FFFFFF !important;
+        padding: 7px 12px;
+        border-radius: 18px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+        box-shadow: 0 2px 6px rgba(37,211,102,0.25);
+      }
+      .askar-shop-btn {
+        background: #1A1A1A;
+        color: #C9A86A !important;
+        border: 1px solid #C9A86A;
+        padding: 7px 12px;
+        border-radius: 18px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+      }
+    </style>
+
+    <div id="askar-ai-btn" onclick="toggleAskarAI()" title="Aşkar Yayınları">
+      <span>💬</span>
+    </div>
+
+    <div id="askar-ai-window" role="dialog" aria-label="Aşkar Yayınları">
+      <div id="askar-ai-header">
+        <div class="title-wrap">
+          <span class="name">Aşkar Yayınları'na Hoş Geldiniz!</span>
+        </div>
+        <span class="close-btn" onclick="toggleAskarAI()" title="Kapat">✕</span>
+      </div>
+
+      <div id="askar-ai-messages">
+        <div class="msg bot">
+          Aşkar Yayınları'na hoş geldiniz. Size nasıl yardımcı olabilirim?
+        </div>
+      </div>
+
+      <div id="askar-ai-chips">
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Çocuklar için')">Çocuklar İçin</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Ortaokul kitapları nelerdir?')">Ortaokul Kitapları</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Lise kitapları nelerdir?')">Lise Kitapları</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('YKS ve mezun için ne var?')">YKS & Mezun</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Tarihi kurgu romanlar nelerdir?')">Tarihi Kurgu Roman</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Kitaplar basılı kargo mu yoksa PDF mi?')">PDF / Kargo</button>
+        <button class="chip-btn" type="button" onclick="window.location.href='/uygulamalar'">Uygulamalar</button>
+        <button class="chip-btn" type="button" onclick="window.location.href='/rehber'">Ders Rehberi</button>
+      </div>
+
+      <div id="askar-ai-input">
+        <input id="askar-input" type="text" placeholder="Sorunuzu buraya yazın..." onkeypress="if(event.key==='Enter')sendAskarMsg()" />
+        <button type="button" id="askar-send-btn" onclick="sendAskarMsg()">Gönder</button>
+      </div>
+    </div>
+
+    <script>
+      const WHATSAPP_LINK = "https://wa.me/905057162939?text=Merhaba,%20Aşkar%20Yayınları%20kitapları%20hakkında%20bilgi%20almak%20istiyorum";
+      const SHOPIER_LINK = "https://www.shopier.com/mehmetaliaskar";
+
+      function toggleAskarAI() {
+        const w = document.getElementById('askar-ai-window');
+        if (!w) return;
+        const isShown = w.style.display === 'flex';
+        w.style.display = isShown ? 'none' : 'flex';
+        if (!isShown) {
+          setTimeout(() => {
+            const input = document.getElementById('askar-input');
+            if (input) input.focus();
+          }, 150);
+        }
+      }
+
+      function askQuickPrompt(text) {
+        const input = document.getElementById('askar-input');
+        if (input) {
+          input.value = text;
+          sendAskarMsg();
+        }
+      }
+
+      const askarChatHistory = [];
+
+      function getClientKnowledgeAnswer(q, history = []) {
+        const s = (q || '').toLowerCase().trim();
+        const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
+
+        // 1. Check clarification confirmation
+        if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
+          const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+
+          if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
+            if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
+              return '5. Sınıf Koçluk & Motivasyon (Ortaokula Güçlü Başlangıç): Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.<br><br>İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. 10 haftalık sistemle ödev unutma, sınav kaygısı ve odaklanma sorunlarını çözer.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('6. sınıf') || lastBotMsg.includes('disiplin')) {
+              return '6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('7. sınıf') || lastBotMsg.includes('lgs hazırlık')) {
+              return '7. Sınıf LGS Hazırlık: LGS öncesi son strateji yılıdır. Günde 30 soru alışkanlığı, odaklanma ve sınav koçluğuna odaklanır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('8. sınıf') || lastBotMsg.includes("lgs'de kendi koçun ol")) {
+              return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            if (lastBotMsg.includes('9. sınıf') || lastBotMsg.includes('liseye güçlü')) {
+              return '9. Sınıf Lise Koçu: Liseye Güçlü Başlangıç rehberimizdir; 8\'den 9\'a geçiş sistemi ve yeni ders temposuna uyum kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('10. sınıf')) {
+              return '10. Sınıf Lise Koçu: Liseye uyum ve TYT temeli atma üzerine, 9\'dan 10\'a geçişte sistem kurar ve başarı alışkanlıklarını derinleştirir.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('11. sınıf')) {
+              return '11. Sınıf Lise Koçu: YKS omurgasını oluşturan kritik yıldır; TYT-AYT dengesi kurma ve 11. sınıfta TYT\'yi bitirme sistemini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+            }
+            if (lastBotMsg.includes('12. sınıf') || lastBotMsg.includes('yks') || lastBotMsg.includes('mezun')) {
+              return "12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol': Sınav sürecini kendi koçun olarak yönetme, hedef netleştirme, TYT-AYT dengesi ve stres kontrolü rehberidir.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            if (lastBotMsg.includes('nasrettin') || lastBotMsg.includes('çocuk') || lastBotMsg.includes('fıkra')) {
+              return "Nasrettin Hoca'nın Torunları: 6-10 yaş çocuklar için 99 sayfa, 3 MB PDF boyutunda keyifli ve öğretici bir fıkra/değerler kitabıdır.<br><br>Shopier ile anında indirebilirsiniz.";
+            }
+            return 'Koçluk kitaplarımız öğrencilerimize planlı çalışma, odaklanma ve başarı disiplini kazandırır.<br><br>Shopier ile anında indirebilirsiniz.';
+          }
+
+          if (!hasNewSpecificTopic && (s === 'hayır' || s === 'hayir' || s === 'değil' || s === 'degil' || s === 'başka' || s === 'yok' || s === 'h')) {
+            return 'Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?';
+          }
+        }
+
+        // 2. KATEGORİ KURALLARI
+        if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+          return "Ortaokul için 4 kitabımız var:<br>1- 5. Sınıf Koçluk & Motivasyon<br>2- 6. Sınıf Disiplin ve Başarı<br>3- 7. Sınıf LGS Hazırlık<br>4- 8. Sınıf LGS'DE KENDİ KOÇUN OL<br><br>Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('lise için ne var') || s.includes('lise kitapları') || s.includes('lisede ne var') || (s.includes('lise') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+          return "Lise için 4 kitabımız var:<br>1- 9. Sınıf Lise Koçu<br>2- 10. Sınıf Lise Koçu<br>3- 11. Sınıf Lise Koçu<br>4- 12. Sınıf YKS'de Kendi Koçun Ol<br><br>Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('mezun') || s.includes('yks için ne var') || s.includes('yks kitapları') || (s.includes('yks') && s.includes('var mı'))) {
+          return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (
+          s.includes('çocuk için') ||
+          s.includes('çocuklar için') ||
+          s.includes('çocuk kitapları') ||
+          s.includes('çocuk kitaplığı') ||
+          s.includes('cocuk') ||
+          s.includes('ilkokul hikaye') ||
+          s.includes('masal') ||
+          s.includes('boyama') ||
+          s === 'çocuklar' ||
+          s === 'çocuk'
+        ) {
+          return "Çocuk Kitaplığı serimizde yer alan kitaplarımız:<br>" +
+                 "1- <b>Sevimli Deniz Altı Kaşifleri</b> (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)<br>" +
+                 "2- <b>Ormanın Minik Koruyucuları</b> (Doğa Sevgisi ve Değerler Hikayesi)<br>" +
+                 "3- <b>Uykudan Önce</b> (30 Gece Masal & Uyku Kitabı)<br>" +
+                 "4- <b>Nasrettin Hoca'nın Torunları</b> (Eğitici Fıkra Kitabı)<br><br>" +
+                 "Ayrıca <b>'Sevimli Deniz Altı Kaşifleri'</b> interaktif uygulamamız, tüm çocuklarımıza <b>Aşkar Yayınları'nın özel bir armağanıdır</b> (ücretsizdir).<br><br>" +
+                 "Kitaplarımızı Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)
+        if (s.includes('12. sınıf') || s.includes('12.sınıf') || s.includes('on ikinci sınıf') || (s.includes('12') && s.includes('sınıf'))) {
+          return "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('11. sınıf') || s.includes('11.sınıf') || s.includes('on birinci sınıf') || (s.includes('11') && s.includes('sınıf'))) {
+          return "Evet, 11. Sınıf Lise Koçu kitabımız var. TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemi üzerine. Bundan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('10. sınıf') || s.includes('10.sınıf') || s.includes('onuncu sınıf') || (s.includes('10') && s.includes('sınıf'))) {
+          return "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('9. sınıf') || s.includes('9.sınıf') || s.includes('dokuzuncu sınıf') || (s.includes('9') && s.includes('sınıf'))) {
+          return "Evet, 9. Sınıf Lise Koçu kitabımız var. Liseye Güçlü Başlangıç rehberimiz 8'den 9'a geçiş sistemi ve uyum kazandırır.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('sekizinci sınıf') || s.includes('lgs')) {
+          return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('sınıf'))) {
+          return "7. Sınıf LGS Hazırlık (LGS Yolunda Sağlam Adımlar): LGS öncesi son strateji yılıdır; günde 30 soru alışkanlığı, odaklanma ve sınav koçluğu sağlar.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('sınıf'))) {
+          return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('sınıf'))) {
+          return 'ORTAOKUL KOÇU 5. SINIF: Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR.<br><br>İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. Masada duramama, ödev unutma ve sınav stresi gibi 5 temel sorunu 10 haftada çözer.<br><br>Shopier ile anında indirebilirsiniz.';
+        }
+
+        // 4. OLMAYAN BİR ŞEY (1-4 ilkokul)
+        if (s.includes('1. sınıf') || s.includes('2. sınıf') || s.includes('3. sınıf') || s.includes('4. sınıf') || s.includes('ilkokul') || s.includes('1.sınıf') || s.includes('2.sınıf') || s.includes('3.sınıf') || s.includes('4.sınıf')) {
+          return "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 5. ÖZEL KİTAP VE TESLİMAT SORULARI
+        if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
+          return 'Aşkar Yayınları Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap formatındadır, kargo ve bekleme süresi yoktur; Shopier ile anında indirebilirsiniz.';
+        }
+
+        if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
+          return 'Kitaplarımızı Shopier resmi mağazamız üzerinden kredi kartı veya banka kartı ile güvenle alıp hemen PDF olarak indirebilirsiniz, kargo yoktur.';
+        }
+
+        if (s.includes('nasrettin') || s.includes('nasreddin')) {
+          return "Nasrettin Hoca'nın Torunları: Tarihi kurgu ve fıkra kitabımızdır (99 sayfa, 3 MB PDF).<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tesla') || s.includes('şimşek') || s.includes('rutherford') || s.includes('atom')) {
+          return "Tarihi kurgu ve bilim romanlarımız 'Şimşeğin Efendisi Tesla' ve 'Atomun Kalbi Rutherford' dijital PDF olarak mevcuttur.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 6. KİTAP AÇIKLAMALARI VE İÇERİK EŞLEŞTİRMESİ
+        if (s.includes('disiplin') || s.includes('planlama') || s.includes('çalışma planı')) {
+          return "Disiplin ve planlama için 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabımızı mı kastettiniz? Detay vereyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('motivasyon') || s.includes('ders çalışmak istemiyor') || s.includes('masada oturmuyor')) {
+          return "Motivasyon ve başarı alışkanlıkları için 5. veya 6. Sınıf Koçluk kitabımızı mı kastettiniz? Hangisinden bahsedeyim?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tyt') || s.includes('ayt')) {
+          return "TYT-AYT hazırlığı için 10. Sınıf, 11. Sınıf veya YKS'de Kendi Koçun Ol kitabımızı mı kastettiniz? Hangisinden bahsedeyim?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('tarihi kurgu') || s.includes('tarihi roman') || (s.includes('roman') && !s.includes('fıkra'))) {
+          return "Tarihî Kurgu Roman kategorimizde iki özel eserimiz bulunmaktadır:<br>" +
+                 "1- <b>Şimşeğin Efendisi Tesla</b> (Nikola Tesla'nın Bilinmeyen Yılları - A5 Boyut, 205 Sayfa Sürükleyici Roman)<br>" +
+                 "2- <b>Atomun Kalbi Rutherford</b> (Ernest Rutherford'un İlham Verici Bilim ve Azim Romanı - A5 Boyut, 273 Sayfa)<br><br>" +
+                 "Ayrıca çocuklar için tarihî-mizahi <b>Nasrettin Hoca'nın Torunları</b> kitabımız mevcuttur. Kitaplarımızı Shopier ile anında PDF olarak indirebilirsiniz.";
+        }
+
+        if (s.includes('hikaye') || s.includes('masal')) {
+          return "Hikâye ve masal olarak Çocuk Kitaplığı serimizde 'Sevimli Deniz Altı Kaşifleri', 'Ormanın Minik Koruyucuları', 'Uykudan Önce' ve 'Nasrettin Hoca\'nın Torunları' yer almaktadır.<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        if (s.includes('koç') || s.includes('koçluk') || s.includes('kitap')) {
+          return "Ortaokul veya lise koçluk serimizden bir kitabı mı kastettiniz? Örneğin 5. Sınıf Ortaokula Güçlü Başlangıç kitabımızdan bahsedeyim mi?<br><br>Shopier ile anında indirebilirsiniz.";
+        }
+
+        // 7. İKİNCİ ŞANS / WHATSAPP KURALI
+        const secondChanceAsked = lastBotMsg.includes('tam olarak ne arıyordunuz') || lastBotMsg.includes('biraz daha açar mısınız');
+        if (secondChanceAsked) {
+          return "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+        }
+
+        return 'Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?';
+      }
+
+      async function sendAskarMsg() {
+        const input = document.getElementById('askar-input');
+        const sendBtn = document.getElementById('askar-send-btn');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMsg(text, 'user');
+        askarChatHistory.push({ role: 'user', text: text });
+        input.value = '';
+        if (sendBtn) sendBtn.disabled = true;
+
+        const lower = text.toLowerCase();
+        // İnsan / yetkili talebi kontrolü
+        if (lower.includes('insan') || lower.includes('yetkili') || lower.includes('telefon') || lower.includes('whatsapp') || lower.includes('görüşmek istiyorum')) {
+          const directText = `Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+          addMsg(directText, 'bot', true);
+          askarChatHistory.push({ role: 'model', text: directText });
+          if (sendBtn) sendBtn.disabled = false;
+          return;
+        }
+
+        // Yükleniyor balonu
+        const loadingId = 'loading-' + Date.now();
+        addLoadingMsg(loadingId);
+
+        const clientAnswer = getClientKnowledgeAnswer(text, askarChatHistory.slice(0, -1));
+
+        try {
+          const response = await fetch('/api/assistant', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: text,
+              history: askarChatHistory.slice(-8)
+            })
+          });
+
+          removeLoadingMsg(loadingId);
+
+          if (response.ok) {
+            const data = await response.json();
+            let botReply = (data && data.reply) ? data.reply : "";
+
+            // Prioritize smart knowledge if server gives empty fallback
+            if (!botReply) {
+              botReply = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+            }
+
+            // Clean greetings and raw numbers
+            botReply = botReply.replace(/^(merhaba|selamlar|selam|iyi günler)[!.,\s-]*/i, '');
+            botReply = botReply.replace(/\+?90\s*505\s*716\s*29\s*39/g, '').trim();
+
+            let actionHtml = '';
+            if (botReply.includes('WhatsApp') || botReply.includes('yetkili') || botReply.includes('yönlendireyim')) {
+              actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            }
+            if (botReply.includes('Shopier')) {
+              actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+            }
+
+            askarChatHistory.push({ role: 'model', text: botReply });
+            addMsg(botReply.replace(/\n/g, '<br>') + actionHtml, 'bot', true);
+          } else {
+            // Server returned non-ok -> use smart client answer
+            const replyText = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+            let actionHtml = '';
+            if (replyText.includes('WhatsApp') || replyText.includes('yetkili') || replyText.includes('yönlendireyim')) {
+              actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+            } else if (replyText.includes('Shopier')) {
+              actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+            }
+            askarChatHistory.push({ role: 'model', text: replyText });
+            addMsg(replyText + actionHtml, 'bot', true);
+          }
+        } catch (e) {
+          removeLoadingMsg(loadingId);
+          const replyText = clientAnswer || "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+          let actionHtml = '';
+          if (replyText.includes('WhatsApp') || replyText.includes('yetkili') || replyText.includes('yönlendireyim')) {
+            actionHtml += `<br><a class="askar-wa-btn" href="${WHATSAPP_LINK}" target="_blank" rel="noopener">WhatsApp ile Bağlan</a>`;
+          } else if (replyText.includes('Shopier')) {
+            actionHtml += `<br><a class="askar-shop-btn" href="${SHOPIER_LINK}" target="_blank" rel="noopener">Shopier Mağazasına Git</a>`;
+          }
+          askarChatHistory.push({ role: 'model', text: replyText });
+          addMsg(replyText + actionHtml, 'bot', true);
+        } finally {
+          if (sendBtn) sendBtn.disabled = false;
+        }
+      }
+
+      function addLoadingMsg(id) {
+        const box = document.getElementById('askar-ai-messages');
+        if (!box) return;
+        const d = document.createElement('div');
+        d.id = id;
+        d.className = 'msg bot';
+        d.innerHTML = '<span style="opacity:0.6;font-style:italic">Yanıt hazırlanıyor...</span>';
+        box.appendChild(d);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function removeLoadingMsg(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+      }
+
+      function addMsg(t, cls, isHtml = false) {
+        const box = document.getElementById('askar-ai-messages');
+        if (!box) return;
+        const d = document.createElement('div');
+        d.className = 'msg ' + cls;
+        if (isHtml) {
+          d.innerHTML = t;
+        } else {
+          d.textContent = t;
+        }
+        box.appendChild(d);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function(err) {
+            console.log('SW registration:', err);
+          });
+        });
+      }
+    </script>
+    <script type="module" defer src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,968 @@
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI } from '@google/genai';
+
+const ASSISTANT_SYSTEM_INSTRUCTION = `
+Sen Aşkar Yayınları'nın (askaryayinlari.com.tr) resmi dijital asistanısın. Adın Aşkar Asistan. Normal bir insan gibi düşün, hemen pes etme.
+
+GÖREVİN:
+1. Önce TÜM soruları sen cevapla. Asla uydurma.
+2. Cevabı bilmiyorsan direkt WhatsApp'a ATMA. Önce "Bunu mu kastettiniz?" diye sor.
+3. Sadece 2. denemede de cevap veremezsen WhatsApp'a yönlendir.
+
+BİLGİ TABANI - SADECE BURADAN CEVAP VER:
+
+[DÜKKAN] Aşkar Yayınları Dijital PDF Kütüphanesi. Tüm ürünler E-Kitap, Kargo YOK, Beklemek YOK, Shopier ile anında indir. WhatsApp: +90 505 716 29 39
+Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
+
+[VAR OLAN KİTAPLAR - TAM LİSTE]
+
+[ORTAOKUL GRUBU - 5'ten 8'e]
+- 5. SINIF KOÇU: 5. Sınıf Koçluk & Motivasyon - Ortaokula Güçlü Bir Başlangıç. SİSTEMSİZLİK sorununu çözer. 10 hafta, 1 beceri 1 görev 1 rozet. Soru bankası değil, başarı alışkanlığı kitabıdır. Masada oturamama, ödev unutma, sınav kaygısı, ekran bağımlılığı sorunlarına çözüm.
+- 6. SINIF KOÇU: 6. Sınıf Disiplin ve Başarı - Başarı Alışkanlıklarını Güçlendir. LGS temeli atma, hedef belirleme ve planlama, ertelememe.
+- 7. SINIF KOÇU: 7. Sınıf LGS Hazırlık - LGS Yolunda Sağlam Adımlar. LGS öncesi son strateji, odaklanma ve motivasyon. Günde 30 soru alışkanlığı, yeni nesil soru mantığı.
+- 8. SINIF KOÇU: 8. Sınıf LGS'DE KENDİ KOÇUN OL - 12 Adımda Disiplin, Plan ve Başarı Sistemi. LGS yolunda sağlam adımlar. Zaman yönetimi, MEB analizleri, deneme check-up.
+
+[LİSE GRUBU - 9'dan 12'ye]
+- 9. SINIF KOÇU: 9. Sınıf Lise Koçu - Liseye Güçlü Başlangıç. 8'den 9'a geçiş sistemi, liseye uyum, SMART hedefler, Pomodoro ve Cornell tekniği.
+- 10. SINIF KOÇU: 10. Sınıf Lise Koçu - Başarı Alışkanlıklarını Derinleştir. Liseye uyum ve TYT temeli atma. 9'dan 10'a geçişte sistem kurma, alan seçimi rehberi.
+- 11. SINIF KOÇU: 11. Sınıf Lise Koçu - YKS Yolunda Sağlam Adımlar. TYT-AYT dengesi kurma, 11. sınıfta TYT'yi bitirme sistemi.
+- 12. SINIF ve MEZUN: YKS'DE KENDİ KOÇUN OL. 12. sınıf ve mezunlar için YKS koçluk kitabı. Sınav sürecini kendi koçun olarak yönetme, planlama, stres yönetimi.
+
+[MEZUN / YKS GRUBU]
+- YKS'de Kendi Koçun Ol (12. Sınıf ve Mezunlar için).
+
+[ÇOCUK KİTAPLARI GRUBU - ÇOCUK KİTAPLIĞI]
+- Çocuk Kitaplığı'ndaki Kitaplar:
+  1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı, 153 sayfa)
+  2- Ormanın Minik Koruyucuları (Elif, Mert ve Can'ın Büyülü Orman Macerası - Doğa Sevgisi ve Değerler Hikayesi)
+  3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)
+  4- Nasrettin Hoca'nın Torunları (6-10 yaş Eğitici ve Neşeli Fıkra Kitabı, 99 sayfa)
+- İnteraktif Uygulama: "Sevimli Deniz Altı Kaşifleri" web uygulaması, tüm çocuklara AŞKAR YAYINLARI'NIN ÖZEL BİR ARMAĞANIDIR (ücretsizdir).
+
+[TARİHİ KURGU / BİLİM ROMANLARI]
+- Şimşeğin Efendisi Tesla (Nikola Tesla romanı, 205 sayfa PDF), Atomun Kalbi Rutherford (Ernest Rutherford romanı).
+
+AKILLI ONAY SİSTEMİ & KATEGORİ KURALLARI - BUNU MUTLAKA UYGULA:
+
+1. Eğer müşteri "ortaokul için ne var", "ortaokul kitapları" derse:
+Direkt şunu yaz:
+"Ortaokul için 4 kitabımız var:
+1- 5. Sınıf Koçluk & Motivasyon
+2- 6. Sınıf Disiplin ve Başarı
+3- 7. Sınıf LGS Hazırlık
+4- 8. Sınıf LGS'DE KENDİ KOÇUN OL
+Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz." ASLA WhatsApp'a atma.
+
+2. Eğer müşteri "lise için ne var", "lise kitapları" derse:
+Direkt şunu yaz:
+"Lise için 4 kitabımız var:
+1- 9. Sınıf Lise Koçu
+2- 10. Sınıf Lise Koçu
+3- 11. Sınıf Lise Koçu
+4- 12. Sınıf YKS'de Kendi Koçun Ol
+Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz."
+
+3. Eğer müşteri "mezun için ne var", "YKS için ne var", "12. sınıf" derse:
+Direkt şunu yaz:
+"Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz."
+
+4. Eğer müşteri "çocuklar için", "çocuk için ne var", "çocuk kitapları", "çocuk kitaplığı" derse:
+Direkt şunu yaz:
+"Çocuk Kitaplığı serimizde yer alan kitaplarımız:
+1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)
+2- Ormanın Minik Koruyucuları (Doğa Sevgisi ve Değerler Hikayesi)
+3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)
+4- Nasrettin Hoca'nın Torunları (Eğitici Fıkra Kitabı)
+
+Ayrıca 'Sevimli Deniz Altı Kaşifleri' interaktif uygulamamız, tüm çocuklarımıza Aşkar Yayınları'nın özel bir armağanıdır (ücretsizdir). Kitaplarımızı Shopier ile anında indirebilirsiniz."
+
+5. SINIF SORULURSA (5-12 ve YKS):
+Direkt o kitabın açıklamasından cevap ver. Asla "yok" deme. Hepsi var.
+Örnek: "12.Sınıf için koçluk var mı" -> "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz."
+Örnek: "10. sınıf var mı" -> "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz."
+Örnek: "YKS kitabınız var mı" -> "Evet, 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var, bunu mu kastettiniz? Shopier ile anında indirebilirsiniz."
+
+6. OLMAYAN BİR ŞEY SORULURSA (Örn: 1, 2, 3, 4. sınıf ilkokul):
+Şunu de: "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi? Shopier ile anında indirebilirsiniz."
+
+7. MÜŞTERİ HAYIR DERSE VE YENİ SINIF YAZARSA:
+Onu yeni soru olarak algıla. "hayır"a takılı kalma. Örneğin "hayır 10. sınıf" derse hemen 10. Sınıf kitabını anlat.
+
+8. BİLMEDİĞİN BİR KAVRAM OLURSA (Sitedeki içerikle karşılaştır):
+- Örn: "disiplin" yazdıysa -> 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabını öner.
+- Örn: "motivasyon" yazdıysa -> 6. Sınıf Başarı Alışkanlıklarını Güçlendir veya 5. Sınıf kitabını öner.
+- Önce sor: "Bunu mu kastettiniz? [Kitap Adı] - [Açıklamadan 1 cümle özet]"
+- Müşteri EVET derse o kitabın detayını ver ve sonuna "Shopier ile anında indirebilirsiniz, kargo yok." ekle.
+- Müşteri HAYIR derse (yeni konu vermeden) -> "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?" de.
+- Sadece 2 denemede de cevap veremezsen WhatsApp'a yönlendir: "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+
+KONUŞMA TARZI:
+- Türkçe, kısa, samimi, veliye hitap et. 3 cümle civarında tut. Listeleri maddeler halinde ver. Asla "bilmiyorum" deme.
+- Cevapların başında "Merhaba", "Selam" gereksiz tekrarlama; doğrudan konuya gir.
+- Sonuna hep ekle: "Shopier ile anında indirebilirsiniz."
+- Asla açık telefon numarası yazma; yönlendirme gerekirse "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉" de.
+`;
+
+async function startServer() {
+  const app = express();
+  const PORT = 5173;
+
+  // Body parser for JSON with base64 images (up to 50MB)
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+  // Ensure public/images directory exists
+  const publicImagesDir = path.join(process.cwd(), 'public', 'images');
+  if (!fs.existsSync(publicImagesDir)) {
+    fs.mkdirSync(publicImagesDir, { recursive: true });
+  }
+
+  // --- Real-time Presence & Visitor Tracking ---
+  const statsFilePath = path.join(process.cwd(), 'visitor_stats.json');
+  let visitorStats = { totalVisitors: 5000, uniqueSessions: [] as string[] };
+
+  try {
+    if (fs.existsSync(statsFilePath)) {
+      const data = JSON.parse(fs.readFileSync(statsFilePath, 'utf-8'));
+      if (typeof data.totalVisitors === 'number') {
+        visitorStats.totalVisitors = Math.max(5000, data.totalVisitors);
+      }
+      if (Array.isArray(data.uniqueSessions)) {
+        visitorStats.uniqueSessions = data.uniqueSessions;
+      }
+    } else {
+      fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+    }
+  } catch (e) {
+    console.error('[Visitor Stats Error]', e);
+  }
+
+  // In-memory active sessions tracking (sessionId -> lastSeen timestamp)
+  const activeSessions = new Map<string, number>();
+  const SESSION_TIMEOUT_MS = 25000; // 25 seconds timeout for inactive tabs
+
+  const pruneStaleSessions = () => {
+    const now = Date.now();
+    for (const [id, lastSeen] of activeSessions.entries()) {
+      if (now - lastSeen > SESSION_TIMEOUT_MS) {
+        activeSessions.delete(id);
+      }
+    }
+  };
+
+  // Register a new visit (increases total visitor counter by 1 per new visitor/session)
+  app.post('/api/presence/visit', (req, res) => {
+    try {
+      const { sessionId } = req.body;
+      const cleanId = typeof sessionId === 'string' && sessionId.length > 0 ? sessionId : 'anon_' + Date.now();
+      const now = Date.now();
+
+      pruneStaleSessions();
+      activeSessions.set(cleanId, now);
+
+      if (!visitorStats.uniqueSessions) visitorStats.uniqueSessions = [];
+      if (!visitorStats.uniqueSessions.includes(cleanId)) {
+        visitorStats.uniqueSessions.push(cleanId);
+        // Keep up to 10000 session IDs
+        if (visitorStats.uniqueSessions.length > 10000) {
+          visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-10000);
+        }
+        visitorStats.totalVisitors = Math.max(5000, (visitorStats.totalVisitors || 5000) + 1);
+        try {
+          fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+        } catch (err) {
+          console.error('Failed to write visitor_stats.json', err);
+        }
+      }
+
+      res.json({
+        success: true,
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors
+      });
+    } catch (err) {
+      res.json({
+        success: true,
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors || 5000
+      });
+    }
+  });
+
+  // Heartbeat endpoint for active tabs
+  app.post('/api/presence/heartbeat', (req, res) => {
+    try {
+      const { sessionId, isNewSession } = req.body;
+      const cleanId = typeof sessionId === 'string' && sessionId.length > 0 ? sessionId : 'anon_' + Date.now();
+      const now = Date.now();
+
+      pruneStaleSessions();
+      activeSessions.set(cleanId, now);
+
+      if (isNewSession) {
+        if (!visitorStats.uniqueSessions) visitorStats.uniqueSessions = [];
+        if (!visitorStats.uniqueSessions.includes(cleanId)) {
+          visitorStats.uniqueSessions.push(cleanId);
+          if (visitorStats.uniqueSessions.length > 10000) {
+            visitorStats.uniqueSessions = visitorStats.uniqueSessions.slice(-10000);
+          }
+          visitorStats.totalVisitors = Math.max(5000, (visitorStats.totalVisitors || 5000) + 1);
+          try {
+            fs.writeFileSync(statsFilePath, JSON.stringify(visitorStats, null, 2));
+          } catch (err) {
+            console.error('Failed to write visitor_stats.json', err);
+          }
+        }
+      }
+
+      const onlineCount = Math.max(1, activeSessions.size);
+      res.json({
+        onlineCount,
+        totalVisitors: visitorStats.totalVisitors
+      });
+    } catch (err) {
+      res.json({
+        onlineCount: Math.max(1, activeSessions.size),
+        totalVisitors: visitorStats.totalVisitors
+      });
+    }
+  });
+
+  // Tab closed / leave endpoint
+  app.post('/api/presence/leave', (req, res) => {
+    try {
+      const { sessionId } = req.body;
+      if (sessionId && activeSessions.has(sessionId)) {
+        activeSessions.delete(sessionId);
+      }
+      pruneStaleSessions();
+      res.json({ success: true, onlineCount: Math.max(1, activeSessions.size) });
+    } catch {
+      res.json({ success: true });
+    }
+  });
+
+  // Current stats query endpoint
+  app.get('/api/presence/stats', (req, res) => {
+    pruneStaleSessions();
+    res.json({
+      onlineCount: Math.max(1, activeSessions.size),
+      totalVisitors: visitorStats.totalVisitors
+    });
+  });
+  // ----------------------------------------------
+
+  // Serve static images directly from public/images
+  app.use('/images', express.static(publicImagesDir));
+
+// Knowledge base answer helper with smart confirmation and 2nd chance logic
+function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text: string }> = []): string | null {
+  const s = q.toLowerCase().trim();
+  const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
+
+  // 1. Direct confirmation checks if previous message was a clarification question
+  if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
+    const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+
+    if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
+      if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
+        return "5. Sınıf Koçluk & Motivasyon (Ortaokula Güçlü Başlangıç): Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR. İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, sistemsizliktir; 10 haftalık sistemle ödev unutma, sınav kaygısı ve odaklanma sorunlarını çözer. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('6. sınıf') || lastBotMsg.includes('disiplin')) {
+        return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('7. sınıf') || lastBotMsg.includes('lgs hazırlık')) {
+        return "7. Sınıf LGS Hazırlık: LGS öncesi son strateji yılıdır. Günde 30 soru alışkanlığı, odaklanma ve sınav koçluğuna odaklanır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('8. sınıf') || lastBotMsg.includes('lgs\'de kendi koçun ol')) {
+        return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('9. sınıf') || lastBotMsg.includes('liseye güçlü')) {
+        return "9. Sınıf Lise Koçu: Liseye Güçlü Başlangıç rehberimizdir; 8'den 9'a geçiş sistemi ve yeni ders temposuna uyum kazandırır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('10. sınıf')) {
+        return "10. Sınıf Lise Koçu: Liseye uyum ve TYT temeli atma üzerine, 9'dan 10'a geçişte sistem kurar ve başarı alışkanlıklarını derinleştirir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('11. sınıf')) {
+        return "11. Sınıf Lise Koçu: YKS omurgasını oluşturan kritik yıldır; TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemini kazandırır. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('12. sınıf') || lastBotMsg.includes('yks') || lastBotMsg.includes('mezun')) {
+        return "12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol': Sınav sürecini kendi koçun olarak yönetme, hedef netleştirme, TYT-AYT dengesi ve stres kontrolü rehberidir. Shopier ile anında indirebilirsiniz.";
+      }
+      if (lastBotMsg.includes('nasrettin') || lastBotMsg.includes('çocuk') || lastBotMsg.includes('fıkra')) {
+        return "Nasrettin Hoca'nın Torunları: 6-10 yaş çocuklar için 99 sayfa, 3 MB PDF boyutunda keyifli ve öğretici bir fıkra/değerler kitabıdır. Shopier ile anında indirebilirsiniz.";
+      }
+      return "Koçluk kitaplarımız öğrencilerimize planlı çalışma, odaklanma ve başarı disiplini kazandırır. Shopier ile anında indirebilirsiniz.";
+    }
+
+    if (!hasNewSpecificTopic && (s === 'hayır' || s === 'hayir' || s === 'değil' || s === 'degil' || s === 'başka' || s === 'yok' || s === 'h')) {
+      return "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+    }
+    // If user says "hayır 10. sınıf var mı", continue below and handle 10. sınıf!
+  }
+
+  // 2. KATEGORİ KURALLARI (User specified exact outputs)
+  if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+    return "Ortaokul için 4 kitabımız var:\n1- 5. Sınıf Koçluk & Motivasyon\n2- 6. Sınıf Disiplin ve Başarı\n3- 7. Sınıf LGS Hazırlık\n4- 8. Sınıf LGS'DE KENDİ KOÇUN OL\nHangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('lise için ne var') || s.includes('lise kitapları') || s.includes('lisede ne var') || (s.includes('lise') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
+    return "Lise için 4 kitabımız var:\n1- 9. Sınıf Lise Koçu\n2- 10. Sınıf Lise Koçu\n3- 11. Sınıf Lise Koçu\n4- 12. Sınıf YKS'de Kendi Koçun Ol\nHangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('mezun') || s.includes('yks için ne var') || s.includes('yks kitapları') || (s.includes('yks') && s.includes('var mı'))) {
+    return "Mezunlar ve 12. Sınıf için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (
+    s.includes('çocuk için') ||
+    s.includes('çocuklar için') ||
+    s.includes('çocuk kitapları') ||
+    s.includes('çocuk kitaplığı') ||
+    s.includes('cocuk') ||
+    s.includes('ilkokul hikaye') ||
+    s.includes('masal') ||
+    s.includes('boyama') ||
+    s === 'çocuklar' ||
+    s === 'çocuk'
+  ) {
+    return "Çocuk Kitaplığı serimizde yer alan kitaplarımız:\n1- Sevimli Deniz Altı Kaşifleri (Büyülü Hikayeler ve Yaratıcı Boyama Kitabı)\n2- Ormanın Minik Koruyucuları (Doğa Sevgisi ve Değerler Hikayesi)\n3- Uykudan Önce (30 Gece Masal & Uyku Kitabı)\n4- Nasrettin Hoca'nın Torunları (Eğitici Fıkra Kitabı)\n\nAyrıca 'Sevimli Deniz Altı Kaşifleri' interaktif uygulamamız, tüm çocuklarımıza Aşkar Yayınları'nın özel bir armağanıdır (ücretsizdir). Kitaplarımızı Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 3. DOĞRUDAN SINIF SORULARI (5-12 & YKS)
+  if (s.includes('12. sınıf') || s.includes('12.sınıf') || s.includes('on ikinci sınıf') || (s.includes('12') && s.includes('sınıf'))) {
+    return "Evet var! 12. Sınıf ve Mezunlar için 'YKS'de Kendi Koçun Ol' kitabımız var. YKS sürecini kendi koçun olarak yönetmeyi öğretiyor. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('11. sınıf') || s.includes('11.sınıf') || s.includes('on birinci sınıf') || (s.includes('11') && s.includes('sınıf'))) {
+    return "Evet, 11. Sınıf Lise Koçu kitabımız var. TYT-AYT dengesi kurma ve 11. sınıfta TYT'yi bitirme sistemi üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('10. sınıf') || s.includes('10.sınıf') || s.includes('onuncu sınıf') || (s.includes('10') && s.includes('sınıf'))) {
+    return "Evet, 10. Sınıf Koçu kitabımız var. Liseye uyum ve TYT temeli atma üzerine. Bundan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('9. sınıf') || s.includes('9.sınıf') || s.includes('dokuzuncu sınıf') || (s.includes('9') && s.includes('sınıf'))) {
+    return "Evet, 9. Sınıf Lise Koçu kitabımız var. Liseye Güçlü Başlangıç rehberimiz 8'den 9'a geçiş sistemi ve uyum kazandırır. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('8. sınıf') || s.includes('8.sınıf') || s.includes('sekizinci sınıf') || s.includes('lgs')) {
+    return "8. Sınıf LGS'de Kendi Koçun Ol: 12 Adımda Disiplin, Plan ve Başarı Sistemidir. Zaman yönetimi, MEB kazanım analizi ve sınav taktiklerini içerir. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('7. sınıf') || s.includes('7.sınıf') || s.includes('yedinci sınıf') || (s.includes('7') && s.includes('sınıf'))) {
+    return "7. Sınıf LGS Hazırlık (LGS Yolunda Sağlam Adımlar): LGS öncesi son strateji yılıdır; günde 30 soru alışkanlığı, odaklanma ve sınav koçluğu sağlar. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('6. sınıf') || s.includes('6.sınıf') || s.includes('altıncı sınıf') || (s.includes('6') && s.includes('sınıf'))) {
+    return "6. Sınıf Disiplin ve Başarı: LGS temelinin atıldığı yıldır. Hedef belirleme, planlama ve başarı alışkanlıklarını güçlendirir. Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('5. sınıf') || s.includes('5.sınıf') || s.includes('beşinci sınıf') || s.includes('ortaokula güçlü') || (s.includes('5') && s.includes('sınıf'))) {
+    return "ORTAOKUL KOÇU 5. SINIF: Bu bir soru bankası değil, BAŞARI ALIŞKANLIĞI KİTABIDIR. İlkokuldan ortaokula geçen öğrencinin sorunu dersler değil, SİSTEMSİZLİKTİR. Masada duramama, ödev unutma ve sınav stresi gibi 5 temel sorunu 10 haftada çözer. Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 4. OLMAYAN BİR ŞEY (Örn: 1, 2, 3, 4. sınıf ilkokul)
+  if (s.includes('1. sınıf') || s.includes('2. sınıf') || s.includes('3. sınıf') || s.includes('4. sınıf') || s.includes('ilkokul') || s.includes('1.sınıf') || s.includes('2.sınıf') || s.includes('3.sınıf') || s.includes('4.sınıf')) {
+    return "İlkokul 1-4 için direkt koçluk kitabımız yok, en yakın olarak 5. Sınıf Ortaokula Geçiş kitabımız var. 5. Sınıf'tan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 5. ÖZEL KİTAP VE TESLİMAT SORULARI
+  if (s.includes('kargo') || s.includes('basılı') || s.includes('fiziki') || s.includes('pdf') || s.includes('teslim') || s.includes('gönderim')) {
+    return "Aşkar Yayınları Dijital PDF Kütüphanesidir. Tüm ürünlerimiz E-Kitap formatındadır, kargo ve bekleme süresi yoktur; Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('shopier') || s.includes('nasıl alırım') || s.includes('satın al') || s.includes('ödeme')) {
+    return "Kitaplarımızı Shopier resmi mağazamız üzerinden kredi kartı veya banka kartı ile güvenle alıp hemen PDF olarak indirebilirsiniz, kargo yoktur.";
+  }
+
+  if (s.includes('nasrettin') || s.includes('nasreddin')) {
+    return "Nasrettin Hoca'nın Torunları: Tarihi kurgu ve fıkra kitabımızdır (99 sayfa, 3 MB PDF). Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tesla') || s.includes('şimşek') || s.includes('rutherford') || s.includes('atom')) {
+    return "Tarihi kurgu ve bilim romanlarımız 'Şimşeğin Efendisi Tesla' ve 'Atomun Kalbi Rutherford' dijital PDF olarak mevcuttur. Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 6. KİTAP AÇIKLAMALARI VE İÇERİK EŞLEŞTİRMESİ
+  if (s.includes('disiplin') || s.includes('planlama') || s.includes('çalışma planı')) {
+    return "Disiplin ve planlama için 8. Sınıf LGS'de Kendi Koçun Ol (12 Adımda Disiplin Plan Başarı Sistemi) kitabımızı mı kastettiniz? Detay vereyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('motivasyon') || s.includes('ders çalışmak istemiyor') || s.includes('masada oturmuyor')) {
+    return "Motivasyon ve başarı alışkanlıkları için 5. veya 6. Sınıf Koçluk kitabımızı mı kastettiniz? Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tyt') || s.includes('ayt')) {
+    return "TYT-AYT hazırlığı için 10. Sınıf, 11. Sınıf veya YKS'de Kendi Koçun Ol kitabımızı mı kastettiniz? Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('tarihi kurgu') || s.includes('roman') || s.includes('hikaye') || s.includes('masal')) {
+    return "Tarihi kurgu olarak 'Nasrettin Hoca'nın Torunları' serimizi mi kastettiniz? Eğer evetse detay vereyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  if (s.includes('koç') || s.includes('koçluk') || s.includes('kitap')) {
+    return "Ortaokul veya lise koçluk serimizden bir kitabı mı kastettiniz? Örneğin 5. Sınıf Ortaokula Güçlü Başlangıç kitabımızdan bahsedeyim mi? Shopier ile anında indirebilirsiniz.";
+  }
+
+  // 7. İKİNCİ ŞANS / WHATSAPP KURALI
+  const secondChanceAsked = lastBotMsg.includes('tam olarak ne arıyordunuz') || lastBotMsg.includes('biraz daha açar mısınız');
+  if (secondChanceAsked) {
+    return "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉";
+  }
+
+  return "Anladım, o zaman tam olarak ne arıyordunuz, biraz daha açar mısınız?";
+}
+
+  // Health check endpoint
+  app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok' });
+  });
+
+  // ÖSYM sınav takvimi: tarih açıklanınca sayaçların yeniden derlenmesi gerekmez.
+  let examCalendarCache: { checkedAt: number; data: { yks: string | null; lgs: string | null; source: string } } | null = null;
+  const parseExamDate = (text: string, examCode: string): string | null => {
+    const normalized = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const currentYear = new Date().getFullYear();
+    const monthNames: Record<string, number> = {
+      ocak: 0, şubat: 1, mart: 2, nisan: 3, mayıs: 4, haziran: 5,
+      temmuz: 6, ağustos: 7, eylül: 8, ekim: 9, kasım: 10, aralık: 11
+    };
+
+    for (let year = currentYear; year <= currentYear + 2; year += 1) {
+      const marker = `${year}-${examCode}`;
+      const markerIndex = normalized.toLocaleUpperCase('tr-TR').indexOf(marker);
+      if (markerIndex < 0) continue;
+      const nearby = normalized.slice(markerIndex, markerIndex + 700);
+      const numericDate = nearby.match(new RegExp(`(\\d{1,2})[./-](\\d{1,2})[./-]${year}`));
+      if (numericDate) {
+        const [, day, month] = numericDate;
+        return new Date(year, Number(month) - 1, Number(day), examCode === 'YKS' ? 10 : 9, 30).toISOString();
+      }
+      const writtenDate = nearby.match(new RegExp(`(\\d{1,2})\\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\\s+${year}`, 'i'));
+      if (writtenDate) {
+        const [, day, monthName] = writtenDate;
+        return new Date(year, monthNames[monthName.toLocaleLowerCase('tr-TR')], Number(day), examCode === 'YKS' ? 10 : 9, 30).toISOString();
+      }
+    }
+    return null;
+  };
+
+  app.get('/api/exam-calendar', async (_req, res) => {
+    const cacheAge = examCalendarCache ? Date.now() - examCalendarCache.checkedAt : Infinity;
+    if (examCalendarCache && cacheAge < 6 * 60 * 60 * 1000) {
+      return res.json(examCalendarCache.data);
+    }
+
+    const source = 'https://www.osym.gov.tr/TR,8819/takvim.html';
+    try {
+      const response = await fetch(source, { signal: AbortSignal.timeout(5000) });
+      const html = await response.text();
+      const data = {
+        yks: parseExamDate(html, 'YKS'),
+        lgs: null,
+        source
+      };
+      examCalendarCache = { checkedAt: Date.now(), data };
+      return res.json(data);
+    } catch (error: any) {
+      console.warn('[Exam Calendar Notice]:', error?.message || error);
+      const data = { yks: null, lgs: null, source };
+      examCalendarCache = { checkedAt: Date.now(), data };
+      return res.json(data);
+    }
+  });
+
+  // ÖSYM Kılavuz Verilerini Getirme
+  app.get('/api/osym-kilavuz', (req, res) => {
+    try {
+      const filePath = path.resolve(process.cwd(), 'src/data/osym-kilavuz.json');
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        return res.json(JSON.parse(raw));
+      }
+      res.json({
+        yil: 2026,
+        kontenjan: 805747,
+        tercih_tarih: '29 Temmuz - 10 Ağustos',
+        hukuk_baraj: 100000,
+        tip_baraj: 50000,
+        muhendislik_baraj: 300000,
+        kilavuz_link: 'https://osym.gov.tr',
+        son_guncelleme: '2026-07-21'
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Kılavuz okunamadı: ' + err.message });
+    }
+  });
+
+  // ÖSYM Kılavuz Verilerini Güncelleme (Admin)
+  app.post('/api/osym-kilavuz', (req, res) => {
+    try {
+      const data = req.body;
+      if (!data || !data.yil) {
+        return res.status(400).json({ error: 'Geçersiz kılavuz verisi.' });
+      }
+
+      const paths = [
+        path.resolve(process.cwd(), 'src/data/osym-kilavuz.json'),
+        path.resolve(process.cwd(), 'public/data/osym-kilavuz.json'),
+        path.resolve(process.cwd(), 'data/osym-kilavuz.json')
+      ];
+
+      const content = JSON.stringify(data, null, 2);
+      for (const p of paths) {
+        try {
+          const dir = path.dirname(p);
+          if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+          }
+          fs.writeFileSync(p, content, 'utf-8');
+        } catch (e) {
+          console.warn('Dosya yazma uyarısı:', p, e);
+        }
+      }
+
+      console.log('✅ ÖSYM Kılavuz verisi başarıyla güncellendi:', data.yil);
+      res.json({ success: true, data });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Kılavuz güncellenemedi: ' + err.message });
+    }
+  });
+
+  // Aşkar Yayınları AI Assistant API
+  app.post('/api/assistant', async (req, res) => {
+    try {
+      const { message, history } = req.body;
+      if (!message || typeof message !== 'string' || !message.trim()) {
+        return res.status(400).json({ error: 'Mesaj metni zorunludur.' });
+      }
+
+      const q = message.trim();
+      const hist = Array.isArray(history) ? history : [];
+      const localAns = getLocalKnowledgeAnswer(q, hist);
+
+      try {
+        const ai = new GoogleGenAI({});
+        const contents: any[] = [];
+
+        // Add valid chat history for multi-turn conversational context
+        for (const item of hist.slice(-8)) {
+          if (item && item.text && typeof item.text === 'string' && item.text.trim()) {
+            contents.push({
+              role: item.role === 'model' ? 'model' : 'user',
+              parts: [{ text: item.text.trim() }]
+            });
+          }
+        }
+        contents.push({
+          role: 'user',
+          parts: [{ text: q }]
+        });
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents: contents,
+          config: {
+            systemInstruction: ASSISTANT_SYSTEM_INSTRUCTION,
+            temperature: 0.2,
+          },
+        });
+
+        const reply = response.text?.trim();
+        if (reply) {
+          return res.json({ reply });
+        }
+      } catch (geminiError: any) {
+        console.warn('[Gemini Call Notice]: Falling back to local smart knowledge engine', geminiError?.message);
+      }
+
+      // If Gemini wasn't reached or returned empty, use knowledge base
+      if (localAns) {
+        return res.json({ reply: localAns });
+      }
+
+      return res.json({
+        reply: "Anladım, tam olarak ne arıyordunuz, biraz daha açar mısınız?"
+      });
+    } catch (error: any) {
+      console.error('[Assistant API Error]', error?.message || error);
+      const fallbackAns = getLocalKnowledgeAnswer(req.body?.message || '', req.body?.history || []);
+      res.json({
+        reply: fallbackAns || "Bu konuda sizi yetkilimize yönlendireyim, WhatsApp'tan anında yardımcı olalım 👉"
+      });
+    }
+  });
+
+  // API to save uploaded image permanently to public/images/ on the server
+  app.post('/api/upload-image', (req, res) => {
+    try {
+      const { filename, dataUrl } = req.body;
+      if (!filename || !dataUrl) {
+        return res.status(400).json({ error: 'filename and dataUrl are required' });
+      }
+
+      // Extract base64 payload
+      const matches = dataUrl.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+      const buffer = matches && matches[2]
+        ? Buffer.from(matches[2], 'base64')
+        : Buffer.from(dataUrl, 'base64');
+
+      // Clean filename
+      const safeFilename = path.basename(filename);
+      const targetPath = path.join(publicImagesDir, safeFilename);
+      const publicRootPath = path.join(process.cwd(), 'public', safeFilename);
+      const publicResimlerDir = path.join(process.cwd(), 'public', 'resimler');
+      if (!fs.existsSync(publicResimlerDir)) {
+        fs.mkdirSync(publicResimlerDir, { recursive: true });
+      }
+      const publicResimlerPath = path.join(publicResimlerDir, safeFilename);
+
+      fs.writeFileSync(targetPath, buffer);
+      fs.writeFileSync(publicRootPath, buffer);
+      fs.writeFileSync(publicResimlerPath, buffer);
+
+      // If dist exists, also mirror
+      const distDir = path.join(process.cwd(), 'dist');
+      const distImagesDir = path.join(distDir, 'images');
+      const distResimlerDir = path.join(distDir, 'resimler');
+      if (fs.existsSync(distImagesDir)) {
+        fs.writeFileSync(path.join(distImagesDir, safeFilename), buffer);
+      }
+      if (fs.existsSync(distDir)) {
+        fs.writeFileSync(path.join(distDir, safeFilename), buffer);
+        if (!fs.existsSync(distResimlerDir)) {
+          fs.mkdirSync(distResimlerDir, { recursive: true });
+        }
+        fs.writeFileSync(path.join(distResimlerDir, safeFilename), buffer);
+      }
+
+      console.log(`[Upload API] Saved ${safeFilename} (${buffer.length} bytes) to disk`);
+      return res.json({ success: true, filename: safeFilename, path: `/images/${safeFilename}` });
+    } catch (err: any) {
+      console.error('[Upload API Error]', err);
+      return res.status(500).json({ error: err.message || 'Failed to save image' });
+    }
+  });
+
+  // API to check available saved images
+  app.get('/api/list-images', (req, res) => {
+    try {
+      if (!fs.existsSync(publicImagesDir)) {
+        return res.json({ images: [] });
+      }
+      const files = fs.readdirSync(publicImagesDir);
+      return res.json({ images: files });
+    } catch (err) {
+      return res.json({ images: [] });
+    }
+  });
+
+  // --- Price Management API ---
+  const pricesFilePath = path.join(process.cwd(), 'prices.json');
+
+  app.get('/api/prices', (req, res) => {
+    try {
+      if (fs.existsSync(pricesFilePath)) {
+        const data = JSON.parse(fs.readFileSync(pricesFilePath, 'utf-8'));
+        return res.json({ success: true, prices: data });
+      }
+      return res.json({ success: true, prices: {} });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  app.post('/api/prices', (req, res) => {
+    try {
+      const { prices } = req.body;
+      if (!prices || typeof prices !== 'object') {
+        return res.status(400).json({ error: 'Invalid prices object' });
+      }
+      let existing: Record<string, any> = {};
+      if (fs.existsSync(pricesFilePath)) {
+        try {
+          existing = JSON.parse(fs.readFileSync(pricesFilePath, 'utf-8'));
+        } catch {}
+      }
+      const updated = { ...existing, ...prices };
+      fs.writeFileSync(pricesFilePath, JSON.stringify(updated, null, 2));
+
+      // Also mirror to dist if exists
+      const distDir = path.join(process.cwd(), 'dist');
+      if (fs.existsSync(distDir)) {
+        fs.writeFileSync(path.join(distDir, 'prices.json'), JSON.stringify(updated, null, 2));
+      }
+
+      return res.json({ success: true, prices: updated });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  // --- Dynamic Sitemap Endpoint ---
+  app.get('/sitemap.xml', (req, res) => {
+    try {
+      const sitemapPaths = [
+        path.join(process.cwd(), 'dist', 'sitemap.xml'),
+        path.join(process.cwd(), 'public', 'sitemap.xml')
+      ];
+      const sitemapPath = sitemapPaths.find((candidate) => fs.existsSync(candidate));
+      if (sitemapPath) {
+        res.type('application/xml');
+        return res.sendFile(sitemapPath);
+      }
+      return res.status(404).send('Sitemap not found');
+    } catch (err: any) {
+      return res.status(500).send('Error reading sitemap');
+    }
+  });
+
+  const TOOLS_SEO_MAP: Record<string, { title: string; desc: string; h1: string }> = {
+    'yks-puan-hesaplama': {
+      title: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
+      desc: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+      h1: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li'
+    },
+    'lise-ortalama-hesaplama': {
+      title: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
+      desc: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+      h1: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür'
+    },
+    '3-altin-is-takip': {
+      title: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
+      desc: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+      h1: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması'
+    },
+    'lgs-geri-sayim': {
+      title: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
+      desc: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
+      h1: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?'
+    },
+    'lgs-tercih-robotu': {
+      title: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
+      desc: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
+      h1: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul'
+    },
+    'kap-analiz-paneli': {
+      title: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
+      desc: 'KAP deneme analizini dijital yap, eksik kazanımlarını gör.',
+      h1: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul'
+    },
+    'takdir-tesekkur-hesaplama': {
+      title: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
+      desc: 'E-Okul uyumlu takdir teşekkür hesapla.',
+      h1: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu'
+    },
+    'bursluluk-puan-hesaplama-2025': {
+      title: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
+      desc: '2025 İOKBS puanını saniyede hesapla, kaç net kaç puan eder öğren.',
+      h1: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf'
+    },
+    'lgs-puan-hesaplama': {
+      title: 'LGS Puan Hesaplama 2026 | MEB Uyumlu LGS Net ve Standart Puan Robotu - Aşkar Yayınları',
+      desc: '2026 MEB güncel standart sapma ve ders katsayılarına göre LGS puanınızı ve toplam netinizi anında hesaplayın. Türkçe, Matematik ve Fen 4.33 katsayı uyumlu.',
+      h1: 'LGS Puan Hesaplama ve Net Sihirbazı (2026 MEB Uyumlu)'
+    },
+    'tyt-puan-hesaplama': {
+      title: 'TYT Puan Hesaplama 2026 | ÖSYM Uyumlu TYT Net ve Puan Robotu - Aşkar Yayınları',
+      desc: 'ÖSYM güncel standartlarında 2026 YKS TYT puanınızı hesaplayın. Türkçe, Temel Matematik, Sosyal ve Fen netlerinizle tahmini yerleştirme puanınızı hemen görün.',
+      h1: 'YKS - TYT Puan ve Net Hesaplama Robotu (2026 ÖSYM Uyumlu)'
+    },
+    'ayt-puan-hesaplama': {
+      title: 'AYT Puan Hesaplama 2026 | Sayısal, Eşit Ağırlık, Sözel Net Hesaplama - Aşkar Yayınları',
+      desc: '2026 YKS Alan Yeterlilik Testi (AYT) Sayısal, Eşit Ağırlık ve Sözel puanınızı hesaplayın. Matematik, Fen, Edebiyat testleri net analizi.',
+      h1: 'YKS - AYT Puan ve Net Hesaplama Motoru (SAY - EA - SÖZ)'
+    },
+    'pomodoro-sayaci': {
+      title: 'Pomodoro Çalışma Sayacı | Odaklanma ve Ders Zamanlayıcı Robotu - Aşkar Yayınları',
+      desc: 'Sınavlara hazırlanan öğrenciler için ücretsiz Pomodoro ders çalışma sayacı. 25 dakikalık odak seansları ve mola sistemiyle ders veriminizi katlayın.',
+      h1: 'Pomodoro Çalışma Sayacı ve Odaklanma Zamanlayıcısı'
+    },
+    'kelime-sayaci': {
+      title: 'Kelime Sayacı ve Karakter Sayımı | Hızlı Metin Analiz Aracı - Aşkar Yayınları',
+      desc: 'Metinlerinizin kelime, boşluklu/boşluksuz karakter, cümle, paragraf sayısı ve tahmini sesli okuma süresini anlık olarak ücretsiz analiz edin.',
+      h1: 'Online Kelime Sayacı ve Metin Analiz Aracı'
+    },
+    'apa-kaynakca-olusturucu': {
+      title: 'APA 7 Kaynakça Oluşturucu | Otomatik Kaynakça ve Alıntı Robotu - Aşkar Yayınları',
+      desc: 'Kitap, bilimsel makale ve web siteleri için uluslararası APA 7 formatında standart alıntı ve kaynakça listesi hazırlama aracı.',
+      h1: 'APA 7 Formatında Otomatik Kaynakça Oluşturucu'
+    },
+    'sevimli-deniz-alti-kasifleri': {
+      title: 'Sevimli Deniz Altı Kaşifleri | Ücretsiz Çocuk Eğitici Oyunu - Aşkar Yayınları',
+      desc: 'Aşkar Yayınları\'nın tüm çocuklara özel ücretsiz armağanı! Mor Ahtapot Lili ve Tosbiş ile deniz altı keşfi, boyama ve eğitici mini oyunlar.',
+      h1: 'Sevimli Deniz Altı Kaşifleri İnteraktif Çocuk Uygulaması'
+    }
+  };
+
+  const GUIDE_SEO_MAP: Record<string, { title: string; desc: string; image: string; schema: object }> = {};
+  const guideFiles = ['ders-calisma-rehberi.json', 'lgs-rehberi.json', 'lise-dersleri.json', 'tyt-ayt-rehberi.json', 'mezun-rehberi.json'];
+  for (const fileName of guideFiles) {
+    const filePath = path.resolve(process.cwd(), 'src/data', fileName);
+    if (!fs.existsSync(filePath)) continue;
+    const guides = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    for (const guide of guides) {
+      const guideSlug = guide.slug || `ortaokul-${guide.id}-nasil-calisilir`;
+      const title = `${guide.ad} Nasıl Çalışılır? 2026 TYT AYT Başarı Taktikleri | Aşkar Yayınları`;
+      const rawDescription = `${guide.ad} nasıl çalışılır? TYT, AYT ve 2026 taktikleriyle konu tekrarını düzenle, soru çözümünü geliştir ve haftalık çalışma programını oluştur.`;
+      const desc = rawDescription.length > 155 ? `${rawDescription.slice(0, 152).trimEnd()}...` : rawDescription;
+      const pageUrl = `https://www.askaryayinlari.com.tr/rehber/${guideSlug}`;
+      const questions = [
+        { name: `${guide.ad} nasıl çalışılır?`, text: guide.uzun.basari },
+        { name: `${guide.ad} çalışırken nelere dikkat edilmeli?`, text: guide.uzun.dikkat },
+        { name: `${guide.ad} için haftalık program nasıl olmalı?`, text: guide.uzun.haftalik }
+      ];
+      GUIDE_SEO_MAP[guideSlug] = {
+        title,
+        desc,
+        image: `https://www.askaryayinlari.com.tr${guide.resim}`,
+        schema: {
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'HowTo',
+              name: `${guide.ad} Nasıl Çalışılır?`,
+              description: desc,
+              image: `https://www.askaryayinlari.com.tr${guide.resim}`,
+              step: [
+                ...guide.kisa.map((text: string, index: number) => ({ '@type': 'HowToStep', position: index + 1, text })),
+                { '@type': 'HowToStep', position: 4, name: 'Haftalık program', text: guide.uzun.haftalik }
+              ]
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: questions.map((item) => ({
+                '@type': 'Question',
+                name: item.name,
+                acceptedAnswer: { '@type': 'Answer', text: item.text }
+              }))
+            },
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: 'https://www.askaryayinlari.com.tr/' },
+                { '@type': 'ListItem', position: 2, name: 'Rehber', item: 'https://www.askaryayinlari.com.tr/rehber' },
+                { '@type': 'ListItem', position: 3, name: guide.ad, item: pageUrl }
+              ]
+            }
+          ]
+        }
+      };
+    }
+  }
+
+  // Helper to inject SEO meta tags into HTML
+  const injectSeoToHtml = (rawHtml: string, reqUrl: string) => {
+    let html = rawHtml;
+    const cleanUrl = reqUrl.split('?')[0].replace(/\/+$/, '');
+    const toolMatch = cleanUrl.match(/^\/uygulamalar\/([a-z0-9-]+)$/);
+    const guideMatch = cleanUrl.match(/^\/rehber\/([a-z0-9-]+)$/);
+
+    if (cleanUrl === '/rehber') {
+      const title = 'Ders Çalışma Rehberleri | Ortaokul, LGS, Lise, TYT, AYT ve Mezun 2026';
+      const desc = 'Ortaokul, LGS, lise dersleri, TYT, AYT ve mezun YKS hazırlığı için 2026 çalışma rehberleri, sınav taktikleri ve haftalık planlar.';
+      const canonical = 'https://www.askaryayinlari.com.tr/rehber';
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
+      html = html.replace(/<meta name="description" content=".*?" \/>/i, `<meta name="description" content="${desc}" />`);
+      html = html.replace(/<meta property="og:title" content=".*?" \/>/i, `<meta property="og:title" content="${title}" />`);
+      html = html.replace(/<meta property="og:description" content=".*?" \/>/i, `<meta property="og:description" content="${desc}" />`);
+      html = html.replace('</head>', `\n    <link rel="canonical" href="${canonical}" />\n    <meta property="og:url" content="${canonical}" />\n    <meta name="twitter:title" content="${title}" />\n    <meta name="twitter:description" content="${desc}" />\n  </head>`);
+    } else if (guideMatch && GUIDE_SEO_MAP[guideMatch[1]]) {
+      const info = GUIDE_SEO_MAP[guideMatch[1]];
+      const canonical = `https://www.askaryayinlari.com.tr/rehber/${guideMatch[1]}`;
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${info.title}</title>`);
+      html = html.replace(/<meta name="description" content=".*?" \/>/i, `<meta name="description" content="${info.desc}" />`);
+      html = html.replace(/<meta property="og:title" content=".*?" \/>/i, `<meta property="og:title" content="${info.title}" />`);
+      html = html.replace(/<meta property="og:description" content=".*?" \/>/i, `<meta property="og:description" content="${info.desc}" />`);
+      const schema = JSON.stringify(info.schema).replace(/<\/script/gi, '<\\/script');
+      html = html.replace('</head>', `\n    <link rel="canonical" href="${canonical}" />\n    <meta property="og:url" content="${canonical}" />\n    <meta property="og:image" content="${info.image}" />\n    <meta name="twitter:title" content="${info.title}" />\n    <meta name="twitter:description" content="${info.desc}" />\n    <script type="application/ld+json">${schema}</script>\n  </head>`);
+    } else if (toolMatch && TOOLS_SEO_MAP[toolMatch[1]]) {
+      const info = TOOLS_SEO_MAP[toolMatch[1]];
+      const canonical = `https://www.askaryayinlari.com.tr/uygulamalar/${toolMatch[1]}`;
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${info.title}</title>`);
+      html = html.replace(
+        /<meta name="description" content=".*?" \/>/i,
+        `<meta name="description" content="${info.desc}" />`
+      );
+      html = html.replace(
+        /<meta property="og:title" content=".*?" \/>/i,
+        `<meta property="og:title" content="${info.title}" />`
+      );
+      html = html.replace(
+        /<meta property="og:description" content=".*?" \/>/i,
+        `<meta property="og:description" content="${info.desc}" />`
+      );
+
+      // Inject canonical and twitter tags if not present
+      const tagsToInject = `
+    <link rel="canonical" href="${canonical}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta name="twitter:title" content="${info.title}" />
+    <meta name="twitter:description" content="${info.desc}" />
+      `;
+      html = html.replace('</head>', `${tagsToInject}\n  </head>`);
+    } else if (cleanUrl === '/uygulamalar') {
+      const canonical = 'https://www.askaryayinlari.com.tr/uygulamalar';
+      const title = 'Uygulamalar ve Eğitim Araçları | LGS & YKS Hesaplama - Aşkar Yayınları';
+      const desc = '2026 LGS ve YKS TYT-AYT net ve puan hesaplama robotları, Pomodoro çalışma sayacı, kelime analiz aracı ve çocuk uygulaması.';
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
+      html = html.replace(
+        /<meta name="description" content=".*?" \/>/i,
+        `<meta name="description" content="${desc}" />`
+      );
+      html = html.replace(
+        /<meta property="og:title" content=".*?" \/>/i,
+        `<meta property="og:title" content="${title}" />`
+      );
+      html = html.replace(
+        /<meta property="og:description" content=".*?" \/>/i,
+        `<meta property="og:description" content="${desc}" />`
+      );
+    }
+    return html;
+  };
+
+  // Public static assets (fonts, images, data)
+  app.use(express.static(path.resolve(process.cwd(), 'public')));
+  app.use('/fonts', express.static(path.resolve(process.cwd(), 'public/fonts')));
+  app.use('/data', express.static(path.resolve(process.cwd(), 'public/data')));
+
+  // Vite middleware for development vs static build for production
+  if (process.env.NODE_ENV !== 'production') {
+    const vite = await createViteServer({
+      optimizeDeps: { force: process.argv.includes('--force') },
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  } else {
+    const distPath = path.join(process.cwd(), 'dist');
+    const indexHtmlPath = path.join(distPath, 'index.html');
+
+    app.use(express.static(distPath));
+    app.get('*', (req, res) => {
+      try {
+        if (fs.existsSync(indexHtmlPath)) {
+          let html = fs.readFileSync(indexHtmlPath, 'utf-8');
+          html = injectSeoToHtml(html, req.url);
+          return res.send(html);
+        }
+      } catch (e) {
+        console.error('[SSR Meta Injection Error]', e);
+      }
+      return res.sendFile(indexHtmlPath);
+    });
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Aşkar Yayınları Server running on http://0.0.0.0:${PORT}`);
+  });
+}
+
+startServer();
