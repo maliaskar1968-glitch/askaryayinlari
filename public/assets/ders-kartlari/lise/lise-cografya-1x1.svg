@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900">
+  <defs>
+    <!-- Background Linear Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#021624"/>
+      <stop offset="50%" stop-color="#05314f"/>
+      <stop offset="100%" stop-color="#0a4f7d"/>
+    </linearGradient>
+
+    <!-- Glass Card Surface Gradient -->
+    <linearGradient id="glassCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <!-- Glowing Ambient Radial Gradients -->
+    <radialGradient id="orbGrad1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.32"/>
+      <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00f2fe" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="orbGrad2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#34d399" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- W3C SVG 1.1 Compliant Drop Shadow -->
+    <filter id="cardShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16"/>
+      <feOffset dx="0" dy="18" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.55"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Solid base rect + gradient rect for 100% opacity guarantee -->
+  <rect width="900" height="900" fill="#021624"/>
+  <rect width="900" height="900" fill="url(#bgGrad)"/>
+
+  <!-- High-Tech Neon Grid -->
+  <g opacity="0.12" stroke="#00f2fe" stroke-width="1.5">
+    <line x1="0" y1="180" x2="900" y2="180"/>
+    <line x1="0" y1="360" x2="900" y2="360"/>
+    <line x1="0" y1="540" x2="900" y2="540"/>
+    <line x1="0" y1="720" x2="900" y2="720"/>
+    <line x1="180" y1="0" x2="180" y2="900"/>
+    <line x1="360" y1="0" x2="360" y2="900"/>
+    <line x1="540" y1="0" x2="540" y2="900"/>
+    <line x1="720" y1="0" x2="720" y2="900"/>
+  </g>
+
+  <!-- Glowing Luminous Radial Ambient Orbs -->
+  <circle cx="220" cy="220" r="260" fill="url(#orbGrad1)"/>
+  <circle cx="720" cy="650" r="300" fill="url(#orbGrad2)"/>
+
+  <!-- Header Branding -->
+  <g transform="translate(80, 95)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#00f2fe" letter-spacing="4">
+      AŞKAR / LİSE ÇALIŞMA REHBERİ
+    </text>
+    <text y="55" font-family="'Cinzel', 'Times New Roman', serif" font-size="46" font-weight="900" fill="#ffffff" letter-spacing="1">
+      Lise Coğrafya
+    </text>
+
+    <!-- Pill Badge -->
+    <rect x="0" y="80" width="310" height="34" rx="17" fill="#00f2fe" fill-opacity="0.2" stroke="#00f2fe" stroke-width="1.5"/>
+    <circle cx="18" cy="97" r="5" fill="#00f2fe"/>
+    <text x="32" y="103" font-family="monospace" font-size="12" font-weight="700" fill="#00f2fe" letter-spacing="2">
+      İKLİM • HARİTA • DOĞAL AFETLER
+    </text>
+  </g>
+
+  <!-- Center Glassmorphic Card -->
+  <g transform="translate(80, 270)" filter="url(#cardShadow)">
+    <rect width="740" height="520" rx="32" fill="#05314f" fill-opacity="0.6"/>
+    <rect width="740" height="520" rx="32" fill="url(#glassCard)" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <!-- Subject Header Inside Card -->
+    <g transform="translate(50, 45)">
+      <rect width="64" height="64" rx="18" fill="#00f2fe" fill-opacity="0.2" stroke="#00f2fe" stroke-width="1.5"/>
+      <circle cx="32" cy="32" r="16" fill="none" stroke="#34d399" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="6" fill="#00f2fe"/>
+
+      <text x="80" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#ffffff">
+        Harita Okuma & Doğal Süreçler
+      </text>
+      <text x="80" y="52" font-family="monospace" font-size="13" fill="#00f2fe" letter-spacing="1">
+        MEKÂN, İNSAN VE SÜREÇ İLİŞKİSİ
+      </text>
+    </g>
+
+    <!-- Strategy Rule 1 -->
+    <g transform="translate(50, 145)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#00f2fe" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#00f2fe" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#00f2fe">1</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        Haritayı Her Konuya Dahil Et
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Dünya ve Türkiye dilsiz haritalarında dağ, iklim ve nüfus dağılışını çiz.
+      </text>
+    </g>
+
+    <!-- Strategy Rule 2 -->
+    <g transform="translate(50, 260)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#34d399" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#34d399" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#34d399">2</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        İklim Grafikleri ve Eksenleri Oku
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Sıcaklık ve yağış grafiklerinden rejimi ve yarımküreyi belirle.
+      </text>
+    </g>
+
+    <!-- Strategy Rule 3 -->
+    <g transform="translate(50, 375)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#fbbf24" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#fbbf24" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#fbbf24">3</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        Doğal Afetler ve Risk Bölgelerini Gör
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Fay hatları, volkanik kuşaklar ve muson alanlarını haritada tanı.
+      </text>
+    </g>
+  </g>
+</svg>

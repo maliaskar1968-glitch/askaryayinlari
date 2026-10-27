@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, ChevronRight, ExternalLink, Eye } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, ChevronRight, ExternalLink, Eye, Share2 } from 'lucide-react';
 import { BOOKS_DATA } from '../data/books';
 import { getStudyGuideBySlug, GuideLevel, SEO_GUIDES, STUDY_GUIDES, StudyGuide } from '../data/studyGuideRegistry';
 import { StudyGuideCard } from './DersCalismaKarti';
+import { ShareModal, ShareItem } from './ShareModal';
 import { PreviewModal } from './PreviewModal';
 import { ImgWithFallback } from './ImgWithFallback';
 import { usePrice } from '../context/PriceContext';
@@ -85,6 +86,7 @@ const guideSchema = (guide: StudyGuide, description: string) => {
 export const RehberPage: React.FC<RehberPageProps> = ({ slug, onSelectGuide, onNavigateHome }) => {
   const [activeFilter, setActiveFilter] = useState<GuideFilter>('hepsi');
   const [previewBook, setPreviewBook] = useState<Book | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
   const { getPrice } = usePrice();
   const guide = slug ? getStudyGuideBySlug(slug) : undefined;
 
@@ -135,10 +137,21 @@ export const RehberPage: React.FC<RehberPageProps> = ({ slug, onSelectGuide, onN
           <span className="font-semibold text-[#1A1A1A]">Rehber</span>
         </nav>
 
-        <header className="border-b border-[#1A1A1A]/10 pb-5">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#856526]">AŞKAR YAYINLARI • ÇALIŞMA REHBERLERİ</span>
-          <h1 className="mt-2 text-2xl sm:text-3xl font-serif font-black text-[#1A1A1A]">Ders Çalışma Rehberleri</h1>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-[#1A1A1A]/70">Ortaokul, LGS, lise, TYT, AYT ve mezun hazırlığı için 2026 çalışma taktikleri ve haftalık plan önerileri.</p>
+        <header className="relative flex items-start justify-between gap-4 border-b border-[#1A1A1A]/10 pb-5 pr-12">
+          <button
+            type="button"
+            onClick={() => setShareOpen(true)}
+            title="Paylaş"
+            aria-label="Paylaş"
+            className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#1A1A1A]/15 text-[#1A1A1A] transition-colors hover:bg-zinc-100"
+          >
+            <Share2 className="h-4 w-4 text-[#C9A86A]" />
+          </button>
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#856526]">AŞKAR YAYINLARI • ÇALIŞMA REHBERLERİ</span>
+            <h1 className="mt-2 text-2xl sm:text-3xl font-serif font-black text-[#1A1A1A]">Ders Çalışma Rehberleri</h1>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-[#1A1A1A]/70">Ortaokul, LGS, lise, TYT, AYT ve mezun hazırlığı için 2026 çalışma taktikleri ve haftalık plan önerileri.</p>
+          </div>
         </header>
 
         <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Rehber seviyesi">
@@ -157,9 +170,20 @@ export const RehberPage: React.FC<RehberPageProps> = ({ slug, onSelectGuide, onN
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {visibleGuides.map((item) => <StudyGuideCard key={item.id} guide={item} onSelectGuide={(nextSlug) => onSelectGuide(nextSlug)} />)}
+          {visibleGuides.map((item) => <StudyGuideCard key={item.slug} guide={item} onSelectGuide={(nextSlug) => onSelectGuide(nextSlug)} />)}
         </div>
         <p className="text-xs text-[#1A1A1A]/50">{visibleGuides.length} çalışma rehberi</p>
+        <ShareModal
+          item={{
+            isSiteShare: true,
+            title: 'Ders Çalışma Rehberleri',
+            subtitle: 'Ortaokul, LGS, lise, TYT, AYT ve mezun hazırlığı için çalışma rehberleri.',
+            image: '/resimler/logo.jpg',
+            url: 'https://www.askaryayinlari.com.tr/rehber'
+          } as ShareItem}
+          isOpen={shareOpen}
+          onClose={() => setShareOpen(false)}
+        />
       </main>
     );
   }
@@ -191,7 +215,16 @@ export const RehberPage: React.FC<RehberPageProps> = ({ slug, onSelectGuide, onN
         <span className="font-semibold text-[#1A1A1A]">{guide.ad}</span>
       </nav>
 
-      <header className="grid gap-6 border-b border-[#1A1A1A]/10 pb-7 md:grid-cols-[minmax(240px,360px)_1fr] md:items-center">
+      <header className="relative grid gap-6 border-b border-[#1A1A1A]/10 pb-7 pr-12 md:grid-cols-[minmax(240px,360px)_1fr] md:items-center">
+        <button
+          type="button"
+          onClick={() => setShareOpen(true)}
+          title="Paylaş"
+          aria-label="Paylaş"
+          className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#1A1A1A]/15 text-[#1A1A1A] transition-colors hover:bg-zinc-100"
+        >
+          <Share2 className="h-4 w-4 text-[#C9A86A]" />
+        </button>
         <div className="aspect-square w-full overflow-hidden rounded-xl shadow-sm">
           <img src={guide.resim} alt={`${guide.ad} çalışma rehberi`} className="h-full w-full object-cover" />
         </div>
@@ -263,6 +296,17 @@ export const RehberPage: React.FC<RehberPageProps> = ({ slug, onSelectGuide, onN
         )}
       </div>
       <PreviewModal book={previewBook} isOpen={!!previewBook} onClose={() => setPreviewBook(null)} />
+      <ShareModal
+        item={{
+          isSiteShare: true,
+          title,
+          subtitle: metaDescriptionFor(guide),
+          image: guide.resim,
+          url: window.location.href
+        } as ShareItem}
+        isOpen={shareOpen}
+        onClose={() => setShareOpen(false)}
+      />
     </article>
   );
 };

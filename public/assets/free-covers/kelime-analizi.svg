@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#03161e"/>
+      <stop offset="50%" stop-color="#062533"/>
+      <stop offset="100%" stop-color="#0a394f"/>
+    </linearGradient>
+
+    <!-- Glass Card Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03"/>
+    </linearGradient>
+
+    <!-- Cyan Neon Glow -->
+    <linearGradient id="cyanNeon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+
+    <!-- Emerald Glow -->
+    <linearGradient id="emeraldNeon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <!-- Amber Glow -->
+    <linearGradient id="amberNeon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+
+    <!-- Filter for Glow -->
+    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Tech Grid Background -->
+  <g opacity="0.08" stroke="#00f2fe" stroke-width="1.5">
+    <line x1="0" y1="150" x2="900" y2="150"/>
+    <line x1="0" y1="300" x2="900" y2="300"/>
+    <line x1="0" y1="450" x2="900" y2="450"/>
+    <line x1="0" y1="600" x2="900" y2="600"/>
+    <line x1="0" y1="750" x2="900" y2="750"/>
+    <line x1="150" y1="0" x2="150" y2="900"/>
+    <line x1="300" y1="0" x2="300" y2="900"/>
+    <line x1="450" y1="0" x2="450" y2="900"/>
+    <line x1="600" y1="0" x2="600" y2="900"/>
+    <line x1="750" y1="0" x2="750" y2="900"/>
+  </g>
+
+  <!-- Luminous Ambient Orbs -->
+  <circle cx="200" cy="250" r="180" fill="#00f2fe" opacity="0.12" />
+  <circle cx="700" cy="650" r="220" fill="#10b981" opacity="0.1" />
+  <circle cx="750" cy="200" r="140" fill="#38bdf8" opacity="0.1" />
+
+  <!-- Header Branding -->
+  <g transform="translate(80, 95)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#38bdf8" letter-spacing="4">
+      AŞKAR / EĞİTİM ARAÇLARI
+    </text>
+    <text y="55" font-family="'Cinzel', 'Times New Roman', serif" font-size="46" font-weight="900" fill="#ffffff" letter-spacing="1">
+      Kelime Sayacı
+    </text>
+
+    <!-- Neon Pill Badge -->
+    <rect x="0" y="80" width="220" height="34" rx="17" fill="#00f2fe" fill-opacity="0.15" stroke="#00f2fe" stroke-width="1.5"/>
+    <circle cx="18" cy="97" r="5" fill="#00f2fe"/>
+    <text x="32" y="103" font-family="monospace" font-size="13" font-weight="700" fill="#00f2fe" letter-spacing="2">
+      METİN ANALİZ ARACI
+    </text>
+  </g>
+
+  <!-- Center Glassmorphic Card -->
+  <g transform="translate(80, 270)" filter="url(#cardShadow)">
+    <!-- Card Surface -->
+    <rect width="740" height="520" rx="32" fill="url(#cardGrad)" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <!-- Document Header inside Card -->
+    <g transform="translate(45, 45)">
+      <rect width="52" height="52" rx="16" fill="#00f2fe" fill-opacity="0.2" stroke="#00f2fe" stroke-width="1.5"/>
+      <!-- File Text Icon -->
+      <path d="M18 14 H30 L38 22 V38 H18 Z M30 14 V22 H38" stroke="#00f2fe" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+      <line x1="22" y1="26" x2="34" y2="26" stroke="#00f2fe" stroke-width="2"/>
+      <line x1="22" y1="31" x2="32" y2="31" stroke="#00f2fe" stroke-width="2"/>
+
+      <text x="68" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#ffffff">
+        Canlı Metin &amp; İstatistik Raporu
+      </text>
+      <text x="68" y="46" font-family="monospace" font-size="13" fill="#38bdf8" letter-spacing="1">
+        ANLIK KELİME, KARAKTER VE OKUMA ANALİZİ
+      </text>
+    </g>
+
+    <!-- Metric 1: KELİME SAYISI -->
+    <g transform="translate(45, 140)">
+      <rect width="305" height="150" rx="20" fill="#041f2d" fill-opacity="0.75" stroke="#00f2fe" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="24" y="42" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8" letter-spacing="2">
+        TOPLAM KELİME
+      </text>
+      <text x="24" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="url(#cyanNeon)" filter="url(#glowFilter)">
+        1.450
+      </text>
+      <text x="180" y="102" font-family="monospace" font-size="18" font-weight="700" fill="#38bdf8">
+        Adet
+      </text>
+    </g>
+
+    <!-- Metric 2: KARAKTER SAYISI -->
+    <g transform="translate(390, 140)">
+      <rect width="305" height="150" rx="20" fill="#042624" fill-opacity="0.75" stroke="#10b981" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="24" y="42" font-family="monospace" font-size="13" font-weight="700" fill="#34d399" letter-spacing="2">
+        KARAKTER SAYISI
+      </text>
+      <text x="24" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="url(#emeraldNeon)" filter="url(#glowFilter)">
+        8.920
+      </text>
+      <text x="185" y="102" font-family="monospace" font-size="18" font-weight="700" fill="#34d399">
+        Harf
+      </text>
+    </g>
+
+    <!-- Metric 3: OKUMA SÜRESİ & PARAGRAF BARI -->
+    <g transform="translate(45, 320)">
+      <rect width="650" height="145" rx="20" fill="#0a2a38" fill-opacity="0.65" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1.5"/>
+      <g transform="translate(30, 35)">
+        <text font-family="monospace" font-size="13" font-weight="700" fill="#fbbf24" letter-spacing="2">
+          TAHMİNİ SESLİ OKUMA SÜRESİ
+        </text>
+        <text y="55" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="900" fill="url(#amberNeon)" filter="url(#glowFilter)">
+          5 Dakika 12 Saniye
+        </text>
+        <text y="88" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8">
+          12 Paragraf • 94 Cümle • 250 wpm Uluslararası Standart
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

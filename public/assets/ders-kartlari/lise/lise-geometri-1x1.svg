@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900">
+  <defs>
+    <!-- Background Linear Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#021326"/>
+      <stop offset="50%" stop-color="#06294f"/>
+      <stop offset="100%" stop-color="#0c4987"/>
+    </linearGradient>
+
+    <!-- Glass Card Surface Gradient -->
+    <linearGradient id="glassCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <!-- Glowing Ambient Radial Gradients -->
+    <radialGradient id="orbGrad1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.32"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="orbGrad2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#60a5fa" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- W3C SVG 1.1 Compliant Drop Shadow -->
+    <filter id="cardShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16"/>
+      <feOffset dx="0" dy="18" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.55"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Solid base rect + gradient rect for 100% opacity guarantee -->
+  <rect width="900" height="900" fill="#021326"/>
+  <rect width="900" height="900" fill="url(#bgGrad)"/>
+
+  <!-- High-Tech Neon Grid -->
+  <g opacity="0.12" stroke="#38bdf8" stroke-width="1.5">
+    <line x1="0" y1="180" x2="900" y2="180"/>
+    <line x1="0" y1="360" x2="900" y2="360"/>
+    <line x1="0" y1="540" x2="900" y2="540"/>
+    <line x1="0" y1="720" x2="900" y2="720"/>
+    <line x1="180" y1="0" x2="180" y2="900"/>
+    <line x1="360" y1="0" x2="360" y2="900"/>
+    <line x1="540" y1="0" x2="540" y2="900"/>
+    <line x1="720" y1="0" x2="720" y2="900"/>
+  </g>
+
+  <!-- Glowing Luminous Radial Ambient Orbs -->
+  <circle cx="220" cy="220" r="260" fill="url(#orbGrad1)"/>
+  <circle cx="720" cy="650" r="300" fill="url(#orbGrad2)"/>
+
+  <!-- Header Branding -->
+  <g transform="translate(80, 95)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#38bdf8" letter-spacing="4">
+      AŞKAR / LİSE ÇALIŞMA REHBERİ
+    </text>
+    <text y="55" font-family="'Cinzel', 'Times New Roman', serif" font-size="46" font-weight="900" fill="#ffffff" letter-spacing="1">
+      Lise Geometri
+    </text>
+
+    <!-- Pill Badge -->
+    <rect x="0" y="80" width="310" height="34" rx="17" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="18" cy="97" r="5" fill="#38bdf8"/>
+    <text x="32" y="103" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8" letter-spacing="2">
+      ÜÇGEN • ÇEMBER • ANALİTİK
+    </text>
+  </g>
+
+  <!-- Center Glassmorphic Card -->
+  <g transform="translate(80, 270)" filter="url(#cardShadow)">
+    <rect width="740" height="520" rx="32" fill="#06294f" fill-opacity="0.6"/>
+    <rect width="740" height="520" rx="32" fill="url(#glassCard)" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <!-- Subject Header Inside Card -->
+    <g transform="translate(50, 45)">
+      <rect width="64" height="64" rx="18" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="32" cy="32" r="16" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="6" fill="#38bdf8"/>
+
+      <text x="80" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#ffffff">
+        Geometrik Çizim & Teoremler
+      </text>
+      <text x="80" y="52" font-family="monospace" font-size="13" fill="#38bdf8" letter-spacing="1">
+        GÖRSEL DÜŞÜNME VE İLİŞKİLERİ FARK ETME
+      </text>
+    </g>
+
+    <!-- Strategy Rule 1 -->
+    <g transform="translate(50, 145)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#38bdf8" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#38bdf8">1</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        Şekli Kendin Çiz ve İncele
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Verilen açı ve kenar uzunluklarını şekle bizzat aktararak çalış.
+      </text>
+    </g>
+
+    <!-- Strategy Rule 2 -->
+    <g transform="translate(50, 260)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#60a5fa" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#60a5fa" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#60a5fa">2</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        Yardımcı Çizginin Nedenini Açıkla
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Çizdiğin ek doğrunun hangi benzerlik veya açı kuralını kurduğunu gör.
+      </text>
+    </g>
+
+    <!-- Strategy Rule 3 -->
+    <g transform="translate(50, 375)">
+      <rect width="640" height="95" rx="18" fill="#000000" fill-opacity="0.35" stroke="#fbbf24" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="45" cy="48" r="20" fill="#fbbf24" fill-opacity="0.2"/>
+      <text x="45" y="54" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="900" fill="#fbbf24">3</text>
+      <text x="85" y="38" font-family="system-ui" font-size="16" font-weight="800" fill="#ffffff">
+        Her Gün 10-15 Geometri Sorusu Çöz
+      </text>
+      <text x="85" y="64" font-family="system-ui" font-size="13" fill="#cbd5e1">
+        Aralıksız pratikle görme refleksini ve kural algını geliştir.
+      </text>
+    </g>
+  </g>
+</svg>

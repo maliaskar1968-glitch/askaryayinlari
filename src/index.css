@@ -2,11 +2,7 @@
 
 @layer base {
   html, body {
-<<<<<<< HEAD
     overflow-x: clip;
-=======
-    overflow-x: hidden;
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     max-width: 100vw;
   }
 
@@ -33,7 +29,6 @@
   border-color: rgba(26, 26, 26, 0.12);
 }
 
-<<<<<<< HEAD
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -43,5 +38,3 @@
   display: none;
 }
 
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25

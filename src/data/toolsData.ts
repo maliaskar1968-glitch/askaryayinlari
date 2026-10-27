@@ -1,17 +1,23 @@
 import { ToolTab } from '../types';
 
+export type ToolCategory =
+  | 'YKS'
+  | 'LGS'
+  | 'BURSLULUK'
+  | 'OKUL_NOT'
+  | 'KOCLUK'
+  | 'AKADEMIK'
+  | 'COCUK';
+
 export interface ToolDefinition {
   id: ToolTab;
   slug: string;
-<<<<<<< HEAD
   image: string;
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
   name: string;
   shortName: string;
   badge: string;
   badgeColor: string;
-  category: 'LGS' | 'YKS' | 'ARAÇLAR' | 'ÇOCUK' | 'BURSLULUK';
+  category: ToolCategory;
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -27,72 +33,16 @@ export interface ToolDefinition {
 
 export const TOOLS_DATA: ToolDefinition[] = [
   {
-<<<<<<< HEAD
     id: 'yks',
     slug: 'yks-puan-hesaplama',
     image: '/assets/free-covers/yks-hesaplama.jpg',
-=======
-    id: 'yks-tercih',
-    slug: 'yks-tercih-robotu',
-    name: 'YKS Tercih Sihirbazı 2025 + PDF İndir',
-    shortName: 'YKS Tercih Sihirbazı',
-    badge: 'YKS 2025 • YÖK ATLAS UYUMLU',
-    badgeColor: '#ea580c',
-    category: 'YKS',
-    metaTitle: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
-    metaDescription: 'YKS puanına göre üniversite listeni oluştur, PDF olarak indir ve paylaş.',
-    h1: 'YKS Tercih Robotu 2025 - PDF İndir - Taban Puanlara Göre Bölüm Bul',
-    tagline: 'YKS puanınızı, puan türünüzü (SAY, EA, SÖZ, DİL), şehir ve üniversite türünüzü seçin; 2024 YÖK taban puanlarına göre uygun bölümleri filtreleyin ve tercih listenizi anında PDF olarak indirin.',
-    detailedDescription: "### YKS Tercih Sürecinde Başarı Sırası ve Puan Dinamikleri\nÜniversite yerleştirme sürecinde adayların en sık düştüğü yanılgı, tercih listesini yalnızca aldıkları puana göre oluşturmaktır. Oysa YKS sınavının zorluk derecesi, standart sapmalar ve aday sayıları her yıl değişir. Bu sebeple 2024 yılında 430 puanla kapatan bir bölüm, 2025 yılında 415 veya 445 puanla kapatabilir. Tercih listesi hazırlanırken asıl güvenilir referans başarı sırasıdır. Puanlar dalgalanır ancak başarı sıraları genel yönelimleri çok daha isabetli yansıtır. YKS Tercih Sihirbazı, YÖK Atlas'ın en güncel yerleştirme verilerini kullanarak hem taban puan hem de başarı sırası karşılaştırmasını tek tabloda sunar.\n\n### 24 Tercih Kuralı: İdeal Liste Dağılımı Nasıl Yapılmalı?\nÖSYM adaylara toplam 24 tercih hakkı tanır. Başarılı bir tercih stratejisinde listenin dağılımı piramit kuralına dayanmalıdır:\n1. İlk 4-5 Tercih (Hayal & Sürpriz Grubu): Sıralamanızın veya puanınızın %15-20 üzerinde olan, 'gelmesi zor ama gelirse çok mutlu olurum' dediğiniz bölümler.\n2. Orta 12-14 Tercih (İdeal & Gerçekçi Grup): Sıralamanızın ve puanınızın tam denk geldiği (%10 altı ve %10 üstü), yerleşme ihtimalinizin en yüksek olduğu çekirdek tercihler.\n3. Son 4-5 Tercih (Garanti & Güvenlik Grubu): Sıralamanızın %25-35 altında kalan, açıkta kalma riskinizi sıfırlayan güvenli tercihler.\n\n### Ölü Tercih Tuzağından Kaçınma ve Şehir Seçimi\nBir adayın daha çok istediği ancak taban puanı/sıralaması daha düşük olan bir bölümü, istemediği yüksek puanlı bir bölümün altına yazması tercih hatasıdır. Unutmayın ki ÖSYM sistemi yukarıdan aşağıya doğru ilk tutan tercihinize yerleştirir. Ayrıca devlet ve vakıf üniversitelerinin burs koşulları, kampüs imkanları ve şehir yaşam maliyetleri tercih listesinde titizlikle değerlendirilmelidir. Aşkar Yayınları logolu resmi PDF tercih çıktısı ile listenizi kaydedebilir, aileniz ve rehber öğretmeninizle masaya yatırabilirsiniz.",
-    iconName: 'Compass',
-    highlights: [
-      '2024 YÖK Atlas Resmi Taban Puanları ve Başarı Sıraları',
-      'SAY, EA, SÖZ ve DİL Puan Türlerinde Şehir ve Üniversite Filtreleme',
-      '24 Tercih Listesi Oluşturma ve Anlık Durum Analizi',
-      'Aşkar Yayınları Logolu, QR Kodlu ve Tıklanabilir Linkli Resmi PDF Çıktısı'
-    ],
-    howToUse: [
-      'YKS yerleştirme puanınızı yazın ve puan türünüzü (SAY, EA, SÖZ veya DİL) belirleyin.',
-      'İlginizi çeken şehirleri ve üniversite türünü (Devlet / Vakıf) filtreleyin.',
-      'Tablodan beğendiğiniz bölümlerin yanındaki "+" butonuna tıklayarak listenize ekleyin.',
-      'Üstteki siyah "PDF OLARAK İNDİR" butonuna basarak logolu ve QR kodlu tercih listenizi anında cihazınıza kaydedin.'
-    ],
-    faq: [
-      {
-        q: 'YKS tercihlerinde puana mı yoksa başarı sırasına mı bakılmalıdır?',
-        a: 'Tercih yaparken birincil kriter kesinlikle başarı sırasıdır. Puanlar sınavın genel zorluğuna göre yıldan yıla onlarca puan değişebilirken başarı sırası çok daha kararlıdır. Ancak fikir vermesi açısından puan ve sıralama birlikte değerlendirilmelidir.'
-      },
-      {
-        q: 'Kaç tercih hakkımız vardır ve nasıl dağıtılmalıdır?',
-        a: 'ÖSYM yerleştirmelerinde toplam 24 tercih hakkı bulunur. Bu hakların %20\'si sürpriz/yüksek, %60\'ı kendi puan aralığınız, %20\'si ise açıkta kalmayı önleyecek güvenlik tercihlerine ayrılmalıdır.'
-      },
-      {
-        q: 'Ölü tercih nedir ve nasıl önlenir?',
-        a: 'Ölü tercih; adayın daha az istediği veya sıralaması çok daha düşük olan bir bölümü daha üst sıralara yazıp, daha çok istediği bir bölümü alt sıralara koyması durumudur. ÖSYM üstten alta doğru tarama yaptığı için listeyi puan sırasına değil kişisel istek sırasına göre dizmek gerekir.'
-      },
-      {
-        q: 'Vakıf üniversitelerinde tam burslu bölümlerde burs kesilir mi?',
-        a: 'YÖK mevzuatına göre ÖSYM kılavuzunda yer alan başarı bursları normal eğitim-öğretim süresi boyunca (hazırlık + 4 yıl) ders başarısızlığından dolayı kesilemez. Yalnızca disiplin suçlarında kesilebilir.'
-      },
-      {
-        q: 'YKS tercih listesini PDF olarak indirdikten sonra ne yapmalıyım?',
-        a: 'PDF çıktınızı rehber öğretmeniniz ve ailenizle birlikte inceleyip bölüm kodlarını kontrol ettikten sonra tercih dönemi açıldığında ÖSYM Aday İşlemleri Sistemi (AİS) üzerinden resmi tercihinizi onaylamalısınız.'
-      }
-    ],
-    relatedBookId: 'k_yks',
-    relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
-  },
-  {
-    id: 'yks',
-    slug: 'yks-puan-hesaplama',
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS Puan Hesaplama 2025 TYT AYT + OBP',
     shortName: 'YKS Puan Hesaplama',
     badge: 'YKS 2025 • TYT AYT OBP',
     badgeColor: '#ea580c',
     category: 'YKS',
-    metaTitle: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
-    metaDescription: 'ÖSYM uyumlu YKS puan hesapla, tahmini sıralamanı gör.',
+    metaTitle: 'YKS Puan Hesaplama 2026 | TYT AYT OBP Sıralama Hesaplama',
+    metaDescription: 'ÖSYM 2026 uyumlu YKS puan hesaplama motoru. TYT ve AYT netlerinizle OBP katkılı SAY, EA, SÖZ yerleştirme puanınızı ve tahmini başarı sıranızı hemen hesaplayın.',
     h1: 'YKS Puan Hesaplama 2025 - TYT AYT OBP\'li',
     tagline: 'ÖSYM standartlarına uygun TYT ve AYT netlerinizi ve diploma notunuzu girerek OBP katkılı SAY, EA, SÖZ ve TYT yerleştirme puanınızı ve tahmini sıralamanızı anında hesaplayın.',
     detailedDescription: "### YKS Puanı Nasıl Hesaplanır?\nYükseköğretim Kurumları Sınavı (YKS) puanı, ÖSYM tarafından her yıl iki temel oturum ve adayların lise mezuniyet başarısını temsil eden Ortaöğretim Başarı Puanı'nın (OBP) ağırlıklı birleşimiyle hesaplanır.\n\n1. Birinci Oturum: Temel Yeterlilik Testi (TYT)\nTYT oturumunda tüm adaylara ortak 120 soru (40 Türkçe, 20 Sosyal Bilimler, 40 Temel Matematik, 20 Fen Bilimleri) yöneltilir. 4 yanlış cevabın 1 doğru cevabı elediği sınavda ham netler hesaplanır. ÖSYM'nin 100 taban puanı üzerine derslerin standart sapma katsayıları eklenerek adayların TYT Ham Puanı (100-500 aralığında) elde edilir. TYT puanı tek başına 2 yıllık önlisans programlarına yerleşmede ve özel yetenek sınavlarında kullanılır.\n\n2. İkinci Oturum: Alan Yeterlilik Testleri (AYT)\n4 yıllık lisans fakültelerine yerleşmek isteyen adaylar için AYT puanı hayati önem taşır. YKS yerleştirme puanının %40'ı TYT oturumundan, %60'ı ise AYT oturumundan gelir. AYT puan türleri adayın hedeflediği alana göre üç ana grupta toplanır:\n• Sayısal (SAY): TYT katkısı (%40) + AYT Matematik (40 soru) + AYT Fen Bilimleri (14 Fizik, 13 Kimya, 13 Biyoloji).\n• Eşit Ağırlık (EA): TYT katkısı (%40) + AYT Matematik (40 soru) + AYT Türk Dili ve Edebiyatı-Sosyal-1 (24 Edebiyat, 10 Tarih-1, 6 Coğrafya-1).\n• Sözel (SÖZ): TYT katkısı (%40) + Türk Dili ve Edebiyatı-Sosyal-1 (40 soru) + Sosyal Bilimler-2 (11 Tarih-2, 11 Coğrafya-2, 12 Felsefe Grubu, 6 Din Kültürü).\n\n3. OBP (Ortaöğretim Başarı Puanı) Katkısı Nasıl Eklenir?\nAdayın lise diploma notu (50-100 aralığında) 5 ile çarpılarak 250 ile 500 arasında OBP puanına dönüştürülür. Standart yerleştirmede bu OBP puanı 0,12 katsayısıyla çarpılarak adayın ham puanına eklenir (+30 ile +60 puan arası). Ancak adayın bir önceki yıl üniversiteye yerleşip yerleşmediği kontrol edilir; bir önceki yıl merkezi yerleştirmeyle bir bölüme yerleşen adayların OBP katsayısı 0,06'ya (yarıya) düşer ve 'Kırık OBP' uygulanır.\n\n4. Tahmini Sıralama Simülasyonu\nPuanlar kadar üniversite tercihlerinde en belirleyici unsur başarı sıralamasıdır. Hesaplama motorumuz, geçmiş yılların (2023 ve 2024 ÖSYM yığılma verileri) standart sapma ve net dağılım projeksiyonlarını kullanarak hesaplanan Y-SAY, Y-EA ve Y-SÖZ puanlarına karşılık gelen tahmini başarı sıralama aralığını anında sunar.",
@@ -136,19 +86,82 @@ export const TOOLS_DATA: ToolDefinition[] = [
     relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
   },
   {
+    id: 'yks-tercih',
+    slug: 'yks-tercih-robotu',
+    image: '/assets/free-covers/yks-tercih.jpg',
+    name: 'YKS Tercih Robotu - YÖK Atlas Puan & Sıralama Sihirbazı',
+    shortName: 'YKS Tercih Robotu',
+    badge: 'ÖSYM • 2025-2026 YKS TERCİH DÖNEMİ',
+    badgeColor: '#7c3aed',
+    category: 'YKS',
+    metaTitle: 'YKS Tercih Robotu 2026 | YÖK Atlas Üniversite Taban Puanları',
+    metaDescription: 'YÖK Atlas 2026 resmi verileriyle YKS üniversite tercih robotu. 4 yıllık lisans ve 2 yıllık önlisans bölümlerini sıralayın, 24\'lü listenizi PDF olarak indirin.',
+    h1: 'YKS Tercih Robotu 2025-2026 - YÖK Atlas Taban Puan ve Sıralamalar',
+    tagline: 'YKS TYT-AYT yerleştirme puanınızı veya başarı sıranızı girin; 2024-2025 YÖK Atlas resmi verilerine göre SAY, EA, SÖZ, DİL ve TYT bölümlerini listeleyin, 24\'lü gerçek tercih listenizi oluşturup PDF olarak indirin.',
+    detailedDescription: "YKS (Yükseköğretim Kurumları Sınavı) tercih dönemi, uzun ve yorucu bir çalışma temposunun gelecekteki kariyer çizgisine dönüştüğü en kritik strateji sürecidir. Tercih döneminde adayların ve velilerin en sık yaptığı hata, yelpazeyi yalnızca 'YKS puanı' üzerinden oluşturmaktır. Oysa sınavın zorluk seviyesi ve katılan aday sayısı her yıl değiştiğinden, puanlar yanıltıcı olabilir. YKS tercihlerinde tek ve en güvenilir pusula 'Başarı Sıralaması'dır.\n\nÖSYM merkezi yerleştirme sistemi kapsamında adaylara en fazla 24 üniversite programı tercih hakkı tanınır. Bu 24 tercihi planlarken uzmanların önerdiği altın kural 'Tercih Yelpazesi' taktiğidir.\n\nBaşarılı bir tercih listesi oluşturmak için 24 tercih şu şekilde dengelenmelidir:\n1. Hayal / İddialı Tercihler (İlk 4-5 Tercih): Başarı sıranızın %20-%30 üzerinde olan, girme şansınız düşük görünse de çok istediğiniz prestijli fakülteleri yazın.\n2. İdeal / Gerçekçi Tercihler (Orta 10-12 Tercih): Kendi başarı sıranıza çok yakın (%10 üstü ile %20 altı) olan bölümleri bu alana yerleştirin. Yerleşme ihtimalinizin en yüksek olduğu çekirdek liste burasıdır.\n3. Güvenli / Garanti Tercihler (Son 5-7 Tercih): Başarı sıranızın oldukça altında (%30-%50 altı) yer alan kaliteli üniversiteleri listenin sonuna ekleyin. Bu adım, açıkta kalma riskini tamamen ortadan kaldırır.\n\nBölüm seçimi yaparken yalnızca taban sıralamasına değil; üniversitenin akademik kadrosu, yabancı dil hazırlık imkanı, staj ve iş olanakları, şehir ve kampüs donanımına da dikkat edilmelidir. Tercih süreci bir şans oyunu değil, bilinçli bir kariyer planlamasıdır. Aşkar Yayınları YKS Koçluk Serisi, sınav hazırlığından üniversiteye geçişe kadar adaylara rehberlik eder.",
+    iconName: 'Compass',
+    highlights: [
+      '2024-2025 YÖK Atlas resmi taban puan ve başarı sırası verileri',
+      '24\'lü Resmi YKS Tercih Listesi Oluşturma ve Sıralama',
+      'Aşkar Yayınları Logolu, QR Kodlu ve Tıklanabilir Linkli Resmi PDF İndirme',
+      'Tercih Listesini WhatsApp ile Tek Dokunuşla Paylaşma ve Metin Kopyalama'
+    ],
+    howToUse: [
+      'Hedeflediğiniz puan türünü (SAY, EA, SÖZ, DİL veya TYT Önlisans) seçin.',
+      'YKS yerleştirme başarı sıranızı veya sınav puanınızı ilgili kutucuğa girin.',
+      'Şehir ve üniversite türü (Devlet / Vakıf) filtreleriyle hedef bölümleri daraltın.',
+      'Sol tablodaki programların yanındaki "+ butonuna" basarak 24\'lü listenize aktarın.',
+      'Sağdaki listenizi yukarı/aşağı oklarla kişisel istek sıranıza göre düzenleyin.',
+      'Siyah "PDF İndir" butonuyla listenizi kaydedin veya WhatsApp ile rehber öğretmeninizle paylaşın.'
+    ],
+    faq: [
+      {
+        q: 'YKS tercihlerinde puana mı yoksa başarı sırasına mı bakılmalıdır?',
+        a: 'Kesinlikle başarı sırasına bakılmalıdır. Sınavın zorluk derecesi her yıl değiştiği için puanlar yükselebilir veya düşebilir; ancak başarı sıralamaları yığılmalara ve kontenjanlara bağlı olarak çok daha stabil ve güvenilir bir göstergedir.'
+      },
+      {
+        q: 'YKS\'de kaç tercih hakkı vardır ve tamamını doldurmak zorunlu mudur?',
+        a: 'Merkezi yerleştirmede en fazla 24 tercih hakkı bulunmaktadır. 24 tercihin tamamını doldurmak zorunlu değildir, ancak açıkta kalma riskini önlemek için geniş bir yelpazede doldurulması önerilir.'
+      },
+      {
+        q: 'Başarı sıramın ne kadar üstündeki ve altındaki bölümleri yazmalıyım?',
+        a: 'Listenizin ilk 4-5 sırasına başarı sıranızın %20-30 üstündeki hayal bölümleri, orta 10-12 sırasına kendi sıranıza yakın bölümleri, son sıralara ise açıkta kalmamak için sıranızın %30-50 altındaki güvenli bölümleri yazmalısınız.'
+      },
+      {
+        q: 'Tıp, Diş, Hukuk ve Mühendislik gibi bölümlerde başarı sırası barajı nedir?',
+        a: 'YÖK başarı sırası barajları: Tıp ilk 50 bin, Diş Hekimliği ilk 80 bin, Eczacılık ilk 100 bin, Hukuk ilk 125 bin, Mimarlık ilk 250 bin, Mühendislik ilk 300 bin ve Öğretmenlik programları ilk 300 bin.'
+      },
+      {
+        q: 'Tercih yapıp bir bölüme yerleşirsem seneye OBP puanım kırılır mı?',
+        a: 'Evet. Tercih listenizdeki bir örgün veya uzaktan eğitim programa yerleştiğinizde, kayıt yaptırsanız da yaptırmasanız da bir sonraki yıl OBP katsayınız 0,12\'den 0,06\'ya düşer (Kırık OBP uygulanır).'
+      },
+      {
+        q: 'Vakıf üniversitelerinde burs oranları ve tercih stratejisi nasıl olmalıdır?',
+        a: 'Vakıf üniversitelerinde Tam Burslu (%100) ve %50 İndirimli kontenjanlar ayrı kodlarla yer alır. Eğitim ücreti, hazırlık sınıfı şartları ve bursun kesilme koşulları kılavuz özel koşullarından dikkatle incelenmelidir.'
+      },
+      {
+        q: 'TYT puanıyla 2 yıllık önlisans bölümleri nasıl tercih edilir?',
+        a: 'TYT puanı hesaplanan adaylar, robotumuzdaki "TYT" sekmesini seçerek 2 yıllık önlisans programlarını (Paramedik, Bilgisayar Programcılığı, Siber Güvenlik, Anestezi vb.) 24 tercih hakkı kapsamında tercih edebilirler.'
+      },
+      {
+        q: 'Tercih sırası kazanma şansını etkiler mi?',
+        a: 'Hayır, tercih sırası kazanma şansını azaltmaz. ÖSYM yerleştirme sistemi puan/sıralama üstünlüğüne göre çalışır. Bir bölümü 1. sıraya yazan ile 24. sıraya yazandan sıralaması daha yüksek olan öğrenci öncelikli olarak yerleşir.'
+      }
+    ],
+    relatedBookId: 'k_yks',
+    relatedBookTitle: "YKS'de Kendi Koçun Ol (YKS Koçluk & Derece Sistemi)"
+  },
+  {
     id: 'lise-ortalama',
     slug: 'lise-ortalama-hesaplama',
-<<<<<<< HEAD
     image: '/assets/free-covers/lise-ortalama.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
     shortName: 'Lise Ortalama & Devamsızlık',
     badge: '9-12. SINIF LİSE • MEB E-OKUL',
     badgeColor: '#7c3aed',
-    category: 'ARAÇLAR',
-    metaTitle: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
-    metaDescription: 'Lise ortalama, takdir teşekkür ve devamsızlık hesapla.',
+    category: 'OKUL_NOT',
+    metaTitle: 'Lise Dönem Ortalama Hesaplama 2026 | 9, 10, 11, 12. Sınıf E-Okul',
+    metaDescription: 'MEB Ortaöğretim Yönetmeliği\'ne uygun lise dönem ortalaması, takdir teşekkür ve 10/30 gün devamsızlık sınırı hesaplama aracı. E-okul notlarınızı hemen hesaplayın.',
     h1: 'Lise Ortalama Hesaplama 9-10-11-12 - Takdir Teşekkür',
     tagline: '9, 10, 11 ve 12. sınıf dönem ortalamanızı, takdir-teşekkür belge durumunuzu ve MEB 10/30 gün devamsızlık sınırınızı saniyede hesaplayın.',
     detailedDescription: "Milli Eğitim Bakanlığı (MEB) Ortaöğretim Kurumları Yönetmeliği uyarınca, liselerde (9, 10, 11 ve 12. sınıflar) dönem sonu ağırlıklı not ortalaması, her dersin haftalık ders saati ile o dersten alınan dönem puanının çarpımlarının toplam ders saatine bölünmesiyle hesaplanır. Türk Dili ve Edebiyatı, Matematik ve Fizik gibi haftalık ders saati yüksek olan branşlar genel ortalamayı doğrudan belirler.\n\nTakdir ve teşekkür belgesi kazanımında iki kritik kural mevcuttur: Öğrencinin dönem ortalaması 70,00 ile 84,99 arasında ise Teşekkür, 85,00 ve üzerinde ise Takdir belgesi almaya hak kazanır. Ancak öğrencinin tek bir dersinin dönem puanı dahi 50,00'nin altında (zayıf) ise ortalaması ne kadar yüksek olursa olsun belge verilmez. Ayrıca yönetmeliğin 160. maddesine göre, özürsüz devamsızlık süresi 5 günü geçen öğrenciler takdir ya da teşekkür belgesi alma hakkını kaybeder.\n\nDevamsızlık ve sınıf tekrarı konusunda ise MEB yönetmeliği son derece katıdır: Liselerde özürsüz devamsızlık hakkı en fazla 10 gün, özürlü (sağlık raporu veya veli izin dilekçesi) devamsızlık hakkı 20 gün olup toplam devamsızlık süresi 30 günü geçemez. Özürsüz devamsızlığı 10 günü veya toplam devamsızlığı 30 günü aşan lise öğrencileri ders başarı durumuna bakılmaksızın doğrudan sınıf tekrarına (devamsızlıktan kalma) kalır. Aşkar Yayınları Lise Koçluk Serisi (9, 10, 11 ve YKS), lise sürecinde ders başarısını ve devam disiplinini sürdürmeniz için rehberlik eder.",
@@ -193,17 +206,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'altin-is',
     slug: '3-altin-is-takip',
-<<<<<<< HEAD
     image: '/assets/free-covers/3-altin-is.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Günde 3 Altın İş Takip - Tüm Sınıflar',
     shortName: '3 Altın İş Takip',
     badge: 'TÜM SINIFLAR • DİSİPLİN UYGULAMASI',
     badgeColor: '#2563eb',
-    category: 'ARAÇLAR',
-    metaTitle: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
-    metaDescription: "5. sınıftan YKS'ye kadar her sınıf için günde sadece 3 görevle ders disiplinini kur. AŞKAR 3 Altın İş sistemi.",
+    category: 'KOCLUK',
+    metaTitle: 'Günde 3 Altın İş Takip Sistemi | Öğrenci Verimlilik ve Hedef Takibi',
+    metaDescription: 'LGS ve YKS derece öğrencilerinin çalışma disiplini. Günlük en kritik 3 altın hedefinizi belirleyin, erteleme alışkanlığını kırın ve başarıya odaklanın.',
     h1: 'Günde 3 Altın İş Takip - 5,6,7,8, Lise ve YKS İçin Disiplin Uygulaması',
     tagline: "Günde sadece 3 kritik görevi tamamlayarak erteleme hastalığına son verin. 5. sınıftan YKS'ye kadar seviyenize özel görevlerle ders disiplininizi kurun.",
     detailedDescription: "### 3 Altın İş Sistemi Nedir?\nGünde 3 Altın İş Sistemi, eğitim koçu ve yazar Mehmet Ali Aşkar tarafından geliştirilen, aşırı planlama ve erteleme hastalığını kökten çözen minimal fakat yüksek etkili bir ders çalışma metodolojisidir. Birçok öğrenci her gün 10 farklı ders ve onlarca görev içeren devasa çalışma listeleri hazırlar. Günün sonunda bu hedeflerin yarısı bile tamamlanamayınca öğrenci suçluluk hisseder, özgüveni zedelenir ve zamanla masaya oturmaktan kaçınmaya başlar. 3 Altın İş felsefesinin kalbinde 'Az olan çoktur' ve 'Önceliklendirme' prensibi yatar. Bu sistemde günün başlangıcında öğrenci kendine yalnızca o günün akademik gidişatını gerçekten değiştirecek 3 hayati görev seçer. Bu 3 iş bitmeden diğer hiçbir tali işle vakit kaybedilmez. Üç görevi tamamlayan öğrenci, günün zaferini ilan eder ve iç huzuruyla dinlenir.\n\n### 5. Sınıfta Nasıl Uygulanır?\nİlkokuldan ortaokula geçen 5. sınıf öğrencileri birden fazla branş öğretmeni ve artan ödev yüküyle karşılaşır. Bu kademede çocuğa saatlerce masada oturmayı dayatmak derslerden soğumasına yol açar. 5. sınıfta 3 Altın İş sistemi, temel alışkanlık kazandırma aracıdır: Birinci altın iş her gün düzenli 20 paragraf sorusuyla okuma anlama becerisini geliştirmek; ikinci altın iş 10 beceri temelli matematik problemiyle akıl yürütmeyi pekiştirmek; üçüncü altın iş ise günün ders notlarını 15 dakika gözden geçirmektir. Bu 3 görev tamamlandığında çocuğun ortaokul başarı temeli sağlam bir disiplinle atılmış olur.\n\n### LGS'de Nasıl Uygulanır?\n8. sınıf LGS hazırlığında öğrencilerin en büyük engeli dikkat dağınıklığı ve sınav kaygısıdır. LGS'de 3 Altın İş; öğrenciyi deneme netlerini doğrudan yukarı çekecek 'ameliyatlık' noktalara odaklar. Örneğin bir LGS öğrencisinin günlük altın işleri: 30 yeni nesil Türkçe paragrafı, 20 yeni nesil matematik/fen sorusu ve yapılan son denemedeki boş/yanlış soruların video çözüm analizidir. Öğrenci sadece bu 3 çekirdek görevi eksiksiz yaparak haftada 21 kritik hamleyi başarıyla tamamlar.\n\n### YKS'de Nasıl Uygulanır?\nTYT ve AYT gibi uçsuz bucaksız bir müfredatla yarışan lise ve mezun öğrencilerinde konu yetiştirememe paniği yaygındır. YKS'de 3 Altın İş sistemi, dev müfredatı yönetilebilir parçalara böler. Birinci altın iş günlük TYT paragraf ve problem rutini, ikinci altın iş hedef branştan (örneğin AYT Matematik veya AYT Edebiyat) 30-40 nitelikli soru çözümü, üçüncü altın iş ise haftalık eksik kazanım kapatma veya branş denemesi analizidir. Her gün sadece 3 altın işi tamamlayan bir YKS adayı, yılda 1000'den fazla stratejik görevi bitirerek dereceye ulaşır.",
@@ -248,17 +258,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'lgs-sayac',
     slug: 'lgs-geri-sayim',
-<<<<<<< HEAD
     image: '/assets/free-covers/lgs-sayac.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'LGS 2026 Geri Sayım Sayacı',
     shortName: 'LGS Geri Sayım',
     badge: '8. SINIF LGS • 15 HAZİRAN 2026',
     badgeColor: '#dc2626',
     category: 'LGS',
-    metaTitle: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
-    metaDescription: "LGS 2026'ya kaç gün kaldı? Canlı geri sayım sayacı ve motivasyon sözleri.",
+    metaTitle: 'LGS Geri Sayım Sayacı 2026 | Liselere Geçiş Sınavına Kaç Gün Kaldı?',
+    metaDescription: '2026 MEB LGS sınav takvimine göre canlı geri sayım sayacı. Sınav gününe kaç gün, saat ve saniye kaldığını öğrenin, çalışma motivasyonunuzu koruyun.',
     h1: 'LGS 2026 Geri Sayım - Kaç Gün Kaldı?',
     tagline: '15 Haziran 2026 MEB LGS sınavına kaç gün, saat ve saniye kaldığını canlı takip edin, günün motivasyon sözleriyle çalışma enerjinizi artırın.',
     detailedDescription: "LGS 2026 (Liselere Geçiş Sistemi) sınavı, Milli Eğitim Bakanlığı (MEB) çalışma takvimine göre 15 Haziran 2026 Pazartesi günü iki oturum halinde uygulanacaktır. Sınav maratonunda günleri ve kalan zamanı doğru yönetmek, öğrencilerin sınav stresini azaltıp çalışma disiplinini korumalarını sağlayan en önemli motivasyon kaynaklarından biridir. Canlı LGS 2026 geri sayım sayacımız sayesinde sınava kaç gün, kaç saat ve kaç dakika kaldığını anlık olarak takip edebilirsiniz.\n\nSınava hazırlık sürecinde her yeni gün, eksik kazanımları telafi etmek ve yeni nesil soru pratiğini artırmak için kıymetli bir fırsattır. 1. oturum sözel bölüm (Türkçe, İnkılap Tarihi, Din Kültürü, Yabancı Dil) 75 dakika sürerken; 2. oturum sayısal bölüm (Matematik, Fen Bilimleri) 80 dakika olarak uygulanır. Zaman planlamasını doğru yapmak, her gün düzenli paragraf ve matematik denemesi çözmek öğrencileri rakiplerinin önüne taşır. Aşkar Yayınları LGS koçluk kaynakları ve motivasyon sistemiyle sınava adım adım hazırlanın.",
@@ -295,15 +302,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'tercih',
     slug: 'lgs-tercih-robotu',
-<<<<<<< HEAD
     image: '/assets/free-covers/lgs-tercih.jpg',
     name: 'LGS Tercih Sihirbazı - Yüzdelik Dilime Göre Gerçek Liste',
     shortName: 'LGS Tercih Sihirbazı',
     badge: '8. SINIF LGS • 2025-2026 TERCİH DÖNEMİ',
     badgeColor: '#0284c7',
     category: 'LGS',
-    metaTitle: 'LGS Tercih Sihirbazı 2025-2026 | Yüzdelik Dilime Göre Liste',
-    metaDescription: 'LGS puanınızı veya yüzdelik diliminizi girin, 10 tercih listenizi sürükle-bırak ile oluşturun, Aşkar logolu resmi PDF olarak indirin ve paylaşın.',
+    metaTitle: 'LGS Tercih Robotu 2026 | MEB Taban Puan ve Yüzdelik Dilimler',
+    metaDescription: '2026 MEB resmi taban puanları ve yüzdelik dilimleriyle LGS lise tercih robotu. Fen, Anadolu ve Sosyal Bilimler liselerini listeleyin, listenizi PDF yapın.',
     h1: 'LGS Tercih Sihirbazı 2025-2026 - Yüzdelik Dilime Göre Liste',
     tagline: 'LGS puanınızı veya genel yüzdelik diliminizi girin; 2024-2025 MEB resmi taban puanlarına göre Fen, Anadolu ve Sosyal Bilimler liselerini listeleyin, 10\'lu gerçek tercih listenizi oluşturup PDF olarak indirin ve paylaşın.',
     detailedDescription: "LGS (Liselere Geçiş Sistemi) tercih süreci, bir yıl boyunca verilen emeğin en doğru şekilde geleceğe taşındığı kritik bir strateji dönemidir. Tercih döneminde velilerin ve öğrencilerin en sık yaptığı hata, yalnızca 'LGS puanı' üzerinden liste hazırlamaktır. Oysa sınavın zorluk derecesi, standart sapması ve katılımcı sayısı her yıl değişkenlik gösterdiğinden, puanlar yanıltıcı olabilir. LGS tercihlerinde tek ve en sağlıklı pusula 'Genel Yüzdelik Dilim'dir.\n\nLGS tercihleri Milli Eğitim Bakanlığı (MEB) e-Okul sistemi üzerinden üç aşamalı olarak gerçekleştirilir: Yerel Yerleştirme (ikametgaha göre sınavsız), Merkezi Yerleştirme (LGS puanıyla sınavla alan okullar) ve Pansiyonlu Okullar. Merkezi yerleştirme kapsamında öğrencilere en fazla 10 lise tercih hakkı tanınır. Bu 10 tercihi planlarken uzmanların önerdiği altın kural 'Tercih Yelpazesi' taktiğidir.\n\nBaşarılı bir tercih listesi oluşturmak için 10 tercih şu şekilde dengelenmelidir:\n1. Üst / Hayal Tercihler (İlk 2-3 Tercih): Yüzdelik diliminizin %20-%30 üzerinde olan, girme şansınız düşük görünse de çok istediğiniz Fen veya prestijli Anadolu liselerine yer verin. Örneğin diliminiz %3 ise, %2-%2.5 dilimdeki okulları yazabilirsiniz.\n2. İdeal / Gerçekçi Tercihler (Orta 4-5 Tercih): Kendi yüzdelik diliminize çok yakın (diliminizin %0.5 altı ve üstü) olan liseleri bu bölüme yazın. Yerleşme ihtimalinizin en yüksek olduğu çekirdek liste burasıdır.\n3. Güvenli / Garanti Tercihler (Son 2-3 Tercih): Yüzdelik diliminizin oldukça altında (örneğin %3 dilimdeki öğrenci için %5-%6 dilimdeki okullar) yer alan kaliteli liseleri listenizin sonuna ekleyin. Bu adım, açıkta kalma riskini tamamen ortadan kaldırır.\n\nOkul seçimi yaparken yalnızca taban puanına değil, okulun yabancı dil eğitimi, üniversiteye yerleştirme başarısı, ulaşım imkanları ve fiziki donanımına da dikkat edilmelidir. Tercih süreci bir şans oyunu değil, bilinçli bir planlama sürecidir. Aşkar Yayınları koçluk kitapları, lise hayatına adım atarken öğrencilerin vizyonunu ve hedeflerini netleştirmelerine rehberlik eder.",
@@ -320,30 +326,6 @@ export const TOOLS_DATA: ToolDefinition[] = [
       'Sol tablodaki okulların yanındaki "+ Ekle" butonuna basarak 10 tercih listenize aktarın.',
       'Sağdaki listenizi sürükle-bırak ile veya yukarı/aşağı oklarla kişisel istek sıranıza göre düzenleyin.',
       'Siyah "PDF İNDİR" butonuyla listenizi kaydedin, "PDF\'Yİ PAYLAŞ" ile dosya olarak veya "LİSTEYİ PAYLAŞ" ile metin olarak gönderin.'
-=======
-    name: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
-    shortName: 'LGS Tercih Robotu',
-    badge: '8. SINIF LGS • 2024 TABAN PUANLARI',
-    badgeColor: '#0284c7',
-    category: 'LGS',
-    metaTitle: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
-    metaDescription: 'Puanını gir, girebileceğin Fen, Anadolu liselerini listele.',
-    h1: 'LGS Tercih Robotu 2025 - Yüzdelik Dilime Göre Lise Bul',
-    tagline: 'LGS puanınızı veya genel yüzdelik diliminizi girin; 2024 MEB resmi taban puanlarına göre Fen, Anadolu ve Sosyal Bilimler liselerini şehir bazında listeleyin.',
-    detailedDescription: "LGS (Liselere Geçiş Sistemi) tercih süreci, bir yıl boyunca verilen emeğin en doğru şekilde geleceğe taşındığı kritik bir strateji dönemidir. Tercih döneminde velilerin ve öğrencilerin en sık yaptığı hata, yalnızca 'LGS puanı' üzerinden liste hazırlamaktır. Oysa sınavın zorluk derecesi, standart sapması ve katılımcı sayısı her yıl değişkenlik gösterdiğinden, puanlar yanıltıcı olabilir. LGS tercihlerinde tek ve en sağlıklı pusula 'Genel Yüzdelik Dilim'dir.\n\nLGS tercihleri Milli Eğitim Bakanlığı (MEB) e-Okul sistemi üzerinden üç aşamalı olarak gerçekleştirilir: Yerel Yerleştirme (ikametgaha göre sınavsız), Merkezi Yerleştirme (LGS puanıyla sınavla alan okullar) ve Pansiyonlu Okullar. Merkezi yerleştirme kapsamında öğrencilere en fazla 10 lise tercih hakkı tanınır. Bu 10 tercihi planlarken uzmanların önerdiği altın kural 'Tercih Yelpazesi' taktiğidir.\n\nBaşarılı bir tercih listesi oluşturmak için 10 tercih şu şekilde dengelenmelidir:\n1. Üst / Hayal Tercihler (İlk 2-3 Tercih): Yüzdelik diliminizin %20-%30 üzerinde olan, girme şansınız düşük görünse de çok istediğiniz Fen veya prestijli Anadolu liselerine yer verin. Örneğin diliminiz %3 ise, %2-%2.5 dilimdeki okulları yazabilirsiniz.\n2. İdeal / Gerçekçi Tercihler (Orta 4-5 Tercih): Kendi yüzdelik diliminize çok yakın (diliminizin %0.5 altı ve üstü) olan liseleri bu bölüme yazın. Yerleşme ihtimalinizin en yüksek olduğu çekirdek liste burasıdır.\n3. Güvenli / Garanti Tercihler (Son 2-3 Tercih): Yüzdelik diliminizin oldukça altında (örneğin %3 dilimdeki öğrenci için %5-%6 dilimdeki okullar) yer alan kaliteli liseleri listenizin sonuna ekleyin. Bu adım, açıkta kalma riskini tamamen ortadan kaldırır.\n\nOkul seçimi yaparken yalnızca taban puanına değil, okulun yabancı dil eğitimi, üniversiteye yerleştirme başarısı, ulaşım imkanları ve fiziki donanımına da dikkat edilmelidir. Tercih süreci bir şans oyunu değil, bilinçli bir planlama sürecidir. Aşkar Yayınları koçluk kitapları, lise hayatına adım atarken öğrencilerin vizyonunu ve hedeflerini netleştirmelerine rehberlik eder.",
-    iconName: 'Compass',
-    highlights: [
-      '2024 MEB Resmi LGS Taban Puanları & Yüzdelik Dilimleri',
-      'Şehir ve Okul Türü Filtreleme (Fen, Anadolu, İHL, Sosyal Bilimler)',
-      'Güvenli, İdeal ve Riskli Tercih İhtimali Analizi',
-      'Aşkar KAP LGS Başarı ve Koçluk Rehberi Desteği'
-    ],
-    howToUse: [
-      'LGS sınav puanınızı (100 - 500) veya genel yüzdelik diliminizi ilgili kutucuğa girin.',
-      'Hedeflediğiniz şehri ve okul türünü (Fen Lisesi, Anadolu Lisesi vb.) filtre bölümünden seçin.',
-      'Girme ihtimali "Güvenli" veya "İdeal" olan liseleri inceleyerek kendi 10 tercihinizi oluşturun.',
-      'Sağ alandaki Aşkar KAP LGS koçluk kaynağını inceleyerek lise hazırlık sürecinizi tamamlayın.'
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     ],
     faq: [
       {
@@ -363,17 +345,16 @@ export const TOOLS_DATA: ToolDefinition[] = [
     relatedBookTitle: "LGS'de Kendi Koçun Ol 8.Sınıf"
   },
   {
-<<<<<<< HEAD
     id: 'yks-sayac',
     slug: 'yks-geri-sayim',
-    image: '/resimler/yks-sayac.jpg',
+    image: '/assets/free-covers/yks-sayac.jpg?v=2026',
     name: 'YKS Geri Sayım Sayacı',
     shortName: 'YKS Geri Sayım',
     badge: 'ÖSYM TAKVİMİ • YKS',
     badgeColor: '#7c3aed',
     category: 'YKS',
-    metaTitle: 'YKS Geri Sayım Sayacı | ÖSYM Sınav Takvimi - Aşkar Yayınları',
-    metaDescription: 'ÖSYM YKS sınav tarihi açıklandığında otomatik başlayan canlı YKS geri sayım sayacı.',
+    metaTitle: 'YKS Geri Sayım Sayacı 2026 | TYT ve AYT Sınavına Kaç Gün Kaldı?',
+    metaDescription: 'ÖSYM 2026 YKS sınav takvimine uyumlu canlı geri sayım sayacı. TYT, AYT ve YDT sınavlarına kaç gün, saat ve dakika kaldığını anlık olarak takip edin.',
     h1: 'YKS Geri Sayım Sayacı - Sınava Ne Kadar Kaldı?',
     tagline: 'ÖSYM sınav takvimi açıklandığında tarihi otomatik alan, gün-saat-dakika-saniye canlı YKS sayacı.',
     detailedDescription: 'YKS geri sayım sayacı, ÖSYM sınav takvimi açıklandığında YKS tarihini otomatik olarak alır ve sınava kalan süreyi canlı gösterir. Tarih henüz açıklanmadıysa sayaç bekleme durumunu bildirir; takvim güncellendiğinde manuel kod değişikliği gerektirmeden çalışmaya başlar.',
@@ -406,17 +387,13 @@ export const TOOLS_DATA: ToolDefinition[] = [
     id: 'kap',
     slug: 'kap-analiz-paneli',
     image: '/assets/free-covers/kap-analiz.jpg',
-=======
-    id: 'kap',
-    slug: 'kap-analiz-paneli',
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'KAP Dijital Kazanım Analiz Paneli',
     shortName: 'KAP Analiz Paneli',
     badge: '5-8. SINIF • DİJİTAL KOÇLUK',
     badgeColor: '#ea580c',
     category: 'LGS',
-    metaTitle: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
-    metaDescription: 'KAP deneme analizini dijital yap, eksik kazanımlarını gör.',
+    metaTitle: 'KAP Nitelikli Liseler Analiz ve Tercih Rehberi | Aşkar Yayınları',
+    metaDescription: 'KAP dijital kazanım analiz paneli ve nitelikli liseler tercih rehberi. Deneme sınavı eksiklerinizi tespit edin, hedef liselerin yüzdelik dilimlerini görün.',
     h1: 'KAP Kazanım Analiz Paneli - Eksik Konuları Bul',
     tagline: 'Deneme adı ve yanlış yaptığınız konuları girin, sistem tüm denemelerinizi biriktirerek en çok eksik çıkan ilk 3 kritik kazanımı anında tespit etsin.',
     detailedDescription: "KAP (Kazanım ve Akıllı Planlama), Aşkar Yayınları kurucusu ve eğitim koçu yazar Mehmet Ali Aşkar tarafından geliştirilen, öğrencilerin deneme sınavlarında yaptıkları hataları somut bir başarı basamağına dönüştüren bilimsel bir koçluk metodolojisidir. Geleneksel sınav hazırlık sürecinde öğrencilerin en büyük yanılgısı, yalnızca test çözerek veya deneme sınavına girerek netlerinin artacağını düşünmeleridir. Oysa sınav başarısının gerçek sırrı deneme çözmekte değil, çözülen denemeyi adeta bir cerrah titizliğiyle analiz etmekte saklıdır.\n\nKAP sistemi, öğrencinin sınav sonrasında yanlış yaptığı veya boş bıraktığı her soruyu müfredatın temel yapı taşı olan 'kazanım' düzeyinde teşhis eder. Soru sadece 'Matematikten 3 yanlış yaptım' şeklinde genellenmez; 'Üslü sayılarda çarpma kuralında eksiklik var' veya 'Paragrafta ana fikir çıkarımında dikkat hatası yapıldı' şeklinde somut olarak sınıflandırılır. KAP Dijital Analiz Paneli, girilen tüm denemeleri tarayıcınızın hafızasında biriktirerek öğrencinin en sık takıldığı ilk 3 kritik kazanımı anında tespit eder.\n\nTespit edilen bu eksikler için uygulanan 'Sıfır Hata Defteri' ve 3 günlük mikro-odak döngüsü sayesinde öğrenci, enerjisini zaten bildiği konulara harcamak yerine doğrudan net kaybettiren kör noktalarına odaklar. 5, 6, 7 ve 8. sınıf LGS öğrencileri için hazırlanan Aşkar KAP koçluk kitapları; haftalık çalışma blokları, hedef rozetleri ve deneme check-up çizelgeleriyle öğrencinin motivasyonunu ve çalışma disiplinini en üst seviyeye taşır. Sürekli geribildirim ve aralıklı tekrar ilkesine dayanan KAP yaklaşımı, öğrencinin sınav kaygısını özgüvene dönüştürür. Eksiklerini bilen öğrenci korkmaz; sistemli çalışan öğrenci zirveye ulaşır.",
@@ -453,17 +430,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'takdir',
     slug: 'takdir-tesekkur-hesaplama',
-<<<<<<< HEAD
     image: '/assets/free-covers/takdir-hesaplama.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Takdir Teşekkür Hesaplama',
     shortName: 'Takdir Teşekkür',
     badge: '5-8. SINIF ORTAOKUL • E-OKUL',
     badgeColor: '#2563eb',
-    category: 'ARAÇLAR',
-    metaTitle: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
-    metaDescription: 'E-Okul uyumlu takdir teşekkür hesapla.',
+    category: 'OKUL_NOT',
+    metaTitle: 'Takdir Teşekkür Hesaplama 2026 | 5, 6, 7, 8. Sınıf MEB E-Okul',
+    metaDescription: '5, 6, 7 ve 8. sınıf ortaokul takdir teşekkür hesaplama motoru. E-Okul dönem notlarınızı girin, ağırlıklı ortalamanızı ve başarı belgenizi anında öğrenin.',
     h1: 'Takdir Teşekkür Hesaplama - 5, 6, 7, 8. Sınıf E-Okul Uyumlu',
     tagline: '5, 6, 7 ve 8. sınıf ders notlarınızı ve haftalık ders saatlerinizi girerek E-Okul uyumlu ağırlıklı ortalamanızı ve takdir-teşekkür belge durumunuzu saniyede hesaplayın.',
     detailedDescription: "Milli Eğitim Bakanlığı (MEB) Ortaöğretim ve İlköğretim Kurumları Yönetmeliği uyarınca, öğrencilerin dönem sonunda takdir veya teşekkür belgesi alabilmesi için belirli başarı ölçütlerini sağlaması gerekmektedir. Takdir belgesi alabilmek için öğrencinin dönem ağırlıklı genel not ortalamasının en az 85,00 ve üzeri olması şarttır. Dönem ortalaması 70,00 ile 84,99 puan arasında olan öğrenciler ise teşekkür belgesi almaya hak kazanır.\n\nAncak yalnızca genel ortalamanın 85,00 veya 70,00 puanın üzerinde olması belge almak için yeterli değildir. MEB mevzuatının en kritik kuralına göre, öğrencinin hiçbir dersinin dönem sonu puanı 50,00'nin altında (yani başarısız veya zayıf) olmamalıdır. Örneğin bir öğrencinin genel not ortalaması 88,50 olsa bile, tek bir dersten aldığı not 48,00 ise E-Okul sistemi o öğrenciye takdir veya teşekkür belgesi düzenlemez. Ayrıca öğrencinin davranış puanının da olumlu olması ve disiplin cezası almamış olması zorunludur.\n\nE-Okul sisteminde dönem not ortalaması hesaplanırken her dersin haftalık ders saati devreye girer. Haftalık ders saati fazla olan Türkçe, Matematik, Fen Bilimleri gibi derslerin ortalamaya etkisi çok daha yüksektir. Bu sebeple dönem ortalamasını yükseltmek ve takdir belgesine ulaşmak isteyen öğrencilerin öncelikle haftalık saati yüksek derslere ağırlık vermesi büyük avantaj sağlar. Düzenli çalışma disiplini, haftalık planlama ve eksik analizi için Aşkar Yayınları koçluk kitapları öğrencilere rehberlik etmektedir.",
@@ -500,17 +474,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'iokbs',
     slug: 'bursluluk-puan-hesaplama-2025',
-<<<<<<< HEAD
-    image: '/assets/free-covers/iokbs.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
+    image: '/assets/free-covers/iokbs.jpg?v=2026',
     name: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
     shortName: 'İOKBS Bursluluk',
     badge: '5, 6, 7. SINIF • İOKBS 2025',
     badgeColor: '#059669',
     category: 'BURSLULUK',
-    metaTitle: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
-    metaDescription: '2025 İOKBS puanını saniyede hesapla, kaç net kaç puan eder öğren.',
+    metaTitle: 'İOKBS Bursluluk Puan Hesaplama 2026 | 5, 6, 7, 8 ve Hazırlık Sınıfı',
+    metaDescription: 'MEB 2026 İOKBS Bursluluk Sınavı puan hesaplama robotu. 5, 6, 7, 8 ve 9, 10, 11. sınıf bursluluk taban puanları, net hesaplama ve burs kazanma analizi.',
     h1: 'İOKBS Bursluluk Puan Hesaplama 2025 - 5,6,7. Sınıf',
     tagline: '5, 6 ve 7. Sınıf MEB İlköğretim ve Ortaöğretim Kurumları Bursluluk Sınavı puanınızı ve toplam netinizi saniyeler içinde hesaplayın.',
     detailedDescription: "Milli Eğitim Bakanlığı (MEB) tarafından her yıl düzenlenen İlköğretim ve Ortaöğretim Kurumları Bursluluk Sınavı (İOKBS), 5, 6 ve 7. sınıf öğrencileri için toplam 100 çoktan seçmeli sorudan oluşan kapsamlı bir başarı değerlendirmesidir. Sınavda adaylara Türkçe (25 soru), Matematik (25 soru), Fen Bilimleri (25 soru) ve Sosyal Bilgiler (25 soru) olmak üzere dört temel branştan sorular yöneltilmektedir. Öğrencilere bu 100 soruyu yanıtlamaları için tek oturumda toplam 120 dakika süre tanınmaktadır.\n\nİOKBS puan hesaplamasının temel kuralı '3 yanlış 1 doğruyu götürür' prensibidir. MEB sınav kılavuzunda belirtildiği üzere, adayın her bir dersteki ham puanı (neti), ilgili dersteki doğru cevap sayısından yanlış cevap sayısının üçte birinin (1/3) çıkarılmasıyla elde edilir (Net = Doğru - Yanlış / 3). Sınavda boş bırakılan sorular net sayısını etkilemez ve puanı düşürmez. Bu nedenle öğrencilerin kesin emin olmadıkları sorularda rastgele işaretleme yapmaktan kaçınmaları başarı şanslarını önemli ölçüde artırmaktadır.\n\nHer dersin netleri çıkarıldıktan sonra MEB Ağırlıklı Standart Puan (ASP) formülü devreye girer. 5, 6 ve 7. sınıflarda Türkçe, Matematik, Fen Bilimleri ve Sosyal Bilgiler testlerinin katsayıları eşittir (ağırlık katsayısı 3 olarak uygulanır). Testlerin Türkiye geneli aritmetik ortalaması ve standart sapması hesaplanarak ham netler standart puana dönüştürülür ve nihai puan 100 ile 500 taban-tavan aralığında belirlenir. 100 net tam puan olan 500.000 puana karşılık gelir.\n\nBursluluk sınavını kazanmak için gereken taban puanlar her yıl kontenjan türüne göre değişkenlik gösterir. 'Diğer Çocuk' genel kontenjanında 5. sınıflar için yaklaşık 458 puan (88-90 net), 6. sınıflar için 452 puan (86-89 net), 7. sınıflar için ise 447 puan (85-88 net) kazanma sınırını oluşturmaktadır. Bu puana ulaşmak isteyen öğrencilerin düzenli deneme çözümü, yanlış analiz defteri tutma ve zaman yönetimi disiplinini Aşkar KAP (Koçluk & Akıllı Planlama) kaynakları ile güçlendirmeleri tavsiye edilmektedir.",
@@ -547,17 +518,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'lgs',
     slug: 'lgs-puan-hesaplama',
-<<<<<<< HEAD
     image: '/assets/free-covers/lgs-hesaplama.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'LGS Puan Hesaplama 2026 & Net Sihirbazı',
     shortName: 'LGS Puan',
     badge: '8. SINIF • LGS 2026',
     badgeColor: '#ea580c',
     category: 'LGS',
-    metaTitle: 'LGS Puan Hesaplama 2026 | MEB Uyumlu LGS Net ve Standart Puan Robotu - Aşkar Yayınları',
-    metaDescription: '2026 MEB güncel standart sapma ve ders katsayılarına göre LGS puanınızı ve toplam netinizi anında hesaplayın. Türkçe, Matematik ve Fen 4.33 katsayı uyumlu.',
+    metaTitle: 'LGS Puan Hesaplama 2026 | MEB Standart Sapmalı Net Robotu',
+    metaDescription: 'MEB 2026 kılavuzuna birebir uyumlu LGS puan hesaplama motoru. Türkçe, Matematik ve Fen 4.33 katsayılı netlerinizi hesaplayın, yüzdelik diliminizi öğrenin.',
     h1: 'LGS Puan Hesaplama ve Net Sihirbazı (2026 MEB Uyumlu)',
     tagline: 'Milli Eğitim Bakanlığı güncel ders katsayıları ve standart sapma projeksiyonuyla anında LGS puanınızı öğrenin.',
     detailedDescription: 'LGS puan hesaplama motorumuz, MEB tarafından uygulanan Liselere Geçiş Sistemi sınavındaki en güncel ders katsayılarını (Türkçe, Matematik ve Fen Bilimleri için 4.33; İnkılap Tarihi, Din Kültürü ve İngilizce için 1.66) kullanarak doğru ve yanlış sayılarınızdan netlerinizi çıkarır ve tahmini standart puanınızı hesaplar.',
@@ -590,17 +558,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'tyt',
     slug: 'tyt-puan-hesaplama',
-<<<<<<< HEAD
     image: '/assets/free-covers/tyt-hesaplama.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS TYT Puan ve Net Hesaplama Robotu',
     shortName: 'YKS - TYT',
     badge: 'YKS • TYT 2026',
     badgeColor: '#2563eb',
     category: 'YKS',
-    metaTitle: 'TYT Puan Hesaplama 2026 | ÖSYM Uyumlu TYT Net ve Puan Robotu - Aşkar Yayınları',
-    metaDescription: 'ÖSYM güncel standartlarında 2026 YKS TYT puanınızı hesaplayın. Türkçe, Temel Matematik, Sosyal ve Fen netlerinizle tahmini yerleştirme puanınızı hemen görün.',
+    metaTitle: 'TYT Net Hesaplama 2026 | ÖSYM Uyumlu TYT Puan ve Net Sihirbazı',
+    metaDescription: '2026 ÖSYM katsayılarıyla TYT puan ve net hesaplama motoru. Türkçe, Matematik, Sosyal ve Fen netlerinizi girin, 4 yanlış 1 doğru kuralıyla puanınızı görün.',
     h1: 'YKS - TYT Puan ve Net Hesaplama Robotu (2026 ÖSYM Uyumlu)',
     tagline: 'Temel Yeterlilik Testi (TYT) 120 soru üzerinden anlık net ve ÖSYM tahmini ham puan hesabı.',
     detailedDescription: 'Temel Yeterlilik Testi (TYT), üniversite sınavının birinci oturumudur. Türkçe (40), Sosyal Bilimler (20), Temel Matematik (40) ve Fen Bilimleri (20) olmak üzere toplam 120 sorudan oluşur. Hesaplama robotumuz 4 yanlışın 1 doğruyu götürdüğü ÖSYM kuralına göre anlık net ve tahmini TYT puanı üretir.',
@@ -632,17 +597,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'ayt',
     slug: 'ayt-puan-hesaplama',
-<<<<<<< HEAD
     image: '/assets/free-covers/ayt-hesaplama.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'YKS AYT Puan Hesaplama (SAY - EA - SÖZ)',
     shortName: 'YKS - AYT',
     badge: 'YKS • AYT 2026',
     badgeColor: '#0284c7',
     category: 'YKS',
-    metaTitle: 'AYT Puan Hesaplama 2026 | Sayısal, Eşit Ağırlık, Sözel Net Hesaplama - Aşkar Yayınları',
-    metaDescription: '2026 YKS Alan Yeterlilik Testi (AYT) Sayısal, Eşit Ağırlık ve Sözel puanınızı hesaplayın. Matematik, Fen, Edebiyat testleri net analizi.',
+    metaTitle: 'AYT Net ve Puan Hesaplama 2026 | Sayısal, Eşit Ağırlık, Sözel',
+    metaDescription: '2026 AYT sınavı için Sayısal (SAY), Eşit Ağırlık (EA) ve Sözel (SÖZ) puan hesaplama robotu. Alan branş netlerinizi girin, ÖSYM katsayılarıyla analiz edin.',
     h1: 'YKS - AYT Puan ve Net Hesaplama Motoru (SAY - EA - SÖZ)',
     tagline: 'Alan Yeterlilik Testi (AYT) 80 soru üzerinden alan bazlı net ve ÖSYM standart puan simülasyonu.',
     detailedDescription: 'Alan Yeterlilik Testleri (AYT), üniversiteye yerleşmede %60 ağırlığa sahip olan ikinci oturumdur. Sayısal (Matematik + Fen), Eşit Ağırlık (Matematik + Türk Dili ve Edebiyatı-Sosyal-1) ve Sözel (Türk Dili ve Edebiyatı-Sosyal-1 + Sosyal-2) alanları için ayrı ayrı puan hesaplamanızı sağlar.',
@@ -669,16 +631,13 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'pomodoro',
     slug: 'pomodoro-sayaci',
-<<<<<<< HEAD
     image: '/assets/free-covers/pomodoro.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Pomodoro Çalışma Sayacı & Odaklanma Zamanlayıcısı',
     shortName: 'Pomodoro Sayacı',
     badge: 'DİSİPLİN • KOÇLUK',
     badgeColor: '#059669',
-    category: 'ARAÇLAR',
-    metaTitle: 'Pomodoro Çalışma Sayacı | Odaklanma ve Ders Zamanlayıcı Robotu - Aşkar Yayınları',
+    category: 'KOCLUK',
+    metaTitle: 'Pomodoro Çalışma Sayacı | 25 Dk Odaklanma ve Ders Zamanlayıcısı',
     metaDescription: 'Sınavlara hazırlanan öğrenciler için ücretsiz Pomodoro ders çalışma sayacı. 25 dakikalık odak seansları ve mola sistemiyle ders veriminizi katlayın.',
     h1: 'Pomodoro Çalışma Sayacı ve Odaklanma Zamanlayıcısı',
     tagline: 'Aşkar Yayınları koçluk metodolojisine uygun 25 dakika odaklanma, 5 dakika mola sistemi.',
@@ -708,17 +667,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'kelime',
     slug: 'kelime-sayaci',
-<<<<<<< HEAD
     image: '/assets/free-covers/kelime-analizi.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'Kelime ve Karakter Sayacı Metin Analiz Aracı',
     shortName: 'Kelime Sayacı',
     badge: 'YAZARLIK • EDİTÖRYAL',
     badgeColor: '#7c3aed',
-    category: 'ARAÇLAR',
-    metaTitle: 'Kelime Sayacı ve Karakter Sayımı | Hızlı Metin Analiz Aracı - Aşkar Yayınları',
-    metaDescription: 'Metinlerinizin kelime, boşluklu/boşluksuz karakter, cümle, paragraf sayısı ve tahmini sesli okuma süresini anlık olarak ücretsiz analiz edin.',
+    category: 'AKADEMIK',
+    metaTitle: 'Kelime ve Karakter Sayacı | Hızlı Metin ve Okuma Süresi Analizi',
+    metaDescription: 'Metinlerinizin kelime, boşluklu/boşluksuz karakter, cümle ve paragraf sayısını ve tahmini sesli okuma süresini anlık olarak ücretsiz analiz edin.',
     h1: 'Online Kelime Sayacı ve Metin Analiz Aracı',
     tagline: 'Ödevler, makaleler, paragraflar ve kitap taslakları için anlık istatistiksel metin analizi.',
     detailedDescription: 'Kelime ve Karakter Sayacı, öğrencilerin Türkçe kompozisyon ve ödevlerinde, yazarların kitap ve makale taslaklarında metin uzunluğunu ve okunabilirlik parametrelerini anlık olarak takip etmelerini sağlayan pratik bir analiz aracıdır.',
@@ -746,17 +702,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'kaynak',
     slug: 'apa-kaynakca-olusturucu',
-<<<<<<< HEAD
     image: '/assets/free-covers/apa-kaynakca.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
     name: 'APA 7 Otomatik Kaynakça ve Alıntı Oluşturucu',
     shortName: 'Kaynakça APA',
     badge: 'AKADEMİK • BİLİMSEL',
     badgeColor: '#c026d3',
-    category: 'ARAÇLAR',
-    metaTitle: 'APA 7 Kaynakça Oluşturucu | Otomatik Kaynakça ve Alıntı Robotu - Aşkar Yayınları',
-    metaDescription: 'Kitap, bilimsel makale ve web siteleri için uluslararası APA 7 formatında standart alıntı ve kaynakça listesi hazırlama aracı.',
+    category: 'AKADEMIK',
+    metaTitle: 'APA 7 Kaynakça Oluşturucu | Otomatik Akademik Referans Formatlayıcı',
+    metaDescription: 'Kitap, makale, tez ve web siteleri için uluslararası standartlarda APA 7 kaynakça ve alıntı oluşturucu. Akademik ödev ve tezleriniz için ücretsiz kullanın.',
     h1: 'APA 7 Formatında Otomatik Kaynakça Oluşturucu',
     tagline: 'Öğrenci ödevleri, bitirme tezleri ve akademik yayınlar için hatasız APA 7 kaynakça referansı.',
     detailedDescription: 'American Psychological Association (APA 7th Edition) formatı, dünyada bilimsel araştırmalar ve akademik ödevlerde en yaygın kullanılan kaynak gösterme standardıdır. Bu araç, yazar adı, basım yılı, eser başlığı ve yayıncı bilgilerini uluslararası kurallara göre hatasız biçimlendirir.',
@@ -784,17 +737,14 @@ export const TOOLS_DATA: ToolDefinition[] = [
   {
     id: 'cocuk',
     slug: 'sevimli-deniz-alti-kasifleri',
-<<<<<<< HEAD
-    image: '/assets/free-covers/cocuk-deniz-alti.jpg',
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
+    image: '/resimler/cocuk.webp',
     name: 'Sevimli Deniz Altı Kaşifleri İnteraktif Çocuk Oyunu',
     shortName: 'Çocuk Uygulaması',
     badge: 'ÇOCUK DÜNYASI • ÜCRETSİZ',
     badgeColor: '#059669',
-    category: 'ÇOCUK',
-    metaTitle: 'Sevimli Deniz Altı Kaşifleri | Ücretsiz Çocuk Eğitici Oyunu - Aşkar Yayınları',
-    metaDescription: 'Aşkar Yayınları\'nın tüm çocuklara özel ücretsiz armağanı! Mor Ahtapot Lili ve Tosbiş ile deniz altı keşfi, boyama ve eğitici mini oyunlar.',
+    category: 'COCUK',
+    metaTitle: 'Deniz Altı Macerası | Okul Öncesi & İlkokul Eğitici Çocuk Dünyası',
+    metaDescription: 'Aşkar Yayınları okul öncesi ve ilkokul çocukları için eğitici interaktif oyun ve masal dünyası. Görsel hafıza, renklendirme ve eğitici maceralar.',
     h1: 'Sevimli Deniz Altı Kaşifleri İnteraktif Çocuk Uygulaması',
     tagline: 'Çocukların çevre bilincini, hayal gücünü ve problem çözme yeteneğini geliştiren özel interaktif oyun.',
     detailedDescription: 'Aşkar Yayınları Çocuk Kitaplığı serimizin sevilen kahramanları Mor Ahtapot Lili ve Yeşil Kaplumbağa Tosbiş ile çocukların dijital dünyada güvenle vakit geçirebilecekleri, şiddet içermeyen, eğitici ve eğlenceli web uygulaması.',

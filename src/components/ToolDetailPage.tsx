@@ -1,31 +1,8 @@
-<<<<<<< HEAD
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-=======
-import React, { useEffect, useState } from 'react';
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 import { ToolDefinition, TOOLS_DATA } from '../data/toolsData';
 import { BOOKS_DATA, KIDS_BOOKS_DATA } from '../data/books';
 import { Book } from '../types';
 import { updatePageSeo } from '../utils/seo';
-<<<<<<< HEAD
-=======
-import { LgsCalculator } from './tools/LgsCalculator';
-import { TytCalculator } from './tools/TytCalculator';
-import { AytCalculator } from './tools/AytCalculator';
-import { WordCounter } from './tools/WordCounter';
-import { PomodoroTimer } from './tools/PomodoroTimer';
-import { ApaGenerator } from './tools/ApaGenerator';
-import { KidsAppCard } from './tools/KidsAppCard';
-import { IokbsCalculator } from './tools/IokbsCalculator';
-import { TakdirCalculator } from './tools/TakdirCalculator';
-import { KapAnalysisPanel } from './tools/KapAnalysisPanel';
-import { LgsTercihRobotu } from './tools/LgsTercihRobotu';
-import { LgsCountdownTimer } from './tools/LgsCountdownTimer';
-import { AltinIsTracker } from './tools/AltinIsTracker';
-import { LiseOrtalamaCalculator } from './tools/LiseOrtalamaCalculator';
-import { YksCalculator } from './tools/YksCalculator';
-import { YksTercihRobotu } from './tools/YksTercihRobotu';
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 import { PreviewModal } from './PreviewModal';
 import { DescriptionModal } from './DescriptionModal';
 import { ShareModal, ShareItem } from './ShareModal';
@@ -53,7 +30,6 @@ import {
   Compass
 } from 'lucide-react';
 
-<<<<<<< HEAD
 const LgsCalculator = lazy(() => import('./tools/LgsCalculator').then(({ LgsCalculator }) => ({ default: LgsCalculator })));
 const TytCalculator = lazy(() => import('./tools/TytCalculator').then(({ TytCalculator }) => ({ default: TytCalculator })));
 const AytCalculator = lazy(() => import('./tools/AytCalculator').then(({ AytCalculator }) => ({ default: AytCalculator })));
@@ -65,14 +41,13 @@ const IokbsCalculator = lazy(() => import('./tools/IokbsCalculator').then(({ Iok
 const TakdirCalculator = lazy(() => import('./tools/TakdirCalculator').then(({ TakdirCalculator }) => ({ default: TakdirCalculator })));
 const KapAnalysisPanel = lazy(() => import('./tools/KapAnalysisPanel').then(({ KapAnalysisPanel }) => ({ default: KapAnalysisPanel })));
 const LgsTercihRobotu = lazy(() => import('./tools/LgsTercihRobotu').then(({ LgsTercihRobotu }) => ({ default: LgsTercihRobotu })));
+const YksTercihRobotu = lazy(() => import('./tools/YksTercihRobotu').then(({ YksTercihRobotu }) => ({ default: YksTercihRobotu })));
 const LgsCountdownTimer = lazy(() => import('./tools/LgsCountdownTimer').then(({ LgsCountdownTimer }) => ({ default: LgsCountdownTimer })));
 const YksCountdownTimer = lazy(() => import('./tools/YksCountdownTimer').then(({ YksCountdownTimer }) => ({ default: YksCountdownTimer })));
 const AltinIsTracker = lazy(() => import('./tools/AltinIsTracker').then(({ AltinIsTracker }) => ({ default: AltinIsTracker })));
 const LiseOrtalamaCalculator = lazy(() => import('./tools/LiseOrtalamaCalculator').then(({ LiseOrtalamaCalculator }) => ({ default: LiseOrtalamaCalculator })));
 const YksCalculator = lazy(() => import('./tools/YksCalculator').then(({ YksCalculator }) => ({ default: YksCalculator })));
 
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
 interface ToolDetailPageProps {
   tool: ToolDefinition;
   onNavigateHome: () => void;
@@ -146,7 +121,9 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
       title: tool.metaTitle,
       description: tool.metaDescription,
       url: fullUrl,
-      image: 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
+      image: tool.image
+        ? `https://www.askaryayinlari.com.tr${tool.image.split('?')[0]}`
+        : 'https://www.askaryayinlari.com.tr/resimler/logo.jpg',
       type: 'website',
       schema: schemaData,
     });
@@ -199,30 +176,20 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
 
   const renderToolComponent = () => {
     switch (tool.id) {
-<<<<<<< HEAD
       case 'yks':
         return <YksCalculator />;
       case 'lise-ortalama':
         return <LiseOrtalamaCalculator onGradeChange={(_grade, bookId) => setDynamicBookId(bookId)} />;
-=======
-      case 'yks-tercih':
-        return <YksTercihRobotu />;
-      case 'yks':
-        return <YksCalculator />;
-      case 'lise-ortalama':
-        return <LiseOrtalamaCalculator />;
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       case 'altin-is':
         return <AltinIsTracker />;
       case 'lgs-sayac':
         return <LgsCountdownTimer />;
-<<<<<<< HEAD
       case 'yks-sayac':
         return <YksCountdownTimer />;
-=======
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       case 'tercih':
         return <LgsTercihRobotu />;
+      case 'yks-tercih':
+        return <YksTercihRobotu />;
       case 'kap':
         return <KapAnalysisPanel onGradeChange={(_grade, bookId) => setDynamicBookId(bookId)} />;
       case 'takdir':
@@ -373,7 +340,6 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
         aria-label={tool.name}
         className="bg-white border border-[#1A1A1A]/10 rounded-2xl p-4 sm:p-7 shadow-sm"
       >
-<<<<<<< HEAD
         <Suspense fallback={<div className="py-12 text-center text-sm text-[#1A1A1A]/60">Araç yükleniyor...</div>}>
           {renderToolComponent()}
         </Suspense>
@@ -403,11 +369,6 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
         </button>
       )}
 
-=======
-        {renderToolComponent()}
-      </section>
-
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
       {/* 4. Rehber & Nasıl Kullanılır (SEO & Bilgi Bölümü) */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Sol 2 Kolon: Detaylı Açıklama & Adımlar & SSS */}
@@ -416,13 +377,7 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
             <h2 className="text-lg sm:text-xl font-serif font-bold text-[#1A1A1A] flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-[#C9A86A]" />
               <span>
-<<<<<<< HEAD
                 {tool.id === 'yks'
-=======
-                {tool.id === 'yks-tercih'
-                  ? 'YKS Tercih Rehberi: Üniversite ve Bölüm Seçim Stratejisi'
-                  : tool.id === 'yks'
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
                   ? 'YKS Puanı Nasıl Hesaplanır? (TYT AYT OBP Rehberi)'
                   : tool.id === 'lise-ortalama'
                   ? 'Lise Ortalama ve Devamsızlık Yönetmeliği Rehberi'
@@ -432,6 +387,8 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
                   ? 'LGS 2026 Sınav Tarihi & Zaman Yönetimi Rehberi'
                   : tool.id === 'tercih'
                   ? 'LGS Tercih Nasıl Yapılır? (Yüzdelik Dilim & Taban Puan Rehberi)'
+                  : tool.id === 'yks-tercih'
+                  ? 'YKS Tercih Nasıl Yapılır? (YÖK Atlas & Başarı Sırası Rehberi)'
                   : tool.id === 'kap'
                   ? 'KAP Nedir? (Kazanım ve Akıllı Planlama Sistemi)'
                   : tool.id === 'iokbs'

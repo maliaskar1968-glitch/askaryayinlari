@@ -168,12 +168,17 @@ export const PreviewModal: React.FC<PreviewModalProps> = ({ book, isOpen, onClos
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1.5">
+                  {bookPrice.badge && (
+                    <span className="text-[10px] font-mono font-bold text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded">
+                      {bookPrice.badge}
+                    </span>
+                  )}
                   {bookPrice.originalPrice && (
                     <span className="text-xs text-[#1A1A1A]/40 line-through font-sans">
                       {bookPrice.originalPrice}
                     </span>
                   )}
-                  <span className="text-base sm:text-lg font-serif font-black text-[#1A1A1A]">
+                  <span className={`text-base sm:text-lg font-serif font-black ${bookPrice.badge ? 'text-red-600' : 'text-[#1A1A1A]'}`}>
                     {bookPrice.price}
                   </span>
                 </div>

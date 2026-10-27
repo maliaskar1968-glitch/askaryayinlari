@@ -92,6 +92,13 @@ export const KidsBookGrid: React.FC<KidsBookGridProps> = ({ activeFilter = 'tumu
                   itemProp="image"
                 />
 
+                {/* Campaign Discount Ribbon */}
+                {bookPrice.badge && (
+                  <div className="absolute top-2.5 left-2.5 bg-red-600 text-white text-[9.5px] font-mono font-black uppercase px-2 py-0.5 rounded-md shadow-sm tracking-wide flex items-center gap-1 z-10 animate-pulse">
+                    <span>{bookPrice.badge}</span>
+                  </div>
+                )}
+
                 <div className="absolute bottom-2 right-2 bg-[#1A1A1A]/75 text-white text-[8px] font-mono uppercase px-2 py-0.5 rounded backdrop-blur-xs">
                   PDF E-KİTAP
                 </div>
@@ -118,9 +125,16 @@ export const KidsBookGrid: React.FC<KidsBookGridProps> = ({ activeFilter = 'tumu
                 {/* Alt Satır: Dijital PDF & Anında İndirme ve Fiyat */}
                 <div className="flex items-end justify-between">
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
-                      DİJİTAL PDF
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-[#1A1A1A]/50 font-semibold">
+                        DİJİTAL PDF
+                      </span>
+                      {bookPrice.badge && (
+                        <span className="text-[9px] font-mono font-bold text-red-700 bg-red-100/80 px-1 py-0.2 rounded">
+                          {bookPrice.badge}
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10px] text-emerald-700 font-sans font-semibold">
                       Anında İndirme
                     </span>
@@ -131,7 +145,7 @@ export const KidsBookGrid: React.FC<KidsBookGridProps> = ({ activeFilter = 'tumu
                         {bookPrice.originalPrice}
                       </span>
                     )}
-                    <span className="text-xl font-serif font-black text-[#1A1A1A] tracking-tight">
+                    <span className={`text-xl font-serif font-black tracking-tight ${bookPrice.badge ? 'text-red-600' : 'text-[#1A1A1A]'}`}>
                       {bookPrice.price}
                     </span>
                   </div>

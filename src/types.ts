@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 export type PageTab = 'magaza' | 'uygulamalar' | 'rehber' | 'hakkimda' | 'hakkimizda' | 'iletisim' | 'admin-kilavuz';
-export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'yks' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'lgs-sayac' | 'yks-sayac' | 'altin-is' | 'lise-ortalama';
-=======
-export type PageTab = 'magaza' | 'uygulamalar' | 'hakkimda' | 'hakkimizda' | 'iletisim';
-export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'yks' | 'yks-tercih' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'lgs-sayac' | 'altin-is' | 'lise-ortalama';
->>>>>>> a2502d1935ee43419e3b8e6f3866f6340b3b7c25
-export type FilterCategory = 'tumu' | '5' | '6' | '7' | '8-lgs' | 'lise' | 'yks';
+export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'yks' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'yks-tercih' | 'lgs-sayac' | 'yks-sayac' | 'altin-is' | 'lise-ortalama';
+export type FilterCategory = 'tumu' | '5-6-7-ortaokul' | '5' | '6' | '7' | '8-lgs' | 'lise' | 'yks' | 'romanlar';
 
 export interface ShareItem {
   title: string;

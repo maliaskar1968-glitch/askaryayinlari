@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="apaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0724"/>
+      <stop offset="50%" stop-color="#180e3d"/>
+      <stop offset="100%" stop-color="#2d1359"/>
+    </linearGradient>
+
+    <!-- Glass Card Gradient -->
+    <linearGradient id="apaCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03"/>
+    </linearGradient>
+
+    <!-- Gold Foil Gradient -->
+    <linearGradient id="apaGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Magenta Violet Neon -->
+    <linearGradient id="apaMagenta" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d946ef"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <!-- Emerald Glow -->
+    <linearGradient id="apaEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <filter id="apaGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="apaShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="900" fill="url(#apaBg)"/>
+
+  <!-- Subtle Stardust & Constellations -->
+  <g opacity="0.1" stroke="#d946ef" stroke-width="1.2">
+    <line x1="100" y1="200" x2="300" y2="150"/>
+    <line x1="300" y1="150" x2="450" y2="280"/>
+    <line x1="600" y1="100" x2="750" y2="220"/>
+    <line x1="750" y1="220" x2="850" y2="180"/>
+  </g>
+
+  <!-- Luminous Ambient Orbs -->
+  <circle cx="250" cy="220" r="190" fill="#a855f7" opacity="0.14" />
+  <circle cx="720" cy="620" r="230" fill="#f59e0b" opacity="0.1" />
+  <circle cx="680" cy="180" r="150" fill="#d946ef" opacity="0.12" />
+
+  <!-- Header Branding -->
+  <g transform="translate(80, 95)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#c084fc" letter-spacing="4">
+      AŞKAR / EĞİTİM ARAÇLARI
+    </text>
+    <text y="55" font-family="'Cinzel', 'Times New Roman', serif" font-size="46" font-weight="900" fill="#ffffff" letter-spacing="1">
+      Kaynakça APA 7
+    </text>
+
+    <!-- Neon Pill Badge -->
+    <rect x="0" y="80" width="240" height="34" rx="17" fill="#d946ef" fill-opacity="0.15" stroke="#d946ef" stroke-width="1.5"/>
+    <circle cx="18" cy="97" r="5" fill="#d946ef"/>
+    <text x="32" y="103" font-family="monospace" font-size="13" font-weight="700" fill="#d946ef" letter-spacing="2">
+      AKADEMİK ALINTI ARACI
+    </text>
+  </g>
+
+  <!-- Center Glassmorphic Card -->
+  <g transform="translate(80, 270)" filter="url(#apaShadow)">
+    <rect width="740" height="520" rx="32" fill="url(#apaCardGrad)" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <!-- Academic Book & Badge Header -->
+    <g transform="translate(45, 45)">
+      <rect width="52" height="52" rx="16" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+      <!-- Book Icon -->
+      <path d="M16 38 V18 C16 16 20 14 26 14 C32 14 36 16 36 18 V38 M26 14 V38" stroke="#fbbf24" stroke-width="2.5" fill="none"/>
+      <path d="M36 18 C36 16 40 14 46 14 C52 14 56 16 56 18 V38 C56 36 50 34 46 34 C40 34 36 36 36 38" stroke="#fbbf24" stroke-width="2" fill="none"/>
+
+      <text x="68" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#ffffff">
+        Uluslararası APA 7 Standartı
+      </text>
+      <text x="68" y="46" font-family="monospace" font-size="13" fill="#c084fc" letter-spacing="1">
+        KİTAP, MAKALE VE TEZ ALINTI FORMATI
+      </text>
+    </g>
+
+    <!-- Source Type Tabs -->
+    <g transform="translate(45, 130)">
+      <rect width="180" height="42" rx="12" fill="#d946ef" fill-opacity="0.25" stroke="#d946ef" stroke-width="1.5"/>
+      <text x="90" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#ffffff">
+        📖 Kitap Kaynakçası
+      </text>
+
+      <rect x="200" y="0" width="180" height="42" rx="12" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1.2"/>
+      <text x="290" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#94a3b8">
+        📄 Bilimsel Makale
+      </text>
+
+      <rect x="400" y="0" width="180" height="42" rx="12" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1.2"/>
+      <text x="490" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#94a3b8">
+        🌐 Web Kaynağı
+      </text>
+    </g>
+
+    <!-- Reference Preview Card -->
+    <g transform="translate(45, 200)">
+      <rect width="650" height="190" rx="20" fill="#150d36" fill-opacity="0.8" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1.5"/>
+
+      <!-- Citation Content -->
+      <g transform="translate(30, 40)">
+        <text font-family="monospace" font-size="12" font-weight="700" fill="#fbbf24" letter-spacing="2">
+          OTOMATİK ÜRETİLEN STANDART ALINTI METNİ:
+        </text>
+        <text y="38" font-family="'Georgia', serif" font-size="18" font-style="italic" fill="#ffffff" width="580">
+          Aşkar, M. (2025). <tspan font-style="normal" font-weight="bold" fill="url(#apaGold)">Eğitimde Koçluk ve YKS Başarı Stratejileri</tspan> (3. Baskı).
+        </text>
+        <text y="70" font-family="'Georgia', serif" font-size="17" fill="#cbd5e1">
+          Aşkar Yayınları. https://doi.org/10.1016/j.askar.2025.04
+        </text>
+      </g>
+
+      <!-- Verified Badge -->
+      <g transform="translate(30, 135)">
+        <rect width="260" height="32" rx="8" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.2"/>
+        <text x="130" y="21" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#34d399" letter-spacing="1">
+          ✓ APA 7 TAM UYUMLU FORMAT
+        </text>
+      </g>
+    </g>
+
+    <!-- Bottom Action Button -->
+    <g transform="translate(45, 420)">
+      <rect width="650" height="60" rx="16" fill="url(#apaMagenta)" filter="url(#apaGlow)"/>
+      <text x="325" y="36" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#ffffff" letter-spacing="2">
+        TEK TIKLA KAYNAKÇAYI KOPYALA
+      </text>
+    </g>
+  </g>
+</svg>

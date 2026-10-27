@@ -40,10 +40,7 @@ export const StudyGuideCard: React.FC<StudyGuideCardProps> = ({ guide, onSelectG
     >
       <div className="relative aspect-square w-full overflow-hidden rounded-xl">
         <img src={guide.resim} alt={`${guide.ad} çalışma rehberi`} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
-        <span className={`absolute left-2 top-2 rounded-full px-2 py-1 text-[9px] font-mono font-bold text-white shadow ${theme.badge}`}>
-          {levelLabels[guide.seviye]}
-        </span>
-      </div>
+</div>
       <div className="p-3 sm:p-4">
         <h3 className="min-h-10 text-sm sm:text-base font-serif font-bold leading-snug text-[#1A1A1A]">
           {cardTitle}
