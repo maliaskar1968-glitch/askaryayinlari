@@ -20,6 +20,8 @@ import { Home, ArrowUp, Wrench, User, Mail, GraduationCap } from 'lucide-react';
 
 const ToolsPage = lazy(() => import('./components/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })));
 const RehberPage = lazy(() => import('./components/RehberPage').then(({ RehberPage }) => ({ default: RehberPage })));
+const NotAvcisiPage = lazy(() => import('./components/NotAvcisiPage').then(({ NotAvcisiPage }) => ({ default: NotAvcisiPage })));
+const BlogPage = lazy(() => import('./components/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })));
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<PageTab>('magaza');
@@ -32,7 +34,15 @@ export const App: React.FC = () => {
     if (typeof window === 'undefined') return;
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
 
-    if (path === '/admin/kilavuz-guncelle' || path.startsWith('/admin/kilavuz-guncelle')) {
+    if (path === '/not-avcisi' || path.startsWith('/not-avcisi')) {
+      setActiveTab('not-avcisi');
+      setToolSlug(null);
+      setGuideSlug(null);
+    } else if (path === '/blog' || path.startsWith('/blog')) {
+      setActiveTab('blog');
+      setToolSlug(null);
+      setGuideSlug(null);
+    } else if (path === '/admin/kilavuz-guncelle' || path.startsWith('/admin/kilavuz-guncelle')) {
       setActiveTab('admin-kilavuz');
       setToolSlug(null);
       setGuideSlug(null);
@@ -225,6 +235,22 @@ export const App: React.FC = () => {
                 onNavigateHome={() => handleTabChange('magaza')}
               />
             </Suspense>
+          )}
+
+          {activeTab === 'not-avcisi' && (
+            <div className="animate-fadeIn">
+              <Suspense fallback={<div className="p-12 text-center text-amber-500 font-bold">Not Avcısı Yükleniyor...</div>}>
+                <NotAvcisiPage />
+              </Suspense>
+            </div>
+          )}
+
+          {activeTab === 'blog' && (
+            <div className="animate-fadeIn">
+              <Suspense fallback={<div className="p-12 text-center text-amber-500 font-bold">Blog Yazıları Yükleniyor...</div>}>
+                <BlogPage />
+              </Suspense>
+            </div>
           )}
 
           {(activeTab === 'hakkimda' || activeTab === 'hakkimizda') && (

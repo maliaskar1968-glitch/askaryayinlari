@@ -104,8 +104,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
     setShowKvkkDetail(false);
   };
 
-  const navItems: { id: PageTab; label: string }[] = [
+  const navItems: { id: PageTab; label: string; highlight?: boolean }[] = [
     { id: 'magaza', label: 'KİTAPLIK' },
+    { id: 'not-avcisi', label: '🎯 NOT AVCISI', highlight: true },
+    { id: 'blog', label: 'BLOG & REHBERLİK' },
     { id: 'uygulamalar', label: 'UYGULAMALAR' },
     { id: 'rehber', label: 'DERS REHBERİ' },
     { id: 'hakkimizda', label: 'HAKKIMIZDA' },
@@ -187,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         className="sticky top-0 z-50 relative bg-[#F8F7F4]/95 backdrop-blur-md border-y border-[#1A1A1A]/10 shadow-sm"
       >
         <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-12 flex items-center">
-          <div className="hidden md:flex w-full h-full items-center gap-8">
+          <div className="hidden md:flex w-full h-full items-center gap-6">
             {navItems.map((item) => {
               const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
               return (
@@ -196,8 +198,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   type="button"
                   onClick={() => handleTabClick(item.id)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`h-full border-b-2 pt-1 text-sm uppercase tracking-wider transition-colors ${
-                    isActive
+                  className={`h-full border-b-2 pt-1 text-xs lg:text-sm uppercase tracking-wider transition-all ${
+                    item.highlight
+                      ? 'border-amber-500 font-extrabold text-amber-600 hover:text-amber-700 animate-pulse'
+                      : isActive
                       ? 'border-black font-bold text-black'
                       : 'border-transparent font-medium text-zinc-600 hover:text-black'
                   }`}
@@ -208,21 +212,39 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             })}
           </div>
 
-          <div className="grid w-full grid-cols-4 md:hidden">
+          <div className="grid w-full grid-cols-5 md:hidden">
             <button
               type="button"
               onClick={() => handleTabClick('magaza')}
               aria-current={activeTab === 'magaza' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'magaza' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'magaza' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
               <BookOpen className="h-4 w-4" />
               Kitaplık
             </button>
             <button
               type="button"
+              onClick={() => handleTabClick('not-avcisi')}
+              aria-current={activeTab === 'not-avcisi' ? 'page' : undefined}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-bold transition-colors ${activeTab === 'not-avcisi' ? 'border-amber-500 text-amber-600' : 'border-transparent text-amber-600/80'}`}
+            >
+              <span className="text-base leading-none">🎯</span>
+              Not Avcısı
+            </button>
+            <button
+              type="button"
+              onClick={() => handleTabClick('blog')}
+              aria-current={activeTab === 'blog' ? 'page' : undefined}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'blog' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+            >
+              <BookOpenText className="h-4 w-4" />
+              Blog
+            </button>
+            <button
+              type="button"
               onClick={() => handleTabClick('uygulamalar')}
               aria-current={activeTab === 'uygulamalar' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'uygulamalar' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'uygulamalar' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
               <Wrench className="h-4 w-4" />
               Araçlar

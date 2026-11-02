@@ -1,4 +1,4 @@
-export type PageTab = 'magaza' | 'uygulamalar' | 'rehber' | 'hakkimda' | 'hakkimizda' | 'iletisim' | 'admin-kilavuz';
+export type PageTab = 'magaza' | 'uygulamalar' | 'rehber' | 'not-avcisi' | 'blog' | 'hakkimda' | 'hakkimizda' | 'iletisim' | 'admin-kilavuz';
 export type ToolTab = 'lgs' | 'tyt' | 'ayt' | 'yks' | 'kelime' | 'pomodoro' | 'kaynak' | 'cocuk' | 'iokbs' | 'takdir' | 'kap' | 'tercih' | 'yks-tercih' | 'lgs-sayac' | 'yks-sayac' | 'altin-is' | 'lise-ortalama';
 export type FilterCategory = 'tumu' | '5-6-7-ortaokul' | '5' | '6' | '7' | '8-lgs' | 'lise' | 'yks' | 'romanlar';
 
