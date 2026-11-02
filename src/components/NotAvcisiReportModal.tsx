@@ -141,7 +141,7 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
               <span className="text-xs text-emerald-400 font-bold block">(Bayi Kodu ile 711 TL)</span>
             </div>
             <a
-              href="https://www.shopier.com"
+              href="https://www.shopier.com/mehmetaliaskar/52508073"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"

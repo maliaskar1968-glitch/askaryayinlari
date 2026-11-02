@@ -1,5 +1,7 @@
 import { NotAvcisiSinifKart } from '../types/notAvcisiTypes';
 
+export const NOT_AVCISI_SHOPIER_URL = 'https://www.shopier.com/mehmetaliaskar/52508073';
+
 export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
   {
     sinif: 3,
@@ -9,7 +11,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511111',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['40 Dk. Süreli Simülasyon', 'MEB Kazanım Karnesi', 'Tüm Yazılı Dönemleri']
   },
   {
@@ -20,7 +22,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511112',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['Kazanım Röntgeni', 'Yazılıya Özel Taktikler', 'Sınırsız Deneme']
   },
   {
@@ -31,7 +33,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511113',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['5. Sınıf Koçu Entegre', 'Matematik 1. Prova Ücretsiz', 'Kişiye Özel Tavsiye']
   },
   {
@@ -42,7 +44,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511114',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['4 Dönem Eksiksiz Arşiv', 'Dinamik Çözüm Ekranı', 'MEB Ortak Sınav Formatı']
   },
   {
@@ -53,7 +55,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511115',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['Yeni Nesil Soru Provaları', 'Zaman Yönetimi Koçluğu', 'Kazanım Analiz Raporu']
   },
   {
@@ -64,7 +66,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511116',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['LGS Koçluk Taktikleri', 'Açık Uçlu MEB Formatı', 'OBP Yükseltme Garantisi']
   },
   {
@@ -75,7 +77,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511117',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['Lise Yazılı Disiplini', 'Fen ve Matematik Taktikleri', 'YKS Temel İnşası']
   },
   {
@@ -86,7 +88,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511118',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['TYT Konu Pekiştirme', 'Açık Uçlu Yazılı Provası', 'Koçluk Karnesi']
   },
   {
@@ -97,7 +99,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511119',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['AYT Derinlemesine Hazırlık', 'Sayısal & EA Desteği', 'Yüksek OBP Stratejisi']
   },
   {
@@ -108,7 +110,7 @@ export const NOT_AVCISI_KARTLARI: NotAvcisiSinifKart[] = [
     listeFiyati: 790,
     bayiFiyati: 711,
     gorselUrl: '/resimler/branding/5-sinif-not-avcisi-card.jpg',
-    shopierUrl: 'https://www.shopier.com/ShowProductNew/products.php?id=30511120',
+    shopierUrl: NOT_AVCISI_SHOPIER_URL,
     ozellikler: ['YKS’de Kendi Koçun Ol Entegre', 'OBP Maksimum Puan', 'Kazanım Röntgeni']
   }
 ];

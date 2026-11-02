@@ -109,7 +109,7 @@ export const NotAvcisiSatinAlModal: React.FC<NotAvcisiSatinAlModalProps> = ({
           </button>
           
           <a
-            href={kart.shopierUrl || 'https://www.shopier.com'}
+            href={kart.shopierUrl || 'https://www.shopier.com/mehmetaliaskar/52508073'}
             target="_blank"
             rel="noopener noreferrer"
             onClick={onClose}
