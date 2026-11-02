@@ -291,8 +291,8 @@ export const NotAvcisiPage: React.FC = () => {
       </section>
 
       {/* Sınıf Kartları Vitrini (Kitaplık Renkleri & Genel Yapısı) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#1A1A1A]/10 gap-3">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-[#1A1A1A]/10 gap-3">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A86A]/15 text-[#856526] text-[10px] font-mono uppercase tracking-[0.25em] mb-2 font-bold">
               <span>YAZILI ÖN HAZIRLIK • 3-12. SINIF</span>
@@ -301,9 +301,58 @@ export const NotAvcisiPage: React.FC = () => {
               Sınıfını Seç, Yazılı Provalarına Hemen Başla!
             </h2>
           </div>
-          <p className="text-xs text-[#1A1A1A]/70 font-sans max-w-sm">
-            Her sınıfta tüm dönemlerin yazılı sınavları, genel provalar ve çözümlü MEB kazanım raporları.
-          </p>
+          <div className="flex items-center gap-3">
+            <a
+              href="/downloads/Not_Avcisi_Dijital_Urun_Tanitim_Rehberi.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-[#C9A86A]/50 hover:border-[#C9A86A] text-[#856526] hover:text-[#1A1A1A] text-xs font-bold transition shadow-2xs hover:shadow-sm"
+            >
+              <span>📄 Tanıtım & Veli Rehberi (PDF)</span>
+            </a>
+          </div>
+        </div>
+
+        {/* SATIN ALMA, E-POSTA EŞLEŞTİRME VE İPTAL/İADE KOŞULLARI BİLGİLENDİRME KUTUSU (HER ZAMAN GÖRÜNÜR) */}
+        <div className="mb-8 rounded-2xl bg-[#FAF6EE] border-2 border-[#C9A86A]/60 p-4 sm:p-5 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-2 flex-1">
+              <div className="flex items-center gap-2 text-amber-900 font-bold text-xs sm:text-sm uppercase tracking-wide">
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>ÖNEMLİ UYARI: NOT AVCISI'NA KAYDOLDUĞUNUZ E-POSTA ADRESİNİZLE SATIN ALINIZ</span>
+              </div>
+              <p className="text-xs text-[#1A1A1A]/80 font-sans leading-relaxed">
+                Satın aldığınız paket <strong>ilgili sınıfınızın 1. ve 2. dönem (3'er adet normal + 1'er adet genel prova) MEB yazılı provalarının tamamını kapsar</strong>.
+                Farklı bir sınıfın sınavına giriş yapılmaz. Sınav lisansınızın anında aktifleşmesi için Shopier ödeme formundaki e-posta alanına <strong>sisteme kayıt yaptırdığınız e-posta adresini</strong> giriniz.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-[11px] text-[#1A1A1A]/70">
+                <span className="flex items-center gap-1.5 font-medium text-emerald-800">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  Matematik 1. Dönem 1. Yazılısı ÜCRETSİZ Hediyemizdir
+                </span>
+                <span className="flex items-center gap-1.5 font-medium text-zinc-700">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#C9A86A]" />
+                  Shopier Tüketici İptal ve İade Koşulları Geçerlidir
+                </span>
+                <a
+                  href="https://wa.me/905057162939"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 underline ml-auto"
+                >
+                  <span>💬 Destek / Hata Bildirimi (WhatsApp): 0505 716 29 39</span>
+                </a>
+              </div>
+            </div>
+
+            {ogrenci && (
+              <div className="shrink-0 bg-white/90 border border-[#C9A86A]/40 rounded-xl p-3 text-right">
+                <span className="text-[10px] uppercase font-mono text-[#1A1A1A]/60 block font-bold">Kayıtlı Profiliniz</span>
+                <span className="text-xs font-bold text-[#1A1A1A] block">{ogrenci.adSoyad} ({ogrenci.sinif}. Sınıf)</span>
+                <span className="text-[11px] font-mono text-emerald-700 font-semibold block">{ogrenci.eposta}</span>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
@@ -439,8 +488,7 @@ export const NotAvcisiPage: React.FC = () => {
                   }}
                   className="w-full bg-[#1A1A1A] hover:bg-black text-white hover:text-white border border-[#1A1A1A] text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 cursor-pointer shadow-2xs"
                 >
-                  <span>SHOPIER İLE GÜVENLİ SATIN AL</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
+                  <span>👉 Kayıt Yaptırdığınız E-Posta ile Satın Al ➔</span>
                 </button>
 
                 <p className="text-[9px] text-[#1A1A1A]/60 text-center font-sans pt-0.5">
