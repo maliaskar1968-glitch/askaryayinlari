@@ -6,6 +6,7 @@ import { NotAvcisiRegisterModal } from './NotAvcisiRegisterModal';
 import { NotAvcisiBayiModal } from './NotAvcisiBayiModal';
 import { NotAvcisiExamSimulator } from './NotAvcisiExamSimulator';
 import { NotAvcisiReportModal } from './NotAvcisiReportModal';
+import { NotAvcisiVeliKarneSorguModal } from './NotAvcisiVeliKarneSorguModal';
 import { ornekSinavOlustur } from '../data/notAvcisiSampleExam';
 import { ogrenciGetir, ogrenciKaydet, sonucHesapla } from '../utils/notAvcisiEngine';
 
@@ -16,6 +17,7 @@ export const NotAvcisiPage: React.FC = () => {
 
   // Modallar
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isVeliSorguOpen, setIsVeliSorguOpen] = useState(false);
   
   // Aktif Sınav ve Rapor Durumu
   const [activeSinav, setActiveSinav] = useState<SinavProva | null>(null);
@@ -55,6 +57,30 @@ export const NotAvcisiPage: React.FC = () => {
     if (!activeSinav) return;
     const ogrenciId = ogrenci ? ogrenci.id : 'misafir_ogrenci';
     const sonuc = sonucHesapla(activeSinav, puanlar, harcananSure, ogrenciId);
+    
+    try {
+      const stored = localStorage.getItem('askar_ogrenci_sonuclari');
+      const list = stored ? JSON.parse(stored) : [];
+      list.unshift({
+        id: 'sonuc_' + Date.now(),
+        ogrenciId,
+        ogrenciAdi: ogrenci ? ogrenci.adSoyad : 'Öğrenci',
+        sinif: sonuc.sinif,
+        dersAdi: sonuc.dersAdi,
+        sinavAdi: `${sonuc.sinif}. Sınıf ${sonuc.dersAdi} 1. Dönem 1. Yazılı Provası`,
+        puan: sonuc.alinanPuan,
+        sureDakika: Math.ceil(sonuc.harcananSureSaniye / 60),
+        tarih: new Date().toLocaleDateString('tr-TR'),
+        tamamlanmaZamani: new Date().toISOString(),
+        eksikKazanimlar: sonuc.eksikKazanimlar,
+        veliBilgisi: ogrenci?.veliBilgisi || null,
+        eposta: ogrenci?.eposta || ''
+      });
+      localStorage.setItem('askar_ogrenci_sonuclari', JSON.stringify(list));
+    } catch (err) {
+      console.error('Sonuç kaydedilemedi:', err);
+    }
+
     setActiveSinav(null);
     setActiveSonuc(sonuc);
     setIsReportOpen(true);
@@ -92,12 +118,23 @@ export const NotAvcisiPage: React.FC = () => {
           onClose={() => setIsReportOpen(false)}
           sonuc={activeSonuc}
           ogrenciAdi={ogrenci ? ogrenci.adSoyad : 'Sevgili Öğrenci'}
+          profil={ogrenci}
           onRetakeExam={() => {
             setIsReportOpen(false);
             if (activeSonuc) handleStartExam(activeSonuc.sinif, activeSonuc.dersAdi);
           }}
         />
       )}
+
+      {/* Veli Karne Sorgu Modalı */}
+      <NotAvcisiVeliKarneSorguModal
+        isOpen={isVeliSorguOpen}
+        onClose={() => setIsVeliSorguOpen(false)}
+        onSelectExamForRetake={(sinif, ders) => {
+          setIsVeliSorguOpen(false);
+          handleStartExam(sinif, ders);
+        }}
+      />
 
       {/* Kayıt Modalı */}
       <NotAvcisiRegisterModal
@@ -156,6 +193,13 @@ export const NotAvcisiPage: React.FC = () => {
                   <span>Kulübe Kaydol (Veli Onaylı)</span>
                 </button>
               )}
+
+              <button
+                onClick={() => setIsVeliSorguOpen(true)}
+                className="bg-white/10 hover:bg-white/20 text-[#E5C98E] border border-[#C9A86A]/40 hover:border-[#C9A86A] px-6 py-3.5 rounded-full text-xs uppercase tracking-[0.15em] font-bold flex items-center gap-2 transition cursor-pointer shadow-md"
+              >
+                <span>🔍 Veli Karne Sorgula</span>
+              </button>
             </div>
 
             {/* Bayi / İndirim Kodu Giriş Çubuğu */}

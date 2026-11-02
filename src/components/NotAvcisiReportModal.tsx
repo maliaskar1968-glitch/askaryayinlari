@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Target, Award, CheckCircle, AlertTriangle, RefreshCw, BookOpen, Star, Sparkles, ArrowRight, Share2 } from 'lucide-react';
-import { SinavSonuc } from '../types/notAvcisiTypes';
+import React from 'react';
+import { Target, Award, CheckCircle, AlertTriangle, RefreshCw, BookOpen, Star, Sparkles, ArrowRight, Share2, FileDown } from 'lucide-react';
+import { SinavSonuc, OgrenciProfil } from '../types/notAvcisiTypes';
+import { generateNotAvcisiKarnePdf } from '../utils/generateNotAvcisiKarnePdf';
 
 interface NotAvcisiReportModalProps {
   isOpen: boolean;
   onClose: () => void;
   sonuc: SinavSonuc;
   ogrenciAdi?: string;
+  profil?: OgrenciProfil | null;
   onRetakeExam?: () => void;
 }
 
@@ -15,6 +17,7 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
   onClose,
   sonuc,
   ogrenciAdi = 'Öğrenci',
+  profil,
   onRetakeExam
 }) => {
   if (!isOpen) return null;
@@ -28,6 +31,10 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
   };
 
   const badge = getBadgeInfo(sonuc.alinanPuan);
+
+  const handleDownloadPdf = () => {
+    generateNotAvcisiKarnePdf(sonuc, profil);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto select-none">
@@ -119,11 +126,31 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
           </a>
         </div>
 
+        {/* PDF Karne İndir Butonu & Veli Bilgilendirme */}
+        <div className="mb-6 space-y-2.5">
+          <button
+            onClick={handleDownloadPdf}
+            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 transition shadow-lg shadow-amber-500/25 cursor-pointer"
+          >
+            <FileDown className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+            <span>Karnemi Renkli PDF Olarak İndir (A4 Baskıya Hazır)</span>
+          </button>
+          
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-300 text-center flex items-center justify-center gap-2">
+            <span className="text-amber-400 font-bold">📢 Veli Bilgilendirmesi:</span>
+            <span>
+              {profil?.eposta
+                ? `Bu karne aynı zamanda kayıtlı e-posta adresinize (${profil.eposta}) iletilmiştir.`
+                : 'Bu karneye dilediğiniz zaman veli telefon numaranızla "Veli Karne Sorgula" ekranından da ücretsiz ulaşabilirsiniz.'}
+            </span>
+          </div>
+        </div>
+
         {/* Aksiyon Butonları */}
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-sm transition"
+            className="flex-1 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-sm transition cursor-pointer"
           >
             Panele Dön
           </button>
@@ -131,9 +158,9 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
           {onRetakeExam && (
             <button
               onClick={onRetakeExam}
-              className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 transition shadow-lg shadow-amber-500/20"
+              className="flex-1 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer"
             >
-              <RefreshCw className="w-4 h-4" />
+              <RefreshCw className="w-4 h-4 text-amber-400" />
               <span>Tekrar Çöz</span>
             </button>
           )}

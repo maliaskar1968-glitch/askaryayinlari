@@ -27,6 +27,7 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
   // 18 Yaş Altı Veli Onay Alanları
   const [veliAdSoyad, setVeliAdSoyad] = useState('');
   const [veliTelefon, setVeliTelefon] = useState('');
+  const [epostaYok, setEpostaYok] = useState(false);
   const [kvkkOnay, setKvkkOnay] = useState(false);
   const [veliOnay, setVeliOnay] = useState(false);
 
@@ -38,8 +39,8 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
     e.preventDefault();
     setError(null);
 
-    if (!adSoyad.trim() || !eposta.trim() || !il.trim() || !ilce.trim() || !okul.trim()) {
-      setError('Lütfen tüm zorunlu alanları (Ad Soyad, E-posta, İl, İlçe, Okul) doldurunuz.');
+    if (!adSoyad.trim() || (!epostaYok && !eposta.trim()) || !il.trim() || !ilce.trim() || !okul.trim()) {
+      setError('Lütfen tüm zorunlu alanları (Ad Soyad, İl, İlçe, Okul) doldurunuz.');
       return;
     }
 
@@ -57,7 +58,7 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
     const yeniProfil: OgrenciProfil = {
       id: 'ogr_' + Date.now(),
       adSoyad: adSoyad.trim(),
-      eposta: eposta.trim(),
+      eposta: epostaYok ? '' : eposta.trim(),
       telefon: telefon.trim(),
       sinif,
       il: il.trim(),
@@ -74,6 +75,15 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
       kayitTarihi: new Date().toISOString(),
       abonelikDurumu: 'ucretsiz'
     };
+
+    try {
+      const stored = localStorage.getItem('askar_ogrenci_profilleri');
+      const list = stored ? JSON.parse(stored) : [];
+      list.unshift(yeniProfil);
+      localStorage.setItem('askar_ogrenci_profilleri', JSON.stringify(list));
+    } catch (err) {
+      console.error(err);
+    }
 
     onSuccess(yeniProfil);
     onClose();
@@ -125,18 +135,42 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">Öğrenci / İletişim E-Posta *</label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs font-bold text-slate-300">
+                  Veli / İletişim E-Posta {epostaYok ? '' : '*'}
+                </label>
+                <label className="flex items-center gap-1.5 cursor-pointer text-[11px] text-amber-400 hover:text-amber-300 font-medium select-none">
+                  <input
+                    type="checkbox"
+                    checked={epostaYok}
+                    onChange={(e) => {
+                      setEpostaYok(e.target.checked);
+                      if (e.target.checked) setEposta('');
+                    }}
+                    className="w-3.5 h-3.5 rounded accent-amber-500 bg-slate-950 border-slate-700"
+                  />
+                  <span>E-postam yok</span>
+                </label>
+              </div>
               <div className="relative">
                 <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
                   type="email"
-                  required
-                  placeholder="eposta@adresiniz.com"
+                  disabled={epostaYok}
+                  required={!epostaYok}
+                  placeholder={epostaYok ? 'E-posta belirtilmedi (Sorgu telefonla yapılır)' : 'eposta@adresiniz.com'}
                   value={eposta}
                   onChange={(e) => setEposta(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:border-amber-400 focus:outline-none"
+                  className={`w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border text-white text-sm focus:outline-none transition ${
+                    epostaYok ? 'opacity-40 cursor-not-allowed border-slate-800 text-slate-500' : 'border-slate-700 focus:border-amber-400'
+                  }`}
                 />
               </div>
+              <p className="text-[10px] text-slate-400 mt-1">
+                {epostaYok
+                  ? '💡 E-postanız olmadan da sınav sonuç ve karnenize dilediğiniz an veli telefon numaranızla "Veli Karne Sorgula" ekranından ulaşabilirsiniz.'
+                  : '💡 Sınav bitiminde öğrencinizin detaylı MEB analiz karnesi ve tavsiyeleri bu e-posta adresine otomatik iletilecektir.'}
+              </p>
             </div>
           </div>
 
@@ -248,6 +282,9 @@ export const NotAvcisiRegisterModal: React.FC<NotAvcisiRegisterModalProps> = ({
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:border-amber-400 focus:outline-none"
                   />
                 </div>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  🔒 Sınav karnelerine dilediğiniz an ücretsiz ulaşmanız ve karne sorgulama için gereklidir (SMS kodu gerekmez, ücretsizdir).
+                </p>
               </div>
             </div>
 
