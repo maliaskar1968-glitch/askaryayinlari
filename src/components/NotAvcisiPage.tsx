@@ -191,13 +191,13 @@ export const NotAvcisiPage: React.FC = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-[#C9A86A]/15 via-transparent to-transparent pointer-events-none" />
           
           <div className="relative z-10 max-w-4xl mx-auto pt-2">
-            {/* Not Avcısı Logo */}
-            <div className="flex justify-center mb-3">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-black/70 p-1.5 border-2 border-[#C9A86A] shadow-xl shadow-[#C9A86A]/20 flex items-center justify-center">
+            {/* Not Avcısı Logo (Tam Dairesel ve 2.5 Kat Büyütülmüş) */}
+            <div className="flex justify-center mb-5">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full bg-white p-2 border-4 border-[#C9A86A] shadow-2xl shadow-[#C9A86A]/30 flex items-center justify-center overflow-hidden transition-transform hover:scale-105">
                 <img
                   src="/resimler/branding/not-avcisi-logo.jpg"
                   alt="Not Avcısı Logo"
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-contain rounded-full"
                 />
               </div>
             </div>
