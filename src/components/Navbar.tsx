@@ -4,7 +4,7 @@ import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { ShareModal, ShareItem } from './ShareModal';
-import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu } from 'lucide-react';
+import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu, ChevronDown, ShieldCheck, LogIn, Lock } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { InstallModal } from './InstallModal';
 import { WavingTurkishFlag } from './WavingTurkishFlag';
@@ -16,6 +16,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
+  const [yetkiliMenuOpen, setYetkiliMenuOpen] = useState(false);
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
@@ -210,6 +211,79 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 </button>
               );
             })}
+
+            {/* Yetkili Girişleri Açılır Menüsü */}
+            <div className="relative ml-auto h-full flex items-center">
+              <button
+                type="button"
+                onClick={() => setYetkiliMenuOpen(!yetkiliMenuOpen)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer ${
+                  activeTab === 'admin-master' || activeTab === 'bayi-giris' || activeTab === 'bayi-basvuru'
+                    ? 'border-amber-500 bg-amber-500 text-slate-950 shadow-amber-500/20'
+                    : 'border-[#C9A86A]/40 bg-gradient-to-r from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20 text-[#1A1A1A]'
+                }`}
+              >
+                <Lock className="w-3.5 h-3.5 text-[#C9A86A]" />
+                <span>YETKİLİ GİRİŞLERİ</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-[#C9A86A] transition-transform duration-200 ${yetkiliMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {yetkiliMenuOpen && (
+                <div 
+                  className="absolute right-0 top-full mt-1 w-60 rounded-2xl bg-white border border-[#1A1A1A]/10 shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150"
+                  onMouseLeave={() => setYetkiliMenuOpen(false)}
+                >
+                  <div className="px-3 py-1.5 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Yetkili Panelleri
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTabClick('admin-master');
+                      setYetkiliMenuOpen(false);
+                    }}
+                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-amber-50 hover:text-amber-800 flex items-center gap-2.5 transition-colors cursor-pointer"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                    <div>
+                      <div className="font-bold">Admin Master</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Bayi onay, ilçe analitiği, PDF afiş</div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTabClick('bayi-giris');
+                      setYetkiliMenuOpen(false);
+                    }}
+                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-indigo-50 hover:text-indigo-800 flex items-center gap-2.5 transition-colors cursor-pointer border-t border-slate-100"
+                  >
+                    <LogIn className="w-4 h-4 text-indigo-600 shrink-0" />
+                    <div>
+                      <div className="font-bold">Bayi Girişi</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Kırtasiye & Temsilci Portalı</div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTabClick('bayi-basvuru');
+                      setYetkiliMenuOpen(false);
+                    }}
+                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-emerald-50 hover:text-emerald-800 flex items-center gap-2.5 transition-colors cursor-pointer border-t border-slate-100"
+                  >
+                    <Store className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div>
+                      <div className="font-bold">Bayi Başvurusu</div>
+                      <div className="text-[10px] text-slate-400 font-normal">İlçe Sorumluluk Başvuru Formu</div>
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="grid w-full grid-cols-5 md:hidden">
@@ -287,6 +361,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               <button type="button" onClick={() => { setMobileMoreOpen(false); setFollowModalOpen(true); }} className="col-span-2 flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
                 <Bell className="h-4 w-4 text-[#9A783C]" /> Takip Et Kazan
               </button>
+              <div className="col-span-2 pt-2 mt-1 border-t border-slate-200">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 block mb-1">
+                  Yetkili Girişleri
+                </span>
+                <div className="grid grid-cols-1 gap-1">
+                  <button type="button" onClick={() => handleTabClick('admin-master')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-amber-700 bg-amber-50/60 hover:bg-amber-100/60 cursor-pointer">
+                    <ShieldCheck className="h-4 w-4 text-amber-600" /> Admin Master (Genel Merkez)
+                  </button>
+                  <button type="button" onClick={() => handleTabClick('bayi-giris')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-indigo-700 bg-indigo-50/60 hover:bg-indigo-100/60 cursor-pointer">
+                    <LogIn className="h-4 w-4 text-indigo-600" /> Bayi Girişi (Kırtasiye Portalı)
+                  </button>
+                  <button type="button" onClick={() => handleTabClick('bayi-basvuru')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100/60 cursor-pointer">
+                    <Store className="h-4 w-4 text-emerald-600" /> Bayi / Temsilcilik Başvurusu
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}

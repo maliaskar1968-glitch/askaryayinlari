@@ -163,14 +163,6 @@ export const NotAvcisiPage: React.FC = () => {
                 <span>Kulübe Kaydol (Veli Onaylı)</span>
               </button>
             )}
-
-            <button
-              onClick={() => setIsBayiModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-850 border border-amber-500/30 text-amber-300 font-semibold text-base transition cursor-pointer"
-            >
-              <Building2 className="w-5 h-5 text-amber-400" />
-              <span>Bayi / Kırtasiye Başvurusu</span>
-            </button>
           </div>
 
           {/* Bayi / İndirim Kodu Giriş Çubuğu */}

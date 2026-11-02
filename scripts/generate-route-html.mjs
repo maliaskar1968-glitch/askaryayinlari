@@ -82,6 +82,21 @@ const routeMetadata = [
     route: '/iletisim',
     title: 'İletişim & WhatsApp Destek | Aşkar Yayınları',
     description: 'Aşkar Yayınları iletişim ve WhatsApp destek bilgileri. Dijital kitaplar ve eğitim sistemleri için anında canlı destek.'
+  },
+  {
+    route: '/admin-master',
+    title: 'Admin Master | Aşkar Yayınları Genel Merkez Konsolu',
+    description: 'Aşkar Yayınları ve Not Avcısı ilçe bayilik onay, ilçe sorumluluk analitiği ve karekodlu afiş üretim paneli.'
+  },
+  {
+    route: '/bayi-giris',
+    title: 'Bayi & Kırtasiye Portalı Girişi | Aşkar Yayınları',
+    description: 'Aşkar Yayınları yetkili ilçe temsilcileri ve kırtasiyeler için ciro, hak ediş ve satış takip konsolu.'
+  },
+  {
+    route: '/bayi-basvuru',
+    title: 'İlçe Temsilciliği & Bayilik Başvurusu | Aşkar Yayınları',
+    description: 'Aşkar Yayınları ve Not Avcısı ilçe sorumluluk alanlı yetkili bayilik başvurusu. %20 net komisyon ve hazır afiş desteği.'
   }
 ];
 

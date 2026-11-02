@@ -14,6 +14,9 @@ import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { AdminKilavuzGuncelle } from './components/AdminKilavuzGuncelle';
+import { AskarBayiBasvuruView } from './components/bayi/AskarBayiBasvuruView';
+import { AskarBayiLoginView } from './components/bayi/AskarBayiLoginView';
+import { AskarAdminMasterView } from './components/admin/AskarAdminMasterView';
 import { checkOsymUpdate } from './utils/osymKilavuz';
 import { updatePageSeo } from './utils/seo';
 import { Home, ArrowUp, Wrench, User, Mail, GraduationCap } from 'lucide-react';
@@ -40,6 +43,18 @@ export const App: React.FC = () => {
       setGuideSlug(null);
     } else if (path === '/blog' || path.startsWith('/blog')) {
       setActiveTab('blog');
+      setToolSlug(null);
+      setGuideSlug(null);
+    } else if (path === '/admin-master' || path.startsWith('/admin-master')) {
+      setActiveTab('admin-master');
+      setToolSlug(null);
+      setGuideSlug(null);
+    } else if (path === '/bayi-giris' || path.startsWith('/bayi-giris')) {
+      setActiveTab('bayi-giris');
+      setToolSlug(null);
+      setGuideSlug(null);
+    } else if (path === '/bayi-basvuru' || path.startsWith('/bayi-basvuru')) {
+      setActiveTab('bayi-basvuru');
       setToolSlug(null);
       setGuideSlug(null);
     } else if (path === '/admin/kilavuz-guncelle' || path.startsWith('/admin/kilavuz-guncelle')) {
@@ -96,6 +111,11 @@ export const App: React.FC = () => {
     let targetPath = '/';
     if (newTab === 'uygulamalar') targetPath = '/uygulamalar';
     else if (newTab === 'rehber') targetPath = '/rehber';
+    else if (newTab === 'not-avcisi') targetPath = '/not-avcisi';
+    else if (newTab === 'blog') targetPath = '/blog';
+    else if (newTab === 'admin-master') targetPath = '/admin-master';
+    else if (newTab === 'bayi-giris') targetPath = '/bayi-giris';
+    else if (newTab === 'bayi-basvuru') targetPath = '/bayi-basvuru';
     else if (newTab === 'hakkimizda' || newTab === 'hakkimda') targetPath = '/hakkimizda';
     else if (newTab === 'iletisim') targetPath = '/iletisim';
 
@@ -268,6 +288,30 @@ export const App: React.FC = () => {
           {activeTab === 'admin-kilavuz' && (
             <div className="animate-fadeIn">
               <AdminKilavuzGuncelle onNavigateHome={() => handleTabChange('magaza')} />
+            </div>
+          )}
+
+          {activeTab === 'admin-master' && (
+            <div className="animate-fadeIn">
+              <AskarAdminMasterView onBackToApp={() => handleTabChange('magaza')} />
+            </div>
+          )}
+
+          {activeTab === 'bayi-giris' && (
+            <div className="animate-fadeIn">
+              <AskarBayiLoginView
+                onBackToApp={() => handleTabChange('magaza')}
+                onNavigateToBasvuru={() => handleTabChange('bayi-basvuru')}
+              />
+            </div>
+          )}
+
+          {activeTab === 'bayi-basvuru' && (
+            <div className="animate-fadeIn">
+              <AskarBayiBasvuruView
+                onBackToApp={() => handleTabChange('magaza')}
+                onNavigateToBayiLogin={() => handleTabChange('bayi-giris')}
+              />
             </div>
           )}
 
