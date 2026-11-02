@@ -1,17 +1,40 @@
-import React, { useState } from 'react';
-import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star, Building2, UserCheck } from 'lucide-react';
 import { NOT_AVCISI_KARTLARI } from '../data/notAvcisiData';
-import { NotAvcisiSinifKart } from '../types/notAvcisiTypes';
+import { NotAvcisiSinifKart, OgrenciProfil, BayiProfil, SinavSonuc, SinavProva } from '../types/notAvcisiTypes';
+import { NotAvcisiRegisterModal } from './NotAvcisiRegisterModal';
+import { NotAvcisiBayiModal } from './NotAvcisiBayiModal';
+import { NotAvcisiExamSimulator } from './NotAvcisiExamSimulator';
+import { NotAvcisiReportModal } from './NotAvcisiReportModal';
+import { ornekSinavOlustur } from '../data/notAvcisiSampleExam';
+import { ogrenciGetir, ogrenciKaydet, sonucHesapla } from '../utils/notAvcisiEngine';
 
-interface NotAvcisiPageProps {
-  onStartExam?: (sinif: number, ders: string) => void;
-  onOpenRegister?: (bayiRef?: string) => void;
-}
-
-export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpenRegister }) => {
+export const NotAvcisiPage: React.FC = () => {
   const [selectedSinif, setSelectedSinif] = useState<number | 'tumu'>('tumu');
   const [bayiKoduInput, setBayiKoduInput] = useState<string>('');
   const [appliedBayiKodu, setAppliedBayiKodu] = useState<string | null>(null);
+
+  // Modallar
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isBayiModalOpen, setIsBayiModalOpen] = useState(false);
+  
+  // Aktif Sınav ve Rapor Durumu
+  const [activeSinav, setActiveSinav] = useState<SinavProva | null>(null);
+  const [activeSonuc, setActiveSonuc] = useState<SinavSonuc | null>(null);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+
+  // Kayıtlı Öğrenci
+  const [ogrenci, setOgrenci] = useState<OgrenciProfil | null>(null);
+
+  useEffect(() => {
+    const kayitli = ogrenciGetir();
+    if (kayitli) {
+      setOgrenci(kayitli);
+      if (kayitli.bayiRefKodu) {
+        setAppliedBayiKodu(kayitli.bayiRefKodu);
+      }
+    }
+  }, []);
 
   const filteredKartlar = selectedSinif === 'tumu'
     ? NOT_AVCISI_KARTLARI
@@ -24,8 +47,74 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
     }
   };
 
+  const handleStartExam = (sinif: number, ders = 'Matematik') => {
+    const exam = ornekSinavOlustur(sinif, ders);
+    setActiveSinav(exam);
+  };
+
+  const handleExamCompleted = (puanlar: { [soruNo: number]: number }, harcananSure: number) => {
+    if (!activeSinav) return;
+    const ogrenciId = ogrenci ? ogrenci.id : 'misafir_ogrenci';
+    const sonuc = sonucHesapla(activeSinav, puanlar, harcananSure, ogrenciId);
+    setActiveSinav(null);
+    setActiveSonuc(sonuc);
+    setIsReportOpen(true);
+  };
+
+  const handleRegisterSuccess = (profil: OgrenciProfil) => {
+    ogrenciKaydet(profil);
+    setOgrenci(profil);
+    if (profil.bayiRefKodu) {
+      setAppliedBayiKodu(profil.bayiRefKodu);
+    }
+    alert(`Hoş geldin ${profil.adSoyad}! Not Avcısı kaydınız başarıyla oluşturuldu.`);
+  };
+
+  const handleBayiSuccess = (bayi: BayiProfil) => {
+    alert(`Tebrikler ${bayi.yetkiliAdSoyad}! Bayi başvurunuz onaylandı. Özel Bayi Kodunuz: ${bayi.bayiKodu}. Afiş PDF'iniz e-posta adresinize iletildi.`);
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-24 selection:bg-amber-500 selection:text-slate-950">
+      {/* Sınav Ekranı Aktifse Simülatörü Tam Ekran Göster */}
+      {activeSinav && (
+        <NotAvcisiExamSimulator
+          sinav={activeSinav}
+          ogrenciAdi={ogrenci ? ogrenci.adSoyad : 'Sevgili Öğrenci'}
+          onFinishExam={handleExamCompleted}
+          onExit={() => setActiveSinav(null)}
+        />
+      )}
+
+      {/* Rapor Modalı */}
+      {activeSonuc && (
+        <NotAvcisiReportModal
+          isOpen={isReportOpen}
+          onClose={() => setIsReportOpen(false)}
+          sonuc={activeSonuc}
+          ogrenciAdi={ogrenci ? ogrenci.adSoyad : 'Sevgili Öğrenci'}
+          onRetakeExam={() => {
+            setIsReportOpen(false);
+            if (activeSonuc) handleStartExam(activeSonuc.sinif, activeSonuc.dersAdi);
+          }}
+        />
+      )}
+
+      {/* Kayıt Modalı */}
+      <NotAvcisiRegisterModal
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        onSuccess={handleRegisterSuccess}
+        initialBayiRef={appliedBayiKodu || ''}
+      />
+
+      {/* Bayi Başvuru Modalı */}
+      <NotAvcisiBayiModal
+        isOpen={isBayiModalOpen}
+        onClose={() => setIsBayiModalOpen(false)}
+        onSuccess={handleBayiSuccess}
+      />
+
       {/* Hero Header Section */}
       <section className="relative overflow-hidden pt-12 pb-20 border-b border-amber-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none" />
@@ -51,21 +140,36 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
           </p>
 
           {/* Quick Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
             <button
-              onClick={() => onStartExam ? onStartExam(5, 'Matematik') : alert('Matematik 1. Prova Başlatılıyor!')}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-lg shadow-xl shadow-amber-500/20 transform transition hover:-translate-y-0.5 active:translate-y-0"
+              onClick={() => handleStartExam(5, 'Matematik')}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-lg shadow-xl shadow-amber-500/20 transform transition hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <Play className="w-5 h-5 fill-current" />
               <span>Matematik 1. Yazılıyı Ücretsiz Çöz</span>
             </button>
 
+            {ogrenci ? (
+              <div className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-base">
+                <UserCheck className="w-5 h-5 text-emerald-400" />
+                <span>Hoş geldin, {ogrenci.adSoyad} ({ogrenci.sinif}. Sınıf)</span>
+              </div>
+            ) : (
+              <button
+                onClick={() => setIsRegisterOpen(true)}
+                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-lg transition cursor-pointer"
+              >
+                <ShieldCheck className="w-5 h-5 text-amber-400" />
+                <span>Kulübe Kaydol (Veli Onaylı)</span>
+              </button>
+            )}
+
             <button
-              onClick={() => onOpenRegister ? onOpenRegister() : alert('Kayıt Formu Açılıyor!')}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-lg transition"
+              onClick={() => setIsBayiModalOpen(true)}
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-850 border border-amber-500/30 text-amber-300 font-semibold text-base transition cursor-pointer"
             >
-              <ShieldCheck className="w-5 h-5 text-amber-400" />
-              <span>Kulübe Kaydol (Veli Onaylı)</span>
+              <Building2 className="w-5 h-5 text-amber-400" />
+              <span>Bayi / Kırtasiye Başvurusu</span>
             </button>
           </div>
 
@@ -81,7 +185,7 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition"
+                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition cursor-pointer"
               >
                 Uygula
               </button>
@@ -101,7 +205,7 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
         <div className="p-2 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-x-auto flex items-center gap-2 scrollbar-none">
           <button
             onClick={() => setSelectedSinif('tumu')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition ${
+            className={`px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition cursor-pointer ${
               selectedSinif === 'tumu'
                 ? 'bg-amber-500 text-slate-950 shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -113,7 +217,7 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
             <button
               key={s}
               onClick={() => setSelectedSinif(s)}
-              className={`px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition ${
+              className={`px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition cursor-pointer ${
                 selectedSinif === s
                   ? 'bg-amber-500 text-slate-950 shadow-md'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -200,8 +304,8 @@ export const NotAvcisiPage: React.FC<NotAvcisiPageProps> = ({ onStartExam, onOpe
                     </div>
 
                     <button
-                      onClick={() => onStartExam ? onStartExam(kart.sinif, 'Matematik') : alert(`${kart.sinif}. Sınıf Ücretsiz Deneme Başlatılıyor!`)}
-                      className="px-3.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5"
+                      onClick={() => handleStartExam(kart.sinif, 'Matematik')}
+                      className="px-3.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Ücretsiz Dene</span>
