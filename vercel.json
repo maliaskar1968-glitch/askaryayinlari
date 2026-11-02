@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/((?!assets/|resimler/|kampanya/|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

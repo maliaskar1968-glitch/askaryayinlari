@@ -64,6 +64,16 @@ const routeMetadata = [
     description: 'Ortaokul, LGS, lise, TYT, AYT ve mezun hazırlığı için ders çalışma taktikleri ve haftalık program rehberleri.'
   },
   {
+    route: '/not-avcisi',
+    title: 'Not Avcısı | Yazılı Ön Hazırlık Simülasyonu & MEB Kazanım Analizi',
+    description: 'Gerçek yazılıya girmeden önce kendini dene! 3. sınıftan 12. sınıfa kadar 40 dakikalık süreli provalar, korumalı ekran ve Koç Baykuş rehberliği.'
+  },
+  {
+    route: '/blog',
+    title: 'Eğitim & Rehberlik Blogu | Aşkar Yayınları',
+    description: 'Yazılı sınav taktikleri, koçluk tavsiyeleri, LGS & YKS derece stratejileri ve ufkunu açacak bilim yazıları.'
+  },
+  {
     route: '/hakkimizda',
     title: 'Hakkımızda | Aşkar Yayınları ve Mehmet Ali Aşkar',
     description: 'Aşkar Yayınları ve eğitim koçu Mehmet Ali Aşkar hakkında bilgi. Öğrenci koçluğu metodolojisi ve vizyonumuz.'
