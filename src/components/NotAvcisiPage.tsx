@@ -443,6 +443,10 @@ export const NotAvcisiPage: React.FC = () => {
                   <span>SHOPIER İLE GÜVENLİ SATIN AL</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
                 </a>
+
+                <p className="text-[9px] text-[#1A1A1A]/60 text-center font-sans pt-0.5">
+                  * Kayıt yaptırdığınız e-posta adresi ile satın alınız. Shopier iade koşulları geçerlidir.
+                </p>
               </div>
             </article>
           ))}

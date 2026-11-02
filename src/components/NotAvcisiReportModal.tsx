@@ -106,7 +106,7 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
         </div>
 
         {/* Satın Alma Fırsatı (Shopier & Yıllık Not Avcısı Lisansı) */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-amber-500/15 border-2 border-amber-500/50 shadow-xl mb-6 text-center space-y-3">
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-amber-500/15 border-2 border-amber-500/50 shadow-xl mb-6 text-center space-y-3.5">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Sınavı Beğendiniz mi? 100 Tam Puanı Garantileyin!</span>
@@ -114,9 +114,26 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
           <h4 className="text-base sm:text-lg font-black text-white">
             Tüm Dönem Yazılıları ve Tüm Derslerin MEB Simülasyonlarına Sınırsız Erişin!
           </h4>
-          <p className="text-xs text-slate-300 max-w-lg mx-auto">
+          <p className="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
             1. ve 2. dönem tüm açık uçlu MEB provaları, nokta atışı eksik kazanım analiz karneleri ve Aşkar Koçluk rehberliği tek bir lisansla cebinizde.
           </p>
+
+          {/* E-Posta İle Satın Alma Uyarısı */}
+          <div className="p-3.5 rounded-xl bg-slate-950/90 border border-amber-500/40 text-left text-xs text-slate-300 space-y-1.5 shadow-inner">
+            <div className="flex items-center gap-2 text-amber-400 font-bold uppercase tracking-wider text-[11px]">
+              <AlertCircle className="w-4 h-4 shrink-0 text-amber-400" />
+              <span>DİKKAT: KAYIT YAPTIRDIĞINIZ E-POSTA ADRESİ İLE SATIN ALINIZ</span>
+            </div>
+            <p className="text-[11px] text-slate-300 pl-6 leading-relaxed">
+              Ödemeniz tamamlandığında Not Avcısı lisansınızın ve MEB sınav provalarınızın hesabınızla anında ve otomatik eşleşebilmesi için, lütfen Shopier ödeme formuna <strong>sisteme kayıt yaptırdığınız e-posta adresini</strong> giriniz.
+              {profil?.eposta && (
+                <span className="block text-amber-300 font-mono font-bold mt-1">
+                  ✓ Sisteme Kayıtlı E-Postanız: {profil.eposta}
+                </span>
+              )}
+            </p>
+          </div>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-1">
             <div className="text-center sm:text-right">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">YILLIK KULÜP LİSANSI</span>
@@ -127,11 +144,18 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
               href="https://www.shopier.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm flex items-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
             >
-              <span>Shopier ile Güvenli Satın Al</span>
+              <span>Kayıt Yaptırdığınız E-Posta ile Satın Al</span>
               <ArrowRight className="w-4 h-4" />
             </a>
+          </div>
+
+          {/* İptal ve İade Koşulları (Shopier) */}
+          <div className="pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 text-center leading-relaxed">
+            <p>
+              🔒 <strong>İptal ve İade Koşulları:</strong> Not Avcısı lisans ödemeleri Shopier altyapısıyla gerçekleştirilmektedir. Satın alımlarda <strong>Shopier Tüketici İptal ve İade Koşulları</strong> ile Mesafeli Satış Sözleşmesi hükümleri geçerlidir. Dijital içerik ve anında ifa edilen hizmetlerde ilgili mevzuat hükümleri uygulanır.
+            </p>
           </div>
         </div>
 
