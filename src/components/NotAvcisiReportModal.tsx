@@ -105,6 +105,36 @@ export const NotAvcisiReportModal: React.FC<NotAvcisiReportModalProps> = ({
           )}
         </div>
 
+        {/* Satın Alma Fırsatı (Shopier & Yıllık Not Avcısı Lisansı) */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-amber-500/15 border-2 border-amber-500/50 shadow-xl mb-6 text-center space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Sınavı Beğendiniz mi? 100 Tam Puanı Garantileyin!</span>
+          </div>
+          <h4 className="text-base sm:text-lg font-black text-white">
+            Tüm Dönem Yazılıları ve Tüm Derslerin MEB Simülasyonlarına Sınırsız Erişin!
+          </h4>
+          <p className="text-xs text-slate-300 max-w-lg mx-auto">
+            1. ve 2. dönem tüm açık uçlu MEB provaları, nokta atışı eksik kazanım analiz karneleri ve Aşkar Koçluk rehberliği tek bir lisansla cebinizde.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-1">
+            <div className="text-center sm:text-right">
+              <span className="text-[10px] text-slate-400 uppercase font-bold block">YILLIK KULÜP LİSANSI</span>
+              <span className="text-2xl font-black text-amber-400">790 TL</span>
+              <span className="text-xs text-emerald-400 font-bold block">(Bayi Kodu ile 711 TL)</span>
+            </div>
+            <a
+              href="https://www.shopier.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm flex items-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
+            >
+              <span>Shopier ile Güvenli Satın Al</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
         {/* İlgili Aşkar Yayınları Koçluk Kitabı Tavsiyesi */}
         <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 flex items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">

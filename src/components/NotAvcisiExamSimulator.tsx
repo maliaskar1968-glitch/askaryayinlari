@@ -94,6 +94,23 @@ export const NotAvcisiExamSimulator: React.FC<NotAvcisiExamSimulatorProps> = ({
               Sınavı Başlatayım mı, {ogrenciAdi}?
             </h2>
 
+            {/* Sınıf ve Ders Bilgilendirme Rozeti */}
+            <div className="mb-4 p-3.5 rounded-2xl bg-slate-950 border border-amber-500/40 flex items-center justify-between text-left shadow-inner">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300 font-black text-base">
+                  {sinav.sinif}
+                </div>
+                <div>
+                  <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">ÖĞRENCİ SINIFI</span>
+                  <span className="text-sm font-black text-white">{sinav.sinif}. Sınıf • {sinav.dersAdi}</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] text-slate-400 uppercase font-medium block">MEB Yazılı Takvimi</span>
+                <span className="text-xs font-bold text-amber-300">1. Dönem 1. Yazılı Provası</span>
+              </div>
+            </div>
+
             <p className="text-slate-300 text-sm leading-relaxed mb-6">
               Önüne boş bir müsvedde kağıdı, kalemi ve silgini al. Soruları ekrandan okuyup kendi kağıdına çözeceksin. 
               Sınav süren tam <strong>{sinav.sureDakika} dakikadır</strong>. Gerçek bir yazılıdaymış gibi ciddiyetle odaklan!

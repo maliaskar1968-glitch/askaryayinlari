@@ -9,11 +9,13 @@ import { NotAvcisiReportModal } from './NotAvcisiReportModal';
 import { NotAvcisiVeliKarneSorguModal } from './NotAvcisiVeliKarneSorguModal';
 import { ornekSinavOlustur } from '../data/notAvcisiSampleExam';
 import { ogrenciGetir, ogrenciKaydet, sonucHesapla } from '../utils/notAvcisiEngine';
+import { isSinavKilitli } from '../utils/notAvcisiExamControl';
 
 export const NotAvcisiPage: React.FC = () => {
   const [selectedSinif, setSelectedSinif] = useState<number | 'tumu'>('tumu');
   const [bayiKoduInput, setBayiKoduInput] = useState<string>('');
   const [appliedBayiKodu, setAppliedBayiKodu] = useState<string | null>(null);
+  const [pendingExam, setPendingExam] = useState<{ sinif: number; ders: string } | null>(null);
 
   // Modallar
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -48,8 +50,27 @@ export const NotAvcisiPage: React.FC = () => {
     }
   };
 
-  const handleStartExam = (sinif: number, ders = 'Matematik') => {
-    const exam = ornekSinavOlustur(sinif, ders);
+  const handleStartExam = (targetSinif: number, ders = 'Matematik') => {
+    // 1. Önce Ücretsiz Kayıt Olması Zorunludur
+    if (!ogrenci) {
+      setPendingExam({ sinif: targetSinif, ders });
+      setIsRegisterOpen(true);
+      return;
+    }
+
+    // 2. Yalnızca Kendi Sınıfındaki Yazılılara Girebilir
+    if (ogrenci.sinif !== targetSinif) {
+      alert(`Kayıtlı sınıfınız ${ogrenci.sinif}. Sınıftır. Not Avcısı kuralları gereği yalnızca kendi sınıfınızın MEB yazılı provalarına katılabilirsiniz.`);
+      return;
+    }
+
+    // 3. MEB Yazılı Takvimi / Kilit Kontrolü
+    if (isSinavKilitli(targetSinif, '1_1')) {
+      alert('Bu sınav henüz erişime açılmamıştır. MEB yazılı sınav takviminden 1 hafta önce veya yönetim tarafından açıldığında aktif olacaktır.');
+      return;
+    }
+
+    const exam = ornekSinavOlustur(ogrenci.sinif, ders);
     setActiveSinav(exam);
   };
 
@@ -92,7 +113,16 @@ export const NotAvcisiPage: React.FC = () => {
     if (profil.bayiRefKodu) {
       setAppliedBayiKodu(profil.bayiRefKodu);
     }
-    alert(`Hoş geldin ${profil.adSoyad}! Not Avcısı kaydınız başarıyla oluşturuldu.`);
+    alert(`Hoş geldin ${profil.adSoyad}! Not Avcısı kulüp kaydınız başarıyla tamamlandı. Şimdi ${profil.sinif}. Sınıf yazılı provanıza başlayabilirsiniz.`);
+    
+    // Sınav kilitli mi kontrol et
+    if (isSinavKilitli(profil.sinif, '1_1')) {
+      alert(`${profil.sinif}. Sınıf 1. Yazılı Provası henüz kilitlidir. MEB yazılı haftasından 1 hafta önce açılacaktır.`);
+    } else {
+      const exam = ornekSinavOlustur(profil.sinif, pendingExam ? pendingExam.ders : 'Matematik');
+      setPendingExam(null);
+      setActiveSinav(exam);
+    }
   };
 
   const handleBayiSuccess = (bayi: BayiProfil) => {
