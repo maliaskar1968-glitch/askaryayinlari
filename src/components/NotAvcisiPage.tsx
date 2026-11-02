@@ -107,111 +107,115 @@ export const NotAvcisiPage: React.FC = () => {
         initialBayiRef={appliedBayiKodu || ''}
       />
 
-      {/* Hero Header Section */}
-      <section className="relative overflow-hidden pt-12 pb-16 bg-gradient-to-br from-[#1A1A1A] via-[#24221F] to-[#1A1A1A] border-b-2 border-[#C9A86A]/60 text-white shadow-xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-[#C9A86A]/10 via-transparent to-transparent pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          {/* Logo & Mascot Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#C9A86A]/20 border border-[#C9A86A]/40 text-[#E5C98E] text-[11px] font-mono uppercase tracking-[0.2em] font-bold mb-6 shadow-sm">
-            <img src="/resimler/branding/not-avcisi-logo.jpg" alt="Logo" className="w-4 h-4 rounded-full object-cover" />
-            <span>NOT AVCISI • YAZILI ÖN HAZIRLIK SİMÜLASYONU</span>
-            <Sparkles className="w-3.5 h-3.5 text-[#C9A86A]" />
-          </div>
+      {/* Hero Header Section - DİKDÖRTGENİN KÖŞESİNİ YUVARLAK YAP (KESKİN KÖŞE KALMASIN) */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+        <div className="relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-br from-[#1A1A1A] via-[#24221F] to-[#1A1A1A] border-2 border-[#C9A86A]/60 text-white shadow-2xl p-6 sm:p-10 lg:p-12 text-center">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-[#C9A86A]/15 via-transparent to-transparent pointer-events-none" />
+          
+          <div className="relative z-10 max-w-4xl mx-auto">
+            {/* Logo & Mascot Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#C9A86A]/20 border border-[#C9A86A]/40 text-[#E5C98E] text-[11px] font-mono uppercase tracking-[0.2em] font-bold mb-6 shadow-sm">
+              <img src="/resimler/branding/not-avcisi-logo.jpg" alt="Logo" className="w-4 h-4 rounded-full object-cover" />
+              <span>NOT AVCISI • YAZILI ÖN HAZIRLIK SİMÜLASYONU</span>
+              <Sparkles className="w-3.5 h-3.5 text-[#C9A86A]" />
+            </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white mb-6 leading-tight">
-            Gerçek Yazılıya Girmeden Önce <br />
-            <span className="text-[#C9A86A]">
-              Kendini Dene, 100 Tam Puanı Avla!
-            </span>
-          </h1>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white mb-6 leading-tight">
+              Gerçek Yazılıya Girmeden Önce <br />
+              <span className="text-[#C9A86A]">
+                Kendini Dene, 100 Tam Puanı Avla!
+              </span>
+            </h1>
 
-          <p className="max-w-3xl mx-auto text-sm sm:text-base text-zinc-300 mb-8 font-sans leading-relaxed">
-            3. sınıftan 12. sınıfa kadar MEB formatında 40 dakikalık süreli provalar, korumalı ekran, 
-            nokta atışı kazanım analizi ve Koç Baykuş'un sınav tavsiyeleriyle yazılı korkusuna son ver!
-          </p>
+            <p className="max-w-3xl mx-auto text-sm sm:text-base text-zinc-300 mb-8 font-sans leading-relaxed">
+              3. sınıftan 12. sınıfa kadar MEB formatında 40 dakikalık süreli provalar, korumalı ekran, 
+              nokta atışı kazanım analizi ve Koç Baykuş'un sınav tavsiyeleriyle yazılı korkusuna son ver!
+            </p>
 
-          {/* Quick Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8">
-            <button
-              onClick={() => handleStartExam(5, 'Matematik')}
-              className="bg-[#C9A86A] hover:bg-[#b89557] text-[#1A1A1A] font-bold px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.15em] flex items-center gap-2 shadow-lg hover:scale-102 transition cursor-pointer"
-            >
-              <Play className="w-4 h-4 fill-current" />
-              <span>Matematik 1. Yazılıyı Ücretsiz Çöz</span>
-            </button>
-
-            {ogrenci ? (
-              <div className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-xs tracking-wide">
-                <UserCheck className="w-4 h-4 text-emerald-400" />
-                <span>Hoş geldin, {ogrenci.adSoyad} ({ogrenci.sinif}. Sınıf)</span>
-              </div>
-            ) : (
+            {/* Quick Action Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-3.5 mb-8">
               <button
-                onClick={() => setIsRegisterOpen(true)}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-full text-xs uppercase tracking-[0.15em] font-bold flex items-center gap-2 transition cursor-pointer"
+                onClick={() => handleStartExam(5, 'Matematik')}
+                className="bg-[#C9A86A] hover:bg-[#b89557] text-[#1A1A1A] font-bold px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.15em] flex items-center gap-2 shadow-lg hover:scale-102 transition cursor-pointer"
               >
-                <ShieldCheck className="w-4 h-4 text-[#C9A86A]" />
-                <span>Kulübe Kaydol (Veli Onaylı)</span>
+                <Play className="w-4 h-4 fill-current" />
+                <span>Matematik 1. Yazılıyı Ücretsiz Çöz</span>
               </button>
-            )}
-          </div>
 
-          {/* Bayi / İndirim Kodu Giriş Çubuğu */}
-          <div className="max-w-md mx-auto p-1.5 rounded-2xl bg-white/10 backdrop-blur-md border border-[#C9A86A]/40 shadow-xl">
-            <form onSubmit={handleApplyBayiKodu} className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Bayi veya İndirim Kodunuz var mı?"
-                value={bayiKoduInput}
-                onChange={(e) => setBayiKoduInput(e.target.value)}
-                className="flex-1 px-4 py-2 rounded-xl bg-black/40 border border-white/15 text-white placeholder-zinc-400 text-xs focus:outline-none focus:border-[#C9A86A]"
-              />
-              <button
-                type="submit"
-                className="px-5 py-2 rounded-xl bg-[#C9A86A] hover:bg-[#b89557] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider transition cursor-pointer"
-              >
-                Uygula
-              </button>
-            </form>
-            {appliedBayiKodu && (
-              <p className="mt-2 text-xs text-emerald-400 font-semibold flex items-center justify-center gap-1">
-                <CheckCircle className="w-3.5 h-3.5" />
-                Bayi Kodu "{appliedBayiKodu}" Tanımlandı: %10 İndirim Aktif! (711 TL)
-              </p>
-            )}
+              {ogrenci ? (
+                <div className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-xs tracking-wide">
+                  <UserCheck className="w-4 h-4 text-emerald-400" />
+                  <span>Hoş geldin, {ogrenci.adSoyad} ({ogrenci.sinif}. Sınıf)</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsRegisterOpen(true)}
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-full text-xs uppercase tracking-[0.15em] font-bold flex items-center gap-2 transition cursor-pointer"
+                >
+                  <ShieldCheck className="w-4 h-4 text-[#C9A86A]" />
+                  <span>Kulübe Kaydol (Veli Onaylı)</span>
+                </button>
+              )}
+            </div>
+
+            {/* Bayi / İndirim Kodu Giriş Çubuğu */}
+            <div className="max-w-md mx-auto p-1.5 rounded-2xl bg-white/10 backdrop-blur-md border border-[#C9A86A]/40 shadow-xl">
+              <form onSubmit={handleApplyBayiKodu} className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Bayi veya İndirim Kodunuz var mı?"
+                  value={bayiKoduInput}
+                  onChange={(e) => setBayiKoduInput(e.target.value)}
+                  className="flex-1 px-4 py-2 rounded-xl bg-black/40 border border-white/15 text-white placeholder-zinc-400 text-xs focus:outline-none focus:border-[#C9A86A]"
+                />
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-[#C9A86A] hover:bg-[#b89557] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider transition cursor-pointer"
+                >
+                  Uygula
+                </button>
+              </form>
+              {appliedBayiKodu && (
+                <p className="mt-2 text-xs text-emerald-400 font-semibold flex items-center justify-center gap-1">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  Bayi Kodu "{appliedBayiKodu}" Tanımlandı: %10 İndirim Aktif! (711 TL)
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Sınıf Filtre Butonları (Kitaplık Tarzı) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
-        <div className="p-2 rounded-2xl bg-white border border-[#1A1A1A]/10 shadow-lg overflow-x-auto flex items-center gap-2 no-scrollbar">
-          <button
-            type="button"
-            onClick={() => setSelectedSinif('tumu')}
-            className={`px-4 py-2 rounded-full text-xs uppercase tracking-wider font-bold whitespace-nowrap transition-all cursor-pointer ${
-              selectedSinif === 'tumu'
-                ? 'bg-[#1A1A1A] text-white shadow-md'
-                : 'bg-[#FAF9F6] border border-[#1A1A1A]/10 text-zinc-700 hover:border-[#C9A86A] hover:text-[#1A1A1A]'
-            }`}
-          >
-            Tüm Sınıflar (3 - 12)
-          </button>
-          {[3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((s) => (
+      {/* Sınıf Filtre Butonları (TAM SIĞDIRILMIŞ DÜZEN) */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 relative z-20">
+        <div className="p-2 sm:p-2.5 rounded-2xl bg-white border border-[#1A1A1A]/10 shadow-lg">
+          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-11 gap-1.5 sm:gap-2">
             <button
-              key={s}
               type="button"
-              onClick={() => setSelectedSinif(s)}
-              className={`px-3.5 py-2 rounded-full text-xs uppercase tracking-wider font-bold whitespace-nowrap transition-all cursor-pointer ${
-                selectedSinif === s
-                  ? 'bg-[#C9A86A] text-[#1A1A1A] font-black shadow-sm'
-                  : 'bg-[#FAF9F6] border border-[#1A1A1A]/10 text-zinc-700 hover:border-[#C9A86A] hover:text-[#1A1A1A]'
+              onClick={() => setSelectedSinif('tumu')}
+              className={`w-full py-2 px-1 rounded-xl text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                selectedSinif === 'tumu'
+                  ? 'bg-[#1A1A1A] text-white shadow-md ring-2 ring-[#C9A86A]/60 scale-[1.02]'
+                  : 'bg-[#FAF9F6] text-[#1A1A1A]/80 hover:text-[#1A1A1A] border border-[#1A1A1A]/10 hover:border-[#C9A86A] hover:bg-[#FAF6EE]'
               }`}
             >
-              {s}. Sınıf
+              [TÜMÜ]
             </button>
-          ))}
+            {[3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setSelectedSinif(s)}
+                className={`w-full py-2 px-1 rounded-xl text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  selectedSinif === s
+                    ? 'bg-[#C9A86A] text-[#1A1A1A] font-black shadow-md ring-2 ring-[#C9A86A]/80 scale-[1.02]'
+                    : 'bg-[#FAF9F6] text-[#1A1A1A]/80 hover:text-[#1A1A1A] border border-[#1A1A1A]/10 hover:border-[#C9A86A] hover:bg-[#FAF6EE]'
+                }`}
+              >
+                {s}. Sınıf
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
