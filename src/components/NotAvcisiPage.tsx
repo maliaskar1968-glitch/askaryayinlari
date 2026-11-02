@@ -7,6 +7,7 @@ import { NotAvcisiBayiModal } from './NotAvcisiBayiModal';
 import { NotAvcisiExamSimulator } from './NotAvcisiExamSimulator';
 import { NotAvcisiReportModal } from './NotAvcisiReportModal';
 import { NotAvcisiVeliKarneSorguModal } from './NotAvcisiVeliKarneSorguModal';
+import { NotAvcisiSatinAlModal } from './NotAvcisiSatinAlModal';
 import { ornekSinavOlustur } from '../data/notAvcisiSampleExam';
 import { ogrenciGetir, ogrenciKaydet, sonucHesapla } from '../utils/notAvcisiEngine';
 import { isSinavKilitli } from '../utils/notAvcisiExamControl';
@@ -20,6 +21,8 @@ export const NotAvcisiPage: React.FC = () => {
   // Modallar
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isVeliSorguOpen, setIsVeliSorguOpen] = useState(false);
+  const [isSatinAlModalOpen, setIsSatinAlModalOpen] = useState(false);
+  const [selectedSatinAlKart, setSelectedSatinAlKart] = useState<NotAvcisiSinifKart | null>(null);
   
   // Aktif Sınav ve Rapor Durumu
   const [activeSinav, setActiveSinav] = useState<SinavProva | null>(null);
@@ -164,6 +167,14 @@ export const NotAvcisiPage: React.FC = () => {
           setIsVeliSorguOpen(false);
           handleStartExam(sinif, ders);
         }}
+      />
+
+      {/* Satın Alma Öncesi Bilgilendirme ve İade Koşulları Modalı */}
+      <NotAvcisiSatinAlModal
+        isOpen={isSatinAlModalOpen}
+        onClose={() => setIsSatinAlModalOpen(false)}
+        kart={selectedSatinAlKart}
+        ogrenci={ogrenci}
       />
 
       {/* Kayıt Modalı */}
@@ -420,15 +431,17 @@ export const NotAvcisiPage: React.FC = () => {
                   <span>MATEMATİK 1. PROVAYI ÜCRETSİZ ÇÖZ</span>
                 </button>
 
-                <a
-                  href={kart.shopierUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedSatinAlKart(kart);
+                    setIsSatinAlModalOpen(true);
+                  }}
                   className="w-full bg-[#1A1A1A] hover:bg-black text-white hover:text-white border border-[#1A1A1A] text-center py-3 px-3 rounded-full text-[10px] font-mono uppercase tracking-[0.15em] font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 cursor-pointer shadow-2xs"
                 >
                   <span>SHOPIER İLE GÜVENLİ SATIN AL</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#C9A86A]" />
-                </a>
+                </button>
 
                 <p className="text-[9px] text-[#1A1A1A]/60 text-center font-sans pt-0.5">
                   * Kayıt yaptırdığınız e-posta adresi ile satın alınız. Shopier iade koşulları geçerlidir.
