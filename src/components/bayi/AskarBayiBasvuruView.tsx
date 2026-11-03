@@ -136,9 +136,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                 <span className="text-base font-black text-white tracking-tight block">
                   Aşkar Yayınları
                 </span>
-                <span className="text-[10px] text-amber-400 font-semibold tracking-wider uppercase block">
-                  İlçe Temsilciliği & Kırtasiye Programı
-                </span>
+
               </div>
             </div>
           </div>
