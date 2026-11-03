@@ -58,6 +58,7 @@ export interface BayiSiparisItem {
   refKodu: string;
   musteriAdi: string;
   kullaniciEmail: string;
+  islemTuru?: 'Satis' | 'Kayit';
   paket: string;
   paketAdi: string;
   tutar: number;
@@ -65,6 +66,8 @@ export interface BayiSiparisItem {
   komisyonTutari: number;
   komisyonDurumu: 'Beklemede' | 'Onaylandi' | 'Odendi';
   odemeTarihi: string;
+  vadeTarihi?: string;
+  dekontNo?: string;
   tarih: string;
   odenebilirMi?: boolean; // 30 gün kuralı veya EFT 7 gün
 }

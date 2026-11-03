@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Lock,
   Store,
@@ -14,9 +14,14 @@ import {
   Users,
   LogOut,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Calendar,
+  Clock,
+  FileText,
+  Building2,
+  ChevronRight
 } from 'lucide-react';
-import type { BayiModel, BayiSiparisItem } from '../../types/bayi';
+import type { BayiModel, BayiSiparisItem, BayiOdemeKaydi } from '../../types/bayi';
 import { generateAskarBayiFlyerPdf } from '../../utils/generateAskarBayiFlyerPdf';
 
 interface AskarBayiLoginViewProps {
@@ -51,7 +56,7 @@ const DEMO_BAYI: BayiModel = {
   kalanBakiye: 790.8,
 };
 
-const DEMO_SIPARISLER: BayiSiparisItem[] = [
+const DEMO_SIPARISLER = [
   {
     id: 'sip_101',
     siparisNo: 'ASK-26101',
@@ -66,6 +71,9 @@ const DEMO_SIPARISLER: BayiSiparisItem[] = [
     komisyonTutari: 142.2,
     komisyonDurumu: 'Odendi',
     odemeTarihi: '2026-10-18',
+    vadeTarihi: '2026-10-21 (Salı)',
+    dekontNo: 'EFT-20261028-4412',
+    odemeTuru: 'Havale / EFT',
     tarih: '2026-10-18',
     odenebilirMi: true,
   },
@@ -83,6 +91,9 @@ const DEMO_SIPARISLER: BayiSiparisItem[] = [
     komisyonTutari: 142.2,
     komisyonDurumu: 'Odendi',
     odemeTarihi: '2026-10-21',
+    vadeTarihi: '2026-10-28 (Salı)',
+    dekontNo: 'EFT-20261028-4412',
+    odemeTuru: 'Havale / EFT',
     tarih: '2026-10-21',
     odenebilirMi: true,
   },
@@ -98,11 +109,117 @@ const DEMO_SIPARISLER: BayiSiparisItem[] = [
     tutar: 711,
     komisyonOrani: 20,
     komisyonTutari: 142.2,
+    komisyonDurumu: 'Odendi',
+    odemeTarihi: '2026-10-24',
+    vadeTarihi: '2026-10-28 (Salı)',
+    dekontNo: 'EFT-20261028-4412',
+    odemeTuru: 'Havale / EFT',
+    tarih: '2026-10-24',
+    odenebilirMi: true,
+  },
+  {
+    id: 'sip_104',
+    siparisNo: 'ASK-26104',
+    bayiId: 'bayi_kadikoy_01',
+    refKodu: 'ASKAR-KADIKOY',
+    musteriAdi: 'Mehmet Eren (Veli)',
+    kullaniciEmail: 'mehmet.eren@gmail.com',
+    paket: 'not_avcisi_yillik',
+    paketAdi: 'Not Avcısı Tüm Dönem Yazılı Paketi (7. Sınıf)',
+    tutar: 711,
+    komisyonOrani: 20,
+    komisyonTutari: 142.2,
+    komisyonDurumu: 'Odendi',
+    odemeTarihi: '2026-10-26',
+    vadeTarihi: '2026-10-28 (Salı)',
+    dekontNo: 'FAST-20261102-8921',
+    odemeTuru: 'FAST',
+    tarih: '2026-10-26',
+    odenebilirMi: true,
+  },
+  {
+    id: 'sip_105',
+    siparisNo: 'ASK-26105',
+    bayiId: 'bayi_kadikoy_01',
+    refKodu: 'ASKAR-KADIKOY',
+    musteriAdi: 'Fatma Şahin (Veli)',
+    kullaniciEmail: 'fatma.sahin@outlook.com',
+    paket: 'not_avcisi_yillik',
+    paketAdi: 'Not Avcısı Tüm Dönem Yazılı Paketi (9. Sınıf)',
+    tutar: 711,
+    komisyonOrani: 20,
+    komisyonTutari: 142.2,
     komisyonDurumu: 'Beklemede',
     odemeTarihi: '2026-10-29',
+    vadeTarihi: '2026-11-04 (Salı)',
     tarih: '2026-10-29',
     odenebilirMi: false,
   },
+  {
+    id: 'sip_106',
+    siparisNo: 'ASK-26106',
+    bayiId: 'bayi_kadikoy_01',
+    refKodu: 'ASKAR-KADIKOY',
+    musteriAdi: 'Emre Çelik (Veli)',
+    kullaniciEmail: 'emre.celik@gmail.com',
+    paket: 'not_avcisi_yillik',
+    paketAdi: 'Not Avcısı Tüm Dönem Yazılı Paketi (11. Sınıf YKS)',
+    tutar: 711,
+    komisyonOrani: 20,
+    komisyonTutari: 142.2,
+    komisyonDurumu: 'Beklemede',
+    odemeTarihi: '2026-10-31',
+    vadeTarihi: '2026-11-04 (Salı)',
+    tarih: '2026-10-31',
+    odenebilirMi: false,
+  },
+  {
+    id: 'sip_107',
+    siparisNo: 'ASK-26107',
+    bayiId: 'bayi_kadikoy_01',
+    refKodu: 'ASKAR-KADIKOY',
+    musteriAdi: 'Canan Polat (Veli)',
+    kullaniciEmail: 'canan.polat@gmail.com',
+    paket: 'not_avcisi_yillik',
+    paketAdi: 'Not Avcısı Tüm Dönem Yazılı Paketi (4. Sınıf)',
+    tutar: 711,
+    komisyonOrani: 20,
+    komisyonTutari: 142.2,
+    komisyonDurumu: 'Beklemede',
+    odemeTarihi: '2026-11-01',
+    vadeTarihi: '2026-11-04 (Salı)',
+    tarih: '2026-11-01',
+    odenebilirMi: false,
+  },
+  {
+    id: 'sip_108',
+    siparisNo: 'ASK-26108',
+    bayiId: 'bayi_kadikoy_01',
+    refKodu: 'ASKAR-KADIKOY',
+    musteriAdi: 'Hüseyin Aksoy (Veli)',
+    kullaniciEmail: 'huseyin.aksoy@gmail.com',
+    paket: 'not_avcisi_yillik',
+    paketAdi: 'Not Avcısı Tüm Dönem Yazılı Paketi (8. Sınıf LGS)',
+    tutar: 711,
+    komisyonOrani: 20,
+    komisyonTutari: 142.2,
+    komisyonDurumu: 'Beklemede',
+    odemeTarihi: '2026-11-02',
+    vadeTarihi: '2026-11-10 (Salı)',
+    tarih: '2026-11-02',
+    odenebilirMi: false,
+  },
+];
+
+const DEMO_KAYITLAR = [
+  { id: 'kayit_1', tarih: '2026-11-02', ogrenciAdi: 'Ece Karaca', sinif: '5. Sınıf', durum: 'Ucretsiz_Prova', aciklama: 'Matematik 1. Yazılı Provasını Çözdü (90 Puan)' },
+  { id: 'kayit_2', tarih: '2026-11-01', ogrenciAdi: 'Burak Demir', sinif: '8. Sınıf LGS', durum: 'Satin_Aldi', aciklama: 'Yıllık Not Avcısı Paketi Satın Aldı (Sipariş: ASK-26108)' },
+  { id: 'kayit_3', tarih: '2026-10-31', ogrenciAdi: 'Defne Yılmaz', sinif: '6. Sınıf', durum: 'Ucretsiz_Prova', aciklama: 'Fen Bilimleri 1. Yazılı Provasını Çözdü (100 Puan)' },
+  { id: 'kayit_4', tarih: '2026-10-30', ogrenciAdi: 'Mert Akın', sinif: '7. Sınıf', durum: 'Satin_Aldi', aciklama: 'Yıllık Not Avcısı Paketi Satın Aldı (Sipariş: ASK-26106)' },
+  { id: 'kayit_5', tarih: '2026-10-29', ogrenciAdi: 'Ceren Güler', sinif: '9. Sınıf', durum: 'Satin_Aldi', aciklama: 'Yıllık Not Avcısı Paketi Satın Aldı (Sipariş: ASK-26105)' },
+  { id: 'kayit_6', tarih: '2026-10-28', ogrenciAdi: 'Kerem Tunç', sinif: '4. Sınıf', durum: 'Ucretsiz_Prova', aciklama: 'Türkçe 1. Yazılı Provasını Çözdü (80 Puan)' },
+  { id: 'kayit_7', tarih: '2026-10-27', ogrenciAdi: 'Sude Aydın', sinif: '11. Sınıf YKS', durum: 'Ucretsiz_Prova', aciklama: 'Matematik 1. Yazılı Provasını Çözdü (85 Puan)' },
+  { id: 'kayit_8', tarih: '2026-10-26', ogrenciAdi: 'Alp Eren', sinif: '7. Sınıf', durum: 'Satin_Aldi', aciklama: 'Yıllık Not Avcısı Paketi Satın Aldı (Sipariş: ASK-26104)' },
 ];
 
 export const AskarBayiLoginView: React.FC<AskarBayiLoginViewProps> = ({
@@ -115,6 +232,52 @@ export const AskarBayiLoginView: React.FC<AskarBayiLoginViewProps> = ({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [activePortalTab, setActivePortalTab] = useState<'satislar' | 'kayitlar' | 'dekontlar'>('satislar');
+  const [bayiPayments, setBayiPayments] = useState<BayiOdemeKaydi[]>([]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('askar_bayi_odemeleri');
+      if (stored) {
+        setBayiPayments(JSON.parse(stored));
+      } else {
+        setBayiPayments([
+          {
+            id: 'odm_1',
+            bayiId: 'bayi_kadikoy_01',
+            bayiKodu: 'ASKAR-KADIKOY',
+            firmaAdi: 'Kadıköy Başarı Kırtasiye',
+            yetkiliAdi: 'Mehmet Ali Karaca',
+            telefon: '0532 555 12 34',
+            iban: 'TR33 0006 1005 1987 6543 2100 01',
+            tutar: 1000,
+            dekontNo: 'EFT-20261028-4412',
+            odemeTarihi: '2026-10-28',
+            odemeTuru: 'Havale / EFT',
+            aciklama: 'Ekim 3. Hafta Not Avcısı hak ediş ödemesi',
+            createdAt: '2026-10-28T14:30:00Z',
+          },
+          {
+            id: 'odm_2',
+            bayiId: 'bayi_kadikoy_01',
+            bayiKodu: 'ASKAR-KADIKOY',
+            firmaAdi: 'Kadıköy Başarı Kırtasiye',
+            yetkiliAdi: 'Mehmet Ali Karaca',
+            telefon: '0532 555 12 34',
+            iban: 'TR33 0006 1005 1987 6543 2100 01',
+            tutar: 200,
+            dekontNo: 'FAST-20261102-8921',
+            odemeTarihi: '2026-11-02',
+            odemeTuru: 'FAST',
+            aciklama: 'Ekim 4. Hafta ara hak ediş ödemesi',
+            createdAt: '2026-11-02T11:15:00Z',
+          }
+        ]);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -268,102 +431,274 @@ export const AskarBayiLoginView: React.FC<AskarBayiLoginViewProps> = ({
             </div>
           </div>
 
-          {/* 4 İstatistik Kartı */}
+          {/* 4 ŞEFFAF VE BELİRGİN İSTATİSTİK KARTI */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-400">Toplam Karekod Tıklanma</span>
+                <span className="text-xs font-bold text-slate-400">Kendi Vasıtanızla Kaydolanlar</span>
                 <Users className="w-4 h-4 text-amber-400" />
               </div>
-              <p className="text-2xl font-black text-white">{currentBayi.toplamTiklanma || 142}</p>
-              <span className="text-[11px] text-slate-500">İlçe genelinden girişler</span>
+              <p className="text-2xl font-black text-white">{currentBayi.toplamKayit || 38} Öğrenci</p>
+              <span className="text-[11px] text-slate-400">Ücretsiz deneme çözen öğrenci / veli</span>
             </div>
 
             <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-400">Kayıtlı Öğrenci / Deneme</span>
-                <TrendingUp className="w-4 h-4 text-indigo-400" />
+                <span className="text-xs font-bold text-slate-400">Paket Satın Alan Veliler</span>
+                <Store className="w-4 h-4 text-indigo-400" />
               </div>
-              <p className="text-2xl font-black text-white">{currentBayi.toplamKayit || 38}</p>
-              <span className="text-[11px] text-slate-500">Ücretsiz sınav çözenler</span>
-            </div>
-
-            <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-400">Toplam Satılan Paket</span>
-                <Store className="w-4 h-4 text-emerald-400" />
-              </div>
-              <p className="text-2xl font-black text-white">{currentBayi.toplamSatis || 14} Adet</p>
-              <span className="text-[11px] text-slate-500">Toplam Ciro: {currentBayi.toplamCiro || 9954} TL</span>
+              <p className="text-2xl font-black text-white">{currentBayi.toplamSatis || 14} Adet Satış</p>
+              <span className="text-[11px] text-slate-400">Toplam Üretilen Ciro: {(currentBayi.toplamCiro || 9954).toLocaleString('tr-TR')} ₺</span>
             </div>
 
             <div className="p-5 rounded-3xl bg-slate-900 border border-amber-500/40 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-300">Net Hak Ediş (%20)</span>
+                <span className="text-xs font-bold text-amber-300">Toplam Net Hak Ediş (%20)</span>
                 <DollarSign className="w-4 h-4 text-amber-400" />
               </div>
-              <p className="text-2xl font-black text-amber-400">
-                {currentBayi.toplamHakEdis || 1990.8} TL
+              <p className="text-2xl font-black text-amber-400 font-mono">
+                {totalEarnings.toLocaleString('tr-TR')} ₺
               </p>
-              <span className="text-[11px] text-emerald-400">
-                Kalan Ödenecek Bakiye: {currentBayi.kalanBakiye || 790.8} TL
+              <span className="text-[11px] text-slate-400">Satışlardan hak kazandığınız net komisyon</span>
+            </div>
+
+            <div className="p-5 rounded-3xl bg-slate-900 border border-emerald-500/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-400">Ödenen ve Kalan Bakiye</span>
+                <Clock className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div className="flex items-baseline gap-2 font-mono">
+                <span className="text-xl font-black text-emerald-400">
+                  {paidTotal.toLocaleString('tr-TR')} ₺
+                </span>
+                <span className="text-xs text-slate-500">/</span>
+                <span className="text-lg font-black text-amber-400">
+                  {remainingBalance.toLocaleString('tr-TR')} ₺ Kalan
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-400">
+                {remainingBalance > 0 ? 'Salı günü banka hesabınıza yatırılacak' : 'Tamamı hesabınıza aktarıldı'}
               </span>
             </div>
           </div>
 
-          {/* Sipariş Geçmişi & Provizyon Takibi */}
-          <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
-              <div>
-                <h3 className="text-lg font-black text-white flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-amber-400" />
-                  <span>Karekodunuz Üzerinden Yapılan Satışlar</span>
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Kredi kartı ile yapılan ödemeler 30 günlük yasal cayma süresi sonunda Salı günleri kesinleşerek ödenir.
-                </p>
+          {/* ŞEFFAF VE BELİRGİN SEKMELER (SATIŞLAR, KAYITLAR, BANKA DEKONTLARI) */}
+          <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 space-y-6 shadow-xl">
+            {/* Sekme Başlıkları */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActivePortalTab('satislar')}
+                  className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition cursor-pointer ${
+                    activePortalTab === 'satislar'
+                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                      : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                  }`}
+                >
+                  <DollarSign className="w-4 h-4" />
+                  <span>Satışlar & Hak Ediş Vade Takvimi ({DEMO_SIPARISLER.length})</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActivePortalTab('kayitlar')}
+                  className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition cursor-pointer ${
+                    activePortalTab === 'kayitlar'
+                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                      : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                  }`}
+                >
+                  <Users className="w-4 h-4" />
+                  <span>Kendi Vasıtanızla Kaydolanlar ({DEMO_KAYITLAR.length})</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActivePortalTab('dekontlar')}
+                  className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition cursor-pointer ${
+                    activePortalTab === 'dekontlar'
+                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                      : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                  }`}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Banka Ödeme Dekontlarım ({matchingReceipts.length})</span>
+                </button>
+              </div>
+
+              <div className="text-xs text-slate-400 font-mono flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Ödeme Günü: Her Hafta Salı</span>
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-slate-800 text-slate-400">
-                    <th className="py-3 px-3">Sipariş No</th>
-                    <th className="py-3 px-3">Müşteri</th>
-                    <th className="py-3 px-3">Paket</th>
-                    <th className="py-3 px-3">Tutar</th>
-                    <th className="py-3 px-3">Hak Ediş (%20)</th>
-                    <th className="py-3 px-3">Tarih</th>
-                    <th className="py-3 px-3">Durum</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60">
-                  {DEMO_SIPARISLER.map((s) => (
-                    <tr key={s.id} className="hover:bg-slate-850/50">
-                      <td className="py-3 px-3 font-mono text-slate-300">{s.siparisNo}</td>
-                      <td className="py-3 px-3 font-bold text-white">{s.musteriAdi}</td>
-                      <td className="py-3 px-3 text-slate-300">{s.paketAdi}</td>
-                      <td className="py-3 px-3 font-bold text-slate-200">{s.tutar} TL</td>
-                      <td className="py-3 px-3 font-black text-amber-400">{s.komisyonTutari} TL</td>
-                      <td className="py-3 px-3 text-slate-400">{s.tarih}</td>
-                      <td className="py-3 px-3">
-                        {s.komisyonDurumu === 'Odendi' ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold">
-                            <CheckCircle2 className="w-3 h-3" />
-                            Ödendi (Banka)
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-bold">
-                            Provizyonda (30 Gün)
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/* SEKME 1: SATIŞLAR VE HAK EDİŞ VADE TAKVİMİ */}
+            {activePortalTab === 'satislar' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
+                    <span>
+                      <strong>Ödeme Takvimi İlkesi:</strong> Havale/EFT satışları haftalık olarak Salı günleri, kredi kartı satışları ise yasal 30 günlük cayma süresi bitimini takip eden Salı günü hesabınıza FAST/EFT ile ödenir.
+                    </span>
+                  </div>
+                  <span className="text-amber-400 font-bold shrink-0 font-mono">Net %20 Komisyon</span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                        <th className="py-3 px-3">Sipariş No</th>
+                        <th className="py-3 px-3">Müşteri / Veli</th>
+                        <th className="py-3 px-3">Satın Alınan Paket</th>
+                        <th className="py-3 px-3 text-right">Paket Tutarı</th>
+                        <th className="py-3 px-3 text-right text-amber-400">Hak Edişiniz (%20)</th>
+                        <th className="py-3 px-3">Satış Tarihi</th>
+                        <th className="py-3 px-3">Hesaba Yatacağı Tarih (Vade)</th>
+                        <th className="py-3 px-3 text-right">Ödeme Durumu</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {DEMO_SIPARISLER.map((s) => (
+                        <tr key={s.id} className="hover:bg-slate-850/50 transition">
+                          <td className="py-3.5 px-3 font-mono text-slate-300 font-bold">{s.siparisNo}</td>
+                          <td className="py-3.5 px-3 font-bold text-white">{s.musteriAdi}</td>
+                          <td className="py-3.5 px-3 text-slate-300">{s.paketAdi}</td>
+                          <td className="py-3.5 px-3 text-right font-bold text-slate-200 font-mono">{s.tutar} ₺</td>
+                          <td className="py-3.5 px-3 text-right font-black text-amber-400 font-mono text-sm">{s.komisyonTutari} ₺</td>
+                          <td className="py-3.5 px-3 text-slate-400 font-mono">{s.tarih}</td>
+                          <td className="py-3.5 px-3 font-mono text-slate-300">
+                            <span className="px-2 py-0.5 rounded-lg bg-slate-950 border border-slate-800 font-bold">
+                              📅 {s.vadeTarihi || 'Salı Günü'}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-3 text-right">
+                            {s.komisyonDurumu === 'Odendi' ? (
+                              <div className="inline-flex flex-col items-end">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold">
+                                  <CheckCircle2 className="w-3.5 h-3.5" />
+                                  <span>Hesabınıza Yattı</span>
+                                </span>
+                                {s.dekontNo && (
+                                  <span className="text-[10px] font-mono text-slate-400 mt-0.5">
+                                    📄 {s.dekontNo}
+                                  </span>
+                                )}
+                              </div>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 text-[11px] font-bold">
+                                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                                <span>Salı Günü Ödenecek ({s.komisyonTutari} ₺)</span>
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* SEKME 2: KAYIT OLAN ÖĞRENCİLER */}
+            {activePortalTab === 'kayitlar' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+                  Aşağıdaki öğrenciler afişinizdeki karekod veya referans bağlantınız üzerinden Not Avcısı'na üye olmuş ve ücretsiz MEB yazılı provalarını çözmüştür. Paket satın aldıklarında otomatik olarak %20 komisyon kazanırsınız.
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                        <th className="py-3 px-3">Kayıt Tarihi</th>
+                        <th className="py-3 px-3">Öğrenci Adı</th>
+                        <th className="py-3 px-3">Sınıfı</th>
+                        <th className="py-3 px-3">Aktivite / Deneme Durumu</th>
+                        <th className="py-3 px-3 text-right">Durum</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {DEMO_KAYITLAR.map((k) => (
+                        <tr key={k.id} className="hover:bg-slate-850/50 transition">
+                          <td className="py-3.5 px-3 font-mono text-slate-300">{k.tarih}</td>
+                          <td className="py-3.5 px-3 font-bold text-white">{k.ogrenciAdi}</td>
+                          <td className="py-3.5 px-3 text-slate-300">{k.sinif}</td>
+                          <td className="py-3.5 px-3 text-slate-400">{k.aciklama}</td>
+                          <td className="py-3.5 px-3 text-right">
+                            {k.durum === 'Satin_Aldi' ? (
+                              <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold inline-flex items-center gap-1">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>Yıllık Paketi Aldı</span>
+                              </span>
+                            ) : (
+                              <span className="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                                🎁 Ücretsiz Prova Çözdü
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* SEKME 3: BANKA ÖDEME DEKONTLARIM */}
+            {activePortalTab === 'dekontlar' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <span className="text-white font-bold block">Resmi Kayıtlı Banka IBAN Hesabınız:</span>
+                    <code className="text-amber-300 font-mono text-xs">{currentBayi.iban}</code>
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold text-xs">
+                    ✓ Güvenli FAST / EFT Mutabakatı
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                        <th className="py-3 px-3">Transfer Tarihi</th>
+                        <th className="py-3 px-3">Banka Dekont No</th>
+                        <th className="py-3 px-3">Ödeme Türü</th>
+                        <th className="py-3 px-3 text-right">Ödenen Tutar</th>
+                        <th className="py-3 px-3">Açıklama</th>
+                        <th className="py-3 px-3 text-right">Durum</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {matchingReceipts.map((rcp) => (
+                        <tr key={rcp.id} className="hover:bg-slate-850/50 transition">
+                          <td className="py-3.5 px-3 font-mono text-slate-300">{rcp.odemeTarihi}</td>
+                          <td className="py-3.5 px-3">
+                            <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-700 font-mono text-amber-300 font-bold text-xs inline-block">
+                              📄 {rcp.dekontNo}
+                            </span>
+                          </td>
+                          <td className="py-3.5 px-3 text-slate-300">{rcp.odemeTuru}</td>
+                          <td className="py-3.5 px-3 text-right font-black text-emerald-400 font-mono text-sm">
+                            {(Number(rcp.tutar) || 0).toLocaleString('tr-TR')} ₺
+                          </td>
+                          <td className="py-3.5 px-3 text-slate-400">{rcp.aciklama || 'Hak ediş ödemesi'}</td>
+                          <td className="py-3.5 px-3 text-right">
+                            <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold inline-flex items-center gap-1">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Hesabınıza Aktarıldı</span>
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         </main>
       </div>

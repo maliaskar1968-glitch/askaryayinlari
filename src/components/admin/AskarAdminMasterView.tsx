@@ -26,7 +26,10 @@ import {
   Trash2,
   Building2,
   FileText,
-  Ban
+  Ban,
+  Calendar,
+  CreditCard,
+  ChevronRight
 } from 'lucide-react';
 import type { BayiModel, BayiBasvuruModel, DistrictAnalyticsItem, BayiSiparisItem, BayiOdemeKaydi } from '../../types/bayi';
 import { generateAskarBayiFlyerPdf } from '../../utils/generateAskarBayiFlyerPdf';
@@ -234,6 +237,9 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [districtFilter, setDistrictFilter] = useState<'TUMU' | 'BAYI_VAR' | 'BOS_BOLGE'>('TUMU');
+  const [bayiPaymentSearch, setBayiPaymentSearch] = useState('');
+  const [bayiPaymentFilter, setBayiPaymentFilter] = useState<'ALL' | 'UNPAID' | 'PAID'>('ALL');
+  const [selectedBayiForDetail, setSelectedBayiForDetail] = useState<string | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<string | null>(null);
   const [globalDiscountCode, setGlobalDiscountCode] = useState(() => {
     try {
@@ -1422,6 +1428,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
               ilce: 'Kadıköy',
               iban: 'TR33 0006 1005 1987 6543 2100 01',
               telefon: '0532 555 12 34',
+              kayitAdedi: 38,
               satisAdedi: 28,
               toplamCiro: 28 * 711,
               toplamHakEdis: Math.round(28 * 711 * 0.20),
@@ -1434,6 +1441,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
               ilce: 'Çankaya',
               iban: 'TR45 0006 2008 3421 9876 5400 02',
               telefon: '0544 333 44 55',
+              kayitAdedi: 24,
               satisAdedi: 14,
               toplamCiro: 14 * 711,
               toplamHakEdis: Math.round(14 * 711 * 0.20),
@@ -1448,6 +1456,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                 ilce: a.ilce || '—',
                 iban: a.iban || 'Henüz bildirilmedi',
                 telefon: a.telefon || '—',
+                kayitAdedi: 15,
                 satisAdedi: 8,
                 toplamCiro: 8 * 711,
                 toplamHakEdis: Math.round(8 * 711 * 0.20),
@@ -1474,6 +1483,373 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
           const grandTotalOdenen = safeOdemeler.reduce((a, c) => a + (Number(c?.tutar) || 0), 0);
           const grandTotalKalan = Math.max(0, grandTotalHakEdis - grandTotalOdenen);
 
+          // Sipariş ve hak ediş vadeleri dökümü
+          const getBayiOrders = (bayiKodu: string) => {
+            if (bayiKodu === 'ASKAR-KADIKOY') {
+              return [
+                { id: '1', siparisNo: 'ASK-26101', veliAdi: 'Ayşe Yılmaz (Veli)', sinif: '5. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-18', vadeTarihi: '2026-10-21 (Salı)', durum: 'ODENDI', dekontNo: 'EFT-20261028-4412', odemeTuru: 'Havale / EFT' },
+                { id: '2', siparisNo: 'ASK-26102', veliAdi: 'Ahmet Demir (Veli)', sinif: '8. Sınıf LGS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-21', vadeTarihi: '2026-10-28 (Salı)', durum: 'ODENDI', dekontNo: 'EFT-20261028-4412', odemeTuru: 'Havale / EFT' },
+                { id: '3', siparisNo: 'ASK-26103', veliAdi: 'Zeynep Kaya (Veli)', sinif: '6. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-24', vadeTarihi: '2026-10-28 (Salı)', durum: 'ODENDI', dekontNo: 'EFT-20261028-4412', odemeTuru: 'Havale / EFT' },
+                { id: '4', siparisNo: 'ASK-26104', veliAdi: 'Mehmet Eren (Veli)', sinif: '7. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-26', vadeTarihi: '2026-10-28 (Salı)', durum: 'ODENDI', dekontNo: 'FAST-20261102-8921', odemeTuru: 'FAST' },
+                { id: '5', siparisNo: 'ASK-26105', veliAdi: 'Fatma Şahin (Veli)', sinif: '9. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-29', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Vadesi Geldi / Gelecek Salı Ödenecek' },
+                { id: '6', siparisNo: 'ASK-26106', veliAdi: 'Emre Çelik (Veli)', sinif: '11. Sınıf YKS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-31', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Vadesi Geldi / Gelecek Salı Ödenecek' },
+                { id: '7', siparisNo: 'ASK-26107', veliAdi: 'Canan Polat (Veli)', sinif: '4. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-11-01', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Vadesi Geldi / Gelecek Salı Ödenecek' },
+                { id: '8', siparisNo: 'ASK-26108', veliAdi: 'Hüseyin Aksoy (Veli)', sinif: '8. Sınıf LGS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-11-02', vadeTarihi: '2026-11-10 (Salı)', durum: 'PROVIZYON', vadeNotu: 'Kredi Kartı 30 Gün Cayma Süresi' },
+              ];
+            }
+            if (bayiKodu === 'ASKAR-CANKAYA') {
+              return [
+                { id: '1', siparisNo: 'ASK-26201', veliAdi: 'Selin Doğan (Veli)', sinif: '8. Sınıf LGS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-22', vadeTarihi: '2026-10-28 (Salı)', durum: 'ODENDI', dekontNo: 'EFT-20261030-7714', odemeTuru: 'Havale / EFT' },
+                { id: '2', siparisNo: 'ASK-26202', veliAdi: 'Burak Keskin (Veli)', sinif: '7. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-25', vadeTarihi: '2026-10-28 (Salı)', durum: 'ODENDI', dekontNo: 'EFT-20261030-7714', odemeTuru: 'Havale / EFT' },
+                { id: '3', siparisNo: 'ASK-26203', veliAdi: 'Merve Arslan (Veli)', sinif: '5. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-28', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Gelecek Salı Ödenecek' },
+                { id: '4', siparisNo: 'ASK-26204', veliAdi: 'Kemal Öztürk (Veli)', sinif: '12. Sınıf YKS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-30', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Gelecek Salı Ödenecek' },
+              ];
+            }
+            return [
+              { id: '1', siparisNo: `ASK-${bayiKodu.slice(-4)}-01`, veliAdi: 'Derya Korkmaz (Veli)', sinif: '8. Sınıf LGS', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-27', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Gelecek Salı Ödenecek' },
+              { id: '2', siparisNo: `ASK-${bayiKodu.slice(-4)}-02`, veliAdi: 'Tolga Yıldız (Veli)', sinif: '6. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-10-29', vadeTarihi: '2026-11-04 (Salı)', durum: 'BEKLIYOR', vadeNotu: 'Gelecek Salı Ödenecek' },
+              { id: '3', siparisNo: `ASK-${bayiKodu.slice(-4)}-03`, veliAdi: 'Gülşah Aydın (Veli)', sinif: '5. Sınıf', paket: 'Not Avcısı Yıllık Paketi', tutar: 711, hakEdis: 142.2, satisTarihi: '2026-11-01', vadeTarihi: '2026-11-10 (Salı)', durum: 'PROVIZYON', vadeNotu: 'Kredi Kartı Provizyonu' },
+            ];
+          };
+
+          // EĞER BİR BAYİNİN ÖZEL SAYFASI SEÇİLİYSE: HER BAYİYE BİR SAYFA (DETAYLI FİNANS & VADE EKSTRESİ)
+          if (selectedBayiForDetail) {
+            const currentSelected = listWithBalances.find((b) => b.bayiKodu === selectedBayiForDetail) || listWithBalances[0];
+            const bayiOrders = getBayiOrders(currentSelected.bayiKodu);
+            const bayiPayments = safeOdemeler.filter((o) => o && o.bayiKodu === currentSelected.bayiKodu);
+
+            return (
+              <div className="space-y-8 animate-in fade-in duration-200">
+                {/* ÖZEL SAYFA ÜST BAR */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl">
+                  <div className="flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedBayiForDetail(null)}
+                      className="p-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition flex items-center gap-2 text-xs font-bold cursor-pointer"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>← Bayi Listesine Dön</span>
+                    </button>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h2 className="text-xl font-black text-white">{currentSelected.firmaAdi}</h2>
+                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-mono">
+                          {currentSelected.bayiKodu}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
+                        <span>Yetkili: <strong>{currentSelected.yetkiliAdi}</strong></span>
+                        <span>•</span>
+                        <span>Telefon: <strong>{currentSelected.telefon}</strong></span>
+                        <span>•</span>
+                        <span>Bölge: <strong>{currentSelected.sehir} / {currentSelected.ilce}</strong></span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cleanPhone = currentSelected.telefon.replace(/[^0-9]/g, '').replace(/^0/, '90');
+                        const msg = `Sayın ${currentSelected.yetkiliAdi} (${currentSelected.firmaAdi}), Aşkar Yayınları & Not Avcısı güncel satış ve hak ediş ekstreniz:\n\n` +
+                          `📦 Toplam Satış: ${currentSelected.satisAdedi} Paket\n` +
+                          `💰 Toplam Hak Ediş: ${(Number(currentSelected.toplamHakEdis) || 0).toLocaleString('tr-TR')} ₺\n` +
+                          `✅ Ödenen Tutar: ${(Number(currentSelected.odenenTutar) || 0).toLocaleString('tr-TR')} ₺\n` +
+                          `⏳ Kalan Bakiye: ${(Number(currentSelected.kalanBakiye) || 0).toLocaleString('tr-TR')} ₺\n\n` +
+                          `Detaylar için bayi panelinize giriş yapabilirsiniz: https://www.askaryayinlari.com.tr/bayi-giris\n` +
+                          `Aşkar Yayınları Muhasebe Masası`;
+                        window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+                      }}
+                      className="px-4 py-2.5 rounded-2xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-2 transition cursor-pointer"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>WhatsApp Finans Raporu</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleOpenNewPayment(currentSelected.bayiKodu)}
+                      className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/25 transition cursor-pointer"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>+ Ödeme Yap & Dekont Kaydet</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4 ÖZEL BAYİ KPI KARTI */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400">Kendi Vasıtasıyla Kayıt / Satış</span>
+                      <Users className="w-4 h-4 text-amber-400" />
+                    </div>
+                    <div className="text-2xl font-black text-white font-mono">
+                      {currentSelected.satisAdedi} Satış
+                    </div>
+                    <p className="text-[11px] text-slate-400">
+                      {currentSelected.kayitAdedi} Kayıt • %{Math.round((currentSelected.satisAdedi / currentSelected.kayitAdedi) * 100)} Dönüşüm Oranı
+                    </p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400">Toplam Üretilen Ciro</span>
+                      <TrendingUp className="w-4 h-4 text-indigo-400" />
+                    </div>
+                    <div className="text-2xl font-black text-white font-mono">
+                      {(Number(currentSelected.toplamCiro) || 0).toLocaleString('tr-TR')} ₺
+                    </div>
+                    <p className="text-[11px] text-slate-500">{currentSelected.satisAdedi} Paket x 711 ₺ Satış Tutarı</p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400">Net Hak Ediş (%20 Komisyon)</span>
+                      <DollarSign className="w-4 h-4 text-amber-400" />
+                    </div>
+                    <div className="text-2xl font-black text-amber-400 font-mono">
+                      {(Number(currentSelected.toplamHakEdis) || 0).toLocaleString('tr-TR')} ₺
+                    </div>
+                    <p className="text-[11px] text-slate-500">Temsilcinin hak ettiği toplam net kazanç</p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400">Ödenen ve Kalan Bakiye</span>
+                      <Clock className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <div className="flex items-baseline gap-2 font-mono">
+                      <span className="text-xl font-black text-emerald-400">
+                        {(Number(currentSelected.odenenTutar) || 0).toLocaleString('tr-TR')} ₺
+                      </span>
+                      <span className="text-xs text-slate-500">/</span>
+                      <span className="text-lg font-black text-amber-400">
+                        {(Number(currentSelected.kalanBakiye) || 0).toLocaleString('tr-TR')} ₺ Kalan
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500">
+                      {(Number(currentSelected.kalanBakiye) || 0) > 0 ? 'Ödenmesi gereken vadesi gelen tutar' : 'Tamamı ödendi'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* BÖLÜM 1: SATILAN SAYILARA GÖRE VE HAK EDİŞ TARİHLERİNDE YAPILACAK & YAPILAN ÖDEMELER */}
+                <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                    <div>
+                      <h3 className="text-base font-black text-white flex items-center gap-2">
+                        <Calendar className="w-5 h-5 text-amber-400" />
+                        <span>Satılan Paketlere Göre Hak Ediş & Ödeme Vade Takvimi (Şeffaf Döküm)</span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Temsilcinin kendi vasıtasıyla yaptığı satışlar, hangi tarihte hesabına aktarılacağı ve ödeme durumu:
+                      </p>
+                    </div>
+                    <span className="px-3 py-1 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-amber-300">
+                      Her Hafta Salı Günleri Ödeme
+                    </span>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                          <th className="py-3 px-3">Sipariş No</th>
+                          <th className="py-3 px-3">Öğrenci / Veli</th>
+                          <th className="py-3 px-3">Paket</th>
+                          <th className="py-3 px-3 text-right">Satış Tutarı</th>
+                          <th className="py-3 px-3 text-right text-amber-400">Hak Ediş (%20)</th>
+                          <th className="py-3 px-3">Satış Tarihi</th>
+                          <th className="py-3 px-3">Ödeme Vadesi (Tarih)</th>
+                          <th className="py-3 px-3 text-right">Ödeme Durumu</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800/60 font-medium">
+                        {bayiOrders.map((ord) => (
+                          <tr key={ord.id} className="hover:bg-slate-850/50 transition">
+                            <td className="py-3.5 px-3 font-mono text-slate-300 font-bold">
+                              {ord.siparisNo}
+                            </td>
+                            <td className="py-3.5 px-3">
+                              <span className="font-bold text-white block">{ord.veliAdi}</span>
+                              <span className="text-[11px] text-slate-400">{ord.sinif}</span>
+                            </td>
+                            <td className="py-3.5 px-3 text-slate-300">
+                              {ord.paket}
+                            </td>
+                            <td className="py-3.5 px-3 text-right font-bold text-slate-200 font-mono">
+                              {ord.tutar} ₺
+                            </td>
+                            <td className="py-3.5 px-3 text-right font-black text-amber-400 font-mono">
+                              {ord.hakEdis} ₺
+                            </td>
+                            <td className="py-3.5 px-3 text-slate-400 font-mono">
+                              {ord.satisTarihi}
+                            </td>
+                            <td className="py-3.5 px-3 font-mono text-slate-300">
+                              <span className="px-2 py-0.5 rounded-lg bg-slate-950 border border-slate-800 font-bold">
+                                📅 {ord.vadeTarihi}
+                              </span>
+                            </td>
+                            <td className="py-3.5 px-3 text-right">
+                              {ord.durum === 'ODENDI' ? (
+                                <div className="inline-flex flex-col items-end">
+                                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold inline-flex items-center gap-1">
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                    <span>Ödendi</span>
+                                  </span>
+                                  {ord.dekontNo && (
+                                    <span className="text-[10px] font-mono text-slate-400 mt-0.5">
+                                      📄 {ord.dekontNo}
+                                    </span>
+                                  )}
+                                </div>
+                              ) : ord.durum === 'BEKLIYOR' ? (
+                                <span className="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black inline-flex items-center gap-1">
+                                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                                  <span>Ödeme Bekliyor ({ord.hakEdis} ₺)</span>
+                                </span>
+                              ) : (
+                                <span className="px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[11px] font-bold">
+                                  Provizyonda (30 Gün)
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* BÖLÜM 2: BU BAYİYE YAPILAN BANKA TRANSFERLERİ VE DEKONT GEÇMİŞİ */}
+                <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-base font-black text-white flex items-center gap-2">
+                        <FileText className="w-5 h-5 text-indigo-400" />
+                        <span>Banka Ödeme Dekontları ({currentSelected.firmaAdi})</span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Temsilcinin banka hesabına gönderilen resmi FAST / EFT transfer kayıtları:
+                      </p>
+                    </div>
+                    <span className="text-xs text-slate-400 font-mono">
+                      {bayiPayments.length} Kayıtlı Dekont
+                    </span>
+                  </div>
+
+                  {bayiPayments.length > 0 ? (
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead>
+                          <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                            <th className="py-3 px-3">Ödeme Tarihi</th>
+                            <th className="py-3 px-3">Dekont No</th>
+                            <th className="py-3 px-3">Banka IBAN</th>
+                            <th className="py-3 px-3">Ödeme Türü</th>
+                            <th className="py-3 px-3 text-right">Ödenen Tutar</th>
+                            <th className="py-3 px-3">Açıklama / Not</th>
+                            <th className="py-3 px-3 text-right">İşlemler</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-800/60 font-medium">
+                          {bayiPayments.map((odm) => (
+                            <tr key={odm.id} className="hover:bg-slate-850/50 transition">
+                              <td className="py-3 px-3 font-mono text-slate-300">{odm.odemeTarihi}</td>
+                              <td className="py-3 px-3">
+                                <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-700 font-mono text-amber-300 font-bold text-xs inline-block">
+                                  📄 {odm.dekontNo}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3 font-mono text-slate-300 text-[11px]">{odm.iban}</td>
+                              <td className="py-3 px-3 text-slate-300">{odm.odemeTuru}</td>
+                              <td className="py-3 px-3 text-right font-black text-emerald-400 font-mono text-sm">
+                                {(Number(odm?.tutar) || 0).toLocaleString('tr-TR')} ₺
+                              </td>
+                              <td className="py-3 px-3 text-slate-400 max-w-xs truncate" title={odm.aciklama}>
+                                {odm.aciklama || '—'}
+                              </td>
+                              <td className="py-3 px-3 text-right">
+                                <div className="flex items-center justify-end gap-1.5">
+                                  <button
+                                    type="button"
+                                    onClick={() => handleSendPaymentWhatsAppDirect(odm)}
+                                    className="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition cursor-pointer"
+                                    title="WhatsApp ile Temsilciye Dekont Gönder"
+                                  >
+                                    <MessageCircle className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeletePayment(odm.id)}
+                                    className="p-2 rounded-xl hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 border border-transparent hover:border-rose-500/30 transition cursor-pointer"
+                                    title="Dekontu Sil"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="p-8 rounded-2xl bg-slate-950/60 border border-slate-800/80 text-center text-xs text-slate-400">
+                      Bu temsilciye henüz kaydedilmiş banka ödemesi bulunmuyor. Yukarıdaki <strong>"+ Ödeme Yap & Dekont Kaydet"</strong> butonundan ilk ödemeyi işleyebilirsiniz.
+                    </div>
+                  )}
+                </div>
+
+                {/* BÖLÜM 3: RESMİ İŞLETME VE HESAP BİLGİLERİ KARTI */}
+                <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                  <h3 className="text-base font-black text-white flex items-center gap-2">
+                    <Building2 className="w-5 h-5 text-amber-400" />
+                    <span>Resmi Temsilcilik ve Banka Hesap Bilgileri</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                      <span className="text-slate-500 block font-bold">Banka IBAN</span>
+                      <code className="text-amber-300 font-mono font-bold block mt-1 break-all">{currentSelected.iban}</code>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                      <span className="text-slate-500 block font-bold">Yetkili & İletişim</span>
+                      <span className="text-white font-bold block mt-1">{currentSelected.yetkiliAdi} • {currentSelected.telefon}</span>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                      <span className="text-slate-500 block font-bold">Sorumlu Bölge</span>
+                      <span className="text-white font-bold block mt-1">{currentSelected.sehir} / {currentSelected.ilce}</span>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                      <span className="text-slate-500 block font-bold">Komisyon Oranı</span>
+                      <span className="text-emerald-400 font-bold font-mono block mt-1">%20 Net Kazanç</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // ARAMA VE FİLTRELEME
+          const filteredList = listWithBalances.filter((item) => {
+            const q = bayiPaymentSearch.trim().toLowerCase();
+            const matchSearch =
+              !q ||
+              item.firmaAdi.toLowerCase().includes(q) ||
+              item.yetkiliAdi.toLowerCase().includes(q) ||
+              item.bayiKodu.toLowerCase().includes(q) ||
+              item.sehir.toLowerCase().includes(q) ||
+              item.ilce.toLowerCase().includes(q);
+            if (!matchSearch) return false;
+            if (bayiPaymentFilter === 'UNPAID') return (Number(item.kalanBakiye) || 0) > 0;
+            if (bayiPaymentFilter === 'PAID') return (Number(item.kalanBakiye) || 0) <= 0;
+            return true;
+          });
+
           return (
             <div className="space-y-8 animate-in fade-in duration-200">
               {/* ÜST BİLGİ VE AKSİYON */}
@@ -1485,7 +1861,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                   </h2>
                   <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
                     Temsilcilerin hak ettiği net komisyonları, bankadan ödenen tutarları, kalan bakiyeleri ve 
-                    resmi <strong>dekont numaralarını</strong> tek ekrandan yönetin ve anında WhatsApp ile bildirin.
+                    resmi <strong>dekont numaralarını</strong> tek ekrandan yönetin. Her bayiye tıklayarak özel detay sayfasına gidebilirsiniz.
                   </p>
                 </div>
 
@@ -1546,16 +1922,79 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                 </div>
               </div>
 
-              {/* BÖLÜM 1: TEMSİLCİ BAZINDA BAKİYE TABLOSU */}
-              <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-black text-white flex items-center gap-2">
-                    <Store className="w-5 h-5 text-amber-400" />
-                    <span>Temsilci Bazında Hak Ediş, Ödenen ve Kalan Bakiye Durumu</span>
-                  </h3>
-                  <span className="text-xs text-slate-400 font-mono">
-                    {listWithBalances.length} Temsilci Kayıtlı
-                  </span>
+              {/* BÖLÜM 1: TEMSİLCİ BAZINDA BAKİYE TABLOSU + ARAMA & FİLTRELEME BUTONLARI */}
+              <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-5">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-base font-black text-white flex items-center gap-2">
+                      <Store className="w-5 h-5 text-amber-400" />
+                      <span>Temsilci Bazında Hak Ediş, Ödenen ve Kalan Bakiye Durumu</span>
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Herhangi bir bayiye tıklayarak o bayiye özel satış, hak ediş ve ödeme vade sayfasına gidebilirsiniz.
+                    </p>
+                  </div>
+
+                  {/* ARAMA VE FİLTRE BUTONLARI */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                    {/* Arama Inputu */}
+                    <div className="relative">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={bayiPaymentSearch}
+                        onChange={(e) => setBayiPaymentSearch(e.target.value)}
+                        placeholder="Bayi adı, kod, il/ilçe ara..."
+                        className="pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 w-full sm:w-60"
+                      />
+                      {bayiPaymentSearch && (
+                        <button
+                          type="button"
+                          onClick={() => setBayiPaymentSearch('')}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Filtreleme Butonları */}
+                    <div className="inline-flex rounded-xl bg-slate-950 p-1 border border-slate-800 text-xs">
+                      <button
+                        type="button"
+                        onClick={() => setBayiPaymentFilter('ALL')}
+                        className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
+                          bayiPaymentFilter === 'ALL'
+                            ? 'bg-amber-500 text-slate-950 shadow'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Tümü ({listWithBalances.length})
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setBayiPaymentFilter('UNPAID')}
+                        className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
+                          bayiPaymentFilter === 'UNPAID'
+                            ? 'bg-amber-500 text-slate-950 shadow'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Ödeme Bekleyen ({listWithBalances.filter((i) => i.kalanBakiye > 0).length})
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setBayiPaymentFilter('PAID')}
+                        className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
+                          bayiPaymentFilter === 'PAID'
+                            ? 'bg-emerald-500 text-slate-950 shadow'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Ödenenler ({listWithBalances.filter((i) => i.kalanBakiye <= 0).length})
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -1565,20 +2004,28 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                         <th className="py-3 px-3">Temsilci / İşletme Adı</th>
                         <th className="py-3 px-3">Bölge & Kod</th>
                         <th className="py-3 px-3">Banka IBAN</th>
-                        <th className="py-3 px-3 text-right">Toplam Satış</th>
+                        <th className="py-3 px-3 text-right">Kayıt / Satış</th>
                         <th className="py-3 px-3 text-right">Hak Ediş (₺)</th>
                         <th className="py-3 px-3 text-right text-emerald-400">Ödenen (₺)</th>
                         <th className="py-3 px-3 text-right text-amber-400">Kalan Bakiye (₺)</th>
                         <th className="py-3 px-3">Son Dekont No</th>
-                        <th className="py-3 px-3 text-right">Hızlı İşlem</th>
+                        <th className="py-3 px-3 text-right">İşlemler</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/60 font-medium">
-                      {listWithBalances.map((item) => (
+                      {filteredList.map((item) => (
                         <tr key={item.bayiKodu} className="hover:bg-slate-850/50 transition">
                           <td className="py-3.5 px-3">
-                            <span className="font-bold text-white block">{item.firmaAdi}</span>
-                            <span className="text-[11px] text-slate-400">{item.yetkiliAdi} • {item.telefon}</span>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedBayiForDetail(item.bayiKodu)}
+                              className="text-left group cursor-pointer"
+                            >
+                              <span className="font-bold text-white group-hover:text-amber-400 transition block">
+                                {item.firmaAdi} ↗
+                              </span>
+                              <span className="text-[11px] text-slate-400">{item.yetkiliAdi} • {item.telefon}</span>
+                            </button>
                           </td>
                           <td className="py-3.5 px-3">
                             <span className="text-slate-300 block">{item.sehir} / {item.ilce}</span>
@@ -1588,7 +2035,8 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                             {item.iban}
                           </td>
                           <td className="py-3.5 px-3 text-right font-bold text-slate-300">
-                            {item.satisAdedi} Paket
+                            <span className="text-white">{item.satisAdedi} Satış</span>
+                            <span className="text-[10px] text-slate-500 block">({item.kayitAdedi} Kayıt)</span>
                           </td>
                           <td className="py-3.5 px-3 text-right font-bold text-white font-mono">
                             {(Number(item.toplamHakEdis) || 0).toLocaleString('tr-TR')} ₺
@@ -1612,15 +2060,25 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                             <span className="text-[10px] text-slate-500">{item.sonDekontTarih}</span>
                           </td>
                           <td className="py-3.5 px-3 text-right">
-                            <button
-                              type="button"
-                              onClick={() => handleOpenNewPayment(item.bayiKodu)}
-                              className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs inline-flex items-center gap-1 transition cursor-pointer"
-                              title="Bu temsilciye ödeme yap ve dekont kaydet"
-                            >
-                              <Plus className="w-3.5 h-3.5" />
-                              <span>Ödeme Yap</span>
-                            </button>
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => setSelectedBayiForDetail(item.bayiKodu)}
+                                className="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 font-bold text-xs inline-flex items-center gap-1 transition cursor-pointer"
+                                title="Bu bayiye ait özel sayfayı, satışları ve vade takvimini aç"
+                              >
+                                <span>Özel Sayfa ↗</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleOpenNewPayment(item.bayiKodu)}
+                                className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs inline-flex items-center gap-1 transition cursor-pointer"
+                                title="Bu temsilciye ödeme yap ve dekont kaydet"
+                              >
+                                <Plus className="w-3.5 h-3.5" />
+                                <span>Ödeme Yap</span>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
