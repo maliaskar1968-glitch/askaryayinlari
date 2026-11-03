@@ -26,8 +26,24 @@ const RehberPage = lazy(() => import('./components/RehberPage').then(({ RehberPa
 const NotAvcisiPage = lazy(() => import('./components/NotAvcisiPage').then(({ NotAvcisiPage }) => ({ default: NotAvcisiPage })));
 const BlogPage = lazy(() => import('./components/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })));
 
+const getInitialTab = (): PageTab => {
+  if (typeof window === 'undefined') return 'magaza';
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (path === '/not-avcisi' || path.startsWith('/not-avcisi')) return 'not-avcisi';
+  if (path === '/blog' || path.startsWith('/blog')) return 'blog';
+  if (path === '/admin-master' || path.startsWith('/admin-master')) return 'admin-master';
+  if (path === '/bayi-giris' || path.startsWith('/bayi-giris')) return 'bayi-giris';
+  if (path === '/bayi-basvuru' || path.startsWith('/bayi-basvuru')) return 'bayi-basvuru';
+  if (path === '/admin/kilavuz-guncelle' || path.startsWith('/admin/kilavuz-guncelle')) return 'admin-kilavuz';
+  if (path === '/rehber' || path.startsWith('/rehber')) return 'rehber';
+  if (path.startsWith('/uygulamalar')) return 'uygulamalar';
+  if (path === '/hakkimizda' || path === '/hakkimda') return 'hakkimizda';
+  if (path === '/iletisim') return 'iletisim';
+  return 'magaza';
+};
+
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<PageTab>('magaza');
+  const [activeTab, setActiveTab] = useState<PageTab>(getInitialTab);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('tumu');
   const [toolSlug, setToolSlug] = useState<string | null>(null);
   const [guideSlug, setGuideSlug] = useState<string | null>(null);
