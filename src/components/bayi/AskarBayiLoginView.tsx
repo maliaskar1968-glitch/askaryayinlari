@@ -339,6 +339,14 @@ export const AskarBayiLoginView: React.FC<AskarBayiLoginViewProps> = ({
 
   // IF LOGGED IN: SHOW BAYI PORTAL
   if (currentBayi) {
+    const safeBayiPayments = Array.isArray(bayiPayments) ? bayiPayments : [];
+    const matchingReceipts = safeBayiPayments.filter(
+      (p) => p && (p.bayiKodu === currentBayi.kod || p.bayiId === currentBayi.bayiId)
+    );
+    const paidTotal = matchingReceipts.reduce((acc, curr) => acc + (Number(curr?.tutar) || 0), 0) || currentBayi.odenenTutar || 1200;
+    const totalEarnings = currentBayi.toplamHakEdis || 1990.8;
+    const remainingBalance = Math.max(0, Math.round((totalEarnings - paidTotal) * 10) / 10);
+
     return (
       <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased pb-20">
         {/* Portal Header */}

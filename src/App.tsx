@@ -224,16 +224,15 @@ export const App: React.FC = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          {/* Sayfanın En Üstündeki Filtre Barı: [TÜMÜ] [5.SINIF] [6.SINIF] [7.SINIF] [8.SINIF LGS] [LİSE] [YKS] */}
-          <FilterBar
-            activeFilter={activeFilter}
-            onSelectFilter={(newFilter) => {
-              setActiveFilter(newFilter);
-              if (activeTab !== 'magaza') {
-                handleTabChange('magaza');
-              }
-            }}
-          />
+          {/* Sayfanın En Üstündeki Filtre Barı: Yalnızca Mağaza/Kitaplık Sekmesinde Gösterilir */}
+          {activeTab === 'magaza' && (
+            <FilterBar
+              activeFilter={activeFilter}
+              onSelectFilter={(newFilter) => {
+                setActiveFilter(newFilter);
+              }}
+            />
+          )}
 
           {activeTab === 'magaza' && (
             <div className="space-y-6 animate-fadeIn">
