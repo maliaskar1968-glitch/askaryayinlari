@@ -29,8 +29,8 @@ const BlogPage = lazy(() => import('./components/BlogPage').then(({ BlogPage }) 
 const getInitialTab = (): PageTab => {
   if (typeof window === 'undefined') return 'magaza';
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
-  if (path === '/not-avcisi' || path.startsWith('/not-avcisi')) return 'not-avcisi';
-  if (path === '/blog' || path.startsWith('/blog')) return 'blog';
+  if (path === '/not-avcisi' || path.startsWith('/not-avcisi')) return 'magaza';
+  if (path === '/blog' || path.startsWith('/blog')) return 'magaza';
   if (path === '/admin-master' || path.startsWith('/admin-master')) return 'admin-master';
   if (path === '/bayi-giris' || path.startsWith('/bayi-giris')) return 'bayi-giris';
   if (path === '/bayi-basvuru' || path.startsWith('/bayi-basvuru')) return 'bayi-basvuru';
@@ -54,11 +54,11 @@ export const App: React.FC = () => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
 
     if (path === '/not-avcisi' || path.startsWith('/not-avcisi')) {
-      setActiveTab('not-avcisi');
+      setActiveTab('magaza');
       setToolSlug(null);
       setGuideSlug(null);
     } else if (path === '/blog' || path.startsWith('/blog')) {
-      setActiveTab('blog');
+      setActiveTab('magaza');
       setToolSlug(null);
       setGuideSlug(null);
     } else if (path === '/admin-master' || path.startsWith('/admin-master')) {
@@ -127,8 +127,8 @@ export const App: React.FC = () => {
     let targetPath = '/';
     if (newTab === 'uygulamalar') targetPath = '/uygulamalar';
     else if (newTab === 'rehber') targetPath = '/rehber';
-    else if (newTab === 'not-avcisi') targetPath = '/not-avcisi';
-    else if (newTab === 'blog') targetPath = '/blog';
+    else if (newTab === 'not-avcisi') targetPath = '/';
+    else if (newTab === 'blog') targetPath = '/';
     else if (newTab === 'admin-master') targetPath = '/admin-master';
     else if (newTab === 'bayi-giris') targetPath = '/bayi-giris';
     else if (newTab === 'bayi-basvuru') targetPath = '/bayi-basvuru';
@@ -358,7 +358,7 @@ export const App: React.FC = () => {
                       onClick={() => handleTabChange('uygulamalar')}
                       className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A]/20 hover:border-[#1A1A1A] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.15em] font-medium transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                     >
-                      <Wrench className="w-3 h-3 text-[#C9A86A]" />
+                      <Wrench className="w-3 text-[#C9A86A]" />
                       <span>Uygulamalar</span>
                     </button>
                   )}

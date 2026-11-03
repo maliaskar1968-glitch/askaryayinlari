@@ -607,6 +607,38 @@ export const AskarBayiLoginView: React.FC<AskarBayiLoginViewProps> = ({
                     </tbody>
                   </table>
                 </div>
+
+                {/* TABLO ALTI ÖZET BARI (TOPLAM / ÖDENEN / KALAN) */}
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-wrap items-center justify-between gap-4 shadow-inner">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span className="text-xs uppercase tracking-wider font-extrabold text-slate-300">
+                      Hak Ediş ve Bakiye Özeti
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-8 font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-400 uppercase">toplam =</span>
+                      <span className="text-base sm:text-lg font-black text-amber-400">
+                        {totalEarnings.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} ₺
+                      </span>
+                    </div>
+                    <div className="h-4 w-px bg-slate-800 hidden sm:block"></div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-400 uppercase">ödenen =</span>
+                      <span className="text-base sm:text-lg font-black text-emerald-400">
+                        {paidTotal.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} ₺
+                      </span>
+                    </div>
+                    <div className="h-4 w-px bg-slate-800 hidden sm:block"></div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-400 uppercase">kalan =</span>
+                      <span className="text-base sm:text-lg font-black text-amber-300 bg-amber-500/10 px-2.5 py-0.5 rounded-lg border border-amber-500/30">
+                        {remainingBalance.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} ₺
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 

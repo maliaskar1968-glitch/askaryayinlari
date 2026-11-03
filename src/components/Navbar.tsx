@@ -4,7 +4,7 @@ import { MAIN_SHOPIER_URL } from '../data/books';
 import { ImgWithFallback } from './ImgWithFallback';
 import { ImageUploaderModal } from './ImageUploaderModal';
 import { ShareModal, ShareItem } from './ShareModal';
-import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu, ChevronDown, ShieldCheck, LogIn, Lock } from 'lucide-react';
+import { Store, X, Bell, CheckCircle2, Share2, ArrowDownToLine, BookOpen, Wrench, BookOpenText, User, Mail, Menu } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import { InstallModal } from './InstallModal';
 import { WavingTurkishFlag } from './WavingTurkishFlag';
@@ -16,7 +16,6 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
-  const [yetkiliMenuOpen, setYetkiliMenuOpen] = useState(false);
   const [uploaderOpen, setUploaderOpen] = useState(false);
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [siteShareModalOpen, setSiteShareModalOpen] = useState(false);
@@ -107,8 +106,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
 
   const navItems: { id: PageTab; label: string; highlight?: boolean }[] = [
     { id: 'magaza', label: 'KİTAPLIK' },
-    { id: 'not-avcisi', label: '🎯 NOT AVCISI', highlight: true },
-    { id: 'blog', label: 'BLOG & REHBERLİK' },
     { id: 'uygulamalar', label: 'UYGULAMALAR' },
     { id: 'rehber', label: 'DERS REHBERİ' },
     { id: 'hakkimizda', label: 'HAKKIMIZDA' },
@@ -148,61 +145,66 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               id="navbar-install-btn"
               onClick={handleInstallClick}
               title="Telefon ve tablet için Ana Ekrana İndir"
-              aria-label="Uygulamayı Ana Ekrana İndir"
-              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1A1A1A]/10 bg-white hover:bg-slate-50 text-[11px] font-bold text-zinc-700 tracking-wider uppercase transition-all shadow-2xs hover:shadow-xs cursor-pointer"
             >
               <ArrowDownToLine className="w-3.5 h-3.5 text-[#C9A86A]" />
-              YÜKLE
+              <span>YÜKLE</span>
             </button>
+
             <button
-              onClick={() => setFollowModalOpen(true)}
-              title="Takip Et Kazan"
-              aria-label="Takip Et Kazan"
-              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
+              id="navbar-follow-btn"
+              onClick={() => {
+                setIsSuccess(false);
+                setErrorMessage('');
+                setEmail('');
+                setKvkkConsent(false);
+                setShowKvkkDetail(false);
+                setFollowModalOpen(true);
+              }}
+              title="Yeni kitaplar ve özel fırsatlardan haberdar ol"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1A1A1A]/10 bg-white hover:bg-slate-50 text-[11px] font-bold text-zinc-700 tracking-wider uppercase transition-all shadow-2xs hover:shadow-xs cursor-pointer"
             >
-              <Bell className="h-4 w-4 text-[#C9A86A]" />
-              TAKİP ET KAZAN
+              <Bell className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span className="hidden sm:inline">TAKİP ET KAZAN</span>
+              <span className="sm:hidden">TAKİP</span>
             </button>
+
             <button
-              type="button"
               onClick={() => setSiteShareModalOpen(true)}
-              title="Aşkar Yayınları Paylaş"
-              className="hidden md:inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-[#1A1A1A]/20 bg-transparent px-3 text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] transition-colors hover:bg-white"
+              title="Siteyi Paylaş"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1A1A1A]/10 bg-white hover:bg-slate-50 text-[11px] font-bold text-zinc-700 tracking-wider uppercase transition-all shadow-2xs hover:shadow-xs cursor-pointer"
             >
-              <Share2 className="h-4 w-4 text-[#C9A86A]" />
-              PAYLAŞ
+              <Share2 className="w-3.5 h-3.5 text-[#C9A86A]" />
+              <span>PAYLAŞ</span>
             </button>
+
             <a
               href={MAIN_SHOPIER_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-black bg-black px-3 text-[10px] uppercase tracking-wider font-semibold text-white transition-colors hover:bg-[#1A1A1A]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1A1A1A] hover:bg-black text-[11px] font-bold text-white tracking-wider uppercase transition-all shadow-2xs hover:shadow-xs cursor-pointer"
             >
               <Store className="w-3.5 h-3.5 text-[#C9A86A]" />
-              MAĞAZA
+              <span>MAĞAZA</span>
             </a>
           </div>
         </div>
       </header>
 
-      <nav
-        aria-label="Ana navigasyon"
-        className="sticky top-0 z-50 relative bg-[#F8F7F4]/95 backdrop-blur-md border-y border-[#1A1A1A]/10 shadow-sm"
-      >
-        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 h-14 md:h-12 flex items-center">
-          <div className="hidden md:flex w-full h-full items-center gap-6">
+      {/* Nav Menu */}
+      <nav aria-label="Ana menü" className="sticky top-0 z-40 bg-[#F8F7F4]/95 backdrop-blur-md border-b border-[#1A1A1A]/10 shadow-2xs">
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8 h-12">
             {navItems.map((item) => {
-              const isActive = activeTab === item.id || (item.id === 'hakkimizda' && activeTab === 'hakkimda');
+              const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => handleTabClick(item.id)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`h-full border-b-2 pt-1 text-xs lg:text-sm uppercase tracking-wider transition-all ${
-                    item.highlight
-                      ? 'border-amber-500 font-extrabold text-amber-600 hover:text-amber-700 animate-pulse'
-                      : isActive
+                  className={`h-full border-b-2 pt-1 text-xs lg:text-sm uppercase tracking-wider transition-all cursor-pointer ${
+                    isActive
                       ? 'border-black font-bold text-black'
                       : 'border-transparent font-medium text-zinc-600 hover:text-black'
                   }`}
@@ -211,114 +213,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                 </button>
               );
             })}
-
-            {/* Yetkili Girişleri Açılır Menüsü */}
-            <div className="relative ml-auto h-full flex items-center">
-              <button
-                type="button"
-                onClick={() => setYetkiliMenuOpen(!yetkiliMenuOpen)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer ${
-                  activeTab === 'admin-master' || activeTab === 'bayi-giris' || activeTab === 'bayi-basvuru'
-                    ? 'border-amber-500 bg-amber-500 text-slate-950 shadow-amber-500/20'
-                    : 'border-[#C9A86A]/40 bg-gradient-to-r from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20 text-[#1A1A1A]'
-                }`}
-              >
-                <Lock className="w-3.5 h-3.5 text-[#C9A86A]" />
-                <span>YETKİLİ GİRİŞLERİ</span>
-                <ChevronDown className={`w-3.5 h-3.5 text-[#C9A86A] transition-transform duration-200 ${yetkiliMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {yetkiliMenuOpen && (
-                <div 
-                  className="absolute right-0 top-full mt-1 w-60 rounded-2xl bg-white border border-[#1A1A1A]/10 shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150"
-                  onMouseLeave={() => setYetkiliMenuOpen(false)}
-                >
-                  <div className="px-3 py-1.5 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    Yetkili Panelleri
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleTabClick('admin-master');
-                      setYetkiliMenuOpen(false);
-                    }}
-                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-amber-50 hover:text-amber-800 flex items-center gap-2.5 transition-colors cursor-pointer"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
-                    <div>
-                      <div className="font-bold">Admin Master</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Temsilci onay, ilçe analitiği, PDF afiş</div>
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleTabClick('bayi-giris');
-                      setYetkiliMenuOpen(false);
-                    }}
-                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-indigo-50 hover:text-indigo-800 flex items-center gap-2.5 transition-colors cursor-pointer border-t border-slate-100"
-                  >
-                    <LogIn className="w-4 h-4 text-indigo-600 shrink-0" />
-                    <div>
-                      <div className="font-bold">Temsilci Girişi</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Kırtasiye & Temsilci Portalı</div>
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleTabClick('bayi-basvuru');
-                      setYetkiliMenuOpen(false);
-                    }}
-                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-800 hover:bg-emerald-50 hover:text-emerald-800 flex items-center gap-2.5 transition-colors cursor-pointer border-t border-slate-100"
-                  >
-                    <Store className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <div>
-                      <div className="font-bold">Temsilcilik Başvurusu</div>
-                      <div className="text-[10px] text-slate-400 font-normal">İlçe Temsilciliği Başvuru Formu</div>
-                    </div>
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
 
-          <div className="grid w-full grid-cols-5 md:hidden">
+          {/* Mobile bottom bar */}
+          <div className="grid w-full grid-cols-4 md:hidden">
             <button
               type="button"
               onClick={() => handleTabClick('magaza')}
               aria-current={activeTab === 'magaza' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'magaza' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'magaza' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
               <BookOpen className="h-4 w-4" />
               Kitaplık
             </button>
             <button
               type="button"
-              onClick={() => handleTabClick('not-avcisi')}
-              aria-current={activeTab === 'not-avcisi' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-bold transition-colors ${activeTab === 'not-avcisi' ? 'border-amber-500 text-amber-600' : 'border-transparent text-amber-600/80'}`}
-            >
-              <span className="text-base leading-none">🎯</span>
-              Not Avcısı
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTabClick('blog')}
-              aria-current={activeTab === 'blog' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'blog' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
-            >
-              <BookOpenText className="h-4 w-4" />
-              Blog
-            </button>
-            <button
-              type="button"
               onClick={() => handleTabClick('uygulamalar')}
               aria-current={activeTab === 'uygulamalar' ? 'page' : undefined}
-              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[9px] font-semibold transition-colors ${activeTab === 'uygulamalar' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
+              className={`flex h-12 flex-col items-center justify-center gap-0.5 border-b-2 text-[10px] font-semibold transition-colors ${activeTab === 'uygulamalar' ? 'border-black text-black' : 'border-transparent text-zinc-500'}`}
             >
               <Wrench className="h-4 w-4" />
               Araçlar
@@ -343,40 +255,25 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             </button>
           </div>
         </div>
+
         {mobileMoreOpen && (
           <div className="absolute inset-x-0 top-full border-t border-[#1A1A1A]/10 bg-[#F8F7F4] px-4 py-3 shadow-lg md:hidden">
             <div className="mx-auto grid max-w-md grid-cols-2 gap-1">
-              <button type="button" onClick={() => handleTabClick('hakkimizda')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+              <button type="button" onClick={() => handleTabClick('hakkimizda')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white cursor-pointer">
                 <User className="h-4 w-4 text-[#9A783C]" /> Hakkımızda
               </button>
-              <button type="button" onClick={() => handleTabClick('iletisim')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+              <button type="button" onClick={() => handleTabClick('iletisim')} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white cursor-pointer">
                 <Mail className="h-4 w-4 text-[#9A783C]" /> İletişim
               </button>
-              <button type="button" onClick={() => { setMobileMoreOpen(false); setSiteShareModalOpen(true); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+              <button type="button" onClick={() => { setMobileMoreOpen(false); setSiteShareModalOpen(true); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white cursor-pointer">
                 <Share2 className="h-4 w-4 text-[#9A783C]" /> Paylaş
               </button>
-              <button type="button" onClick={() => { setMobileMoreOpen(false); handleInstallClick(); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+              <button type="button" onClick={() => { setMobileMoreOpen(false); handleInstallClick(); }} className="flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white cursor-pointer">
                 <ArrowDownToLine className="h-4 w-4 text-[#9A783C]" /> Yükle
               </button>
-              <button type="button" onClick={() => { setMobileMoreOpen(false); setFollowModalOpen(true); }} className="col-span-2 flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white">
+              <button type="button" onClick={() => { setMobileMoreOpen(false); setFollowModalOpen(true); }} className="col-span-2 flex min-h-11 items-center gap-2 rounded-lg px-3 text-left text-xs font-semibold text-zinc-700 hover:bg-white cursor-pointer">
                 <Bell className="h-4 w-4 text-[#9A783C]" /> Takip Et Kazan
               </button>
-              <div className="col-span-2 pt-2 mt-1 border-t border-slate-200">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 block mb-1">
-                  Yetkili Girişleri
-                </span>
-                <div className="grid grid-cols-1 gap-1">
-                  <button type="button" onClick={() => handleTabClick('admin-master')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-amber-700 bg-amber-50/60 hover:bg-amber-100/60 cursor-pointer">
-                    <ShieldCheck className="h-4 w-4 text-amber-600" /> Admin Master (Genel Merkez)
-                  </button>
-                  <button type="button" onClick={() => handleTabClick('bayi-giris')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-indigo-700 bg-indigo-50/60 hover:bg-indigo-100/60 cursor-pointer">
-                    <LogIn className="h-4 w-4 text-indigo-600" /> Temsilci Girişi (Kırtasiye & Temsilci Portalı)
-                  </button>
-                  <button type="button" onClick={() => handleTabClick('bayi-basvuru')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100/60 cursor-pointer">
-                    <Store className="h-4 w-4 text-emerald-600" /> Temsilcilik Başvurusu
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -550,5 +447,3 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
     </>
   );
 };
-
-
