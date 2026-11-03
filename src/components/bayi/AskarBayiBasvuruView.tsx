@@ -175,38 +175,36 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
           <div className="relative z-10 max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-extrabold uppercase tracking-wider">
               <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>İlçe Sorumluluk Alanlı Bayilik Modeli</span>
+              <span>Eğitimde Güçlü İş Ortaklığı ve Bayilik Modeli</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-              Kendi İlçenizde Aşkar Yayınları ve Not Avcısı'nın <br className="hidden sm:inline" />
+              Çevrenizdeki Öğrenci, Öğretmen ve Veliler İçin <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-                Yetkili Satış ve Danışma Noktası Olun!
+                Aşkar Yayınları ve Not Avcısı'nın Yetkili Satış ve Danışma Noktası Olun!
               </span>
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-medium max-w-3xl">
-              İlçenizdeki ortaokul ve lise öğrencileri MEB formatındaki yazılı provalarına hazırlanırken, 
-              tezgahınızdaki size özel karekod ile satış yapın; <strong>net %20 komisyon kazanın</strong>. 
-              Sıfır stok maliyeti, hazır tezgah afişi desteği ve haftalık düzenli hak ediş ödemesi.
+              Aşkar Yayınları ve Not Avcısı dijital eğitim ekosistemine dahil olarak çevrenizdeki öğrenci ve velilere yeni nesil MEB yazılı simülasyonları ve koçluk kitaplarımızı güvenle ulaştırın. <strong>Kırtasiyeler, kitapevleri, kütüphane işletmecileri, eğitim danışmanları ve düzenli iş arayanlar</strong> bayilik için başvurabilirler. Sıfır stok riski, dijital erişim avantajı ve güçlü kurumsal altyapımızla hemen iş ortağımız olun.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-300">
+            <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-300">
               <div className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>%20 Net Komisyon Oranı</span>
+                <span>Kırtasiye ve Kitapevleri</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>İlçe Sorumluluk Alanı Koruması</span>
+                <span>Kütüphane & Etüt İşletmecileri</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Düzenli Banka Hak Edişi</span>
+                <span>Düzenli İş & Gelir Arayanlar</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Kişiye Özel Karekodlu Tezgah Afişi</span>
+                <span>Sıfır Stok & Sermaye Riski</span>
               </div>
             </div>
           </div>
@@ -218,9 +216,9 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
             <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-black">
               <DollarSign className="w-5 h-5" />
             </div>
-            <h3 className="font-black text-base text-white">Yüksek Kazanç (%20)</h3>
+            <h3 className="font-black text-base text-white">Avantajlı Gelir Modeli</h3>
             <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Not Avcısı paketleri ve dijital koçluk kitapları satışından <strong className="text-amber-300">net %20 komisyon</strong> kazanırsınız.
+              Not Avcısı paketleri ve dijital koçluk kitapları satışından <strong className="text-amber-300">avantajlı iş ortaklığı şartları</strong> sağlanır. Ayrıntılı hak ediş modeli onay sürecinde paylaşılır.
             </p>
           </div>
 
@@ -285,7 +283,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                   <div>
                     <h4 className="font-bold text-white text-sm">Admin Master İncelemesi</h4>
                     <p className="text-slate-400 mt-0.5 leading-relaxed">
-                      Genel Merkezimiz ilçenizdeki kırtasiye dağılımını ve başvurunuzu Admin Master panelinde inceler.
+                      Genel Merkezimiz başvurunuzu Admin Master panelinde inceler; iş birliği şartları ve hak ediş modeli tarafınıza iletilir.
                     </p>
                   </div>
                 </div>
@@ -308,20 +306,20 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
             <div className="p-6 rounded-3xl bg-amber-950/30 border border-amber-500/30 space-y-3">
               <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
                 <Clock className="w-4 h-4 text-amber-400" />
-                <span>Resmi İş Ortaklığı ve Bayilik Kuralları</span>
+                <span>Resmi İş Ortaklığı ve Bilgilendirme İlkeleri</span>
               </div>
               <div className="text-xs text-slate-300 leading-relaxed font-medium space-y-2.5">
                 <p>
-                  • <strong>Güvenli Tahsilat:</strong> Bayilerimiz velilerden kesinlikle elden nakit toplamaz. Veliler tezgahtaki karekod veya size özel referans linki üzerinden sistemden güvenle ödeme yapar.
+                  • <strong>Güvenli ve Risk Taşımayan Sistem:</strong> Veliler tüm ödemelerini doğrudan 256-Bit SSL güvenceli dijital sistem üzerinden gerçekleştirir. Temsilcilerimiz nakit tahsilat veya stok maliyeti riski taşımaz.
                 </p>
                 <p>
-                  • <strong>Hak Ediş & Ödeme Takvimi:</strong> Havale/EFT ile nakit yapılan satışların hak edişi 1 hafta sonraki Salı günü ödenir. Kredi kartı ile yapılan ödemeler ise yasal 14 gün cayma hakkı ve kart mutabakatı gereğince <strong>30 gün sonra kesinleşerek</strong> Salı günleri banka hesabınıza yatırılır (tatil veya bayram durumunda takip eden ilk iş günü).
+                  • <strong>Şartlar ve Bilgilendirme Paylaşımı:</strong> Hak ediş takvimleri, kazanç paylaşımı ve çalışma detayları; başvurunuz Genel Merkez Admin Master panelinde incelendikten sonra tarafınıza özel olarak iletilir.
                 </p>
                 <p>
-                  • <strong>Bölge Koruması & Kota:</strong> İlçe temsilciliğinin ve bölge korumasının devamı için haftalık asgari 1 paket/lisans satışı (aylık 4 paket) esastır.
+                  • <strong>Kişiye Özel Tanıtım Desteği:</strong> Onaylanan temsilcilerimize karekodlu tezgâh afişleri, broşürler ve veli bilgilendirme dokümanları dijital olarak temin edilir.
                 </p>
                 <p>
-                  • <strong>Ahlaklı Çalışma & Fesih İlkesi:</strong> Temsilcilerimiz dürüstlük, pedagojik saygınlık ve marka güvenini korumakla yükümlüdür. Etik ilkelere aykırı davranılması veya satış kotalarının mazeretsiz aksatılması halinde Genel Merkez temsilcilik yetkisini <strong>tek taraflı feshetme</strong> hakkına sahiptir.
+                  • <strong>Pedagojik Saygınlık:</strong> Temsilcilerimiz dürüstlük, eğitim kalitesi ve marka saygınlığını koruyarak çevrelerine güvenle rehberlik eder.
                 </p>
               </div>
             </div>
@@ -546,8 +544,8 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                         className="mt-0.5 w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500"
                       />
                       <span className="leading-relaxed">
-                        Aşkar Yayınları bayilik koşullarını, ilçe sorumluluk modelini, net %20 komisyon şartlarını ve başvurumun 
-                        <strong> Admin Master panelinde incelendikten sonra tarafıma karekodlu afiş gönderileceğini</strong> kabul ediyorum. *
+                        Aşkar Yayınları bayilik ön başvuru koşullarını ve başvurumun 
+                        <strong> Admin Master panelinde incelendikten sonra tarafıma iş ortaklığı şartları ve temsilci bilgilerinin iletileceğini</strong> kabul ediyorum. *
                       </span>
                     </label>
                   </div>

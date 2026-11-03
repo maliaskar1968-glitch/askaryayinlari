@@ -87,7 +87,7 @@ export const NotAvcisiBayiModal: React.FC<NotAvcisiBayiModalProps> = ({
           </div>
           <h3 className="text-2xl font-bold text-white">Not Avcısı Bayilik Başvurusu</h3>
           <p className="text-sm text-slate-400 mt-1">
-            İlçe Temsilcisi Olun, Karekodunuzla Satış Yapın, Net %20 Komisyon Kazanın!
+            Yetkili Satış ve Danışma Noktası Olun, Çevrenizdeki Öğrenci ve Velilere Ulaşın!
           </p>
         </div>
 
@@ -221,7 +221,7 @@ export const NotAvcisiBayiModal: React.FC<NotAvcisiBayiModalProps> = ({
                 className="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-950 text-amber-500 focus:ring-amber-400"
               />
               <span className="text-xs text-slate-400 leading-tight">
-                Bayilik koşullarını, vergi hariç net %20 komisyon modelini ve tarafıma özel üretilecek karekodlu tezgâh afişinin kullanım şartlarını kabul ediyorum. *
+                Bayilik ön başvuru koşullarını ve başvurumun incelendikten sonra tarafıma iş ortaklığı şartlarının iletileceğini kabul ediyorum. *
               </span>
             </label>
           </div>

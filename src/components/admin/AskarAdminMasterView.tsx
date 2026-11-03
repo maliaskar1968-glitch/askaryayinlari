@@ -7,6 +7,7 @@ import {
   Store,
   CheckCircle2,
   XCircle,
+  X,
   Download,
   Search,
   Filter,
@@ -174,6 +175,102 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
   const [searchQuery, setSearchQuery] = useState('');
   const [districtFilter, setDistrictFilter] = useState<'TUMU' | 'BAYI_VAR' | 'BOS_BOLGE'>('TUMU');
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<string | null>(null);
+
+  // Bayilik Şartları Düzenleme ve Gönderme Modalı State
+  const [editingTermsApp, setEditingTermsApp] = useState<BayiBasvuruModel | null>(null);
+  const [termsData, setTermsData] = useState({
+    bayiKodu: '',
+    komisyonOrani: '%20 Net Komisyon',
+    odemeTakvimi: 'Havale/EFT 1 hafta sonraki Salı, Kredi Kartı 30 gün cayma sonrası Salı günleri',
+    kota: 'Haftalık asgari 1 lisans satışı ile ilçe bölge koruması',
+    ozelNot: 'Karekodlu A4 tezgâh afişiniz hazırlanmıştır. Afişi işletmenizde görünür bir noktaya asarak velilere tanıtabilirsiniz.',
+    mesajMetni: '',
+    copied: false,
+  });
+
+  const handleOpenTermsModal = (app: BayiBasvuruModel) => {
+    const cleanIlce = app.ilce.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const code = app.bayiKodu || `ASKAR-${cleanIlce}`;
+    const defaultKomisyon = '%20 Net Komisyon';
+    const defaultOdeme = 'Havale/EFT 1 hafta sonraki Salı, Kredi Kartı 30 gün cayma sonrası Salı günleri';
+    const defaultKota = 'Haftalık asgari 1 paket / Aylık 4 lisans satışı ile bölge koruması';
+    const defaultNot = 'Karekodlu A4 tezgâh afişiniz hazırlanmıştır. Afişi işletmenizde görünür bir noktaya asarak velilere tanıtabilirsiniz.';
+
+    const initialMsg = `Sayın ${app.adSoyad} (${app.firmaAdi}),\n\n` +
+      `Aşkar Yayınları & Not Avcısı ${app.sehir} / ${app.ilce} bölge yetkili satış ve danışma noktası başvurunuz incelenmiştir.\n\n` +
+      `📋 İŞ ORTAKLIĞI DETAYLARI VE ŞARTLARIMIZ:\n` +
+      `• Bayi Kodunuz: ${code}\n` +
+      `• Komisyon Oranı: ${defaultKomisyon}\n` +
+      `• Hak Ediş Takvimi: ${defaultOdeme}\n` +
+      `• Bölge Sorumluluğu & Kota: ${defaultKota}\n` +
+      `• Bilgilendirme Notu: ${defaultNot}\n\n` +
+      `Hayırlı ve bol kazançlı bir iş birliği dileriz.\nAşkar Yayınları & Not Avcısı Genel Merkez\nwww.askaryayinlari.com.tr`;
+
+    setEditingTermsApp(app);
+    setTermsData({
+      bayiKodu: code,
+      komisyonOrani: defaultKomisyon,
+      odemeTakvimi: defaultOdeme,
+      kota: defaultKota,
+      ozelNot: defaultNot,
+      mesajMetni: initialMsg,
+      copied: false,
+    });
+  };
+
+  const handleUpdateTermsField = (field: string, val: string) => {
+    setTermsData((prev) => {
+      const next = { ...prev, [field]: val };
+      if (!editingTermsApp) return next;
+      const app = editingTermsApp;
+      next.mesajMetni = `Sayın ${app.adSoyad} (${app.firmaAdi}),\n\n` +
+        `Aşkar Yayınları & Not Avcısı ${app.sehir} / ${app.ilce} bölge yetkili satış ve danışma noktası başvurunuz incelenmiştir.\n\n` +
+        `📋 İŞ ORTAKLIĞI DETAYLARI VE ŞARTLARIMIZ:\n` +
+        `• Bayi Kodunuz: ${next.bayiKodu}\n` +
+        `• Komisyon Oranı: ${next.komisyonOrani}\n` +
+        `• Hak Ediş Takvimi: ${next.odemeTakvimi}\n` +
+        `• Bölge Sorumluluğu & Kota: ${next.kota}\n` +
+        `• Bilgilendirme Notu: ${next.ozelNot}\n\n` +
+        `Hayırlı ve bol kazançlı bir iş birliği dileriz.\nAşkar Yayınları & Not Avcısı Genel Merkez\nwww.askaryayinlari.com.tr`;
+      return next;
+    });
+  };
+
+  const handleSaveTermsToApp = () => {
+    if (!editingTermsApp) return;
+    const updated = applications.map((a) => {
+      if (a.id === editingTermsApp.id) {
+        return {
+          ...a,
+          bayiKodu: termsData.bayiKodu,
+          notlar: `${a.notlar ? a.notlar + ' | ' : ''}Şartlar: ${termsData.komisyonOrani}, ${termsData.odemeTakvimi}`,
+        };
+      }
+      return a;
+    });
+    setApplications(updated);
+    localStorage.setItem('askar_bayi_basvurulari', JSON.stringify(updated));
+    alert('Şartlar ve bayi kodu başarıyla kaydedildi.');
+  };
+
+  const handleSendTermsWhatsApp = () => {
+    if (!editingTermsApp) return;
+    const cleanPhone = editingTermsApp.telefon.replace(/[^0-9]/g, '').replace(/^0/, '90');
+    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(termsData.mesajMetni)}`, '_blank');
+  };
+
+  const handleSendTermsEmail = () => {
+    if (!editingTermsApp) return;
+    window.open(`mailto:${editingTermsApp.email}?subject=${encodeURIComponent('Aşkar Yayınları & Not Avcısı Bayilik Şartları')}&body=${encodeURIComponent(termsData.mesajMetni)}`);
+  };
+
+  const handleCopyTermsMessage = () => {
+    navigator.clipboard.writeText(termsData.mesajMetni);
+    setTermsData((prev) => ({ ...prev, copied: true }));
+    setTimeout(() => {
+      setTermsData((prev) => ({ ...prev, copied: false }));
+    }, 2000);
+  };
 
   // Load Not Avcısı data for Admin
   useEffect(() => {
@@ -658,6 +755,16 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                         </button>
 
                         {/* WhatsApp İle Gönder */}
+                        <button
+                          type="button"
+                          onClick={() => handleOpenTermsModal(app)}
+                          className="px-3.5 py-2 rounded-xl bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+                          title="Bayilik şartlarını ve mesajı düzenle, WhatsApp / E-Posta ile gönder"
+                        >
+                          <FileText className="w-4 h-4 text-indigo-400" />
+                          <span>Şartları Düzenle & Gönder</span>
+                        </button>
+
                         <button
                           type="button"
                           onClick={() => handleSendViaWhatsApp(app)}
@@ -1193,6 +1300,137 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
             </div>
           </div>
         )}
+      {/* ŞARTLARI DÜZENLE VE GÖNDER MODALI */}
+      {editingTermsApp && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 text-slate-100 shadow-2xl animate-in zoom-in-95 my-8">
+            <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <h3 className="text-lg font-black text-white flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-amber-400" />
+                  <span>Bayilik Şartlarını Düzenle ve Gönder</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  <strong>{editingTermsApp.firmaAdi}</strong> ({editingTermsApp.adSoyad}) • {editingTermsApp.sehir} / {editingTermsApp.ilce}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingTermsApp(null)}
+                className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label className="block text-slate-400 font-bold mb-1">Bayi Kodu</label>
+                <input
+                  type="text"
+                  value={termsData.bayiKodu}
+                  onChange={(e) => handleUpdateTermsField('bayiKodu', e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-slate-400 font-bold mb-1">Komisyon / Kazanç Oranı</label>
+                <input
+                  type="text"
+                  value={termsData.komisyonOrani}
+                  onChange={(e) => handleUpdateTermsField('komisyonOrani', e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-slate-400 font-bold mb-1">Hak Ediş Ödeme Takvimi</label>
+                <input
+                  type="text"
+                  value={termsData.odemeTakvimi}
+                  onChange={(e) => handleUpdateTermsField('odemeTakvimi', e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-slate-400 font-bold mb-1">Bölge Koruması & Satış Kotası</label>
+                <input
+                  type="text"
+                  value={termsData.kota}
+                  onChange={(e) => handleUpdateTermsField('kota', e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-slate-400 font-bold mb-1">Özel Bilgilendirme Notu</label>
+                <input
+                  type="text"
+                  value={termsData.ozelNot}
+                  onChange={(e) => handleUpdateTermsField('ozelNot', e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Mesaj Önizlemesi & Serbest Düzenleme */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <label className="font-bold text-amber-300">
+                  Gönderilecek Mesaj Metni (İstediğiniz Gibi Düzenleyebilirsiniz):
+                </label>
+                <button
+                  type="button"
+                  onClick={handleCopyTermsMessage}
+                  className="text-slate-400 hover:text-white flex items-center gap-1 font-bold cursor-pointer"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{termsData.copied ? 'Kopyalandı!' : 'Metni Kopyala'}</span>
+                </button>
+              </div>
+              <textarea
+                rows={9}
+                value={termsData.mesajMetni}
+                onChange={(e) => setTermsData({ ...termsData, mesajMetni: e.target.value })}
+                className="w-full p-3 rounded-2xl bg-slate-950 border border-slate-700 text-slate-200 text-xs font-sans leading-relaxed focus:border-amber-400 focus:outline-none resize-none"
+              />
+            </div>
+
+            {/* Aksiyon Butonları */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+              <button
+                type="button"
+                onClick={handleSaveTermsToApp}
+                className="px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-bold text-xs transition cursor-pointer"
+              >
+                💾 Şartları Başvuruya Kaydet
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleSendTermsEmail}
+                  className="px-4 py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>E-Posta Gönder</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSendTermsWhatsApp}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/25 transition cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>💬 WhatsApp ile Gönder</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       </main>
     </div>
   );
