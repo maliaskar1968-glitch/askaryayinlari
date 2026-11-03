@@ -248,7 +248,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
                     <div>
                       <div className="font-bold">Admin Master</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Bayi onay, ilçe analitiği, PDF afiş</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Temsilci onay, ilçe analitiği, PDF afiş</div>
                     </div>
                   </button>
 
@@ -262,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   >
                     <LogIn className="w-4 h-4 text-indigo-600 shrink-0" />
                     <div>
-                      <div className="font-bold">Bayi Girişi</div>
+                      <div className="font-bold">Temsilci Girişi</div>
                       <div className="text-[10px] text-slate-400 font-normal">Kırtasiye & Temsilci Portalı</div>
                     </div>
                   </button>
@@ -277,8 +277,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                   >
                     <Store className="w-4 h-4 text-emerald-600 shrink-0" />
                     <div>
-                      <div className="font-bold">Bayi Başvurusu</div>
-                      <div className="text-[10px] text-slate-400 font-normal">İlçe Sorumluluk Başvuru Formu</div>
+                      <div className="font-bold">Temsilcilik Başvurusu</div>
+                      <div className="text-[10px] text-slate-400 font-normal">İlçe Temsilciliği Başvuru Formu</div>
                     </div>
                   </button>
                 </div>
@@ -370,10 +370,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     <ShieldCheck className="h-4 w-4 text-amber-600" /> Admin Master (Genel Merkez)
                   </button>
                   <button type="button" onClick={() => handleTabClick('bayi-giris')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-indigo-700 bg-indigo-50/60 hover:bg-indigo-100/60 cursor-pointer">
-                    <LogIn className="h-4 w-4 text-indigo-600" /> Bayi Girişi (Kırtasiye Portalı)
+                    <LogIn className="h-4 w-4 text-indigo-600" /> Temsilci Girişi (Kırtasiye & Temsilci Portalı)
                   </button>
                   <button type="button" onClick={() => handleTabClick('bayi-basvuru')} className="flex min-h-10 items-center gap-2 rounded-lg px-3 text-left text-xs font-bold text-emerald-700 bg-emerald-50/60 hover:bg-emerald-100/60 cursor-pointer">
-                    <Store className="h-4 w-4 text-emerald-600" /> Bayi / Temsilcilik Başvurusu
+                    <Store className="h-4 w-4 text-emerald-600" /> Temsilcilik Başvurusu
                   </button>
                 </div>
               </div>

@@ -237,9 +237,9 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                     2
                   </div>
                   <div>
-                    <h4 className="font-bold text-white text-sm">Admin Master İncelemesi</h4>
+                    <h4 className="font-bold text-white text-sm">Değerlendirme İncelemesi</h4>
                     <p className="text-slate-400 mt-0.5 leading-relaxed">
-                      Genel Merkezimiz başvurunuzu Admin Master panelinde inceler; iş birliği şartları ve hak ediş modeli tarafınıza iletilir.
+                      Genel Merkezimiz başvurunuzu inceler; iş birliği şartları ve hak ediş modeli tarafınıza iletilir.
                     </p>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                   • <strong>Güvenli ve Risk Taşımayan Sistem:</strong> Veliler tüm ödemelerini doğrudan 256-Bit SSL güvenceli dijital sistem üzerinden gerçekleştirir. Temsilcilerimiz nakit tahsilat veya stok maliyeti riski taşımaz.
                 </p>
                 <p>
-                  • <strong>Şartlar ve Bilgilendirme Paylaşımı:</strong> Başvurunuz Genel Merkez Admin Master panelinde incelendikten sonra tarafınıza özel olarak iletilir.
+                  • <strong>Şartlar ve Bilgilendirme Paylaşımı:</strong> Başvurunuz Genel Merkezimizce incelendikten sonra tarafınıza özel olarak iletilir.
                 </p>
                 <p>
                   • <strong>Kişiye Özel Tanıtım Desteği:</strong> Onaylanan temsilcilerimize karekodlu afişler, broşürler ve veli bilgilendirme dokümanları dijital olarak temin edilir.
@@ -298,7 +298,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                   <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs text-left leading-relaxed space-y-1">
                     <p className="font-bold">Önemli Süreç Bilgisi:</p>
                     <p>
-                      Başvurunuz <strong>Admin Master</strong> panelimizde incelendikten sonra onaylanacak ve 
+                      Başvurunuz <strong>Genel Merkezimizce</strong> incelendikten sonra onaylanacak ve 
                       <strong> size özel üretilen karekodlu afiş PDF'iniz</strong>, sözleşme şartları ile birlikte 
                       <strong> {formData.telefon}</strong> nolu WhatsApp hattınıza ve <strong>{formData.email}</strong> adresinize bizzat gönderilecektir.
                     </p>
@@ -329,7 +329,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                   <div className="border-b border-slate-100 pb-4">
                     <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
                       <Building2 className="w-6 h-6 text-amber-600" />
-                      <span>İlçe Temsilcilik Ön Başvuru Formu</span>
+                      <span>Temsilcilik Ön Başvuru Formu</span>
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
                       Lütfen işletme ve bölge bilgilerinizi eksiksiz doldurunuz.
@@ -493,7 +493,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                       />
                       <span className="leading-relaxed">
                         Aşkar Yayınları temsilcilik ön başvuru koşullarını ve başvurumun 
-                        <strong> Admin Master panelinde incelendikten sonra tarafıma iş ortaklığı şartları ve temsilci bilgilerinin iletileceğini</strong> kabul ediyorum. *
+                        <strong> Genel Merkezimizce incelendikten sonra tarafıma iş ortaklığı şartları ve temsilci bilgilerinin iletileceğini</strong> kabul ediyorum. *
                       </span>
                     </label>
                   </div>
