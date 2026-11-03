@@ -234,6 +234,20 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
   const [searchQuery, setSearchQuery] = useState('');
   const [districtFilter, setDistrictFilter] = useState<'TUMU' | 'BAYI_VAR' | 'BOS_BOLGE'>('TUMU');
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<string | null>(null);
+  const [globalDiscountCode, setGlobalDiscountCode] = useState(() => {
+    try {
+      return localStorage.getItem('askar_genel_indirim_kodu') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [discountSavedToast, setDiscountSavedToast] = useState(false);
+
+  const handleSaveGlobalDiscountCode = () => {
+    localStorage.setItem('askar_genel_indirim_kodu', globalDiscountCode.trim().toUpperCase());
+    setDiscountSavedToast(true);
+    setTimeout(() => setDiscountSavedToast(false), 2500);
+  };
 
   // Bayilik Şartları Düzenleme ve Gönderme Modalı State
   const [editingTermsApp, setEditingTermsApp] = useState<BayiBasvuruModel | null>(null);
@@ -567,7 +581,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
     try {
       const cleanIlce = app.ilce.toUpperCase().replace(/[^A-Z0-9]/g, '');
       const code = app.bayiKodu || `ASKAR-${cleanIlce}`;
-      await generateAskarBayiFlyerPdf(app, code);
+      await generateAskarBayiFlyerPdf(app, code, globalDiscountCode);
     } catch (err) {
       console.error('PDF üretimi sırasında hata:', err);
       alert('PDF üretilirken bir hata oluştu.');
@@ -839,7 +853,41 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            
+          {/* TÜM BAYİLER İÇİN GENEL İNDİRİM KODU YÖNETİMİ */}
+          <div className="p-5 sm:p-6 rounded-3xl bg-slate-900 border border-amber-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <h3 className="text-base font-black text-white flex items-center gap-2">
+                <span>🎟️ Tüm Bayiler İçin Ortak İndirim Kodu Tanımlama</span>
+                <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">
+                  2 Sayfalık Afiş İçin
+                </span>
+              </h3>
+              <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+                Tüm temsilcilerin afişlerinde ortak geçerli olacak bir indirim kodu belirleyin (örn: <code className="text-amber-300 font-bold">HOSGELDIN10</code>). 
+                Kodu boş bırakırsanız afişteki indirim kodu alanı şimdilik boş basılır.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              <input
+                type="text"
+                placeholder="Örn: HOSGELDIN10"
+                value={globalDiscountCode}
+                onChange={(e) => setGlobalDiscountCode(e.target.value.toUpperCase())}
+                className="px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-amber-300 font-mono font-bold text-xs tracking-wider focus:border-amber-400 focus:outline-none w-44 uppercase"
+              />
+              <button
+                type="button"
+                onClick={handleSaveGlobalDiscountCode}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs transition cursor-pointer shadow-md shadow-amber-500/20"
+              >
+                {discountSavedToast ? '✓ Kaydedildi' : 'Kodu Kaydet'}
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
               {filteredApplications.length === 0 ? (
                 <div className="p-12 text-center rounded-3xl bg-slate-900 border border-slate-800 text-slate-500 text-sm">
                   Aramanıza uygun başvuru bulunamadı.

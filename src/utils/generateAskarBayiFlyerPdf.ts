@@ -1,20 +1,31 @@
 import { jsPDF } from 'jspdf';
 import QRCode from 'qrcode';
 import { BayiModel, BayiBasvuruModel } from '../types/bayi';
+import { applyTurkishFont } from './pdfTurkishFont';
 
-export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruModel, customCode?: string) {
+export async function generateAskarBayiFlyerPdf(
+  bayi: BayiModel | BayiBasvuruModel,
+  customCode?: string,
+  discountCode?: string
+) {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
     format: 'a4',
   });
 
+  // Apply true Turkish UTF-8 font (Roboto Bold & Regular)
+  const fontApplied = await applyTurkishFont(doc);
+  const fontName = fontApplied ? 'Roboto' : 'helvetica';
+
   const kod = (bayi as any).kod || customCode || (bayi as any).bayiKodu || 'ASKAR-BAYI';
   const firmaAdi = bayi.firmaAdi || 'Yetkili Kırtasiye';
-  const yetkiliAdi = bayi.adSoyad || 'Bayi Temsilcisi';
+  const yetkiliAdi = bayi.adSoyad || 'Temsilci Yetkilisi';
   const sehir = bayi.sehir || 'Türkiye';
-  const ilce = bayi.ilce || 'İlçe Sorumlusu';
+  const ilce = bayi.ilce || 'Sorumlu İlçe';
   const telefon = bayi.telefon || 'İletişim Hattı';
+
+  const activeDiscountCode = discountCode && discountCode.trim() ? discountCode.trim().toUpperCase() : '';
 
   // Target URL for student/parent registration
   const targetUrl = `https://www.askaryayinlari.com.tr/not-avcisi?ref=${encodeURIComponent(kod)}`;
@@ -25,7 +36,7 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
     qrDataUrl = await QRCode.toDataURL(targetUrl, {
       errorCorrectionLevel: 'H',
       margin: 1,
-      width: 300,
+      width: 400,
       color: {
         dark: '#0f172a',
         light: '#ffffff'
@@ -35,12 +46,16 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
     console.error('QR code generation error:', err);
   }
 
-  // Colors
-  const darkNavy = [15, 23, 42];     // #0F172A
-  const goldAmber = [217, 119, 6];   // #D97706
+  // Renk Paleti
+  const darkNavy = [15, 23, 42];       // #0F172A
+  const goldAmber = [217, 119, 6];     // #D97706
   const primaryGold = [201, 168, 106]; // #C9A86A
-  const slateText = [51, 65, 85];    // #334155
-  const softBg = [248, 250, 252];    // #F8FAFC
+  const slateText = [51, 65, 85];      // #334155
+  const softBg = [248, 250, 252];      // #F8FAFC
+
+  // ==========================================
+  // SAYFA 1: DETAYLI BİLGİLENDİRME & KAREKOD AFİŞİ
+  // ==========================================
 
   // 1. Üst Başlık Banner
   doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
@@ -50,9 +65,9 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
   doc.setFillColor(primaryGold[0], primaryGold[1], primaryGold[2]);
   doc.rect(0, 42, 210, 2.5, 'F');
 
-  // Başlıklar
+  // Başlıklar (Kusursuz Türkçe Karakterler)
   doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(fontName, 'bold');
   doc.setFontSize(22);
   doc.text('AŞKAR YAYINLARI', 15, 17);
 
@@ -62,27 +77,27 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
 
   doc.setTextColor(226, 232, 240);
   doc.setFontSize(8.5);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(fontName, 'normal');
   doc.text('MEB FORMATINDA GERÇEK SÜRELİ PROVALAR & KAZANIM RAPORU', 15, 34);
 
   let y = 52;
 
-  // 2. Yetkili İlçe Temsilciliği / Kırtasiye Kartı
+  // 2. Yetkili Temsilcilik Kartı
   doc.setFillColor(softBg[0], softBg[1], softBg[2]);
   doc.setDrawColor(primaryGold[0], primaryGold[1], primaryGold[2]);
   doc.setLineWidth(0.8);
   doc.roundedRect(15, y, 180, 26, 3, 3, 'FD');
 
   doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(fontName, 'bold');
   doc.setFontSize(13);
   doc.text(firmaAdi.toUpperCase(), 22, y + 8.5);
 
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(fontName, 'normal');
   doc.setFontSize(9);
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
-  doc.text(`Resmi Sorumluluk Bolgesi: ${sehir} / ${ilce}`, 22, y + 15.5);
-  doc.text(`Yetkili: ${yetkiliAdi}  |  Iletisim: ${telefon}`, 22, y + 21.5);
+  doc.text(`Resmi Sorumluluk Bölgesi: ${sehir} / ${ilce}`, 22, y + 15.5);
+  doc.text(`Yetkili: ${yetkiliAdi}  |  İletişim: ${telefon}`, 22, y + 21.5);
 
   y += 33;
 
@@ -90,28 +105,30 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
   doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.roundedRect(15, y, 180, 8.5, 1.5, 1.5, 'F');
   doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(fontName, 'bold');
   doc.setFontSize(10);
-  doc.text('GERCEK YAZILIYA GIRMEDEN ONCE KENDINI DENE, 100 TAM PUANI AVLA!', 20, y + 5.8);
+  doc.text('GERÇEK YAZILIYA GİRMEDEN ÖNCE KENDİNİ DENE, 100 TAM PUANI AVLA!', 20, y + 5.8);
 
   y += 14;
 
   const features = [
     {
-      title: '1. MEB Formatinda 40 Dakikalik Sureli Prova:',
-      desc: '3. siniftan 12. sinifa kadar donem yazililarina birebir uyumlu testler ve korumali ekran.'
+      title: '1. MEB Formatında 40 Dakikalık Süreli Prova:',
+      desc: '3. sınıftan 12. sınıfa kadar dönem yazılılarına birebir uyumlu testler ve korumalı ekran.'
     },
     {
-      title: '2. Nokta Atisi MEB Kazanim Analizi:',
-      desc: 'Hangi soruda neden puan kaybettigini aninda gosteren kisisellestirilmis karne raporu.'
+      title: '2. Nokta Atışı MEB Kazanım Analizi:',
+      desc: 'Hangi soruda neden puan kaybettiğini anında gösteren kişiselleştirilmiş karne raporu.'
     },
     {
-      title: '3. Koc Baykus Sinav Recetesi:',
-      desc: 'Eksik konulara ozel nokta atisi ders calisma tavsiyeleri ve sinav taktikleri.'
+      title: '3. Koç Baykuş Sınav Reçetesi:',
+      desc: 'Eksik konulara özel nokta atışı ders çalışma tavsiyeleri ve sınav taktikleri.'
     },
     {
-      title: '4. Bu Noktaya Ozel %10 Indirim Avantaji:',
-      desc: `Asagidaki karekodu okutan veya ${kod} kodunu kullanan tum velilerimize aninda indirim!`
+      title: '4. Bu Noktaya Özel %10 İndirim Avantajı:',
+      desc: activeDiscountCode
+        ? `Aşağıdaki karekodu okutan veya ${activeDiscountCode} indirim kodunu kullanan velilerimize anında %10 indirim!`
+        : 'Aşağıdaki karekodu okutan tüm velilerimize anında %10 veli indirimi avantajı!'
     }
   ];
 
@@ -120,11 +137,11 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
     doc.roundedRect(15, y, 180, 14, 2, 2, 'F');
 
     doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-    doc.setFont('helvetica', 'bold');
+    doc.setFont(fontName, 'bold');
     doc.setFontSize(9);
     doc.text(feat.title, 20, y + 5);
 
-    doc.setFont('helvetica', 'normal');
+    doc.setFont(fontName, 'normal');
     doc.setFontSize(8);
     doc.setTextColor(slateText[0], slateText[1], slateText[2]);
     const splitDesc = doc.splitTextToSize(feat.desc, 170);
@@ -135,14 +152,14 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
 
   y += 3;
 
-  // 4. KAREKOD & TEZGAH İNDİRİM ALANI
+  // 4. KAREKOD & İNDİRİM ALANI (SAYFA 1)
   doc.setFillColor(254, 243, 199); // Amber soft
   doc.setDrawColor(goldAmber[0], goldAmber[1], goldAmber[2]);
   doc.setLineWidth(1);
   doc.roundedRect(15, y, 180, 52, 3, 3, 'FD');
 
   doc.setTextColor(180, 83, 9);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(fontName, 'bold');
   doc.setFontSize(11);
   doc.text('TELEFONUNUZUN KAMERASIYLA KAREKODU OKUTUNUZ', 20, y + 8);
 
@@ -155,45 +172,152 @@ export async function generateAskarBayiFlyerPdf(bayi: BayiModel | BayiBasvuruMod
     }
   }
 
-  // Right side of QR: Bayi Kodu and instructions
+  // Right side of QR: İndirim Kodu Alanı
   const rightX = 62;
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(goldAmber[0], goldAmber[1], goldAmber[2]);
   doc.roundedRect(rightX, y + 12, 126, 20, 2, 2, 'FD');
 
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(fontName, 'normal');
   doc.setFontSize(8);
-  doc.text('Size Ozel Temsilcilik & Indirim Kodu:', rightX + 5, y + 18);
+  doc.text('Öğrenci & Veli İndirim Kodu:', rightX + 5, y + 18);
 
-  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
-  doc.text(kod, rightX + 5, y + 27);
+  if (activeDiscountCode) {
+    doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(13);
+    doc.text(activeDiscountCode, rightX + 5, y + 27);
 
-  doc.setTextColor(primaryGold[0], primaryGold[1], primaryGold[2]);
-  doc.setFontSize(9);
-  doc.text('%10 VELI INDIRIMI HEDIYELI', rightX + 75, y + 27);
+    doc.setTextColor(primaryGold[0], primaryGold[1], primaryGold[2]);
+    doc.setFontSize(9);
+    doc.text('%10 VELİ İNDİRİMİ HEDİYELİ', rightX + 68, y + 27);
+  } else {
+    // İndirim kodu şimdilik boş bırakılmıştır
+    doc.setTextColor(primaryGold[0], primaryGold[1], primaryGold[2]);
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(9);
+    doc.text('%10 VELİ İNDİRİMİ KAREKODLA GEÇERLİDİR', rightX + 5, y + 26);
+  }
 
   doc.setTextColor(slateText[0], slateText[1], slateText[2]);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(fontName, 'normal');
   doc.setFontSize(8);
-  doc.text('Dogrudan baglanti: askaryayinlari.com.tr/not-avcisi', rightX, y + 38);
-  doc.text(`Bu karekod ${firmaAdi} resmi ilce temsilcilik tezgahi icin uretilmistir.`, rightX, y + 44);
+  doc.text('Doğrudan bağlantı: askaryayinlari.com.tr/not-avcisi', rightX, y + 38);
+  doc.text(`Bu karekod ${firmaAdi} resmi temsilcilik tezgâhı için üretilmiştir.`, rightX, y + 44);
 
-  // 5. Alt Bilgi / Footer
+  // 5. Alt Bilgi / Footer (Sayfa 1)
   doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
   doc.rect(0, 275, 210, 22, 'F');
 
   doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(fontName, 'bold');
   doc.setFontSize(8.5);
-  doc.text('Askar Yayinlari Egitim Teknolojileri  |  www.askaryayinlari.com.tr', 15, 283);
+  doc.text('Aşkar Yayınları Eğitim Teknolojileri  |  www.askaryayinlari.com.tr', 15, 283);
 
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(fontName, 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(203, 213, 225);
-  doc.text(`Bu tanitim afisi resmi temsilcimiz ${yetkiliAdi} (${firmaAdi} - ${ilce}) adina Genel Merkez tarafindan onaylanip basilmistir.`, 15, 288);
+  doc.text(`Bu tanıtım afişi resmi temsilcimiz ${yetkiliAdi} (${firmaAdi} - ${ilce}) adına Genel Merkez tarafından onaylanmıştır.`, 15, 288);
+
+  // ==========================================
+  // SAYFA 2: DEV KAREKOD & İNDİRİM KODU (CAM / VİTRİN / TEZGÂH İÇİN)
+  // ==========================================
+  doc.addPage();
+
+  // 1. Üst Başlık Banner (Sayfa 2)
+  doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.rect(0, 0, 210, 36, 'F');
+
+  doc.setFillColor(primaryGold[0], primaryGold[1], primaryGold[2]);
+  doc.rect(0, 34, 210, 2, 'F');
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont(fontName, 'bold');
+  doc.setFontSize(19);
+  doc.text('AŞKAR YAYINLARI • NOT AVCISI', 105, 16, { align: 'center' });
+
+  doc.setFontSize(10);
+  doc.setTextColor(primaryGold[0], primaryGold[1], primaryGold[2]);
+  doc.text('MEB YAZILI ÖN HAZIRLIK SİMÜLASYONU', 105, 25, { align: 'center' });
+
+  // 2. Büyük Çağrı Başlığı
+  doc.setFont(fontName, 'bold');
+  doc.setFontSize(16);
+  doc.setTextColor(180, 83, 9);
+  doc.text('TELEFONUNUZUN KAMERASIYLA KAREKODU OKUTUNUZ', 105, 48, { align: 'center' });
+
+  doc.setFont(fontName, 'normal');
+  doc.setFontSize(10.5);
+  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.text('100 Tam Puanı Hedefle, MEB Yazılı Provalarına Hemen Başla!', 105, 56, { align: 'center' });
+
+  // 3. DEVASA KAREKOD KART (115 mm x 115 mm)
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(goldAmber[0], goldAmber[1], goldAmber[2]);
+  doc.setLineWidth(1.2);
+  doc.roundedRect(42, 62, 126, 126, 4, 4, 'FD');
+
+  if (qrDataUrl) {
+    try {
+      doc.addImage(qrDataUrl, 'PNG', 48, 68, 114, 114);
+    } catch (err) {
+      console.error('Error adding large QR to page 2:', err);
+    }
+  }
+
+  // 4. BÜYÜK İNDİRİM KODU KUTUSU (ALTTA)
+  doc.setFillColor(254, 243, 199);
+  doc.setDrawColor(goldAmber[0], goldAmber[1], goldAmber[2]);
+  doc.setLineWidth(1.2);
+  doc.roundedRect(25, 196, 160, 42, 4, 4, 'FD');
+
+  doc.setTextColor(180, 83, 9);
+  doc.setFont(fontName, 'bold');
+  doc.setFontSize(11);
+  doc.text('AŞKAR YAYINLARI & NOT AVCISI VELİ İNDİRİM KODU', 105, 206, { align: 'center' });
+
+  if (activeDiscountCode) {
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(26);
+    doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+    doc.text(activeDiscountCode, 105, 222, { align: 'center' });
+
+    doc.setFontSize(10);
+    doc.setTextColor(180, 83, 9);
+    doc.text('%10 ANINDA VELİ İNDİRİMİ GEÇERLİDİR', 105, 231, { align: 'center' });
+  } else {
+    // İndirim kodu boş
+    doc.setFont(fontName, 'normal');
+    doc.setFontSize(12);
+    doc.setTextColor(slateText[0], slateText[1], slateText[2]);
+    doc.text('İndirim Kodu: (Genel Merkezden Tanımlanacak)', 105, 220, { align: 'center' });
+
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(180, 83, 9);
+    doc.text('%10 İNDİRİM İÇİN KAREKODU OKUTMANIZ YETERLİDİR', 105, 229, { align: 'center' });
+  }
+
+  // 5. Temsilcilik Notu & Web Adresi
+  doc.setFont(fontName, 'bold');
+  doc.setFontSize(9.5);
+  doc.setTextColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.text(`Resmi Temsilci: ${firmaAdi} (${sehir} / ${ilce})`, 105, 248, { align: 'center' });
+
+  doc.setFont(fontName, 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(slateText[0], slateText[1], slateText[2]);
+  doc.text('Doğrudan bağlantı: www.askaryayinlari.com.tr/not-avcisi', 105, 254, { align: 'center' });
+
+  // 6. Sayfa 2 Footer
+  doc.setFillColor(darkNavy[0], darkNavy[1], darkNavy[2]);
+  doc.rect(0, 275, 210, 22, 'F');
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont(fontName, 'bold');
+  doc.setFontSize(8.5);
+  doc.text('Aşkar Yayınları Eğitim Teknolojileri  |  www.askaryayinlari.com.tr', 105, 284, { align: 'center' });
 
   const cleanKod = kod.replace(/[^a-zA-Z0-9_-]/g, '_');
   doc.save(`Askar_Not_Avcisi_Bayi_Afisi_${cleanKod}.pdf`);
