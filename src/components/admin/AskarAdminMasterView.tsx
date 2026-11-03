@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   XCircle,
   X,
+  Plus,
   Download,
   Search,
   Filter,
@@ -1408,6 +1409,9 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
         
         {/* 7. SEKME: BAYİ & TEMSİLCİ ÖDEMELERİ VE DEKONT TAKİBİ */}
         {activeTab === 'bayi_odemeleri' && (() => {
+          const safeOdemeler = Array.isArray(bayiOdemeleri) ? bayiOdemeleri : [];
+          const safeApps = Array.isArray(applications) ? applications : [];
+
           // Bayi bazında hak ediş ve bakiye tablosu hesaplama
           const representativeSummary = [
             {
@@ -1434,16 +1438,16 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
               toplamCiro: 14 * 711,
               toplamHakEdis: Math.round(14 * 711 * 0.20),
             },
-            ...applications
-              .filter((a) => a.bayiKodu && a.bayiKodu !== 'ASKAR-KADIKOY' && a.bayiKodu !== 'ASKAR-CANKAYA')
+            ...safeApps
+              .filter((a) => a && a.bayiKodu && a.bayiKodu !== 'ASKAR-KADIKOY' && a.bayiKodu !== 'ASKAR-CANKAYA')
               .map((a) => ({
                 bayiKodu: a.bayiKodu || 'ASKAR-BAYI',
-                firmaAdi: a.firmaAdi,
-                yetkiliAdi: a.adSoyad,
-                sehir: a.sehir,
-                ilce: a.ilce,
+                firmaAdi: a.firmaAdi || 'Yetkili Temsilci',
+                yetkiliAdi: a.adSoyad || 'Yetkili',
+                sehir: a.sehir || '—',
+                ilce: a.ilce || '—',
                 iban: a.iban || 'Henüz bildirilmedi',
-                telefon: a.telefon,
+                telefon: a.telefon || '—',
                 satisAdedi: 8,
                 toplamCiro: 8 * 711,
                 toplamHakEdis: Math.round(8 * 711 * 0.20),
@@ -1452,22 +1456,22 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
 
           // Compute paid and remaining for each
           const listWithBalances = representativeSummary.map((item) => {
-            const paid = bayiOdemeleri
-              .filter((o) => o.bayiKodu === item.bayiKodu)
-              .reduce((acc, curr) => acc + curr.tutar, 0);
-            const remaining = Math.max(0, item.toplamHakEdis - paid);
-            const lastPayment = bayiOdemeleri.find((o) => o.bayiKodu === item.bayiKodu);
+            const paid = safeOdemeler
+              .filter((o) => o && o.bayiKodu === item.bayiKodu)
+              .reduce((acc, curr) => acc + (Number(curr?.tutar) || 0), 0);
+            const remaining = Math.max(0, (Number(item.toplamHakEdis) || 0) - paid);
+            const lastPayment = safeOdemeler.find((o) => o && o.bayiKodu === item.bayiKodu);
             return {
               ...item,
               odenenTutar: paid,
               kalanBakiye: remaining,
-              sonDekontNo: lastPayment ? lastPayment.dekontNo : '—',
-              sonDekontTarih: lastPayment ? lastPayment.odemeTarihi : '—',
+              sonDekontNo: lastPayment?.dekontNo || '—',
+              sonDekontTarih: lastPayment?.odemeTarihi || '—',
             };
           });
 
-          const grandTotalHakEdis = listWithBalances.reduce((a, c) => a + c.toplamHakEdis, 0);
-          const grandTotalOdenen = bayiOdemeleri.reduce((a, c) => a + c.tutar, 0);
+          const grandTotalHakEdis = listWithBalances.reduce((a, c) => a + (Number(c.toplamHakEdis) || 0), 0);
+          const grandTotalOdenen = safeOdemeler.reduce((a, c) => a + (Number(c?.tutar) || 0), 0);
           const grandTotalKalan = Math.max(0, grandTotalHakEdis - grandTotalOdenen);
 
           return (
@@ -1503,7 +1507,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                     <TrendingUp className="w-4 h-4 text-indigo-400" />
                   </div>
                   <div className="text-2xl font-black text-white font-mono">
-                    {grandTotalHakEdis.toLocaleString('tr-TR')} ₺
+                    {(Number(grandTotalHakEdis) || 0).toLocaleString('tr-TR')} ₺
                   </div>
                   <p className="text-[11px] text-slate-500">Not Avcısı ve kitap satış komisyonları</p>
                 </div>
@@ -1514,7 +1518,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                   </div>
                   <div className="text-2xl font-black text-emerald-400 font-mono">
-                    {grandTotalOdenen.toLocaleString('tr-TR')} ₺
+                    {(Number(grandTotalOdenen) || 0).toLocaleString('tr-TR')} ₺
                   </div>
                   <p className="text-[11px] text-slate-500">Bankadan transferi tamamlanan toplam</p>
                 </div>
@@ -1525,7 +1529,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                     <Clock className="w-4 h-4 text-amber-400" />
                   </div>
                   <div className="text-2xl font-black text-amber-400 font-mono">
-                    {grandTotalKalan.toLocaleString('tr-TR')} ₺
+                    {(Number(grandTotalKalan) || 0).toLocaleString('tr-TR')} ₺
                   </div>
                   <p className="text-[11px] text-slate-500">Temsilcilere ödenecek bekleyen tutar</p>
                 </div>
@@ -1536,7 +1540,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                     <FileText className="w-4 h-4 text-purple-400" />
                   </div>
                   <div className="text-2xl font-black text-white font-mono">
-                    {bayiOdemeleri.length} Adet
+                    {safeOdemeler.length} Adet
                   </div>
                   <p className="text-[11px] text-slate-500">Sistemde onaylı ödeme dekontu</p>
                 </div>
@@ -1587,15 +1591,15 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                             {item.satisAdedi} Paket
                           </td>
                           <td className="py-3.5 px-3 text-right font-bold text-white font-mono">
-                            {item.toplamHakEdis.toLocaleString('tr-TR')} ₺
+                            {(Number(item.toplamHakEdis) || 0).toLocaleString('tr-TR')} ₺
                           </td>
                           <td className="py-3.5 px-3 text-right font-bold text-emerald-400 font-mono">
-                            {item.odenenTutar.toLocaleString('tr-TR')} ₺
+                            {(Number(item.odenenTutar) || 0).toLocaleString('tr-TR')} ₺
                           </td>
                           <td className="py-3.5 px-3 text-right font-mono">
-                            {item.kalanBakiye > 0 ? (
+                            {(Number(item.kalanBakiye) || 0) > 0 ? (
                               <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black">
-                                {item.kalanBakiye.toLocaleString('tr-TR')} ₺
+                                {(Number(item.kalanBakiye) || 0).toLocaleString('tr-TR')} ₺
                               </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
@@ -1633,7 +1637,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                     <span>Ödeme Dekontları ve Banka Transfer Kayıtları</span>
                   </h3>
                   <span className="text-xs text-slate-400 font-mono">
-                    {bayiOdemeleri.length} Dekont Kayıtlı
+                    {safeOdemeler.length} Dekont Kayıtlı
                   </span>
                 </div>
 
@@ -1651,7 +1655,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/60 font-medium">
-                      {bayiOdemeleri.map((odm) => (
+                      {safeOdemeler.map((odm) => (
                         <tr key={odm.id} className="hover:bg-slate-850/50 transition">
                           <td className="py-3 px-3 font-mono text-slate-300">
                             {odm.odemeTarihi}
@@ -1669,7 +1673,7 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
                             <span className="text-slate-300">{odm.odemeTuru}</span>
                           </td>
                           <td className="py-3 px-3 text-right font-black text-emerald-400 font-mono text-sm">
-                            {odm.tutar.toLocaleString('tr-TR')} ₺
+                            {(Number(odm?.tutar) || 0).toLocaleString('tr-TR')} ₺
                           </td>
                           <td className="py-3 px-3 text-slate-400 max-w-xs truncate" title={odm.aciklama}>
                             {odm.aciklama || '—'}
