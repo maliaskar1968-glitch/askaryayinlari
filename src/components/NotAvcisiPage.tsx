@@ -365,7 +365,7 @@ export const NotAvcisiPage: React.FC = () => {
                   className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 underline ml-auto cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>İletişim & Bize Ulaşın (Destek: 0505 716 29 39)</span>
+                  <span>İletişim & Bize Ulaşın</span>
                 </a>
               </div>
             </div>
