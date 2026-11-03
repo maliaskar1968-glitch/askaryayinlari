@@ -77,7 +77,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
       return;
     }
     if (!formData.kurallarOnaylandi) {
-      setErrorMsg('Lütfen bayilik şartlarını ve sorumluluk alanı kurallarını onaylayınız.');
+      setErrorMsg('Lütfen temsilcilik şartlarını ve sorumluluk alanı kurallarını onaylayınız.');
       return;
     }
 
@@ -145,7 +145,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
 
           <div className="flex items-center gap-2.5">
             <a
-              href="https://wa.me/905057162939?text=Merhaba%20A%C5%9Fkar%20Yay%C4%B1nlar%C4%B1,%20%C4%B0l%C3%A7e%20Bayilik%20Ba%C5%9Fvurusu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+              href="https://wa.me/905057162939?text=Merhaba%20A%C5%9Fkar%20Yay%C4%B1nlar%C4%B1,%20%C4%B0l%C3%A7e%20Temsilcilik%20Ba%C5%9Fvurusu%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
@@ -160,7 +160,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                 onClick={onNavigateToBayiLogin}
                 className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
               >
-                <span>Mevcut Bayi Girişi</span>
+                <span>Mevcut Temsilci Girişi</span>
               </button>
             )}
           </div>
@@ -175,7 +175,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
           <div className="relative z-10 max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-extrabold uppercase tracking-wider">
               <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>Eğitimde Güçlü İş Ortaklığı ve Bayilik Modeli</span>
+              <span>Eğitimde Güçlü İş Ortaklığı ve Temsilcilik Modeli</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
@@ -186,7 +186,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-medium max-w-3xl">
-              Aşkar Yayınları ve Not Avcısı dijital eğitim ekosistemine dahil olarak çevrenizdeki öğrenci ve velilere yeni nesil MEB yazılı simülasyonları ve koçluk kitaplarımızı güvenle ulaştırın. <strong>Kırtasiyeler, kitapevleri, kütüphane işletmecileri, eğitim danışmanları ve düzenli iş arayanlar</strong> bayilik için başvurabilirler. Sıfır stok riski, dijital erişim avantajı ve güçlü kurumsal altyapımızla hemen iş ortağımız olun.
+              Aşkar Yayınları ve Not Avcısı dijital eğitim ekosistemine dahil olarak çevrenizdeki öğrenci ve velilere yeni nesil MEB yazılı simülasyonları ve koçluk kitaplarımızı güvenle ulaştırın. <strong>Kırtasiyeler, kitapevleri, kütüphane işletmecileri, eğitim danışmanları ve düzenli iş arayanlar</strong> temsilcilik için başvurabilirler. Sıfır stok riski, dijital erişim avantajı ve güçlü kurumsal altyapımızla hemen iş ortağımız olun.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-300">
@@ -202,56 +202,12 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 <span>Düzenli İş & Gelir Arayanlar</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Sıfır Stok & Sermaye Riski</span>
-              </div>
+
             </div>
           </div>
         </section>
 
-        {/* 4 TEMEL AVANTAJ KARTI */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all space-y-2.5 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-black">
-              <DollarSign className="w-5 h-5" />
-            </div>
-            <h3 className="font-black text-base text-white">Avantajlı Gelir Modeli</h3>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Not Avcısı paketleri ve dijital koçluk kitapları satışından <strong className="text-amber-300">avantajlı iş ortaklığı şartları</strong> sağlanır. Ayrıntılı hak ediş modeli onay sürecinde paylaşılır.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all space-y-2.5 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">
-              <MapPin className="w-5 h-5" />
-            </div>
-            <h3 className="font-black text-base text-white">İlçe Sorumluluk Koruması</h3>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Faaliyet gösterdiğiniz ilçede resmi temsilci statüsü ile ilçenizdeki okul ve veli taleplerini yönlendirirsiniz.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all space-y-2.5 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-black">
-              <FileText className="w-5 h-5" />
-            </div>
-            <h3 className="font-black text-base text-white">Karekodlu Hazır Afiş</h3>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Onaylanan bayimize özel üretilen A4 tezgah afişi sayesinde veliler telefon kamerasıyla okutup anında satın alır.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition-all space-y-2.5 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-black">
-              <Layers className="w-5 h-5" />
-            </div>
-            <h3 className="font-black text-base text-white">Şeffaf Bayi Konsolu</h3>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Karekodunuzdan kaç veli giriş yaptı, kaç paket satıldı ve hak ediş bakiyeniz anlık ekranınızda görünür.
-            </p>
-          </div>
-        </section>
+        
 
         {/* 2 SÜTUNLU BAŞVURU BÖLÜMÜ */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -260,7 +216,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
             <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
               <h3 className="font-black text-lg text-white flex items-center gap-2">
                 <Store className="w-5 h-5 text-amber-400" />
-                <span>3 Basit Adımda Bayilik Süreci</span>
+                <span>3 Basit Adımda Temsilcilik Süreci</span>
               </h3>
               
               <div className="space-y-4 text-xs font-medium">
@@ -293,9 +249,9 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                     3
                   </div>
                   <div>
-                    <h4 className="font-bold text-white text-sm">Karekodlu Afiş & Sözleşme Teslimi</h4>
+                    <h4 className="font-bold text-white text-sm">Karekodlu Afiş</h4>
                     <p className="text-slate-400 mt-0.5 leading-relaxed">
-                      Onay sonrası size özel karekodlu tezgah afişi PDF'iniz üretilerek WhatsApp ve e-posta ile gönderilir.
+                      Onay sonrası size özel karekodlu afiş PDF'iniz üretilerek WhatsApp ve e-posta ile gönderilir.
                     </p>
                   </div>
                 </div>
@@ -304,23 +260,18 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
 
             {/* Çalışma Şartları & Pusula Junior Kuralları */}
             <div className="p-6 rounded-3xl bg-amber-950/30 border border-amber-500/30 space-y-3">
-              <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
-                <Clock className="w-4 h-4 text-amber-400" />
-                <span>Resmi İş Ortaklığı ve Bilgilendirme İlkeleri</span>
-              </div>
+
               <div className="text-xs text-slate-300 leading-relaxed font-medium space-y-2.5">
                 <p>
                   • <strong>Güvenli ve Risk Taşımayan Sistem:</strong> Veliler tüm ödemelerini doğrudan 256-Bit SSL güvenceli dijital sistem üzerinden gerçekleştirir. Temsilcilerimiz nakit tahsilat veya stok maliyeti riski taşımaz.
                 </p>
                 <p>
-                  • <strong>Şartlar ve Bilgilendirme Paylaşımı:</strong> Hak ediş takvimleri, kazanç paylaşımı ve çalışma detayları; başvurunuz Genel Merkez Admin Master panelinde incelendikten sonra tarafınıza özel olarak iletilir.
+                  • <strong>Şartlar ve Bilgilendirme Paylaşımı:</strong> Başvurunuz Genel Merkez Admin Master panelinde incelendikten sonra tarafınıza özel olarak iletilir.
                 </p>
                 <p>
-                  • <strong>Kişiye Özel Tanıtım Desteği:</strong> Onaylanan temsilcilerimize karekodlu tezgâh afişleri, broşürler ve veli bilgilendirme dokümanları dijital olarak temin edilir.
+                  • <strong>Kişiye Özel Tanıtım Desteği:</strong> Onaylanan temsilcilerimize karekodlu afişler, broşürler ve veli bilgilendirme dokümanları dijital olarak temin edilir.
                 </p>
-                <p>
-                  • <strong>Pedagojik Saygınlık:</strong> Temsilcilerimiz dürüstlük, eğitim kalitesi ve marka saygınlığını koruyarak çevrelerine güvenle rehberlik eder.
-                </p>
+
               </div>
             </div>
           </div>
@@ -348,7 +299,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                     <p className="font-bold">Önemli Süreç Bilgisi:</p>
                     <p>
                       Başvurunuz <strong>Admin Master</strong> panelimizde incelendikten sonra onaylanacak ve 
-                      <strong> size özel üretilen karekodlu tezgah afişi PDF'iniz</strong>, sözleşme şartları ile birlikte 
+                      <strong> size özel üretilen karekodlu afiş PDF'iniz</strong>, sözleşme şartları ile birlikte 
                       <strong> {formData.telefon}</strong> nolu WhatsApp hattınıza ve <strong>{formData.email}</strong> adresinize bizzat gönderilecektir.
                     </p>
                   </div>
@@ -378,7 +329,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                   <div className="border-b border-slate-100 pb-4">
                     <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
                       <Building2 className="w-6 h-6 text-amber-600" />
-                      <span>İlçe Bayilik Ön Başvuru Formu</span>
+                      <span>İlçe Temsilcilik Ön Başvuru Formu</span>
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
                       Lütfen işletme ve bölge bilgilerinizi eksiksiz doldurunuz.
@@ -454,10 +405,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
 
                   {/* SORUMLULUK ALANI SEÇİMİ */}
                   <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-3">
-                    <div className="flex items-center gap-2 text-amber-900 font-extrabold text-xs uppercase tracking-wider">
-                      <MapPin className="w-4 h-4 text-amber-600" />
-                      <span>BİRİNCİL SORUMLULUK ALANINIZ (İL & İLÇE)</span>
-                    </div>
+
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -544,7 +492,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                         className="mt-0.5 w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500"
                       />
                       <span className="leading-relaxed">
-                        Aşkar Yayınları bayilik ön başvuru koşullarını ve başvurumun 
+                        Aşkar Yayınları temsilcilik ön başvuru koşullarını ve başvurumun 
                         <strong> Admin Master panelinde incelendikten sonra tarafıma iş ortaklığı şartları ve temsilci bilgilerinin iletileceğini</strong> kabul ediyorum. *
                       </span>
                     </label>
@@ -555,7 +503,7 @@ export const AskarBayiBasvuruView: React.FC<AskarBayiBasvuruViewProps> = ({
                     type="submit"
                     className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-400 hover:to-amber-600 text-slate-950 font-black text-sm tracking-wide shadow-xl shadow-amber-500/25 transition transform active:scale-[0.99] cursor-pointer"
                   >
-                    Bayilik Başvurusunu Tamamla ve İncelemeye Gönder
+                    Temsilcilik Başvurusunu Tamamla ve İncelemeye Gönder
                   </button>
                 </form>
               )}
