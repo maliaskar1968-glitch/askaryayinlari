@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Award, CheckCircle, AlertTriangle, RefreshCw, BookOpen, Star, Sparkles, ArrowRight, Share2, FileDown } from 'lucide-react';
+import { Target, Award, CheckCircle, AlertTriangle, AlertCircle, RefreshCw, BookOpen, Star, Sparkles, ArrowRight, Share2, FileDown } from 'lucide-react';
 import { SinavSonuc, OgrenciProfil } from '../types/notAvcisiTypes';
 import { generateNotAvcisiKarnePdf } from '../utils/generateNotAvcisiKarnePdf';
 

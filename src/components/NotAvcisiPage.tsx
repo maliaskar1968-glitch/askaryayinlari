@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star, Building2, UserCheck } from 'lucide-react';
+import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star, Building2, UserCheck, AlertTriangle } from 'lucide-react';
 import { NOT_AVCISI_KARTLARI } from '../data/notAvcisiData';
 import { NotAvcisiSinifKart, OgrenciProfil, BayiProfil, SinavSonuc, SinavProva } from '../types/notAvcisiTypes';
 import { NotAvcisiRegisterModal } from './NotAvcisiRegisterModal';

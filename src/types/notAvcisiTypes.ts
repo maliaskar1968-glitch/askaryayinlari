@@ -78,13 +78,17 @@ export interface SinavProva {
 }
 
 export interface SinavSonuc {
-  id: string;
-  ogrenciId: string;
+  id?: string;
+  ogrenciId?: string;
   sinavId: string;
   sinif: number;
   dersAdi: string;
   alinanPuan: number; // 0 - 100
-  toplamPuan: number;
+  toplamPuan?: number;
+  toplamSoru?: number;
+  dogruSayisi?: number;
+  yanlisSayisi?: number;
+  bosSayisi?: number;
   eksikKazanimlar: {
     kazanimKodu: string;
     konu: string;

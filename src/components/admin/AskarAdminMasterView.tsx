@@ -23,7 +23,8 @@ import {
   Copy,
   Trash2,
   Building2,
-  FileText
+  FileText,
+  Ban
 } from 'lucide-react';
 import type { BayiModel, BayiBasvuruModel, DistrictAnalyticsItem, BayiSiparisItem } from '../../types/bayi';
 import { generateAskarBayiFlyerPdf } from '../../utils/generateAskarBayiFlyerPdf';

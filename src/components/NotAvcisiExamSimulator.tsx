@@ -69,7 +69,7 @@ export const NotAvcisiExamSimulator: React.FC<NotAvcisiExamSimulatorProps> = ({
     }));
   };
 
-  const toplamAlinanPuan = Object.values(selectedPuanlar).reduce((a, b) => a + b, 0);
+  const toplamAlinanPuan = (Object.values(selectedPuanlar) as number[]).reduce((a, b) => a + b, 0);
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950 text-slate-100 flex flex-col overflow-hidden select-none">
