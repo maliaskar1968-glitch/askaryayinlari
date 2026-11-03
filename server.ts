@@ -265,12 +265,13 @@ async function startServer() {
 
 // Knowledge base answer helper with smart confirmation and 2nd chance logic
 function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text: string }> = []): string | null {
-  const s = q.toLowerCase().trim();
+  const raw = (q || '').trim();
+  const s = (raw.toLocaleLowerCase('tr-TR') + ' ' + raw.toLowerCase()).trim();
   const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
 
   // 1. Direct confirmation checks if previous message was a clarification question
   if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
-    const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+    const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman') || s.includes('not avc');
 
     if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
       if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
@@ -310,6 +311,22 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   }
 
   // 2. KATEGORİ KURALLARI (User specified exact outputs)
+  if (
+    s.includes('not avc') ||
+    s.includes('yazılı prova') ||
+    s.includes('yazili prova') ||
+    s.includes('yazılı ön hazırlık') ||
+    s.includes('yazılı simülasyon') ||
+    s.includes('sınav simülasyon')
+  ) {
+    return "🎯 Not Avcısı • MEB Yazılı Ön Hazırlık Simülasyonu:\n\n" +
+           "• 3. sınıftan 12. sınıfa kadar tüm sınıfların MEB formatında 40 dakikalık süreli sınav provalarıdır.\n" +
+           "• 1. ve 2. dönem tüm derslerden 3'er adet normal prova ve 1'er adet genel prova (yılda toplam 16 yazılı simülasyonu) uygulanır.\n" +
+           "• ÜCRETSİZ HEDİYE: Matematik 1. Dönem 1. Yazılısı tüm öğrencilerimize hediyemizdir!\n" +
+           "• Sınav sonunda Koç Baykuş analiz karnesi ve eksik MEB kazanımları raporu sunulur.\n\n" +
+           "👉 /not-avcisi sayfamızdan provaları hemen çözebilir, 711 TL indirimli paketle tüm sınavları açabilirsiniz!";
+  }
+
   if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
     return "Ortaokul için 4 kitabımız var:\n1- 5. Sınıf Koçluk & Motivasyon\n2- 6. Sınıf Disiplin ve Başarı\n3- 7. Sınıf LGS Hazırlık\n4- 8. Sınıf LGS'DE KENDİ KOÇUN OL\nHangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
   }

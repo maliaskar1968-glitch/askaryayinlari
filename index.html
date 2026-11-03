@@ -396,12 +396,13 @@
       const askarChatHistory = [];
 
       function getClientKnowledgeAnswer(q, history = []) {
-        const s = (q || '').toLowerCase().trim();
+        const raw = (q || '').trim();
+        const s = (raw.toLocaleLowerCase('tr-TR') + ' ' + raw.toLowerCase()).trim();
         const lastBotMsg = history.filter(h => h.role === 'model').slice(-1)[0]?.text?.toLowerCase() || '';
 
         // 1. Check clarification confirmation
         if (lastBotMsg.includes('kastettiniz') || lastBotMsg.includes('bahsedeyim mi') || lastBotMsg.includes('ister misiniz') || lastBotMsg.includes('hangisinden')) {
-          const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman');
+          const hasNewSpecificTopic = s.includes('5') || s.includes('6') || s.includes('7') || s.includes('8') || s.includes('9') || s.includes('10') || s.includes('11') || s.includes('12') || s.includes('lise') || s.includes('ortaokul') || s.includes('yks') || s.includes('mezun') || s.includes('nasrettin') || s.includes('roman') || s.includes('not avc');
 
           if (!hasNewSpecificTopic && (s.includes('evet') || s.includes('aynen') || s.includes('doğru') || s.includes('olur') || s.includes('bahset') || s.includes('anlat') || s === 'e')) {
             if (lastBotMsg.includes('5. sınıf') || lastBotMsg.includes('ortaokula güçlü') || lastBotMsg.includes('geçiş')) {
@@ -440,7 +441,7 @@
         }
 
         // 2. KATEGORİ KURALLARI
-        if (s.includes('not avcısı') || s.includes('not avcisi') || s.includes('yazılı prova') || s.includes('yazili prova') || s.includes('yazılı ön hazırlık') || s.includes('yazılı simülasyon') || s.includes('sınav simülasyon')) {
+        if (s.includes('not avc') || s.includes('yazılı prova') || s.includes('yazili prova') || s.includes('yazılı ön hazırlık') || s.includes('yazılı simülasyon') || s.includes('sınav simülasyon')) {
           return "🎯 <b>NOT AVCISI • MEB Yazılı Ön Hazırlık Simülasyonu:</b><br><br>" +
                  "• 3. sınıftan 12. sınıfa kadar MEB formatında 40 dakikalık süreli sınav provalarıdır.<br>" +
                  "• Her dönem 3 konu provası ve 1 kapsamlı genel prova olmak üzere yılda 16 sınav simülasyonu içerir.<br>" +
