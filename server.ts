@@ -21,7 +21,7 @@ Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
 
 [NOT AVCISI - MEB YAZILI ÖN HAZIRLIK SİMÜLASYONU]
 3. sınıftan 12. sınıfa kadar tüm sınıfların MEB formatında 40 dakikalık süreli yazılı provalarıdır.
-Her sınıf için 1. ve 2. dönem tüm derslerden 3'er adet normal yazılı provası ve 1'er adet genel prova uygulanır (Yılda toplam 16 yazılı simülasyonu).
+Her dersten yılda toplam 16 yazılı provası uygulanır (1. ve 2. dönem 3'er adet normal yazılı provası ve 1'er adet MEB formatında genel prova). ÖNEMLİ KURAL: Not Avcısı sınav sayısından bahsederken asla 'Her sınıf için' deme, kesinlikle 'Her dersten yılda toplam 16 yazılı provası uygulanır' de.
 Matematik 1. Dönem 1. Yazılısı tüm öğrencilere ücretsiz hediyemizdir. Sınav sonunda Koç Baykuş analiz karnesi ve eksik kazanım raporu sunulur. Not Avcısı Sayfası: /not-avcisi . Ortak Shopier Satın Alma Linki: https://www.shopier.com/mehmetaliaskar/52508073
 
 [VAR OLAN KİTAPLAR - TAM LİSTE]
@@ -323,7 +323,7 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
   ) {
     return "🎯 Not Avcısı • MEB Yazılı Ön Hazırlık Simülasyonu:\n\n" +
            "• 3. sınıftan 12. sınıfa kadar tüm sınıfların MEB formatında 40 dakikalık süreli sınav provalarıdır.\n" +
-           "• 1. ve 2. dönem tüm derslerden 3'er adet normal prova ve 1'er adet genel prova (yılda toplam 16 yazılı simülasyonu) uygulanır.\n" +
+           "• Her dersten yılda toplam 16 yazılı provası (1. ve 2. dönem 3'er adet normal prova ve 1'er adet genel prova) uygulanır.\n" +
            "• ÜCRETSİZ HEDİYE: Matematik 1. Dönem 1. Yazılısı tüm öğrencilerimize hediyemizdir!\n" +
            "• Sınav sonunda Koç Baykuş analiz karnesi ve eksik MEB kazanımları raporu sunulur.\n\n" +
            "👉 /not-avcisi sayfamızdan provaları hemen çözebilir, 711 TL indirimli paketle tüm sınavları açabilirsiniz!";
