@@ -17,6 +17,11 @@ BİLGİ TABANI - SADECE BURADAN CEVAP VER:
 [DÜKKAN] Aşkar Yayınları Dijital PDF Kütüphanesi. Tüm ürünler E-Kitap, Kargo YOK, Beklemek YOK, Shopier ile anında indir. WhatsApp: +90 505 716 29 39
 Resmi Mağaza: https://www.shopier.com/mehmetaliaskar
 
+[NOT AVCISI - MEB YAZILI ÖN HAZIRLIK SİMÜLASYONU]
+3. sınıftan 12. sınıfa kadar tüm sınıfların MEB formatında 40 dakikalık süreli yazılı provalarıdır.
+Her sınıf için 1. ve 2. dönem tüm derslerden 3'er adet normal yazılı provası ve 1'er adet genel prova uygulanır (Yılda toplam 16 yazılı simülasyonu).
+Matematik 1. Dönem 1. Yazılısı tüm öğrencilere ücretsiz hediyemizdir. Sınav sonunda Koç Baykuş analiz karnesi ve eksik kazanım raporu sunulur. Not Avcısı Sayfası: /not-avcisi . Ortak Shopier Satın Alma Linki: https://www.shopier.com/mehmetaliaskar/52508073
+
 [VAR OLAN KİTAPLAR - TAM LİSTE]
 
 [ORTAOKUL GRUBU - 5'ten 8'e]

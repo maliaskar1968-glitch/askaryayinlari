@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star, Building2, UserCheck, AlertTriangle } from 'lucide-react';
+import { Target, Award, CheckCircle, Sparkles, Clock, BookOpen, ShieldCheck, ArrowRight, Play, Star, Building2, UserCheck, AlertTriangle, Mail } from 'lucide-react';
 import { NOT_AVCISI_KARTLARI } from '../data/notAvcisiData';
 import { NotAvcisiSinifKart, OgrenciProfil, BayiProfil, SinavSonuc, SinavProva } from '../types/notAvcisiTypes';
 import { NotAvcisiRegisterModal } from './NotAvcisiRegisterModal';
@@ -8,6 +8,7 @@ import { NotAvcisiExamSimulator } from './NotAvcisiExamSimulator';
 import { NotAvcisiReportModal } from './NotAvcisiReportModal';
 import { NotAvcisiVeliKarneSorguModal } from './NotAvcisiVeliKarneSorguModal';
 import { NotAvcisiSatinAlModal } from './NotAvcisiSatinAlModal';
+import { NotAvcisiObpModal } from './NotAvcisiObpModal';
 import { ornekSinavOlustur } from '../data/notAvcisiSampleExam';
 import { ogrenciGetir, ogrenciKaydet, sonucHesapla } from '../utils/notAvcisiEngine';
 import { isSinavKilitli } from '../utils/notAvcisiExamControl';
@@ -22,6 +23,7 @@ export const NotAvcisiPage: React.FC = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isVeliSorguOpen, setIsVeliSorguOpen] = useState(false);
   const [isSatinAlModalOpen, setIsSatinAlModalOpen] = useState(false);
+  const [isObpInfoOpen, setIsObpInfoOpen] = useState(false);
   const [selectedSatinAlKart, setSelectedSatinAlKart] = useState<NotAvcisiSinifKart | null>(null);
   
   // Aktif Sınav ve Rapor Durumu
@@ -177,6 +179,12 @@ export const NotAvcisiPage: React.FC = () => {
         ogrenci={ogrenci}
       />
 
+      {/* Okul Notlarının LGS ve YKS'ye Etkisi Bilgilendirme Modalı */}
+      <NotAvcisiObpModal
+        isOpen={isObpInfoOpen}
+        onClose={() => setIsObpInfoOpen(false)}
+      />
+
       {/* Kayıt Modalı */}
       <NotAvcisiRegisterModal
         isOpen={isRegisterOpen}
@@ -203,18 +211,30 @@ export const NotAvcisiPage: React.FC = () => {
             </div>
 
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#C9A86A]/20 border border-[#C9A86A]/40 text-[#E5C98E] text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] font-bold mb-4 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#C9A86A]/20 border border-[#C9A86A]/40 text-[#E5C98E] text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] font-bold mb-3 shadow-sm">
               <Sparkles className="w-3 h-3 text-[#C9A86A]" />
               <span>NOT AVCISI • YAZILI ÖN HAZIRLIK SİMÜLASYONU</span>
             </div>
 
             {/* Küçültülmüş & Alta Kaydırılmış Başlık */}
-            <h1 className="text-2xl sm:text-4xl lg:text-[2.75rem] font-serif font-black tracking-tight text-white mb-4 leading-tight sm:leading-snug max-w-3xl mx-auto">
+            <h1 className="text-2xl sm:text-4xl lg:text-[2.75rem] font-serif font-black tracking-tight text-white mb-2 leading-tight sm:leading-snug max-w-3xl mx-auto">
               Gerçek Yazılıya Girmeden Önce <br />
               <span className="text-[#C9A86A]">
-                Kendini Dene, 100 Tam Puanı Avla!
+                100 Tam Puanı Hedefle, Kendini Dene!
               </span>
             </h1>
+
+            {/* Okul Notlarının Önemi Butonu (OBP & LGS/YKS Rehberi) */}
+            <div className="mb-4">
+              <button
+                type="button"
+                onClick={() => setIsObpInfoOpen(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A86A]/20 hover:bg-[#C9A86A]/30 border border-[#C9A86A]/60 hover:border-[#C9A86A] text-[#E5C98E] hover:text-white text-xs font-bold transition shadow-sm cursor-pointer hover:scale-102"
+              >
+                <Award className="w-4 h-4 text-[#C9A86A]" />
+                <span>💡 Okul Yazılı Notlarının LGS ve YKS'ye Kritik Etkisi (Tıkla Öğren)</span>
+              </button>
+            </div>
 
             <p className="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-300 mb-6 font-sans leading-relaxed">
               3. sınıftan 12. sınıfa kadar MEB formatında 40 dakikalık süreli provalar, korumalı ekran, 
@@ -335,12 +355,17 @@ export const NotAvcisiPage: React.FC = () => {
                   Shopier Tüketici İptal ve İade Koşulları Geçerlidir
                 </span>
                 <a
-                  href="https://wa.me/905057162939"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 underline ml-auto"
+                  href="/iletisim"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.history.pushState(null, '', '/iletisim');
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 underline ml-auto cursor-pointer"
                 >
-                  <span>💬 Destek / Hata Bildirimi (WhatsApp): 0505 716 29 39</span>
+                  <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>İletişim & Bize Ulaşın (Destek: 0505 716 29 39)</span>
                 </a>
               </div>
             </div>

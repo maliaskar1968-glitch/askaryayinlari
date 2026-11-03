@@ -359,6 +359,7 @@
         <button class="chip-btn" type="button" onclick="askQuickPrompt('Kitaplar basılı kargo mu yoksa PDF mi?')">PDF / Kargo</button>
         <button class="chip-btn" type="button" onclick="window.location.href='/uygulamalar'">Uygulamalar</button>
         <button class="chip-btn" type="button" onclick="window.location.href='/rehber'">Ders Rehberi</button>
+        <button class="chip-btn" type="button" onclick="askQuickPrompt('Not Avcısı MEB Yazılı Provaları nedir?')">🎯 Not Avcısı</button>
       </div>
 
       <div id="askar-ai-input">
@@ -439,6 +440,15 @@
         }
 
         // 2. KATEGORİ KURALLARI
+        if (s.includes('not avcısı') || s.includes('not avcisi') || s.includes('yazılı prova') || s.includes('yazili prova') || s.includes('yazılı ön hazırlık') || s.includes('yazılı simülasyon') || s.includes('sınav simülasyon')) {
+          return "🎯 <b>NOT AVCISI • MEB Yazılı Ön Hazırlık Simülasyonu:</b><br><br>" +
+                 "• 3. sınıftan 12. sınıfa kadar MEB formatında 40 dakikalık süreli sınav provalarıdır.<br>" +
+                 "• Her dönem 3 konu provası ve 1 kapsamlı genel prova olmak üzere yılda 16 sınav simülasyonu içerir.<br>" +
+                 "• <b>Ücretsiz Hediye:</b> Matematik 1. Dönem 1. Yazılısı tüm öğrencilerimize hediyemizdir!<br>" +
+                 "• Sınav sonunda Koç Baykuş eksik kazanım karnesi ve veli gelişim raporu sunar.<br><br>" +
+                 "👉 <a href='/not-avcisi' style='color:#C9A86A;font-weight:bold;text-decoration:underline;'>Buraya tıklayarak Not Avcısı provalarını hemen çözebilirsiniz!</a>";
+        }
+
         if (s.includes('ortaokul için ne var') || s.includes('ortaokul kitapları') || s.includes('ortaokulda ne var') || (s.includes('ortaokul') && (s.includes('neler') || s.includes('hangileri') || s.includes('liste')))) {
           return "Ortaokul için 4 kitabımız var:<br>1- 5. Sınıf Koçluk & Motivasyon<br>2- 6. Sınıf Disiplin ve Başarı<br>3- 7. Sınıf LGS Hazırlık<br>4- 8. Sınıf LGS'DE KENDİ KOÇUN OL<br><br>Hangisinden bahsedeyim? Shopier ile anında indirebilirsiniz.";
         }
