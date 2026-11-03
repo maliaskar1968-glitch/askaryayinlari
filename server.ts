@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
@@ -568,7 +570,7 @@ function getLocalKnowledgeAnswer(q: string, history: Array<{ role: string; text:
       const localAns = getLocalKnowledgeAnswer(q, hist);
 
       try {
-        const ai = new GoogleGenAI({});
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
         const contents: any[] = [];
 
         // Add valid chat history for multi-turn conversational context
