@@ -27,7 +27,7 @@ import {
   FileText,
   Ban
 } from 'lucide-react';
-import type { BayiModel, BayiBasvuruModel, DistrictAnalyticsItem, BayiSiparisItem } from '../../types/bayi';
+import type { BayiModel, BayiBasvuruModel, DistrictAnalyticsItem, BayiSiparisItem, BayiOdemeKaydi } from '../../types/bayi';
 import { generateAskarBayiFlyerPdf } from '../../utils/generateAskarBayiFlyerPdf';
 import { getSinavKilitListesi, setSinavKilit, setTopluKilit, VARSAYILAN_YAZILI_DONEMLERI } from '../../utils/notAvcisiExamControl';
 import { generateNotAvcisiKarnePdf } from '../../utils/generateNotAvcisiKarnePdf';
@@ -37,6 +37,55 @@ import { TURKEY_CITIES, TURKEY_DISTRICTS } from '../../data/turkeyLocations';
 interface AskarAdminMasterViewProps {
   onBackToApp?: () => void;
 }
+
+
+const DEFAULT_BAYI_ODEMELERI: BayiOdemeKaydi[] = [
+  {
+    id: 'odm_1',
+    bayiId: 'bayi_kadikoy_01',
+    bayiKodu: 'ASKAR-KADIKOY',
+    firmaAdi: 'Kadıköy Başarı Kırtasiye',
+    yetkiliAdi: 'Mehmet Ali Karaca',
+    telefon: '0532 555 12 34',
+    iban: 'TR33 0006 1005 1987 6543 2100 01',
+    tutar: 1500,
+    dekontNo: 'EFT-20261028-4412',
+    odemeTarihi: '2026-10-28',
+    odemeTuru: 'Havale / EFT',
+    aciklama: 'Ekim 3. Hafta Not Avcısı hak ediş ödemesi',
+    createdAt: '2026-10-28T14:30:00Z',
+  },
+  {
+    id: 'odm_2',
+    bayiId: 'bayi_kadikoy_01',
+    bayiKodu: 'ASKAR-KADIKOY',
+    firmaAdi: 'Kadıköy Başarı Kırtasiye',
+    yetkiliAdi: 'Mehmet Ali Karaca',
+    telefon: '0532 555 12 34',
+    iban: 'TR33 0006 1005 1987 6543 2100 01',
+    tutar: 1000,
+    dekontNo: 'FAST-20261102-8921',
+    odemeTarihi: '2026-11-02',
+    odemeTuru: 'FAST',
+    aciklama: 'Ekim 4. Hafta ara hak ediş ödemesi',
+    createdAt: '2026-11-02T11:15:00Z',
+  },
+  {
+    id: 'odm_3',
+    bayiId: 'bayi_cankaya_02',
+    bayiKodu: 'ASKAR-CANKAYA',
+    firmaAdi: 'Çankaya Akademi Kitabevi',
+    yetkiliAdi: 'Ayşe Yıldırım',
+    telefon: '0544 333 44 55',
+    iban: 'TR45 0006 2008 3421 9876 5400 02',
+    tutar: 1000,
+    dekontNo: 'EFT-20261030-7714',
+    odemeTarihi: '2026-10-30',
+    odemeTuru: 'Havale / EFT',
+    aciklama: 'Dönem başı hak ediş avansı',
+    createdAt: '2026-10-30T16:00:00Z',
+  },
+];
 
 const DEFAULT_APPLICATIONS: BayiBasvuruModel[] = [
   {
@@ -165,13 +214,23 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
   const [adminPass, setAdminPass] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<'basvurular' | 'bayiler' | 'ilceler' | 'sinav_kilitleri' | 'ogrenci_karneleri' | 'eposta_yonetimi'>('basvurular');
+  const [activeTab, setActiveTab] = useState<'basvurular' | 'bayiler' | 'ilceler' | 'sinav_kilitleri' | 'ogrenci_karneleri' | 'eposta_yonetimi' | 'bayi_odemeleri'>('basvurular');
   const [sinavKilitleri, setSinavKilitleri] = useState<{ [key: string]: boolean }>({});
   const [ogrenciler, setOgrenciler] = useState<OgrenciProfil[]>([]);
   const [tamamlananSinavlar, setTamamlananSinavlar] = useState<any[]>([]);
   const [karaListe, setKaraListe] = useState<string[]>([]);
   const [yeniKaraListeEmail, setYeniKaraListeEmail] = useState('');
   const [applications, setApplications] = useState<BayiBasvuruModel[]>([]);
+  const [bayiOdemeleri, setBayiOdemeleri] = useState<BayiOdemeKaydi[]>([]);
+  const [isNewPaymentModalOpen, setIsNewPaymentModalOpen] = useState(false);
+  const [paymentForm, setPaymentForm] = useState({
+    bayiKodu: 'ASKAR-KADIKOY',
+    tutar: '',
+    dekontNo: '',
+    odemeTarihi: new Date().toISOString().split('T')[0],
+    odemeTuru: 'Havale / EFT' as 'Havale / EFT' | 'FAST' | 'Kredi Kartı Mutabakatı' | 'Nakit',
+    aciklama: '',
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [districtFilter, setDistrictFilter] = useState<'TUMU' | 'BAYI_VAR' | 'BOS_BOLGE'>('TUMU');
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<string | null>(null);
@@ -187,6 +246,78 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
     mesajMetni: '',
     copied: false,
   });
+
+
+  // Bayi Ödeme & Dekont İşlemleri
+  const handleOpenNewPayment = (preselectedCode?: string) => {
+    const code = preselectedCode || (applications[0]?.bayiKodu || 'ASKAR-KADIKOY');
+    const autoDekont = `DKNT-${Date.now().toString().slice(-6)}`;
+    setPaymentForm({
+      bayiKodu: code,
+      tutar: '',
+      dekontNo: autoDekont,
+      odemeTarihi: new Date().toISOString().split('T')[0],
+      odemeTuru: 'Havale / EFT',
+      aciklama: 'Not Avcısı hak ediş ödemesi',
+    });
+    setIsNewPaymentModalOpen(true);
+  };
+
+  const handleSavePayment = (sendWhatsApp: boolean = false) => {
+    const amount = parseFloat(paymentForm.tutar);
+    if (!amount || isNaN(amount) || amount <= 0) {
+      alert('Lütfen geçerli bir ödeme tutarı giriniz.');
+      return;
+    }
+    if (!paymentForm.dekontNo.trim()) {
+      alert('Lütfen banka dekont numarasını giriniz.');
+      return;
+    }
+
+    // Find bayi details
+    const targetApp = applications.find((a) => a.bayiKodu === paymentForm.bayiKodu) || applications[0];
+    const newRecord: BayiOdemeKaydi = {
+      id: `odm_${Date.now()}`,
+      bayiId: targetApp?.id || 'bayi_custom',
+      bayiKodu: paymentForm.bayiKodu,
+      firmaAdi: targetApp?.firmaAdi || 'Yetkili Temsilci',
+      yetkiliAdi: targetApp?.adSoyad || 'Yetkili',
+      telefon: targetApp?.telefon || '',
+      iban: targetApp?.iban || 'Belirtilmedi',
+      tutar: amount,
+      dekontNo: paymentForm.dekontNo.trim(),
+      odemeTarihi: paymentForm.odemeTarihi,
+      odemeTuru: paymentForm.odemeTuru,
+      aciklama: paymentForm.aciklama.trim() || undefined,
+      createdAt: new Date().toISOString(),
+    };
+
+    const updated = [newRecord, ...bayiOdemeleri];
+    setBayiOdemeleri(updated);
+    localStorage.setItem('askar_bayi_odemeleri', JSON.stringify(updated));
+    setIsNewPaymentModalOpen(false);
+
+    if (sendWhatsApp && targetApp?.telefon) {
+      const cleanPhone = targetApp.telefon.replace(/[^0-9]/g, '').replace(/^0/, '90');
+      const msg = `Sayın ${targetApp.adSoyad} (${targetApp.firmaAdi}), ${paymentForm.odemeTarihi} tarihinde ${amount.toLocaleString('tr-TR')} ₺ tutarındaki hak ediş ödemeniz banka hesabınıza aktarılmıştır.\n\n📄 Dekont No: ${paymentForm.dekontNo}\n💳 IBAN: ${targetApp.iban || 'Kayıtlı hesabınız'}\n📌 Açıklama: ${paymentForm.aciklama || 'Hak ediş ödemesi'}\n\nBol kazançlı ve hayırlı olmasını dileriz.\nAşkar Yayınları Muhasebe Masası`;
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    } else {
+      alert('Ödeme ve dekont kaydı başarıyla sisteme işlendi.');
+    }
+  };
+
+  const handleDeletePayment = (id: string) => {
+    if (!confirm('Bu dekont kaydını silmek istediğinize emin misiniz?')) return;
+    const updated = bayiOdemeleri.filter((o) => o.id !== id);
+    setBayiOdemeleri(updated);
+    localStorage.setItem('askar_bayi_odemeleri', JSON.stringify(updated));
+  };
+
+  const handleSendPaymentWhatsAppDirect = (rec: BayiOdemeKaydi) => {
+    const cleanPhone = rec.telefon.replace(/[^0-9]/g, '').replace(/^0/, '90');
+    const msg = `Sayın ${rec.yetkiliAdi} (${rec.firmaAdi}), ${rec.odemeTarihi} tarihinde ${rec.tutar.toLocaleString('tr-TR')} ₺ tutarındaki hak ediş ödemeniz banka hesabınıza aktarılmıştır.\n\n📄 Dekont No: ${rec.dekontNo}\n💳 IBAN: ${rec.iban}\n📌 Açıklama: ${rec.aciklama || 'Hak ediş ödemesi'}\n\nBol kazançlı ve hayırlı olmasını dileriz.\nAşkar Yayınları Muhasebe Masası`;
+    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 
   const handleOpenTermsModal = (app: BayiBasvuruModel) => {
     const cleanIlce = app.ilce.toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -285,6 +416,14 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
 
       const storedKaraListe = localStorage.getItem('askar_eposta_engellenenler');
       if (storedKaraListe) setKaraListe(JSON.parse(storedKaraListe));
+
+      const storedOdemeler = localStorage.getItem('askar_bayi_odemeleri');
+      if (storedOdemeler) {
+        setBayiOdemeleri(JSON.parse(storedOdemeler));
+      } else {
+        setBayiOdemeleri(DEFAULT_BAYI_ODEMELERI);
+        localStorage.setItem('askar_bayi_odemeleri', JSON.stringify(DEFAULT_BAYI_ODEMELERI));
+      }
     } catch (e) {
       console.error(e);
     }
@@ -658,6 +797,19 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
           >
             <Mail className="w-4 h-4" />
             <span>📧 E-Posta Takip & Kara Liste</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('bayi_odemeleri')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+              activeTab === 'bayi_odemeleri'
+                ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                : 'bg-slate-900 text-slate-300 hover:bg-slate-850'
+            }`}
+          >
+            <DollarSign className="w-4 h-4 text-emerald-400" />
+            <span>💰 Bayi Ödemeleri (Dekont Takip)</span>
           </button>
         </div>
 
@@ -1205,6 +1357,305 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
         )}
 
         {/* 6. SEKME: E-POSTA TAKİP VE KARA LİSTE (OPT-OUT) */}
+        
+        {/* 7. SEKME: BAYİ & TEMSİLCİ ÖDEMELERİ VE DEKONT TAKİBİ */}
+        {activeTab === 'bayi_odemeleri' && (() => {
+          // Bayi bazında hak ediş ve bakiye tablosu hesaplama
+          const representativeSummary = [
+            {
+              bayiKodu: 'ASKAR-KADIKOY',
+              firmaAdi: 'Kadıköy Başarı Kırtasiye',
+              yetkiliAdi: 'Mehmet Ali Karaca',
+              sehir: 'İstanbul',
+              ilce: 'Kadıköy',
+              iban: 'TR33 0006 1005 1987 6543 2100 01',
+              telefon: '0532 555 12 34',
+              satisAdedi: 28,
+              toplamCiro: 28 * 711,
+              toplamHakEdis: Math.round(28 * 711 * 0.20),
+            },
+            {
+              bayiKodu: 'ASKAR-CANKAYA',
+              firmaAdi: 'Çankaya Akademi Kitabevi',
+              yetkiliAdi: 'Ayşe Yıldırım',
+              sehir: 'Ankara',
+              ilce: 'Çankaya',
+              iban: 'TR45 0006 2008 3421 9876 5400 02',
+              telefon: '0544 333 44 55',
+              satisAdedi: 14,
+              toplamCiro: 14 * 711,
+              toplamHakEdis: Math.round(14 * 711 * 0.20),
+            },
+            ...applications
+              .filter((a) => a.bayiKodu && a.bayiKodu !== 'ASKAR-KADIKOY' && a.bayiKodu !== 'ASKAR-CANKAYA')
+              .map((a) => ({
+                bayiKodu: a.bayiKodu || 'ASKAR-BAYI',
+                firmaAdi: a.firmaAdi,
+                yetkiliAdi: a.adSoyad,
+                sehir: a.sehir,
+                ilce: a.ilce,
+                iban: a.iban || 'Henüz bildirilmedi',
+                telefon: a.telefon,
+                satisAdedi: 8,
+                toplamCiro: 8 * 711,
+                toplamHakEdis: Math.round(8 * 711 * 0.20),
+              }))
+          ];
+
+          // Compute paid and remaining for each
+          const listWithBalances = representativeSummary.map((item) => {
+            const paid = bayiOdemeleri
+              .filter((o) => o.bayiKodu === item.bayiKodu)
+              .reduce((acc, curr) => acc + curr.tutar, 0);
+            const remaining = Math.max(0, item.toplamHakEdis - paid);
+            const lastPayment = bayiOdemeleri.find((o) => o.bayiKodu === item.bayiKodu);
+            return {
+              ...item,
+              odenenTutar: paid,
+              kalanBakiye: remaining,
+              sonDekontNo: lastPayment ? lastPayment.dekontNo : '—',
+              sonDekontTarih: lastPayment ? lastPayment.odemeTarihi : '—',
+            };
+          });
+
+          const grandTotalHakEdis = listWithBalances.reduce((a, c) => a + c.toplamHakEdis, 0);
+          const grandTotalOdenen = bayiOdemeleri.reduce((a, c) => a + c.tutar, 0);
+          const grandTotalKalan = Math.max(0, grandTotalHakEdis - grandTotalOdenen);
+
+          return (
+            <div className="space-y-8 animate-in fade-in duration-200">
+              {/* ÜST BİLGİ VE AKSİYON */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl">
+                <div>
+                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                    <DollarSign className="w-6 h-6 text-emerald-400" />
+                    <span>Bayi & Temsilci Hak Ediş, Kalan Bakiye ve Dekont Takip Masası</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                    Temsilcilerin hak ettiği net komisyonları, bankadan ödenen tutarları, kalan bakiyeleri ve 
+                    resmi <strong>dekont numaralarını</strong> tek ekrandan yönetin ve anında WhatsApp ile bildirin.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleOpenNewPayment()}
+                  className="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/25 transition cursor-pointer shrink-0"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ Yeni Ödeme Yap & Dekont Kaydet</span>
+                </button>
+              </div>
+
+              {/* 4 KPI KARTI */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-400">Toplam Bayi Hak Edişi</span>
+                    <TrendingUp className="w-4 h-4 text-indigo-400" />
+                  </div>
+                  <div className="text-2xl font-black text-white font-mono">
+                    {grandTotalHakEdis.toLocaleString('tr-TR')} ₺
+                  </div>
+                  <p className="text-[11px] text-slate-500">Not Avcısı ve kitap satış komisyonları</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-400">Toplam Ödenen Tutar</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <div className="text-2xl font-black text-emerald-400 font-mono">
+                    {grandTotalOdenen.toLocaleString('tr-TR')} ₺
+                  </div>
+                  <p className="text-[11px] text-slate-500">Bankadan transferi tamamlanan toplam</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-400">Kalan / Ödenecek Bakiye</span>
+                    <Clock className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <div className="text-2xl font-black text-amber-400 font-mono">
+                    {grandTotalKalan.toLocaleString('tr-TR')} ₺
+                  </div>
+                  <p className="text-[11px] text-slate-500">Temsilcilere ödenecek bekleyen tutar</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-400">Kayıtlı Banka Dekontları</span>
+                    <FileText className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div className="text-2xl font-black text-white font-mono">
+                    {bayiOdemeleri.length} Adet
+                  </div>
+                  <p className="text-[11px] text-slate-500">Sistemde onaylı ödeme dekontu</p>
+                </div>
+              </div>
+
+              {/* BÖLÜM 1: TEMSİLCİ BAZINDA BAKİYE TABLOSU */}
+              <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-black text-white flex items-center gap-2">
+                    <Store className="w-5 h-5 text-amber-400" />
+                    <span>Temsilci Bazında Hak Ediş, Ödenen ve Kalan Bakiye Durumu</span>
+                  </h3>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {listWithBalances.length} Temsilci Kayıtlı
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                        <th className="py-3 px-3">Temsilci / İşletme Adı</th>
+                        <th className="py-3 px-3">Bölge & Kod</th>
+                        <th className="py-3 px-3">Banka IBAN</th>
+                        <th className="py-3 px-3 text-right">Toplam Satış</th>
+                        <th className="py-3 px-3 text-right">Hak Ediş (₺)</th>
+                        <th className="py-3 px-3 text-right text-emerald-400">Ödenen (₺)</th>
+                        <th className="py-3 px-3 text-right text-amber-400">Kalan Bakiye (₺)</th>
+                        <th className="py-3 px-3">Son Dekont No</th>
+                        <th className="py-3 px-3 text-right">Hızlı İşlem</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {listWithBalances.map((item) => (
+                        <tr key={item.bayiKodu} className="hover:bg-slate-850/50 transition">
+                          <td className="py-3.5 px-3">
+                            <span className="font-bold text-white block">{item.firmaAdi}</span>
+                            <span className="text-[11px] text-slate-400">{item.yetkiliAdi} • {item.telefon}</span>
+                          </td>
+                          <td className="py-3.5 px-3">
+                            <span className="text-slate-300 block">{item.sehir} / {item.ilce}</span>
+                            <code className="text-[10px] font-mono text-amber-400 font-bold">{item.bayiKodu}</code>
+                          </td>
+                          <td className="py-3.5 px-3 font-mono text-slate-300 text-[11px] max-w-[180px] truncate" title={item.iban}>
+                            {item.iban}
+                          </td>
+                          <td className="py-3.5 px-3 text-right font-bold text-slate-300">
+                            {item.satisAdedi} Paket
+                          </td>
+                          <td className="py-3.5 px-3 text-right font-bold text-white font-mono">
+                            {item.toplamHakEdis.toLocaleString('tr-TR')} ₺
+                          </td>
+                          <td className="py-3.5 px-3 text-right font-bold text-emerald-400 font-mono">
+                            {item.odenenTutar.toLocaleString('tr-TR')} ₺
+                          </td>
+                          <td className="py-3.5 px-3 text-right font-mono">
+                            {item.kalanBakiye > 0 ? (
+                              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black">
+                                {item.kalanBakiye.toLocaleString('tr-TR')} ₺
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+                                Tamamı Ödendi
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-3.5 px-3">
+                            <span className="font-mono text-slate-300 text-[11px] font-bold block">{item.sonDekontNo}</span>
+                            <span className="text-[10px] text-slate-500">{item.sonDekontTarih}</span>
+                          </td>
+                          <td className="py-3.5 px-3 text-right">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenNewPayment(item.bayiKodu)}
+                              className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs inline-flex items-center gap-1 transition cursor-pointer"
+                              title="Bu temsilciye ödeme yap ve dekont kaydet"
+                            >
+                              <Plus className="w-3.5 h-3.5" />
+                              <span>Ödeme Yap</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* BÖLÜM 2: DEKONT GEÇMİŞİ LİSTESİ */}
+              <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-black text-white flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-indigo-400" />
+                    <span>Ödeme Dekontları ve Banka Transfer Kayıtları</span>
+                  </h3>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {bayiOdemeleri.length} Dekont Kayıtlı
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 font-bold">
+                        <th className="py-3 px-3">Ödeme Tarihi</th>
+                        <th className="py-3 px-3">Temsilci / İşletme</th>
+                        <th className="py-3 px-3">Dekont No</th>
+                        <th className="py-3 px-3">Ödeme Türü</th>
+                        <th className="py-3 px-3 text-right">Ödenen Tutar</th>
+                        <th className="py-3 px-3">Açıklama / Not</th>
+                        <th className="py-3 px-3 text-right">İşlemler</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 font-medium">
+                      {bayiOdemeleri.map((odm) => (
+                        <tr key={odm.id} className="hover:bg-slate-850/50 transition">
+                          <td className="py-3 px-3 font-mono text-slate-300">
+                            {odm.odemeTarihi}
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="font-bold text-white block">{odm.firmaAdi}</span>
+                            <span className="text-[11px] text-slate-400">{odm.yetkiliAdi} • {odm.bayiKodu}</span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-700 font-mono text-amber-300 font-bold text-xs inline-block">
+                              📄 {odm.dekontNo}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="text-slate-300">{odm.odemeTuru}</span>
+                          </td>
+                          <td className="py-3 px-3 text-right font-black text-emerald-400 font-mono text-sm">
+                            {odm.tutar.toLocaleString('tr-TR')} ₺
+                          </td>
+                          <td className="py-3 px-3 text-slate-400 max-w-xs truncate" title={odm.aciklama}>
+                            {odm.aciklama || '—'}
+                          </td>
+                          <td className="py-3 px-3 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handleSendPaymentWhatsAppDirect(odm)}
+                                className="p-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition cursor-pointer"
+                                title="WhatsApp ile Temsilciye Dekont Gönder"
+                              >
+                                <MessageCircle className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeletePayment(odm.id)}
+                                className="p-2 rounded-xl hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 border border-transparent hover:border-rose-500/30 transition cursor-pointer"
+                                title="Dekontu Sil"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         {activeTab === 'eposta_yonetimi' && (
           <div className="space-y-6">
             <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800">
@@ -1300,6 +1751,144 @@ export const AskarAdminMasterView: React.FC<AskarAdminMasterViewProps> = ({ onBa
             </div>
           </div>
         )}
+
+      {/* YENİ ÖDEME VE DEKONT KAYIT MODALI */}
+      {isNewPaymentModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-emerald-500/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 text-slate-100 shadow-2xl animate-in zoom-in-95 my-8">
+            <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <h3 className="text-lg font-black text-white flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-emerald-400" />
+                  <span>Bayi Ödemesi Yap & Dekont Kaydet</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Temsilciye yapılan banka transferini ve dekont numarasını sisteme işleyin.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsNewPaymentModalOpen(false)}
+                className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              <div>
+                <label className="block text-slate-400 font-bold mb-1">Ödeme Yapılacak Temsilci / Bayi *</label>
+                <select
+                  value={paymentForm.bayiKodu}
+                  onChange={(e) => setPaymentForm({ ...paymentForm, bayiKodu: e.target.value })}
+                  className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-medium focus:border-amber-400 focus:outline-none cursor-pointer"
+                >
+                  <option value="ASKAR-KADIKOY">Kadıköy Başarı Kırtasiye (ASKAR-KADIKOY)</option>
+                  <option value="ASKAR-CANKAYA">Çankaya Akademi Kitabevi (ASKAR-CANKAYA)</option>
+                  {applications.filter((a) => a.bayiKodu && a.bayiKodu !== 'ASKAR-KADIKOY' && a.bayiKodu !== 'ASKAR-CANKAYA').map((a) => (
+                    <option key={a.id} value={a.bayiKodu}>
+                      {a.firmaAdi} ({a.bayiKodu}) - {a.sehir} / {a.ilce}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-slate-400 font-bold mb-1">Ödenen Tutar (₺) *</label>
+                  <input
+                    type="number"
+                    step="any"
+                    placeholder="Örn: 1500"
+                    value={paymentForm.tutar}
+                    onChange={(e) => setPaymentForm({ ...paymentForm, tutar: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono font-bold text-sm focus:border-emerald-400 focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 font-bold mb-1">Dekont Numarası *</label>
+                  <input
+                    type="text"
+                    placeholder="Örn: EFT-20261103-8841"
+                    value={paymentForm.dekontNo}
+                    onChange={(e) => setPaymentForm({ ...paymentForm, dekontNo: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-amber-300 font-mono font-bold focus:border-amber-400 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-slate-400 font-bold mb-1">Ödeme Tarihi *</label>
+                  <input
+                    type="date"
+                    value={paymentForm.odemeTarihi}
+                    onChange={(e) => setPaymentForm({ ...paymentForm, odemeTarihi: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-emerald-400 focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 font-bold mb-1">Ödeme Yöntemi</label>
+                  <select
+                    value={paymentForm.odemeTuru}
+                    onChange={(e) => setPaymentForm({ ...paymentForm, odemeTuru: e.target.value as any })}
+                    className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-emerald-400 focus:outline-none cursor-pointer"
+                  >
+                    <option value="Havale / EFT">Havale / EFT</option>
+                    <option value="FAST">FAST (Anlık Transfer)</option>
+                    <option value="Kredi Kartı Mutabakatı">Kredi Kartı Mutabakatı</option>
+                    <option value="Nakit">Nakit</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-slate-400 font-bold mb-1">Açıklama / Dekont Notu</label>
+                <input
+                  type="text"
+                  placeholder="Örn: Ekim ayı 4. hafta hak ediş ödemesi"
+                  value={paymentForm.aciklama}
+                  onChange={(e) => setPaymentForm({ ...paymentForm, aciklama: e.target.value })}
+                  className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-emerald-400 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Aksiyon Butonları */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800">
+              <button
+                type="button"
+                onClick={() => setIsNewPaymentModalOpen(false)}
+                className="px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-400 font-bold text-xs transition cursor-pointer"
+              >
+                Vazgeç
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleSavePayment(false)}
+                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer"
+                >
+                  💾 Dekontu Kaydet
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSavePayment(true)}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-500/25 transition cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Kaydet & WhatsApp Bildir</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ŞARTLARI DÜZENLE VE GÖNDER MODALI */}
       {editingTermsApp && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">

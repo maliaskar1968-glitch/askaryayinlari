@@ -80,3 +80,19 @@ export interface DistrictAnalyticsItem {
   toplamCiro: number;
   durum: 'BAYI_VAR' | 'BOS_BOLGE' | 'YUKSEK_POTANSIYEL';
 }
+
+export interface BayiOdemeKaydi {
+  id: string;
+  bayiId: string;
+  bayiKodu: string;
+  firmaAdi: string;
+  yetkiliAdi: string;
+  telefon: string;
+  iban: string;
+  tutar: number;
+  dekontNo: string;
+  odemeTarihi: string;
+  odemeTuru: 'Havale / EFT' | 'FAST' | 'Kredi Kartı Mutabakatı' | 'Nakit';
+  aciklama?: string;
+  createdAt: string;
+}
