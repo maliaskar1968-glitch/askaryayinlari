@@ -386,28 +386,28 @@ const htmlContent = `<!DOCTYPE html>
         <tbody>
           <tr>
             <td><strong>1. Dönem 1. Yazılı</strong></td>
-            <td>3 Normal Prova + 1 Genel Prova</td>
+            <td>Her Dersten 3 Normal Prova + 1 Genel Prova</td>
             <td><span class="gift-badge">Matematik ÜCRETSİZ Hediye</span></td>
           </tr>
           <tr>
             <td><strong>1. Dönem 2. Yazılı</strong></td>
-            <td>3 Normal Prova + 1 Genel Prova</td>
+            <td>Her Dersten 3 Normal Prova + 1 Genel Prova</td>
             <td>MEB Takviminden 1 Hafta Önce</td>
           </tr>
           <tr>
             <td><strong>2. Dönem 1. Yazılı</strong></td>
-            <td>3 Normal Prova + 1 Genel Prova</td>
+            <td>Her Dersten 3 Normal Prova + 1 Genel Prova</td>
             <td>MEB Takviminden 1 Hafta Önce</td>
           </tr>
           <tr>
             <td><strong>2. Dönem 2. Yazılı</strong></td>
-            <td>3 Normal Prova + 1 Genel Prova</td>
+            <td>Her Dersten 3 Normal Prova + 1 Genel Prova</td>
             <td>MEB Takviminden 1 Hafta Önce</td>
           </tr>
         </tbody>
       </table>
       <p style="font-size: 9.8px; color: #666; margin-top: 6px; line-height: 1.35;">
-        * Her dönemde 3 adet konu odaklı yazılı provası ve 1 adet MEB formatında kapsamlı genel prova sunulur (Yılda toplam 16 yazılı simülasyonu).
+        * Her dönemde 3 adet konu odaklı yazılı provası ve 1 adet MEB formatında kapsamlı genel prova sunulur.
       </p>
     </div>
 
@@ -495,3 +495,4 @@ console.log('Copied to Desktop:', desktopPdf);
 const brainPdf = 'C:/Users/kalite sistem/.gemini/antigravity/brain/5d5f532e-514f-44b5-9713-f319ce06b3d4/Not_Avcisi_Dijital_Urun_Tanitim_Rehberi.pdf';
 fs.copyFileSync(outputPdf, brainPdf);
 console.log('Copied to Brain Artifacts:', brainPdf);
+const distDir = 'C:/askar-yayinlari/dist/downloads'; if (fs.existsSync(distDir)) { fs.copyFileSync(outputPdf, path.join(distDir, 'Not_Avcisi_Dijital_Urun_Tanitim_Rehberi.pdf')); console.log('Copied to dist/downloads'); }
